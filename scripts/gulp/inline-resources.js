@@ -97,8 +97,17 @@ function inlineStyle(content, urlResolver) {
     const urls = eval(styleUrls);
     return 'styles: ['
       + urls.map(styleUrl => {
-        const styleFile = urlResolver(styleUrl);
-        const styleContent = fs.readFileSync(styleFile, 'utf-8');
+        var styleContent;
+        if (styleUrl.endsWith(".less")) {
+          // the style file is a "less" file
+          const styleFile = urlResolver(styleUrl.substring(0, styleUrl.length - 5) + ".css");
+          styleContent = fs.readFileSync(styleFile, 'utf-8');
+        } else if (styleUrl.endsWith(".css")) {
+          // the style file is a "css" file
+          const styleFile = urlResolver(styleUrl);
+          styleContent = fs.readFileSync(styleFile, 'utf-8');
+        }
+
         const shortenedStyle = styleContent
           .replace(/([\n\r]\s*)+/gm, ' ')
           .replace(/"/g, '\\"');

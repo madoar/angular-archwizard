@@ -1,7 +1,6 @@
 var gulp = require('gulp');
 var inlineResources = require('./scripts/gulp/inline-resources');
-var sass = require('gulp-sass');
-
+var less = require('gulp-less');
 
 gulp.task('copy-and-inline-resource', copyHtml);
 
@@ -22,6 +21,7 @@ function copyCss() {
 
 function copyLess() {
   gulp.src('./src/components/**/*.less')
+    .pipe(less())
     .pipe(gulp.dest('./dist/components')).on('end', inlineResource);
 }
 
