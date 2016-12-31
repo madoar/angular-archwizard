@@ -53,11 +53,11 @@ export class WizardComponent implements AfterContentInit {
   }
 
   hasPreviousStep(): boolean {
-    return this.wizardSteps.length > 0 && this.currentStepIndex > 0;
+    return this.hasStep(this.currentStepIndex - 1);
   }
 
   hasNextStep(): boolean {
-    return this.wizardSteps.length > 0 && this.currentStepIndex < this.wizardSteps.length - 1;
+    return this.hasStep(this.currentStepIndex + 1);
   }
 
   isLastStep(): boolean {
@@ -66,7 +66,7 @@ export class WizardComponent implements AfterContentInit {
 
   getStepAtIndex(stepIndex: number): WizardStepComponent {
     if (!this.hasStep(stepIndex)) {
-      throw new Error(`Expected a valid step, but got stepIndex: ${stepIndex}.`);
+      throw new Error(`Expected a known step, but got stepIndex: ${stepIndex}.`);
     }
 
     return this.wizardSteps.find((item, index, array) => index === stepIndex);
@@ -96,19 +96,28 @@ export class WizardComponent implements AfterContentInit {
     }
   }
 
-  canGoToStep(nextStep: WizardStepComponent | number): boolean {
-    let result: boolean = true;
+  canGoToPreviousStep(): boolean {
+    const previousStepIndex = this.currentStepIndex - 1;
+
+    return this.hasStep(previousStepIndex) && this.canGoToStep(previousStepIndex);
+  }
+
+  canGoToNextStep(): boolean {
+    const nextStepIndex = this.currentStepIndex + 1;
+
+    return this.hasStep(nextStepIndex) && this.canGoToStep(nextStepIndex);
+  }
+
+  canGoToStep(inputStep: WizardStepComponent | number): boolean {
     let nextStepIndex: number;
 
-    if (nextStep instanceof WizardStepComponent) {
-      nextStepIndex = this.getIndexOfStep(nextStep);
-    } else if (isNumber(nextStep)) {
-      nextStepIndex = nextStep as number;
+    if (inputStep instanceof WizardStepComponent) {
+      nextStepIndex = this.getIndexOfStep(inputStep);
+    } else if (isNumber(inputStep)) {
+      nextStepIndex = inputStep as number;
     }
 
-    if (!this.hasStep(nextStepIndex)) {
-      throw new Error(`Expected a valid step, but got nextStepIndex: ${nextStepIndex}.`);
-    }
+    let result: boolean = this.hasStep(nextStepIndex);
 
     this.wizardSteps.forEach((wizardStep, index, array) => {
       if (index < nextStepIndex && index !== this.currentStepIndex) {
@@ -120,25 +129,22 @@ export class WizardComponent implements AfterContentInit {
     return result;
   }
 
-  goToStep(nextStep: WizardStepComponent | number) {
-    if (!this.canGoToStep(nextStep)) {
-      throw new Error(`Expected a reachable step, but got nextStep: ${nextStep}.`);
-    }
-
+  goToStep(inputStep: WizardStepComponent | number) {
     let nextStepIndex: number;
+    let nextStep: WizardStepComponent;
 
-    if (nextStep instanceof WizardStepComponent) {
-      nextStepIndex = this.getIndexOfStep(nextStep);
-    } else if (isNumber(nextStep)) {
-      nextStepIndex = nextStep as number;
+    if (inputStep instanceof WizardStepComponent) {
+      nextStepIndex = this.getIndexOfStep(inputStep);
+      nextStep = inputStep;
+    } else if (isNumber(inputStep)) {
+      nextStepIndex = inputStep as number;
+      nextStep = this.getStepAtIndex(inputStep);
     }
 
     this.wizardSteps.forEach((wizardStep, index, array) => {
       if (index === this.currentStepIndex) {
         // finish processing old step
-        this.currentStep.stepExit.emit();
         this.currentStep.completed = true;
-        this.currentStep.selected = false;
       }
 
       if (this.currentStepIndex > nextStepIndex && index > nextStepIndex) {
@@ -147,9 +153,13 @@ export class WizardComponent implements AfterContentInit {
       }
     });
 
+    // leave current step
+    this.currentStep.stepExit.emit();
+    this.currentStep.selected = false;
+
     // go to next step
     this.currentStepIndex = nextStepIndex;
-    this.currentStep = this.getStepAtIndex(nextStepIndex);
+    this.currentStep = nextStep;
     this.currentStep.stepEnter.emit();
     this.currentStep.selected = true;
   }

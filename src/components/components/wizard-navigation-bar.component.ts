@@ -20,6 +20,9 @@ export class WizardNavigationBarComponent {
   }
 
   goToStep(nextStep: WizardStepComponent): void {
-    this.wizard.goToStep(nextStep);
+    if (this.wizard.canGoToStep(nextStep)) {
+      // If the next step is enterable, then enter it
+      this.wizard.goToStep(nextStep);
+    }
   }
 }

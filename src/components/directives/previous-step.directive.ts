@@ -8,6 +8,8 @@ export class PreviousStepDirective {
   constructor(private wizard: WizardComponent) { }
 
   @HostListener('click', ['$event']) onClick(): void {
-    this.wizard.goToPreviousStep();
+    if (this.wizard.canGoToPreviousStep()) {
+      this.wizard.goToPreviousStep();
+    }
   }
 }

@@ -66,12 +66,12 @@ describe('WizardComponent', () => {
   it('should start at first step', () => {
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
     expect(wizardTest.wizard.currentStep.title).toBe("Steptitle 1");
-    expect(wizardTest.wizard.currentStep.completed).toBe(false);
-    expect(wizardTest.wizard.currentStep.selected).toBe(true);
+
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
   });
 
   it('should return correct step at index', () => {
-    expect(() => wizardTest.wizard.getStepAtIndex(-1)).toThrow(new Error(`Expected a valid step, but got stepIndex: -1.`));
+    expect(() => wizardTest.wizard.getStepAtIndex(-1)).toThrow(new Error(`Expected a known step, but got stepIndex: -1.`));
 
     expect(wizardTest.wizard.getStepAtIndex(0).title).toBe("Steptitle 1");
     expect(wizardTest.wizard.getStepAtIndex(1).title).toBe("Steptitle 2");
@@ -80,7 +80,7 @@ describe('WizardComponent', () => {
     // Check that the first wizard step is the only selected one
     checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
 
-    expect(() => wizardTest.wizard.getStepAtIndex(3)).toThrow(new Error(`Expected a valid step, but got stepIndex: 3.`));
+    expect(() => wizardTest.wizard.getStepAtIndex(3)).toThrow(new Error(`Expected a known step, but got stepIndex: 3.`));
   });
 
   it('should return correct index at step', () => {
@@ -90,23 +90,37 @@ describe('WizardComponent', () => {
   });
 
   it('should return correct can go to step', () => {
-    expect(() => wizardTest.wizard.goToStep(-1)).toThrow(new Error(`Expected a valid step, but got nextStepIndex: -1.`));
+    expect(wizardTest.wizard.canGoToStep(-1)).toBe(false);
     expect(wizardTest.wizard.canGoToStep(0)).toBe(true);
     expect(wizardTest.wizard.canGoToStep(1)).toBe(true);
     expect(wizardTest.wizard.canGoToStep(2)).toBe(false);
-    expect(() => wizardTest.wizard.goToStep(3)).toThrow(new Error(`Expected a valid step, but got nextStepIndex: 3.`));
+    expect(wizardTest.wizard.canGoToStep(3)).toBe(false);
+  });
 
+  it('should return correct can go to next step', () => {
+    expect(wizardTest.wizard.canGoToNextStep()).toBe(true);
+
+    wizardTest.wizard.goToNextStep();
+
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
+    expect(wizardTest.wizard.canGoToNextStep()).toBe(true);
+
+    wizardTest.wizard.goToNextStep();
+
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
+    expect(wizardTest.wizard.canGoToNextStep()).toBe(false);
+  });
+
+  it('should return correct can go to previous step', () => {
+    expect(wizardTest.wizard.canGoToPreviousStep()).toBe(false);
+
+    wizardTest.wizard.goToNextStep();
+
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
+    expect(wizardTest.wizard.canGoToPreviousStep()).toBe(true);
   });
 
   it('should go to step', () => {
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
-
-    expect(() => wizardTest.wizard.goToStep(-1)).toThrow(new Error(`Expected a valid step, but got nextStepIndex: -1.`));
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
-
-    expect(() => wizardTest.wizard.goToStep(2)).toThrow(new Error(`Expected a reachable step, but got nextStep: 2.`));
-
     checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
 
     wizardTest.wizard.goToStep(1);
@@ -122,10 +136,6 @@ describe('WizardComponent', () => {
     expect(wizardTest.wizard.currentStepIndex).toBe(2);
     expect(wizardTest.wizard.currentStep).toBe(wizardTest.wizard.getStepAtIndex(2));
     expect(wizardTest.wizard.currentStep.completed).toBe(false);
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
-
-    expect(() => wizardTest.wizard.goToStep(3)).toThrow(new Error(`Expected a valid step, but got nextStepIndex: 3.`));
 
     checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
   });
