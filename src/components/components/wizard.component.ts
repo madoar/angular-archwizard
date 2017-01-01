@@ -144,12 +144,12 @@ export class WizardComponent implements AfterContentInit {
     this.wizardSteps.forEach((wizardStep, index, array) => {
       if (index === this.currentStepIndex) {
         // finish processing old step
-        this.currentStep.completed = true;
+        wizardStep.completed = true;
       }
 
       if (this.currentStepIndex > nextStepIndex && index > nextStepIndex) {
         // if the next step is before the current step set all steps in between to incomplete
-        this.currentStep.completed = false;
+        wizardStep.completed = false;
       }
     });
 

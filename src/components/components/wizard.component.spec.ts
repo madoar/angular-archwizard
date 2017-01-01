@@ -138,6 +138,38 @@ describe('WizardComponent', () => {
     expect(wizardTest.wizard.currentStep.completed).toBe(false);
 
     checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
+
+    wizardTest.wizard.goToStep(0);
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+    expect(wizardTest.wizard.currentStep).toBe(wizardTest.wizard.getStepAtIndex(0));
+    expect(wizardTest.wizard.currentStep.completed).toBe(true);
+
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
+
+    wizardTest.wizard.goToStep(1);
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+    expect(wizardTest.wizard.currentStep).toBe(wizardTest.wizard.getStepAtIndex(1));
+    expect(wizardTest.wizard.currentStep.completed).toBe(false);
+
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
+
+    wizardTest.wizard.goToStep(2);
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(2);
+    expect(wizardTest.wizard.currentStep).toBe(wizardTest.wizard.getStepAtIndex(2));
+    expect(wizardTest.wizard.currentStep.completed).toBe(false);
+
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
+
+    wizardTest.wizard.goToStep(1);
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+    expect(wizardTest.wizard.currentStep).toBe(wizardTest.wizard.getStepAtIndex(1));
+    expect(wizardTest.wizard.currentStep.completed).toBe(true);
+
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
   });
 
   it('should go to next step', () => {

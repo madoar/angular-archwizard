@@ -2,7 +2,7 @@ import {Directive, Output, HostListener, EventEmitter} from '@angular/core';
 import {WizardComponent} from "../components/wizard.component";
 
 @Directive({
-  selector: '[[nextStep]]'
+  selector: '[nextStep]'
 })
 export class NextStepDirective {
   @Output()
