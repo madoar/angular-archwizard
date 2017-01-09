@@ -1,7 +1,8 @@
-@wz-color-default: #E6E6E6;
-@wz-color-current: #808080;
-@wz-color-done:    #339933;
-@wz-color-editing: #FF0000;
+@wz-color-default:  #E6E6E6;
+@wz-color-current:  #808080;
+@wz-color-done:     #339933;
+@wz-color-optional: #38ef38;
+@wz-color-editing:  #FF0000;
 
 .steps-indicator {
   /* ---- steps quantity ---- */
@@ -169,6 +170,10 @@
 
   li.done a:before {
     background-color: @wz-color-done;
+  }
+
+  li.optional a:before {
+    background-color: @wz-color-optional;
   }
 
   li.editing a:before {

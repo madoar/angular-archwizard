@@ -1,10 +1,14 @@
-import { Directive } from '@angular/core';
+import {Directive, OnInit} from '@angular/core';
+import {WizardStepComponent} from "../components/wizard-step.component";
 
 @Directive({
   selector: 'wizard-step[optionalStep]'
 })
-export class OptionalStepDirective {
+export class OptionalStepDirective implements OnInit {
 
-  constructor() { }
+  constructor(private wizardStep: WizardStepComponent ) { }
 
+  ngOnInit(): void {
+    this.wizardStep.optional = true;
+  }
 }

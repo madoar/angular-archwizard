@@ -1,4 +1,5 @@
 import {Component, Input, Output, EventEmitter} from "@angular/core";
+import {MovingDirection} from "../util/MovingDirection";
 
 @Component({
   selector: 'wizard-step',
@@ -18,7 +19,7 @@ export class WizardStepComponent {
    * @type {EventEmitter<void>}
    */
   @Output()
-  public stepEnter = new EventEmitter<void>();
+  public stepEnter = new EventEmitter<MovingDirection>();
 
   /**
    * This EventEmitter is called when this step is exited.
@@ -26,7 +27,7 @@ export class WizardStepComponent {
    * @type {EventEmitter<void>}
    */
   @Output()
-  public stepExit = new EventEmitter<void>();
+  public stepExit = new EventEmitter<MovingDirection>();
 
   /**
    * True if this step has been completed.
@@ -41,6 +42,12 @@ export class WizardStepComponent {
    * @type {boolean}
    */
   public selected: boolean = false;
+
+  /**
+   * True if this step is optional.
+   * @type {boolean}
+   */
+  public optional: boolean = false;
 
   constructor() { }
 }

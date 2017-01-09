@@ -5,4 +5,5 @@
 export {WizardModule} from './wizard.module';
 export * from './components';
 export * from './directives';
+export * from './util';
 

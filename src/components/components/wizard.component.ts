@@ -1,6 +1,7 @@
 import {Component, ContentChildren, QueryList, AfterContentInit} from "@angular/core";
 import {WizardStepComponent} from "./wizard-step.component";
 import {isNumber} from "util";
+import {MovingDirection} from "../util/MovingDirection";
 
 @Component({
   selector: 'wizard',
@@ -121,8 +122,8 @@ export class WizardComponent implements AfterContentInit {
 
     this.wizardSteps.forEach((wizardStep, index, array) => {
       if (index < nextStepIndex && index !== this.currentStepIndex) {
-        // all steps before the next step, that aren't the current step, must be completed
-        result = result && wizardStep.completed;
+        // all steps before the next step, that aren't the current step, must be completed or optional
+        result = result && (wizardStep.completed || wizardStep.optional);
       }
     });
 
@@ -141,6 +142,16 @@ export class WizardComponent implements AfterContentInit {
       nextStep = this.getStepAtIndex(inputStep);
     }
 
+    // In which direction is a step transition done?
+    let movingDirection: MovingDirection;
+    if (nextStepIndex > this.currentStepIndex) {
+      movingDirection = MovingDirection.Forwards;
+    } else if (nextStepIndex < this.currentStepIndex) {
+      movingDirection = MovingDirection.Backwards;
+    } else {
+      movingDirection = MovingDirection.Stay;
+    }
+
     this.wizardSteps.forEach((wizardStep, index, array) => {
       if (index === this.currentStepIndex) {
         // finish processing old step
@@ -154,13 +165,13 @@ export class WizardComponent implements AfterContentInit {
     });
 
     // leave current step
-    this.currentStep.stepExit.emit();
+    this.currentStep.stepExit.emit(movingDirection);
     this.currentStep.selected = false;
 
     // go to next step
     this.currentStepIndex = nextStepIndex;
     this.currentStep = nextStep;
-    this.currentStep.stepEnter.emit();
+    this.currentStep.stepEnter.emit(movingDirection);
     this.currentStep.selected = true;
   }
 }
