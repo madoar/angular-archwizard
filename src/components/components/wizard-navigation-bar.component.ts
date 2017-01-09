@@ -18,11 +18,4 @@ export class WizardNavigationBarComponent {
   numberOfWizardSteps(): number {
     return this.wizard.wizardSteps.length;
   }
-
-  goToStep(nextStep: WizardStepComponent): void {
-    if (this.wizard.canGoToStep(nextStep)) {
-      // If the next step is enterable, then enter it
-      this.wizard.goToStep(nextStep);
-    }
-  }
 }

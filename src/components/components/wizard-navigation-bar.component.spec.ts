@@ -6,6 +6,7 @@ import {DebugElement, QueryList} from '@angular/core';
 import {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
 import {WizardComponent} from "./wizard.component";
 import {WizardStepComponent} from "./wizard-step.component";
+import {GoToStepDirective} from "../directives/go-to-step.directive";
 
 describe('WizardNavigationBarComponent', () => {
   let component: WizardNavigationBarComponent;
@@ -17,7 +18,7 @@ describe('WizardNavigationBarComponent', () => {
     wizard.wizardSteps = new QueryList<WizardStepComponent>();
 
     TestBed.configureTestingModule({
-      declarations: [WizardNavigationBarComponent, WizardComponent, WizardStepComponent],
+      declarations: [WizardNavigationBarComponent, WizardComponent, WizardStepComponent, GoToStepDirective],
       providers: [{ provide: WizardComponent, useValue: wizard }]
     })
       .compileComponents();

@@ -4,6 +4,7 @@ import {QueryList, Component, ViewChild} from "@angular/core";
 import {WizardComponent} from "./wizard.component";
 import {WizardStepComponent} from "./wizard-step.component";
 import {WizardNavigationBarComponent} from "./wizard-navigation-bar.component";
+import {GoToStepDirective} from "../directives/go-to-step.directive";
 
 @Component({
   selector: "test-wizard",
@@ -44,7 +45,7 @@ describe('WizardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WizardComponent, WizardStepComponent, WizardNavigationBarComponent, WizardTestComponent ]
+      declarations: [ WizardComponent, WizardStepComponent, WizardNavigationBarComponent, WizardTestComponent, GoToStepDirective ]
     })
     .compileComponents();
   }));
