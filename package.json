@@ -1,8 +1,28 @@
 {
   "name": "ng2-wizard",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
-  "angular-cli": {},
+  "description": "An angular 2 module containing a wizard component and its supporting components and directives",
+  "homepage": "https://github.com/madoar/ng2-wizard",
+  "author": {
+    "name": "Marc Arndt",
+    "email": "marc.arndt@masimi.de"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/madoar/ng2-wizard"
+  },
+  "bugs": {
+    "url": "https://github.com/madoar/ng2-wizard"
+  },
+  "keywords": [
+    "angular2",
+    "angular 2",
+    "ng2",
+    "typescript",
+    "wizard",
+    "component"
+  ],
   "scripts": {
     "lint": "tslint --force \"src/**/*.ts\"",
     "pretest": "npm run lint",
@@ -11,12 +31,11 @@
     "test-watch": "karma start --no-single-run --auto-watch",
     "build": "rimraf dist && ngc -p src/tsconfig.aot.json && gulp"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/common": "^2.3.1",
     "@angular/compiler": "^2.3.1",
     "@angular/core": "^2.3.1",
-    "@angular/forms": "^2.3.1",
     "@angular/http": "^2.3.1",
     "@angular/platform-browser": "^2.3.1",
     "@angular/platform-browser-dynamic": "^2.3.1",
@@ -27,25 +46,23 @@
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
-    "@angular-cli/ast-tools": "^1.0.9",
     "@angular/compiler-cli": "^2.3.1",
     "@angularclass/hmr": "^1.0.1",
     "@angularclass/hmr-loader": "^3.0.2",
-    "@ngtools/webpack": "^1.1.6",
+    "@ngtools/webpack": "^1.2.8",
     "@types/jasmine": "^2.2.29",
     "@types/node": "^6.0.38",
     "@types/selenium-webdriver": "2.53.33",
-    "angular-router-loader": "^0.4.0",
-    "angular2-template-loader": "^0.6.0",
+    "angular-router-loader": "^0.5.0",
+    "angular2-template-loader": "^0.6.1",
     "autoprefixer": "^6.3.2",
-    "awesome-typescript-loader": "^2.2.4",
-    "codelyzer": "1.0.0-beta.3",
+    "awesome-typescript-loader": "^3.0.3",
+    "codelyzer": "2.0.0-beta.4",
     "copy-webpack-plugin": "^4.0.0",
     "css-loader": "^0.25.0",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "file-loader": "^0.9.0",
     "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
     "gulp-less": "^3.3.0",
     "html-loader": "^0.4.0",
     "html-webpack-plugin": "^2.8.1",
@@ -65,7 +82,6 @@
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "node-sass": "^3.4.2",
-    "null-loader": "0.1.1",
     "phantomjs-prebuilt": "^2.1.4",
     "postcss-loader": "^1.1.0",
     "protractor": "^4.0.10",
@@ -74,17 +90,16 @@
     "remap-istanbul": "^0.6.4",
     "rimraf": "^2.5.1",
     "sass-loader": "^4.0.0",
-    "shelljs": "^0.7.0",
     "style-loader": "^0.13.0",
     "to-string-loader": "^1.1.5",
-    "ts-helpers": "^1.1.1",
-    "tslint": "^3.15.1",
-    "tslint-loader": "^2.1.5",
-    "typedoc": "^0.5.1",
-    "typescript": "2.0.6",
+    "ts-helpers": "^1.1.2",
+    "tslint": "^4.4.2",
+    "tslint-loader": "^3.3.0",
+    "typescript": "2.1.5",
     "url-loader": "^0.5.6",
-    "webpack": "^2.1.0-beta.28",
-    "webpack-dev-server": "2.1.0-beta.9"
+    "webpack": "^2.2.0",
+    "webpack-dev-server": "2.3.0",
+    "typings": "^2.1.0"
   },
   "files": [
     "dist"

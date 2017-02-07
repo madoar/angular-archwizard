@@ -46,22 +46,11 @@ module.exports = function makeWebpackConfig() {
    * Entry
    * Reference: http://webpack.github.io/docs/configuration.html#entry
    */
-  config.entry = isTest ? {} : {
-      'polyfills': './src/polyfills.ts',
-      'vendor': './src/vendor.ts',
-      'app': './src/main.ts' // our angular app
-    };
-
-  /**
-   * Output
-   * Reference: http://webpack.github.io/docs/configuration.html#output
-   */
-  config.output = isTest ? {} : {
-      path: root('dist'),
-      publicPath: isProd ? '/' : 'http://localhost:8080/',
-      filename: isProd ? 'js/[name].[hash].js' : 'js/[name].js',
-      chunkFilename: isProd ? '[id].[hash].chunk.js' : '[id].chunk.js'
-    };
+  config.entry = {
+    'polyfills': './src/polyfills.ts',
+    'vendor': './src/vendor.ts',
+    'app': './src/index.ts' // our angular app
+  };
 
   /**
    * Resolve
@@ -108,15 +97,23 @@ module.exports = function makeWebpackConfig() {
 
 
       // all less required in src/app files will be merged in js files
-      {test: /\.less$/, exclude: root('src', 'style'), loader: ['to-string-loader', 'css-loader', 'postcss-loader', 'less-loader']},
+      {
+        test: /\.less$/,
+        exclude: root('src', 'style'),
+        loader: ['to-string-loader', 'css-loader', 'postcss-loader', 'less-loader']
+      },
 
 
       // all scss required in src/app files will be merged in js files
-      {test: /\.(scss|sass)$/, exclude: root('src', 'style'), loader: ['to-string-loader', 'css-loader', 'postcss-loader', 'sass-loader']},
+      {
+        test: /\.(scss|sass)$/,
+        exclude: root('src', 'style'),
+        loader: ['to-string-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+      },
 
       // support for .html as raw text
       // todo: change the loader to something that adds a hash to images
-      {test: /\.html$/, loader: 'raw-loader',  exclude: root('src', 'public')}
+      {test: /\.html$/, loader: 'raw-loader', exclude: root('src', 'public')}
     ]
   };
 
@@ -233,7 +230,7 @@ module.exports = function makeWebpackConfig() {
 
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin({sourceMap: true, mangle: { keep_fnames: true }}),
+      new webpack.optimize.UglifyJsPlugin({sourceMap: true, mangle: {keep_fnames: true}}),
 
       // Copy assets from the public folder
       // Reference: https://github.com/kevlened/copy-webpack-plugin

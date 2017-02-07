@@ -34,20 +34,20 @@ export class WizardStepComponent {
    * All steps previous to the currently selected step must be completed.
    * @type {boolean}
    */
-  public completed: boolean = false;
+  public completed = false;
 
   /**
    * True if this step is currently selected and therefore currently visible to the user.
    * Always one step is selected at any time.
    * @type {boolean}
    */
-  public selected: boolean = false;
+  public selected = false;
 
   /**
    * True if this step is optional.
    * @type {boolean}
    */
-  public optional: boolean = false;
+  public optional = false;
 
   constructor() { }
 }
