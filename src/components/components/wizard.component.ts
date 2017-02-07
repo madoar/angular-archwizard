@@ -1,12 +1,12 @@
-import {Component, ContentChildren, QueryList, AfterContentInit, Input} from "@angular/core";
-import {WizardStepComponent} from "./wizard-step.component";
-import {isNumber} from "util";
-import {MovingDirection} from "../util/MovingDirection";
+import {Component, ContentChildren, QueryList, AfterContentInit, Input} from '@angular/core';
+import {WizardStepComponent} from './wizard-step.component';
+import {isNumber} from 'util';
+import {MovingDirection} from '../util/MovingDirection';
 
 @Component({
   selector: 'wizard',
   templateUrl: 'wizard.component.html',
-  styleUrls: ['wizard.component.css']
+  styleUrls: ['wizard.component.less']
 })
 export class WizardComponent implements AfterContentInit {
   /**
@@ -16,7 +16,7 @@ export class WizardComponent implements AfterContentInit {
   public wizardSteps: QueryList<WizardStepComponent>;
 
   @Input()
-  public navBarLocation = "top";
+  public navBarLocation = 'top';
 
   /**
    * The index of the currently visible and selected step inside the wizardSteps QueryList.

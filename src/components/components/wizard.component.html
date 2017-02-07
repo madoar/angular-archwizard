@@ -1,9 +1,9 @@
 <div class="wizard-centered">
-  <wizard-navigation-bar *ngIf="navBarLocation == 'top'"></wizard-navigation-bar>
+  <wizard-navigation-bar *ngIf="navBarLocation == 'top'" [ngClass]="['nav-bar', 'top']"></wizard-navigation-bar>
 
   <div class="steps">
     <ng-content></ng-content>
   </div>
 
-  <wizard-navigation-bar *ngIf="navBarLocation == 'bottom'"></wizard-navigation-bar>
+  <wizard-navigation-bar *ngIf="navBarLocation == 'bottom'" [ngClass]="['nav-bar', 'bottom']"></wizard-navigation-bar>
 </div>

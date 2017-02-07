@@ -1,5 +1,7 @@
 # Ng2Wizard
 
+[![Build Status](https://travis-ci.org/madoar/ng2-wizard.png)](https://travis-ci.org/madoar/ng2-wizard)
+
 This project contains a functional wizard component for [Angular 2](https://angular.io/).
 
 ## Build

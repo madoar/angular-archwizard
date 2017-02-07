@@ -1,5 +1,5 @@
 import {Directive, HostListener} from '@angular/core';
-import {WizardComponent} from "../components/wizard.component";
+import {WizardComponent} from '../components/wizard.component';
 
 @Directive({
   selector: '[previousStep]'

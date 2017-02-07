@@ -1,6 +1,6 @@
-import {Component, QueryList} from "@angular/core";
-import {WizardComponent} from "./wizard.component";
-import {WizardStepComponent} from "./wizard-step.component";
+import {Component, QueryList} from '@angular/core';
+import {WizardComponent} from './wizard.component';
+import {WizardStepComponent} from './wizard-step.component';
 
 @Component({
   selector: 'wizard-navigation-bar',

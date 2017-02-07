@@ -1,18 +1,18 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {QueryList, Component, ViewChild} from "@angular/core";
-import {WizardComponent} from "./wizard.component";
-import {WizardStepComponent} from "./wizard-step.component";
-import {WizardNavigationBarComponent} from "./wizard-navigation-bar.component";
-import {GoToStepDirective} from "../directives/go-to-step.directive";
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {QueryList, Component, ViewChild} from '@angular/core';
+import {WizardComponent} from './wizard.component';
+import {WizardStepComponent} from './wizard-step.component';
+import {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
+import {GoToStepDirective} from '../directives/go-to-step.directive';
 
 @Component({
-  selector: "test-wizard",
+  selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step title="Steptitle 1">Step 1</wizard-step>
-      <wizard-step title="Steptitle 2">Step 2</wizard-step>
-      <wizard-step title="Steptitle 3">Step 3</wizard-step>
+      <wizard-step title='Steptitle 1'>Step 1</wizard-step>
+      <wizard-step title='Steptitle 2'>Step 2</wizard-step>
+      <wizard-step title='Steptitle 3'>Step 3</wizard-step>
     </wizard>
   `
 })
@@ -24,7 +24,7 @@ class WizardTestComponent {
 function checkWizardSteps(steps: QueryList<WizardStepComponent>, selectedStepIndex: number) {
   steps.forEach((step, index, array) => {
     // Only the selected step should be selected
-    if (index == selectedStepIndex) {
+    if (index === selectedStepIndex) {
       expect(step.selected).toBe(true, `the selected wizard step index ${index} is not selected`);
     } else {
       expect(step.selected).toBe(false, `the not selected wizard step index ${index} is selected`);
@@ -66,7 +66,7 @@ describe('WizardComponent', () => {
 
   it('should start at first step', () => {
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTest.wizard.currentStep.title).toBe("Steptitle 1");
+    expect(wizardTest.wizard.currentStep.title).toBe('Steptitle 1');
 
     checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
   });
@@ -74,9 +74,9 @@ describe('WizardComponent', () => {
   it('should return correct step at index', () => {
     expect(() => wizardTest.wizard.getStepAtIndex(-1)).toThrow(new Error(`Expected a known step, but got stepIndex: -1.`));
 
-    expect(wizardTest.wizard.getStepAtIndex(0).title).toBe("Steptitle 1");
-    expect(wizardTest.wizard.getStepAtIndex(1).title).toBe("Steptitle 2");
-    expect(wizardTest.wizard.getStepAtIndex(2).title).toBe("Steptitle 3");
+    expect(wizardTest.wizard.getStepAtIndex(0).title).toBe('Steptitle 1');
+    expect(wizardTest.wizard.getStepAtIndex(1).title).toBe('Steptitle 2');
+    expect(wizardTest.wizard.getStepAtIndex(2).title).toBe('Steptitle 3');
 
     // Check that the first wizard step is the only selected one
     checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
@@ -179,7 +179,7 @@ describe('WizardComponent', () => {
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(1);
-    expect(wizardTest.wizard.currentStep.title).toBe("Steptitle 2");
+    expect(wizardTest.wizard.currentStep.title).toBe('Steptitle 2');
     expect(wizardTest.wizard.currentStep.completed).toBe(false);
 
     checkWizardSteps(wizardTest.wizard.wizardSteps, 1);

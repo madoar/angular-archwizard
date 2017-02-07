@@ -1,12 +1,11 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
 import {DebugElement, QueryList} from '@angular/core';
 
 import {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
-import {WizardComponent} from "./wizard.component";
-import {WizardStepComponent} from "./wizard-step.component";
-import {GoToStepDirective} from "../directives/go-to-step.directive";
+import {WizardComponent} from './wizard.component';
+import {WizardStepComponent} from './wizard-step.component';
+import {GoToStepDirective} from '../directives/go-to-step.directive';
 
 describe('WizardNavigationBarComponent', () => {
   let component: WizardNavigationBarComponent;

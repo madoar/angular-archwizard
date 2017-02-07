@@ -1,5 +1,5 @@
-import {Component, Input, Output, EventEmitter} from "@angular/core";
-import {MovingDirection} from "../util/MovingDirection";
+import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {MovingDirection} from '../util/MovingDirection';
 
 @Component({
   selector: 'wizard-step',

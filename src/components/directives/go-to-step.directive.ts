@@ -3,8 +3,8 @@
  */
 
 import {Directive, Output, HostListener, EventEmitter, Input} from '@angular/core';
-import {WizardComponent} from "../components/wizard.component";
-import {WizardStepComponent} from "../components/wizard-step.component";
+import {WizardComponent} from '../components/wizard.component';
+import {WizardStepComponent} from '../components/wizard-step.component';
 
 @Directive({
   selector: '[goToStep]'
