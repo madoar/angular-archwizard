@@ -7,3 +7,6 @@ node_js:
   - "7"
   - "6"
   - "4"
+
+before_install: if [[ `npm -v` != 3* || `npm -v` != 4* ]]; then npm i -g npm@3; fi
+
