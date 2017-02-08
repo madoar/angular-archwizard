@@ -5,6 +5,7 @@ import {WizardComponent} from './wizard.component';
 import {WizardStepComponent} from './wizard-step.component';
 import {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
 import {GoToStepDirective} from '../directives/go-to-step.directive';
+import {By} from "@angular/platform-browser";
 
 @Component({
   selector: 'test-wizard',
@@ -58,6 +59,29 @@ describe('WizardComponent', () => {
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
+  });
+
+  it('should contain navigation bar at the correct position', () => {
+    // check default: the navbar should be at the top of the wizard if no navBarLocation was set
+    expect(wizardTestFixture.debugElement.query(By.css(".nav-bar"))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :first-child")).name).toBe('wizard-navigation-bar');
+    expect(wizardTestFixture.debugElement.query(By.css(".nav-bar.top"))).toBeTruthy();
+
+    wizardTest.wizard.navBarLocation = "bottom";
+    wizardTestFixture.detectChanges();
+
+    // navBar should be at the bottom of the wizard
+    expect(wizardTestFixture.debugElement.query(By.css(".nav-bar"))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :last-child")).name).toBe('wizard-navigation-bar');
+    expect(wizardTestFixture.debugElement.query(By.css(".nav-bar.bottom"))).toBeTruthy();
+
+    wizardTest.wizard.navBarLocation = "top";
+    wizardTestFixture.detectChanges();
+
+    // navBar should be at the top of the wizard
+    expect(wizardTestFixture.debugElement.query(By.css(".nav-bar"))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :first-child")).name).toBe('wizard-navigation-bar');
+    expect(wizardTestFixture.debugElement.query(By.css(".nav-bar.top"))).toBeTruthy();
   });
 
   it('should have steps', () => {
