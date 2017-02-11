@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/madoar/ng2-wizard.png)](https://travis-ci.org/madoar/ng2-wizard)
 [![Dependency Status](https://david-dm.org/madoar/ng2-wizard.svg)](https://david-dm.org/madoar/ng2-wizard)
 [![Dev-Dependency Status](https://david-dm.org/madoar/ng2-wizard/dev-status.svg)](https://david-dm.org/madoar/ng2-wizard?type=dev)
+[![Dependency Licence Status](https://dependencyci.com/github/madoar/ng2-wizard/badge)](https://dependencyci.com/github/madoar/ng2-wizard)
 
 This project contains a functional wizard component for [Angular 2](https://angular.io/).
 

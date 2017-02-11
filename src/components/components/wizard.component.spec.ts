@@ -59,21 +59,23 @@ describe('WizardComponent', () => {
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
+    expect(wizardTest.wizard).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css('wizard'))).toBeTruthy();
   });
 
   it('should contain navigation bar at the correct position', () => {
     // check default: the navbar should be at the top of the wizard if no navBarLocation was set
     expect(wizardTestFixture.debugElement.query(By.css(".nav-bar"))).toBeTruthy();
     expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :first-child")).name).toBe('wizard-navigation-bar');
-    expect(wizardTestFixture.debugElement.query(By.css(".nav-bar.top"))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :last-child")).name).toBe('div');
 
     wizardTest.wizard.navBarLocation = "bottom";
     wizardTestFixture.detectChanges();
 
     // navBar should be at the bottom of the wizard
     expect(wizardTestFixture.debugElement.query(By.css(".nav-bar"))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :first-child")).name).toBe('div');
     expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :last-child")).name).toBe('wizard-navigation-bar');
-    expect(wizardTestFixture.debugElement.query(By.css(".nav-bar.bottom"))).toBeTruthy();
 
     wizardTest.wizard.navBarLocation = "top";
     wizardTestFixture.detectChanges();
@@ -81,7 +83,7 @@ describe('WizardComponent', () => {
     // navBar should be at the top of the wizard
     expect(wizardTestFixture.debugElement.query(By.css(".nav-bar"))).toBeTruthy();
     expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :first-child")).name).toBe('wizard-navigation-bar');
-    expect(wizardTestFixture.debugElement.query(By.css(".nav-bar.top"))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :last-child")).name).toBe('div');
   });
 
   it('should have steps', () => {
