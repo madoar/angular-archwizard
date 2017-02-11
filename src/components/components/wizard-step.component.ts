@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, HostBinding} from '@angular/core';
 import {MovingDirection} from '../util/MovingDirection';
 
 @Component({
@@ -34,6 +34,7 @@ export class WizardStepComponent {
    * All steps previous to the currently selected step must be completed.
    * @type {boolean}
    */
+  @HostBinding('class.done')
   public completed = false;
 
   /**
@@ -41,7 +42,13 @@ export class WizardStepComponent {
    * Always one step is selected at any time.
    * @type {boolean}
    */
+  @HostBinding('class.current')
   public selected = false;
+
+  @HostBinding('hidden')
+  public get hidden(): boolean {
+    return !this.selected;
+  }
 
   /**
    * True if this step is optional.

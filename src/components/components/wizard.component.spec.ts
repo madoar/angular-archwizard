@@ -65,25 +65,25 @@ describe('WizardComponent', () => {
 
   it('should contain navigation bar at the correct position', () => {
     // check default: the navbar should be at the top of the wizard if no navBarLocation was set
-    expect(wizardTestFixture.debugElement.query(By.css(".nav-bar"))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :first-child")).name).toBe('wizard-navigation-bar');
-    expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :last-child")).name).toBe('div');
+    expect(wizardTestFixture.debugElement.query(By.css("wizard-navigation-bar"))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css("wizard > :first-child")).name).toBe('wizard-navigation-bar');
+    expect(wizardTestFixture.debugElement.query(By.css("wizard > :last-child")).name).toBe('wizard-step');
 
     wizardTest.wizard.navBarLocation = "bottom";
     wizardTestFixture.detectChanges();
 
     // navBar should be at the bottom of the wizard
-    expect(wizardTestFixture.debugElement.query(By.css(".nav-bar"))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :first-child")).name).toBe('div');
-    expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :last-child")).name).toBe('wizard-navigation-bar');
+    expect(wizardTestFixture.debugElement.query(By.css("wizard-navigation-bar"))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css("wizard > :first-child")).name).toBe('wizard-step');
+    expect(wizardTestFixture.debugElement.query(By.css("wizard > :last-child")).name).toBe('wizard-navigation-bar');
 
     wizardTest.wizard.navBarLocation = "top";
     wizardTestFixture.detectChanges();
 
     // navBar should be at the top of the wizard
-    expect(wizardTestFixture.debugElement.query(By.css(".nav-bar"))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :first-child")).name).toBe('wizard-navigation-bar');
-    expect(wizardTestFixture.debugElement.query(By.css(".wizard-centered > :last-child")).name).toBe('div');
+    expect(wizardTestFixture.debugElement.query(By.css("wizard-navigation-bar"))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css("wizard > :first-child")).name).toBe('wizard-navigation-bar');
+    expect(wizardTestFixture.debugElement.query(By.css("wizard > :last-child")).name).toBe('wizard-step');
   });
 
   it('should have steps', () => {
