@@ -2,6 +2,7 @@ import {Component, ContentChildren, QueryList, AfterContentInit, Input} from '@a
 import {WizardStepComponent} from './wizard-step.component';
 import {isNumber} from 'util';
 import {MovingDirection} from '../util/MovingDirection';
+import {isString} from "util";
 
 @Component({
   selector: 'wizard',
@@ -112,13 +113,15 @@ export class WizardComponent implements AfterContentInit {
     return this.hasStep(nextStepIndex) && this.canGoToStep(nextStepIndex);
   }
 
-  canGoToStep(inputStep: WizardStepComponent | number): boolean {
+  canGoToStep(inputStep: WizardStepComponent | number | string): boolean {
     let nextStepIndex: number;
 
     if (inputStep instanceof WizardStepComponent) {
       nextStepIndex = this.getIndexOfStep(inputStep);
     } else if (isNumber(inputStep)) {
       nextStepIndex = inputStep as number;
+    } else if (isString(inputStep)) {
+      nextStepIndex = parseInt(inputStep as string);
     }
 
     let result: boolean = this.hasStep(nextStepIndex);
@@ -133,7 +136,7 @@ export class WizardComponent implements AfterContentInit {
     return result;
   }
 
-  goToStep(inputStep: WizardStepComponent | number) {
+  goToStep(inputStep: WizardStepComponent | number | string): void {
     let nextStepIndex: number;
     let nextStep: WizardStepComponent;
 
@@ -142,7 +145,10 @@ export class WizardComponent implements AfterContentInit {
       nextStep = inputStep;
     } else if (isNumber(inputStep)) {
       nextStepIndex = inputStep as number;
-      nextStep = this.getStepAtIndex(inputStep);
+      nextStep = this.getStepAtIndex(nextStepIndex);
+    } else if (isString(inputStep)) {
+      nextStepIndex = parseInt(inputStep as string);
+      nextStep = this.getStepAtIndex(nextStepIndex);
     }
 
     // In which direction is a step transition done?
