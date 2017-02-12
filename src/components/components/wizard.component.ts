@@ -41,7 +41,7 @@ export class WizardComponent implements AfterContentInit {
       this.currentStepIndex = 0;
 
       this.currentStep = this.wizardSteps.first;
-      this.currentStep.stepEnter.emit();
+      this.currentStep.stepEnter.emit(MovingDirection.Forwards);
       this.currentStep.completed = false;
       this.currentStep.selected = true;
     }
