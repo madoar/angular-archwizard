@@ -14,7 +14,7 @@ export class GoToStepDirective {
   public finalize = new EventEmitter();
 
   @Input('goToStep')
-  public destinationStep: WizardStepComponent | number;
+  public destinationStep: WizardStepComponent | number | string;
 
   constructor(private wizard: WizardComponent) { }
 

@@ -82,7 +82,7 @@
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "node-sass": "^3.4.2",
-    "phantomjs-prebuilt": "^2.1.4",
+    "phantomjs-prebuilt": "^2.1.14",
     "postcss-loader": "^1.1.0",
     "protractor": "^4.0.10",
     "raw-loader": "0.5.1",

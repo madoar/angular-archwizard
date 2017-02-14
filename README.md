@@ -4,6 +4,8 @@
 [![Dependency Status](https://david-dm.org/madoar/ng2-wizard.svg)](https://david-dm.org/madoar/ng2-wizard)
 [![Dev-Dependency Status](https://david-dm.org/madoar/ng2-wizard/dev-status.svg)](https://david-dm.org/madoar/ng2-wizard?type=dev)
 [![Dependency Licence Status](https://dependencyci.com/github/madoar/ng2-wizard/badge)](https://dependencyci.com/github/madoar/ng2-wizard)
+[![Code Climate](https://codeclimate.com/github/madoar/ng2-wizard/badges/gpa.svg)](https://codeclimate.com/github/madoar/ng2-wizard)
+[![Test Coverage](https://codeclimate.com/github/madoar/ng2-wizard/badges/coverage.svg)](https://codeclimate.com/github/madoar/ng2-wizard/coverage)
 
 This project contains a functional wizard component for [Angular 2](https://angular.io/).
 

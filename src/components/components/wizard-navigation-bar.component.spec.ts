@@ -69,10 +69,11 @@ describe('WizardNavigationBarComponent', () => {
     expect(navBar.query(By.css('li.optional'))).toBe(navBar.query(By.css('li:nth-child(2)')));
     expect(navBar.queryAll(By.css('li.optional')).length).toBe(1);
 
-    // only the third step is marked as default (neither done, current or optional)
+    // the second and third step is marked as default (neither done or current)
     expect(navBar.query(By.css('li.default'))).toBeTruthy();
-    expect(navBar.query(By.css('li.default'))).toBe(navBar.query(By.css('li:nth-child(3)')));
-    expect(navBar.queryAll(By.css('li.default')).length).toBe(1);
+    expect(navBar.queryAll(By.css('li.default'))[0]).toBe(navBar.query(By.css('li:nth-child(2)')));
+    expect(navBar.queryAll(By.css('li.default'))[1]).toBe(navBar.query(By.css('li:nth-child(3)')));
+    expect(navBar.queryAll(By.css('li.default')).length).toBe(2);
   });
 
   it('should show the second step correctly', () => {
@@ -98,7 +99,7 @@ describe('WizardNavigationBarComponent', () => {
     // no step is marked as optional, because the optional step is the current step
     expect(navBar.query(By.css('li.optional'))).toBeNull();
 
-    // only the third step is marked as default (neither done, current or optional)
+    // only the third step is marked as default (neither done or current)
     expect(navBar.query(By.css('li.default'))).toBeTruthy();
     expect(navBar.query(By.css('li.default'))).toBe(navBar.query(By.css('li:nth-child(3)')));
     expect(navBar.queryAll(By.css('li.default')).length).toBe(1);
@@ -120,8 +121,8 @@ describe('WizardNavigationBarComponent', () => {
 
     // the first and second step should be marked as done
     expect(navBar.query(By.css('li.done'))).toBeTruthy();
-    expect(navBar.query(By.css('li.done:first-child'))).toBe(navBar.query(By.css('li:nth-child(1)')));
-    expect(navBar.query(By.css('li.done:nth-child(2)'))).toBe(navBar.query(By.css('li:nth-child(2)')));
+    expect(navBar.queryAll(By.css('li.done'))[0]).toBe(navBar.query(By.css('li:nth-child(1)')));
+    expect(navBar.queryAll(By.css('li.done'))[1]).toBe(navBar.query(By.css('li:nth-child(2)')));
     expect(navBar.queryAll(By.css('li.done')).length).toBe(2);
 
     // no step is marked as editing
@@ -159,8 +160,10 @@ describe('WizardNavigationBarComponent', () => {
     expect(navBar.query(By.css('li.optional'))).toBe(navBar.query(By.css('li:nth-child(2)')));
     expect(navBar.queryAll(By.css('li.optional')).length).toBe(1);
 
-    // no step is marked as default (neither done, current or optional)
-    expect(navBar.query(By.css('li.default'))).toBeNull();
+    // the second step is marked as default (neither done nor current)
+    expect(navBar.query(By.css('li.default'))).toBeTruthy();
+    expect(navBar.query(By.css('li.default'))).toBe(navBar.query(By.css('li:nth-child(2)')));
+    expect(navBar.queryAll(By.css('li.default')).length).toBe(1);
   });
 
   it('should show the first step correctly, after going back from the second step to the first step', () => {
@@ -188,10 +191,11 @@ describe('WizardNavigationBarComponent', () => {
     expect(navBar.query(By.css('li.optional'))).toBe(navBar.query(By.css('li:nth-child(2)')));
     expect(navBar.queryAll(By.css('li.optional')).length).toBe(1);
 
-    // no step is marked as default (neither done, current or optional)
+    // the second and third step is marked as default (neither done or current)
     expect(navBar.query(By.css('li.default'))).toBeTruthy();
-    expect(navBar.query(By.css('li.default'))).toBe(navBar.query(By.css('li:nth-child(3)')));
-    expect(navBar.queryAll(By.css('li.default')).length).toBe(1);
+    expect(navBar.queryAll(By.css('li.default'))[0]).toBe(navBar.query(By.css('li:nth-child(2)')));
+    expect(navBar.queryAll(By.css('li.default'))[1]).toBe(navBar.query(By.css('li:nth-child(3)')));
+    expect(navBar.queryAll(By.css('li.default')).length).toBe(2);
   });
 
   it('should show the first step correctly, after first jumping from the first to the third step and then back from the third step to the first step', () => {
@@ -219,10 +223,11 @@ describe('WizardNavigationBarComponent', () => {
     expect(navBar.query(By.css('li.optional'))).toBe(navBar.query(By.css('li:nth-child(2)')));
     expect(navBar.queryAll(By.css('li.optional')).length).toBe(1);
 
-    // the third step is marked as default (neither done, current or optional)
+    // the second and third step is marked as default (neither done or current)
     expect(navBar.query(By.css('li.default'))).toBeTruthy();
-    expect(navBar.query(By.css('li.default'))).toBe(navBar.query(By.css('li:nth-child(3)')));
-    expect(navBar.queryAll(By.css('li.default')).length).toBe(1);
+    expect(navBar.queryAll(By.css('li.default'))[0]).toBe(navBar.query(By.css('li:nth-child(2)')));
+    expect(navBar.queryAll(By.css('li.default'))[1]).toBe(navBar.query(By.css('li:nth-child(3)')));
+    expect(navBar.queryAll(By.css('li.default')).length).toBe(2);
   });
 
   it('should show the second step correctly, after first jumping from the first to the third step and then back from the third step to the second step', () => {
@@ -250,9 +255,69 @@ describe('WizardNavigationBarComponent', () => {
     // no step is marked as optional, because the optional step is the current step
     expect(navBar.query(By.css('li.optional'))).toBeNull();
 
-    // the third step is marked as default (neither done, current or optional)
+    // the third step is marked as default (neither done or current)
     expect(navBar.query(By.css('li.default'))).toBeTruthy();
     expect(navBar.query(By.css('li.default'))).toBe(navBar.query(By.css('li:nth-child(3)')));
     expect(navBar.queryAll(By.css('li.default')).length).toBe(1);
+  });
+
+  it('should move back to the first step from the second step, after clicking on the corresponding link', () => {
+    const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1) > a')).nativeElement;
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+
+    // go to the second step
+    wizardTest.wizard.goToNextStep();
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+
+    // go back to the first step
+    goToFirstStepLink.click();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+  });
+
+  it('should move back to the first step from the third step, after clicking on the corresponding link', () => {
+    const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1) > a')).nativeElement;
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+
+    // go to the second step
+    wizardTest.wizard.goToStep(2);
+    expect(wizardTest.wizard.currentStepIndex).toBe(2);
+
+    // go back to the first step
+    goToFirstStepLink.click();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+  });
+
+  it('should move back to the second step from the third step, after clicking on the corresponding link', () => {
+    const goToSecondStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(2) > a')).nativeElement;
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+
+    // go to the second step
+    wizardTest.wizard.goToStep(2);
+    expect(wizardTest.wizard.currentStepIndex).toBe(2);
+
+    // go back to the first step
+    goToSecondStepLink.click();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+  });
+
+  it('should not move to the second step from the first step, after clicking on the corresponding link', () => {
+    const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1)'));
+    const goToSecondStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(2)'));
+    const goToThirdStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(3)'));
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+    // links contain a class that is not clickable (contains "pointer-events: none;")
+    expect(goToFirstStepLink.classes.hasOwnProperty('current')).toBeTruthy('First step label is clickable');
+    expect(goToSecondStepLink.classes.hasOwnProperty('default')).toBeTruthy('Second step label is clickable');
+    expect(goToThirdStepLink.classes.hasOwnProperty('default')).toBeTruthy('Third step label is clickable');
   });
 });
