@@ -26,10 +26,21 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './karma-shim.js': ['webpack', 'sourcemap']
+      './karma-shim.js': ['coverage', 'webpack', 'sourcemap']
     },
 
     webpack: webpackConfig,
+
+    coverageReporter: {
+      type: 'in-memory'
+    },
+
+    remapCoverageReporter: {
+      'text-summary': null,
+      json: './coverage/coverage.json',
+      html: './coverage/html',
+      lcovonly: './coverage/lcov.info'
+    },
 
     webpackMiddleware: {
       // webpack-dev-middleware configuration
@@ -44,7 +55,7 @@ module.exports = function (config) {
     // test results reporter to use
     // possible values: 'dots', 'progress', 'mocha'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ["mocha"],
+    reporters: ["mocha", "coverage", "remap-coverage"],
 
     // web server port
     port: 9876,
@@ -67,20 +78,6 @@ module.exports = function (config) {
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: true
   };
-
-  if (!isTestWatch) {
-    _config.reporters.push("coverage");
-
-    _config.coverageReporter = {
-      dir: 'coverage/',
-      reporters: [{
-        type: 'json',
-        dir: 'coverage',
-        subdir: 'json',
-        file: 'coverage-final.json'
-      }]
-    };
-  }
 
   config.set(_config);
 
