@@ -1,5 +1,5 @@
 {
-  "name": "ng2-wizard",
+  "name": "ng2-archwizard",
   "version": "1.0.0",
   "license": "MIT",
   "description": "An angular 2 module containing a wizard component and its supporting components and directives",
@@ -30,7 +30,6 @@
     "test-watch": "karma start --no-single-run --auto-watch",
     "build": "rimraf dist && ngc -p src/tsconfig.aot.json && gulp"
   },
-  "private": false,
   "dependencies": {
     "@angular/common": "^2.3.1",
     "@angular/compiler": "^2.3.1",
