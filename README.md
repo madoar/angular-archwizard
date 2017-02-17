@@ -1,4 +1,4 @@
-# Overview ng2-wizard
+# Overview ng2-archwizard
 
 [![Build Status](https://travis-ci.org/madoar/ng2-wizard.png)](https://travis-ci.org/madoar/ng2-wizard)
 [![Dependency Status](https://david-dm.org/madoar/ng2-wizard.svg)](https://david-dm.org/madoar/ng2-wizard)
@@ -6,6 +6,7 @@
 [![Dependency Licence Status](https://dependencyci.com/github/madoar/ng2-wizard/badge)](https://dependencyci.com/github/madoar/ng2-wizard)
 [![Code Climate](https://codeclimate.com/github/madoar/ng2-wizard/badges/gpa.svg)](https://codeclimate.com/github/madoar/ng2-wizard)
 [![Test Coverage](https://codeclimate.com/github/madoar/ng2-wizard/badges/coverage.svg)](https://codeclimate.com/github/madoar/ng2-wizard/coverage)
+[![NPM Version](https://img.shields.io/npm/v/ng2-archwizard.svg)](https://www.npmjs.com/package/ng2-archwizard)
 
 This project contains a functional wizard component for [Angular 2](https://angular.io/).
 
@@ -16,6 +17,25 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 ## Running unit tests
 
 Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Installation
+
+Ng2-archwizard is available as an NPM package. To install ng2-archwizard in your project directory run:
+```
+$ npm install --save ng2-archwizard
+```
+
+Afterwards you can import ng2-archwizard in your angular 2 project by adding the `WizardModule` to your Module declaration as followed:
+```typescript
+import {WizardModule} from "ng2-archwizard/dist";
+
+@NgModule({
+  imports: [
+    WizardModule
+  ],
+})
+export class Module { }
+```
 
 ## How to use the wizard
 

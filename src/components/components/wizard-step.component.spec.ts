@@ -104,4 +104,11 @@ describe('WizardStepComponent', () => {
 
     expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 3', 'exit Backwards 3', 'enter Backwards 2']);
   });
+
+  it('should stay at first step correctly', () => {
+    wizardTest.wizard.goToStep(0);
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Stay 1', 'enter Stay 1']);
+  });
 });
