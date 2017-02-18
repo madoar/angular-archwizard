@@ -28,7 +28,7 @@
     "pretest": "npm run lint",
     "test": "karma start",
     "test-watch": "karma start --no-single-run --auto-watch",
-    "build": "rimraf dist && ngc -p src/tsconfig.aot.json && gulp"
+    "build": "rimraf dist && gulp"
   },
   "dependencies": {
     "@angular/common": "^2.4.7",
@@ -55,18 +55,22 @@
     "angular2-template-loader": "^0.6.2",
     "autoprefixer": "^6.7.3",
     "awesome-typescript-loader": "^3.0.3",
+    "babel-core": "^6.23.1",
+    "babel-preset-es2015": "^6.22.0",
     "codelyzer": "2.0.0",
     "copy-webpack-plugin": "^4.0.0",
     "css-loader": "^0.26.1",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "file-loader": "^0.10.0",
     "gulp": "^3.9.1",
+    "gulp-inline-ng2-template": "^4.0.0",
     "gulp-less": "^3.3.0",
+    "gulp-ngc": "^0.2.0",
     "html-loader": "^0.4.0",
     "html-webpack-plugin": "^2.28.0",
     "istanbul-instrumenter-loader": "^2.0.0",
     "jasmine-core": "^2.5.2",
-    "jasmine-spec-reporter": "^2.7.0",
+    "jasmine-spec-reporter": "^3.2.0",
     "json-loader": "^0.5.3",
     "karma": "1.4.1",
     "karma-chrome-launcher": "^2.0.0",
@@ -93,10 +97,10 @@
     "tslint": "^4.4.2",
     "tslint-loader": "^3.4.2",
     "typescript": "2.1.6",
+    "typings": "^2.1.0",
     "url-loader": "^0.5.6",
     "webpack": "^2.2.0",
-    "webpack-dev-server": "2.3.0",
-    "typings": "^2.1.0"
+    "webpack-dev-server": "2.3.0"
   },
   "files": [
     "dist"
