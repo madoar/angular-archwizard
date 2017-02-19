@@ -1,0 +1,132 @@
+/*
+ color definitions
+ */
+@wz-color-default: #E6E6E6;
+@wz-color-current: #808080;
+@wz-color-done: #339933;
+@wz-color-optional: #38ef38;
+@wz-color-editing: #FF0000;
+
+/*
+ dot definitions
+ */
+@dot-width: 14px;
+@dot-height: 14px;
+
+/*
+ extra distance between the bottom of the dots and the baseline texts
+ */
+@dot-baseline-distance: 0px;
+
+// padding between text and baseline
+@text-margin-left: 15px;
+@text-height: 15px;
+
+@distance-between-steps: 10px;
+
+:host.vertical {
+  position: fixed;
+  max-width: 280px;
+  width: 20%;
+  height: 100%;
+
+  &.left {
+    float: left;
+  }
+
+  &.right {
+    float: right;
+  }
+
+  ul.steps-indicator {
+    padding-top: @distance-between-steps / 2;
+    padding-left: @distance-between-steps / 2 + @dot-baseline-distance + @dot-height;
+    list-style: none;
+
+    /* --- http://www.paulirish.com/2012/box-sizing-border-box-ftw/ ---- */
+    * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    li {
+      position: relative;
+      line-height: @text-height;
+      display: table;
+
+      &:not(:last-child) {
+        margin-bottom: 0;
+        padding-bottom: @distance-between-steps;
+      }
+
+      &:not(:last-child):before {
+        background-color: @wz-color-default;
+        content: '';
+        position: absolute;
+        left: -(@dot-baseline-distance + @dot-height / 2);
+        top: @dot-height;
+        height: calc(100% ~'-' @dot-height);
+        width: 1px;
+      }
+
+      &:after {
+        position: absolute;
+        top: 0;
+        left: -(@dot-baseline-distance + @dot-width);
+        width: @dot-width;
+        height: @dot-height;
+        border-radius: 100%;
+        background-color: @wz-color-default;
+        content: '';
+        transition: 0.25s;
+      }
+
+      a {
+        color: @wz-color-current;
+        float: left;
+        margin-left: @text-margin-left;
+        text-decoration: none;
+        text-transform: uppercase;
+        text-align: left;
+        font-weight: bold;
+        transition: 0.25s;
+        cursor: pointer;
+
+        &:hover {
+          color: darken(@wz-color-current, 20%);
+        }
+      }
+    }
+
+    li.default,
+    li.current,
+    li.editing {
+      pointer-events: none;
+    }
+
+    // default steps shouldn't change when hovered, because they aren't clickable
+    li.default a:hover {
+      color: @wz-color-current;
+    }
+
+    li.current:after {
+      background-color: @wz-color-current;
+    }
+
+    li.done:after {
+      background-color: @wz-color-done;
+    }
+
+    li.optional:after {
+      background-color: @wz-color-optional;
+    }
+
+    li.editing:after {
+      background-color: @wz-color-editing;
+    }
+  }
+}
+
+
+

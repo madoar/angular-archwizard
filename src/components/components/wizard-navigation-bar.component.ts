@@ -5,7 +5,7 @@ import {WizardStepComponent} from './wizard-step.component';
 @Component({
   selector: 'wizard-navigation-bar',
   templateUrl: 'wizard-navigation-bar.component.html',
-  styleUrls: ['wizard-navigation-bar.component.less']
+  styleUrls: ['wizard-navigation-bar.component.horizontal.less', 'wizard-navigation-bar.component.vertical.less']
 })
 export class WizardNavigationBarComponent {
 
