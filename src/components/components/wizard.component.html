@@ -1,5 +1,7 @@
 <wizard-navigation-bar *ngIf="navBarLocation == 'top'"></wizard-navigation-bar>
 
-<ng-content></ng-content>
+<div>
+  <ng-content></ng-content>
+</div>
 
 <wizard-navigation-bar *ngIf="navBarLocation == 'bottom'"></wizard-navigation-bar>
