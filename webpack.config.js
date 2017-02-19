@@ -19,7 +19,7 @@ var isTestWatch = ENV === 'test-watch';
 var isTest = ENV === 'test' || isTestWatch;
 var isProd = ENV === 'build';
 
-module.exports = function makeWebpackConfig() {
+module.exports = function() {
   /**
    * Config
    * Reference: http://webpack.github.io/docs/configuration.html
@@ -58,7 +58,7 @@ module.exports = function makeWebpackConfig() {
    */
   config.resolve = {
     // only discover files that have those extensions
-    extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html'],
+    extensions: ['.ts', '.js', '.json', '.css', '.scss', '.less', '.html']
   };
 
   var atlOptions = '';

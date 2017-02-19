@@ -6,10 +6,10 @@ import inline from 'gulp-inline-ng2-template';
 import fs from 'fs';
 
 function lessProcessor(path, ext, file, cb) {
-  if (ext[0] == ".less") {
-    cb(null, fs.readFileSync(path.substring(0, path.length - ext[0].length) + ".css"));
+  if (ext[0] === ".less") {
+    return cb(null, fs.readFileSync(path.substring(0, path.length - ext[0].length) + ".css"));
   } else {
-    cb(null, file);
+    return cb(null, file);
   }
 }
 
