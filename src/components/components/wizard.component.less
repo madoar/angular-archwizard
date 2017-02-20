@@ -1,18 +1,18 @@
 :host {
-  text-align: center;
   margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
 
-  .left-vertical-navigation-bar {
-    float: right;
+  .vertical-navigation-bar {
+    display: flex;
+    flex-direction: column;
     top: 0;
+    right: 0;
     min-width: calc(100% ~'-' 280px);
     width: 80%;
-  }
-
-  .right-vertical-navigation-bar {
-    float: left;
-    top: 0;
-    min-width: calc(100% ~'-' 280px);
-    width: 80%;
+    height: 100%;
   }
 }
