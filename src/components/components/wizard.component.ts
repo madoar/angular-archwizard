@@ -21,12 +21,12 @@ export class WizardComponent implements AfterContentInit {
 
   @HostBinding('class.horizontal')
   public get horizontalOrientation(): boolean {
-    return this.navBarLocation === "top" || this.navBarLocation === "bottom";
+    return this.navBarLocation === 'top' || this.navBarLocation === 'bottom';
   }
 
   @HostBinding('class.vertical')
   public get verticalOrientation(): boolean {
-    return this.navBarLocation === "left" || this.navBarLocation === "right";
+    return this.navBarLocation === 'left' || this.navBarLocation === 'right';
   }
 
   /**

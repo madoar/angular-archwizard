@@ -2,13 +2,13 @@
  * Created by marc on 09.01.17.
  */
 import {GoToStepDirective} from './go-to-step.directive';
-import {Component, ViewChild} from "@angular/core";
-import {WizardComponent} from "../components/wizard.component";
-import {ComponentFixture, async, TestBed} from "@angular/core/testing";
-import {WizardStepComponent} from "../components/wizard-step.component";
-import {WizardNavigationBarComponent} from "../components/wizard-navigation-bar.component";
-import {By} from "@angular/platform-browser";
-import {OptionalStepDirective} from "./optional-step.directive";
+import {Component, ViewChild} from '@angular/core';
+import {WizardComponent} from '../components/wizard.component';
+import {ComponentFixture, async, TestBed} from '@angular/core/testing';
+import {WizardStepComponent} from '../components/wizard-step.component';
+import {WizardNavigationBarComponent} from '../components/wizard-navigation-bar.component';
+import {By} from '@angular/platform-browser';
+import {OptionalStepDirective} from './optional-step.directive';
 
 @Component({
   selector: 'test-wizard',
@@ -72,21 +72,21 @@ describe('GoToStepDirective', () => {
     const secondStepGoToButton = wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 2"] > button[goToStep]')).nativeElement;
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe("Steptitle 1");
+    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe('Steptitle 1');
 
     // click button
     firstStepGoToButton.click();
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(1);
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe("Steptitle 2");
+    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe('Steptitle 2');
 
     // click button
     secondStepGoToButton.click();
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(2);
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe("Steptitle 3");
+    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe('Steptitle 3');
   });
 
   it('should jump over an optional step correctly', () => {
@@ -94,35 +94,35 @@ describe('GoToStepDirective', () => {
     const thirdStepGoToButton = wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 3"] > button[goToStep]')).nativeElement;
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe("Steptitle 1");
+    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe('Steptitle 1');
 
     // click button
     firstStepGoToButton.click();
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(2);
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe("Steptitle 3");
+    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe('Steptitle 3');
 
     // click button
     thirdStepGoToButton.click();
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe("Steptitle 1");
+    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe('Steptitle 1');
   });
 
   it('should stay at current step correctly', () => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(1)')).nativeElement;
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe("Steptitle 1");
+    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe('Steptitle 1');
 
     // click button
     firstStepGoToButton.click();
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe("Steptitle 1");
+    expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe('Steptitle 1');
   });
 
   it('should finalize step correctly', () => {

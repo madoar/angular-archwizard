@@ -1,13 +1,13 @@
 /* tslint:disable:no-unused-variable */
 
 import { NextStepDirective } from './next-step.directive';
-import {ViewChild, Component} from "@angular/core";
-import {WizardComponent} from "../components/wizard.component";
-import {ComponentFixture, async, TestBed} from "@angular/core/testing";
-import {WizardStepComponent} from "../components/wizard-step.component";
-import {WizardNavigationBarComponent} from "../components/wizard-navigation-bar.component";
-import {GoToStepDirective} from "./go-to-step.directive";
-import {By} from "@angular/platform-browser";
+import {ViewChild, Component} from '@angular/core';
+import {WizardComponent} from '../components/wizard.component';
+import {ComponentFixture, async, TestBed} from '@angular/core/testing';
+import {WizardStepComponent} from '../components/wizard-step.component';
+import {WizardNavigationBarComponent} from '../components/wizard-navigation-bar.component';
+import {GoToStepDirective} from './go-to-step.directive';
+import {By} from '@angular/platform-browser';
 
 @Component({
   selector: 'test-wizard',
