@@ -64,6 +64,13 @@ To use the this wizard component in an angular 2 project simply add a wizard com
 ### <wizard>
 `<wizard>...</wizard>` is the environment, in which you define your wizard.
 This environment must contain all steps that make up your wizard.
+It's possible to pass the following parameters to a wizard environment:
+
+Possible parameters:
+
+| Parameter name    | Possible Values                             | Default Value |
+| ----------------- | ------------------------------------------- | ------------- |
+| [navBarLocation]  | top &#124; bottom &#124; left &#124; right  | top           |
 
 ### <wizard-step>
 `<wizard-step>...</wizard-step>` is the wizard step environment. 
@@ -88,26 +95,17 @@ Similarly you can add a `stepExit` attribute to the wizard step environment, if 
 either by pressing on a component with a `nextStep` or `previousStep` directive, or by a click on the navigation bar. 
 `stepExit`, like `stepEnter` can call the given function with an argument of type `MovingDirection` that signalises in which direction the step was exited.
 
+Possible parameters:
+
+| Parameter name    | Possible Values                             | Default Value |
+| ----------------- | ------------------------------------------- | ------------- |
+| [title]           | string                                      | null          |
+| (stepEnter)       | function(MovingDirection)                   | null          |
+| (stepExit)        | function(MovingDirection)                   | null          |
+
 ### [optionalStep]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
-by adding the `optionalStep` directive to the step you want to define as optional. 
-
-### [nextStep]
-By adding a `nextStep` directive to a button or a link inside a step, you automatically add a `onClick` listener to the button or link, that leads to the next step.
-This listener will automatically change the currently selected wizard step to the next wizard step after a click on the component.
-
-If you want to call a function only after pressing on a component with a `nextStep` directive you can add the a function 
-to the component declaration of the component tagged with `nextStep` like this:
-
-```html
-<button (finalize)="finalizeStep()" nextStep>Next Step</button>
-```
-
-This leads to a call of the function `finalizeStep` every time, the button is pressed.
-
-### [previousStep]
-By adding a `previousStep` directive to a button or a link, you automatically add a `onClick` listener to the button or link, that changes your wizard to the previous step.
-This listener will automatically change the currently selected wizard step to the previous wizard step after a click on the component.
+by adding the `optionalStep` directive to the step you want to declare as optional. 
 
 ### [goToStep]
 In addition to the `previousStep` and `nextStep` directives the `goToStep` directive is available to move between steps.
@@ -123,3 +121,33 @@ which will set the current as completed and makes it possible to jump over steps
 
 Like the `nextStep` directive the `goToStep` directive provides a `finalize` output, that will be called every time, 
 the current step was successfully left by clicking on the button containg the `goToStep` directive. 
+
+Possible parameters:
+
+| Parameter name    | Possible Values                             | Default Value |
+| ----------------- | ------------------------------------------- | ------------- |
+| [goToStep]        | WizardStep &#124; number &#124; string      | null          |
+| (finalize)        | function()                                  | null          |
+
+### [nextStep]
+By adding a `nextStep` directive to a button or a link inside a step, you automatically add a `onClick` listener to the button or link, that leads to the next step.
+This listener will automatically change the currently selected wizard step to the next wizard step after a click on the component.
+
+If you want to call a function only after pressing on a component with a `nextStep` directive you can add the a function 
+to the component declaration of the component tagged with `nextStep` like this:
+
+```html
+<button (finalize)="finalizeStep()" nextStep>Next Step</button>
+```
+
+This leads to a call of the function `finalizeStep` every time, the button is pressed.
+
+Possible parameters:
+
+| Parameter name    | Possible Values                             | Default Value |
+| ----------------- | ------------------------------------------- | ------------- |
+| (finalize)        | function()                                  | null          |
+
+### [previousStep]
+By adding a `previousStep` directive to a button or a link, you automatically add a `onClick` listener to the button or link, that changes your wizard to the previous step.
+This listener will automatically change the currently selected wizard step to the previous wizard step after a click on the component.
