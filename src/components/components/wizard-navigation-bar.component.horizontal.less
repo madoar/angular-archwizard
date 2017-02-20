@@ -22,137 +22,143 @@
 @text-padding-bottom: 10px;
 @text-height: 15px;
 
-.steps(@number-of-components) {
-  &:before {
-    left: 100% / @number-of-components / 2;
-    right: 100% / @number-of-components / 2;
-  }
+:host.horizontal {
+  display: flex;
+  flex-direction: row;
 
-  li {
-    width: 100% / @number-of-components;
-  }
-}
-
-:host.horizontal ul.steps-indicator {
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: 0;
-  padding: (@dot-baseline-distance + @dot-height) 0 (@text-padding-bottom + @text-height) 0;
-  list-style: none;
-
-  &.steps-2 {
-    .steps(2);
-  }
-
-  &.steps-3 {
-    .steps(3);
-  }
-
-  &.steps-4 {
-    .steps(4);
-  }
-
-  &.steps-5 {
-    .steps(5);
-  }
-
-  &.steps-6 {
-    .steps(6);
-  }
-
-  &.steps-7 {
-    .steps(7);
-  }
-
-  &.steps-8 {
-    .steps(8);
-  }
-
-  &.steps-9 {
-    .steps(9);
-  }
-
-  &.steps-10 {
-    .steps(10);
-  }
-
-  /* --- http://www.paulirish.com/2012/box-sizing-border-box-ftw/ ---- */
-  * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-
-  li {
-    position: relative;
-    float: left;
+  ul.steps-indicator {
+    right: 0;
+    bottom: 0;
+    left: 0;
     margin: 0;
-    padding: @text-padding-bottom 0 0 0;
-    text-align: center;
-    line-height: @text-height;
+    padding: (@dot-baseline-distance + @dot-height + @text-padding-bottom) 0 @text-padding-bottom 0;
+    width: 100%;
+    list-style: none;
 
-    &:not(:last-child):before {
-      background-color: @wz-color-default;
-      content: '';
-      position: absolute;
-      height: 1px;
-      width: calc(100% ~'-' @dot-width);
-      top: -(@dot-baseline-distance + @dot-height / 2);
-      left: calc(50% ~'+' @dot-width / 2);
-    }
+    .steps(@number-of-components) {
+      &:before {
+        left: 100% / @number-of-components / 2;
+        right: 100% / @number-of-components / 2;
+      }
 
-    &:after {
-      position: absolute;
-      top: -(@dot-baseline-distance + @dot-height);
-      left: calc(50% ~'-' @dot-width / 2);
-      width: @dot-width;
-      height: @dot-height;
-      border-radius: 100%;
-      background-color: @wz-color-default;
-      content: '';
-      transition: 0.25s;
-    }
-
-    a {
-      color: @wz-color-current;
-      text-decoration: none;
-      text-transform: uppercase;
-      font-weight: bold;
-      transition: 0.25s;
-      cursor: pointer;
-
-      &:hover {
-        color: darken(@wz-color-current, 20%);
+      li {
+        width: 100% / @number-of-components;
       }
     }
-  }
 
-  li.default,
-  li.current,
-  li.editing {
-    pointer-events: none;
-  }
+    &.steps-2 {
+      .steps(2);
+    }
 
-  // default steps shouldn't change when hovered, because they aren't clickable
-  li.default a:hover {
-    color: @wz-color-current;
-  }
+    &.steps-3 {
+      .steps(3);
+    }
 
-  li.current:after {
-    background-color: @wz-color-current;
-  }
+    &.steps-4 {
+      .steps(4);
+    }
 
-  li.done:after {
-    background-color: @wz-color-done;
-  }
+    &.steps-5 {
+      .steps(5);
+    }
 
-  li.optional:after {
-    background-color: @wz-color-optional;
-  }
+    &.steps-6 {
+      .steps(6);
+    }
 
-  li.editing:after {
-    background-color: @wz-color-editing;
+    &.steps-7 {
+      .steps(7);
+    }
+
+    &.steps-8 {
+      .steps(8);
+    }
+
+    &.steps-9 {
+      .steps(9);
+    }
+
+    &.steps-10 {
+      .steps(10);
+    }
+
+    /* --- http://www.paulirish.com/2012/box-sizing-border-box-ftw/ ---- */
+    * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    li {
+      position: relative;
+      float: left;
+      margin: 0;
+      padding: @text-padding-bottom 0 0 0;
+      text-align: center;
+      line-height: @text-height;
+
+      &:not(:last-child):before {
+        background-color: @wz-color-default;
+        content: '';
+        position: absolute;
+        height: 1px;
+        width: calc(100% ~'-' @dot-width);
+        top: -(@dot-baseline-distance + @dot-height / 2);
+        left: calc(50% ~'+' @dot-width / 2);
+      }
+
+      &:after {
+        position: absolute;
+        top: -(@dot-baseline-distance + @dot-height);
+        left: calc(50% ~'-' @dot-width / 2);
+        width: @dot-width;
+        height: @dot-height;
+        border-radius: 100%;
+        background-color: @wz-color-default;
+        content: '';
+        transition: 0.25s;
+      }
+
+      a {
+        color: @wz-color-current;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        transition: 0.25s;
+        cursor: pointer;
+
+        &:hover {
+          color: darken(@wz-color-current, 20%);
+        }
+      }
+    }
+
+    li.default,
+    li.current,
+    li.editing {
+      pointer-events: none;
+    }
+
+    // default steps shouldn't change when hovered, because they aren't clickable
+    li.default a:hover {
+      color: @wz-color-current;
+    }
+
+    li.current:after {
+      background-color: @wz-color-current;
+    }
+
+    li.done:after {
+      background-color: @wz-color-done;
+    }
+
+    li.optional:after {
+      background-color: @wz-color-optional;
+    }
+
+    li.editing:after {
+      background-color: @wz-color-editing;
+    }
   }
 }
 

@@ -31,15 +31,12 @@
   display: flex;
   flex-direction: column;
   position: sticky;
-  top: 5px;
-  left: 5px;
+  top: 0;
 
   ul.steps-indicator {
-    padding-top: @distance-between-steps / 2;
-    padding-left: @distance-between-steps / 2 + @dot-baseline-distance + @dot-height;
+    padding: (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2 + @dot-baseline-distance + @dot-height);
     list-style: none;
-    top: 0;
-    left: 0;
+    margin: auto;
 
     /* --- http://www.paulirish.com/2012/box-sizing-border-box-ftw/ ---- */
     * {

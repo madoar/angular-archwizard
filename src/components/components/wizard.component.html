@@ -7,7 +7,9 @@
 </wizard-navigation-bar>
 
 <div [ngClass]="{
-  'vertical-navigation-bar': navBarLocation == 'left' || navBarLocation == 'right'
+  'wizard-steps': true,
+  vertical: navBarLocation == 'left' || navBarLocation == 'right',
+  horizontal: navBarLocation == 'top' || navBarLocation == 'bottom'
 }">
   <ng-content></ng-content>
 </div>

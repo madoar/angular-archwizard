@@ -1,4 +1,4 @@
-import {Component, ContentChildren, QueryList, AfterContentInit, Input} from '@angular/core';
+import {Component, ContentChildren, QueryList, AfterContentInit, Input, HostBinding} from '@angular/core';
 import {WizardStepComponent} from './wizard-step.component';
 import {isNumber} from 'util';
 import {MovingDirection} from '../util/MovingDirection';
@@ -18,6 +18,16 @@ export class WizardComponent implements AfterContentInit {
 
   @Input()
   public navBarLocation = 'top';
+
+  @HostBinding('class.horizontal')
+  public get horizontalOrientation(): boolean {
+    return this.navBarLocation === "top" || this.navBarLocation === "bottom";
+  }
+
+  @HostBinding('class.vertical')
+  public get verticalOrientation(): boolean {
+    return this.navBarLocation === "left" || this.navBarLocation === "right";
+  }
 
   /**
    * The index of the currently visible and selected step inside the wizardSteps QueryList.
