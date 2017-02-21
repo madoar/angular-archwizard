@@ -1,11 +1,11 @@
 # Overview ng2-archwizard
 
-[![Build Status](https://travis-ci.org/madoar/ng2-wizard.png)](https://travis-ci.org/madoar/ng2-wizard)
-[![Dependency Status](https://david-dm.org/madoar/ng2-wizard.svg)](https://david-dm.org/madoar/ng2-wizard)
-[![Dev-Dependency Status](https://david-dm.org/madoar/ng2-wizard/dev-status.svg)](https://david-dm.org/madoar/ng2-wizard?type=dev)
-[![Dependency Licence Status](https://dependencyci.com/github/madoar/ng2-wizard/badge)](https://dependencyci.com/github/madoar/ng2-wizard)
-[![Code Climate](https://codeclimate.com/github/madoar/ng2-wizard/badges/gpa.svg)](https://codeclimate.com/github/madoar/ng2-wizard)
-[![Test Coverage](https://codeclimate.com/github/madoar/ng2-wizard/badges/coverage.svg)](https://codeclimate.com/github/madoar/ng2-wizard/coverage)
+[![Build Status](https://travis-ci.org/madoar/ng2-archwizard.png)](https://travis-ci.org/madoar/ng2-archwizard)
+[![Dependency Status](https://david-dm.org/madoar/ng2-archwizard.svg)](https://david-dm.org/madoar/ng2-archwizard)
+[![Dev-Dependency Status](https://david-dm.org/madoar/ng2-archwizard/dev-status.svg)](https://david-dm.org/madoar/ng2-archwizard?type=dev)
+[![Dependency Licence Status](https://dependencyci.com/github/madoar/ng2-archwizard/badge)](https://dependencyci.com/github/madoar/ng2-archwizard)
+[![Code Climate](https://codeclimate.com/github/madoar/ng2-archwizard/badges/gpa.svg)](https://codeclimate.com/github/madoar/ng2-archwizard)
+[![Test Coverage](https://codeclimate.com/github/madoar/ng2-archwizard/badges/coverage.svg)](https://codeclimate.com/github/madoar/ng2-archwizard/coverage)
 [![NPM Version](https://img.shields.io/npm/v/ng2-archwizard.svg)](https://www.npmjs.com/package/ng2-archwizard)
 
 This project contains a functional wizard component for [Angular 2](https://angular.io/).
@@ -151,3 +151,7 @@ Possible parameters:
 ### [previousStep]
 By adding a `previousStep` directive to a button or a link, you automatically add a `onClick` listener to the button or link, that changes your wizard to the previous step.
 This listener will automatically change the currently selected wizard step to the previous wizard step after a click on the component.
+
+## Example
+You can find an basic example project using ng2-archwizard in the [ng2-archwizard-demo](https://github.com/madoar/ng2-archwizard-demo) repository.
+It illustrates how the wizard looks like and how the different settings can change its layout.
