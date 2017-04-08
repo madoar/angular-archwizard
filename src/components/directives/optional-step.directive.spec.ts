@@ -18,10 +18,10 @@ import {By} from '@angular/platform-browser';
       </wizard-step>
       <wizard-step title='Steptitle 2' optionalStep>
         Step 2
-      </wizard-step>  
+      </wizard-step>
       <wizard-step title='Steptitle 3'>
         Step 3
-      </wizard-step>     
+      </wizard-step>
     </wizard>
   `
 })
@@ -36,7 +36,8 @@ describe('OptionalStepDirective', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WizardComponent, WizardStepComponent, WizardNavigationBarComponent, WizardTestComponent, GoToStepDirective, OptionalStepDirective]
+      declarations: [WizardComponent, WizardStepComponent, WizardNavigationBarComponent,
+        WizardTestComponent, GoToStepDirective, OptionalStepDirective]
     }).compileComponents();
   }));
 

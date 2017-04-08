@@ -23,11 +23,11 @@ import {OptionalStepDirective} from './optional-step.directive';
       <wizard-step title='Steptitle 2' optionalStep>
         Step 2
         <button type="button" goToStep="2" (finalize)="finalizeStep(2)">Go to third step</button>
-      </wizard-step>  
+      </wizard-step>
       <wizard-step title='Steptitle 3'>
         Step 3
         <button type="button" goToStep="0" (finalize)="finalizeStep(3)">Go to first step</button>
-      </wizard-step>     
+      </wizard-step>
     </wizard>
   `
 })
@@ -48,7 +48,8 @@ describe('GoToStepDirective', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WizardComponent, WizardStepComponent, WizardNavigationBarComponent, WizardTestComponent, GoToStepDirective, OptionalStepDirective]
+      declarations: [WizardComponent, WizardStepComponent, WizardNavigationBarComponent,
+        WizardTestComponent, GoToStepDirective, OptionalStepDirective]
     }).compileComponents();
   }));
 
@@ -59,17 +60,25 @@ describe('GoToStepDirective', () => {
   });
 
   it('should create an instance', () => {
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:first-child'))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(2)'))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(3)'))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 2"] > button[goToStep]'))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 3"] > button[goToStep]'))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-step > button[goToStep]')).length).toBe(5);
+    expect(wizardTestFixture.debugElement.query(
+      By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:first-child'))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(
+      By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(2)'))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(
+      By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(3)'))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(
+      By.css('wizard-step[title="Steptitle 2"] > button[goToStep]'))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(
+      By.css('wizard-step[title="Steptitle 3"] > button[goToStep]'))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.queryAll(
+      By.css('wizard-step > button[goToStep]')).length).toBe(5);
   });
 
   it('should move to step correctly', () => {
-    const firstStepGoToButton = wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(2)')).nativeElement;
-    const secondStepGoToButton = wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 2"] > button[goToStep]')).nativeElement;
+    const firstStepGoToButton = wizardTestFixture.debugElement.query(
+      By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(2)')).nativeElement;
+    const secondStepGoToButton = wizardTestFixture.debugElement.query(
+      By.css('wizard-step[title="Steptitle 2"] > button[goToStep]')).nativeElement;
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
     expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe('Steptitle 1');
@@ -90,8 +99,10 @@ describe('GoToStepDirective', () => {
   });
 
   it('should jump over an optional step correctly', () => {
-    const firstStepGoToButton = wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(3)')).nativeElement;
-    const thirdStepGoToButton = wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 3"] > button[goToStep]')).nativeElement;
+    const firstStepGoToButton = wizardTestFixture.debugElement.query(
+      By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(3)')).nativeElement;
+    const thirdStepGoToButton = wizardTestFixture.debugElement.query(
+      By.css('wizard-step[title="Steptitle 3"] > button[goToStep]')).nativeElement;
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
     expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe('Steptitle 1');
@@ -112,7 +123,8 @@ describe('GoToStepDirective', () => {
   });
 
   it('should stay at current step correctly', () => {
-    const firstStepGoToButton = wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(1)')).nativeElement;
+    const firstStepGoToButton = wizardTestFixture.debugElement.query(
+      By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(1)')).nativeElement;
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
     expect(wizardTestFixture.debugElement.query(By.css('wizard-step.current')).nativeElement.title).toBe('Steptitle 1');
@@ -126,8 +138,10 @@ describe('GoToStepDirective', () => {
   });
 
   it('should finalize step correctly', () => {
-    const firstStepGoToButton = wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(3)')).nativeElement;
-    const thirdStepGoToButton = wizardTestFixture.debugElement.query(By.css('wizard-step[title="Steptitle 3"] > button[goToStep]')).nativeElement;
+    const firstStepGoToButton = wizardTestFixture.debugElement.query(
+      By.css('wizard-step[title="Steptitle 1"] > button[goToStep]:nth-child(3)')).nativeElement;
+    const thirdStepGoToButton = wizardTestFixture.debugElement.query(
+      By.css('wizard-step[title="Steptitle 3"] > button[goToStep]')).nativeElement;
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
     expect(wizardTest.eventLog).toEqual([]);

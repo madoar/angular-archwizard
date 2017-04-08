@@ -1,8 +1,7 @@
 import {Component, ContentChildren, QueryList, AfterContentInit, Input, HostBinding} from '@angular/core';
 import {WizardStepComponent} from './wizard-step.component';
-import {isNumber} from 'util';
+import {isNumber, isString} from 'util';
 import {MovingDirection} from '../util/MovingDirection';
-import {isString} from "util";
 
 @Component({
   selector: 'wizard',
@@ -38,7 +37,8 @@ export class WizardComponent implements AfterContentInit {
   /**
    * The WizardStep object belonging to the currently visible and selected step.
    * The currentStep is always the currently selected wizard step.
-   * The currentStep can be either completed, if it was visited earlier, or not completed, if it is visited for the first time or its state is currently out of date.
+   * The currentStep can be either completed, if it was visited earlier,
+   * or not completed, if it is visited for the first time or its state is currently out of date.
    *
    * If this wizard contains no steps, currentStep is null
    */
@@ -131,7 +131,7 @@ export class WizardComponent implements AfterContentInit {
     } else if (isNumber(inputStep)) {
       nextStepIndex = inputStep as number;
     } else if (isString(inputStep)) {
-      nextStepIndex = parseInt(inputStep as string);
+      nextStepIndex = parseInt(inputStep as string, 10);
     }
 
     let result: boolean = this.hasStep(nextStepIndex);
@@ -157,7 +157,7 @@ export class WizardComponent implements AfterContentInit {
       nextStepIndex = inputStep as number;
       nextStep = this.getStepAtIndex(nextStepIndex);
     } else if (isString(inputStep)) {
-      nextStepIndex = parseInt(inputStep as string);
+      nextStepIndex = parseInt(inputStep as string, 10);
       nextStep = this.getStepAtIndex(nextStepIndex);
     }
 

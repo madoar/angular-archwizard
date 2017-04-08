@@ -13,16 +13,16 @@ export class GoToStepDirective {
   @Output()
   public finalize = new EventEmitter();
 
-  @Input('goToStep')
-  public destinationStep: WizardStepComponent | number | string;
+  @Input()
+  public goToStep: WizardStepComponent | number | string;
 
   constructor(private wizard: WizardComponent) { }
 
   @HostListener('click', ['$event']) onClick(): void {
-    if (this.wizard.canGoToStep(this.destinationStep)) {
+    if (this.wizard.canGoToStep(this.goToStep)) {
       this.finalize.emit();
 
-      this.wizard.goToStep(this.destinationStep);
+      this.wizard.goToStep(this.goToStep);
     }
   }
 }

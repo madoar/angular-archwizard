@@ -29,9 +29,9 @@ describe('WizardNavigationBarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WizardComponent, WizardStepComponent, WizardNavigationBarComponent, WizardTestComponent, GoToStepDirective, OptionalStepDirective ]
-    })
-      .compileComponents();
+      declarations: [ WizardComponent, WizardStepComponent, WizardNavigationBarComponent,
+        WizardTestComponent, GoToStepDirective, OptionalStepDirective ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -198,7 +198,8 @@ describe('WizardNavigationBarComponent', () => {
     expect(navBar.queryAll(By.css('li.default')).length).toBe(2);
   });
 
-  it('should show the first step correctly, after first jumping from the first to the third step and then back from the third step to the first step', () => {
+  it('should show the first step correctly, after first jumping from the first to the third step ' +
+    'and then back from the third step to the first step', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step
@@ -230,7 +231,8 @@ describe('WizardNavigationBarComponent', () => {
     expect(navBar.queryAll(By.css('li.default')).length).toBe(2);
   });
 
-  it('should show the second step correctly, after first jumping from the first to the third step and then back from the third step to the second step', () => {
+  it('should show the second step correctly, after first jumping from the first to the third step ' +
+    'and then back from the third step to the second step', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step

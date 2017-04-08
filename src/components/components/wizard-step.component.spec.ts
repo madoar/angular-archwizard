@@ -40,9 +40,9 @@ describe('WizardStepComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WizardComponent, WizardStepComponent, WizardNavigationBarComponent, WizardTestComponent, GoToStepDirective, OptionalStepDirective]
-    })
-      .compileComponents();
+      declarations: [WizardComponent, WizardStepComponent, WizardNavigationBarComponent,
+        WizardTestComponent, GoToStepDirective, OptionalStepDirective]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -79,7 +79,8 @@ describe('WizardStepComponent', () => {
     wizardTest.wizard.goToPreviousStep();
     wizardTestFixture.detectChanges();
 
-    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Backwards 2', 'enter Backwards 1']);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Backwards 2', 'enter Backwards 1']);
   });
 
   it('should enter third step after jumping over second optional step', () => {
@@ -94,7 +95,8 @@ describe('WizardStepComponent', () => {
     wizardTest.wizard.goToStep(0);
     wizardTestFixture.detectChanges();
 
-    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 3', 'exit Backwards 3', 'enter Backwards 1']);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 3', 'exit Backwards 3', 'enter Backwards 1']);
   });
 
   it('should enter second step after jumping over second optional step and the going back once', () => {
@@ -102,7 +104,8 @@ describe('WizardStepComponent', () => {
     wizardTest.wizard.goToPreviousStep();
     wizardTestFixture.detectChanges();
 
-    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 3', 'exit Backwards 3', 'enter Backwards 2']);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 3', 'exit Backwards 3', 'enter Backwards 2']);
   });
 
   it('should stay at first step correctly', () => {
