@@ -17,13 +17,12 @@ export class WizardStepComponent {
   /**
    * This value can either be a boolean or a function taking a moving direction and returning boolean.
    *
-   * If this value is a boolean the value says if the step can be exited.
-   * If this value is a function it will be called, when an exit operation has been called, like a button press.
-   * This function then receives the direction in which the step shall be left (Forwards, Backwards and Stay) and
-   * returns, if it's ok to leave the step in the given direction.
+   * If this value is a boolean the value says, if the step can be exited both in the forwards and backwards direction.
+   * If this value is a function, it will be called when an exit operation, like a button press, has been made.
+   * This function then receives the direction in which the step should be exited (e.g. Forwards, Backwards and Stay).
+   * Next it returns true, if it's ok to leave the step in the given direction and false otherwise.
    *
-   * This can be used to validate the content of the step before allowing the user to leave it
-   *
+   * This input can be used to validate the content of the step before allowing the user to leave it.
    * @type {boolean}
    */
   @Input()
