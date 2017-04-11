@@ -14,7 +14,8 @@ import {OptionalStepDirective} from '../directives/optional-step.directive';
   template: `
     <wizard>
       <wizard-step title='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">Step 1</wizard-step>
-      <wizard-step title='Steptitle 2' optionalStep (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">Step 2</wizard-step>
+      <wizard-step title='Steptitle 2' [canExit]="isValid"
+                   optionalStep (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">Step 2</wizard-step>
       <wizard-step title='Steptitle 3' (stepEnter)="enterInto($event, 3)" (stepExit)="exitFrom($event, 3)">Step 3</wizard-step>
     </wizard>
   `
@@ -22,6 +23,8 @@ import {OptionalStepDirective} from '../directives/optional-step.directive';
 class WizardTestComponent {
   @ViewChild(WizardComponent)
   public wizard: WizardComponent;
+
+  public isValid: any = true;
 
   public eventLog: Array<string> = new Array<string>();
 
@@ -113,5 +116,148 @@ describe('WizardStepComponent', () => {
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Stay 1', 'enter Stay 1']);
+  });
+
+  it('should not be able to leave the second step in any direction', () => {
+    wizardTest.isValid = false;
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Forwards)).toBe(false);
+    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Backwards)).toBe(false);
+    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Stay)).toBe(false);
+  });
+
+  it('should not be able to leave the second step in forwards direction', () => {
+    wizardTest.isValid = direction => direction !== MovingDirection.Forwards;
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Forwards)).toBe(false);
+    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Backwards)).toBe(true);
+    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Stay)).toBe(true);
+  });
+
+  it('should not be able to leave the second step in backwards direction', () => {
+    wizardTest.isValid = direction => direction !== MovingDirection.Backwards;
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Forwards)).toBe(true);
+    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Backwards)).toBe(false);
+    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Stay)).toBe(true);
+  });
+
+  it('should throw error when method "canExit" is malformed', () => {
+    wizardTest.isValid = 'String';
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+    expect(() => wizardTest.wizard.currentStep.canExitStep(MovingDirection.Forwards))
+      .toThrow(new Error(`Input value 'canExit' is neither a boolean nor a function`));
+  });
+
+  it('should not leave the second step in forward direction if it can\'t be exited', () => {
+    wizardTest.isValid = false;
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Stay 2', 'enter Stay 2']);
+  });
+
+  it('should not leave the second step in backward direction if it can\'t be exited', () => {
+    wizardTest.isValid = false;
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+
+    wizardTest.wizard.goToPreviousStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Stay 2', 'enter Stay 2']);
+  });
+
+  it('should not leave the second step in forward direction if it can\'t be exited in this direction', () => {
+    wizardTest.isValid = direction => direction === MovingDirection.Backwards;
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Stay 2', 'enter Stay 2']);
+  });
+
+  it('should not leave the second step in backward direction if it can\'t be exited in this direction', () => {
+    wizardTest.isValid = direction => direction === MovingDirection.Forwards;
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+
+    wizardTest.wizard.goToPreviousStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Stay 2', 'enter Stay 2']);
+  });
+
+  it('should leave the second step in forward direction if it can be exited in this direction', () => {
+    wizardTest.isValid = direction => direction === MovingDirection.Forwards;
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(2);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Forwards 2', 'enter Forwards 3']);
+  });
+
+  it('should leave the second step in backward direction if it can be exited in this direction', () => {
+    wizardTest.isValid = direction => direction === MovingDirection.Backwards;
+
+    wizardTest.wizard.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+
+    wizardTest.wizard.goToPreviousStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Backwards 2', 'enter Backwards 1']);
   });
 });

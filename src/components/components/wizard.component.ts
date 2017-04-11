@@ -99,6 +99,20 @@ export class WizardComponent implements AfterContentInit {
     return stepIndex;
   }
 
+  getMovingDirection(destinationStep: number): MovingDirection {
+    let movingDirection: MovingDirection;
+
+    if (destinationStep > this.currentStepIndex) {
+      movingDirection = MovingDirection.Forwards;
+    } else if (destinationStep < this.currentStepIndex) {
+      movingDirection = MovingDirection.Backwards;
+    } else {
+      movingDirection = MovingDirection.Stay;
+    }
+
+    return movingDirection;
+  }
+
   goToPreviousStep(): void {
     if (this.hasPreviousStep()) {
       this.goToStep(this.currentStepIndex - 1);
@@ -162,35 +176,35 @@ export class WizardComponent implements AfterContentInit {
     }
 
     // In which direction is a step transition done?
-    let movingDirection: MovingDirection;
-    if (nextStepIndex > this.currentStepIndex) {
-      movingDirection = MovingDirection.Forwards;
-    } else if (nextStepIndex < this.currentStepIndex) {
-      movingDirection = MovingDirection.Backwards;
+    const movingDirection: MovingDirection = this.getMovingDirection(nextStepIndex);
+
+    if (this.currentStep.canExitStep(movingDirection)) {
+      // is it possible to leave the current step in the given direction?
+      this.wizardSteps.forEach((wizardStep, index, array) => {
+        if (index === this.currentStepIndex) {
+          // finish processing old step
+          wizardStep.completed = true;
+        }
+
+        if (this.currentStepIndex > nextStepIndex && index > nextStepIndex) {
+          // if the next step is before the current step set all steps in between to incomplete
+          wizardStep.completed = false;
+        }
+      });
+
+      // leave current step
+      this.currentStep.stepExit.emit(movingDirection);
+      this.currentStep.selected = false;
+
+      // go to next step
+      this.currentStepIndex = nextStepIndex;
+      this.currentStep = nextStep;
+      this.currentStep.stepEnter.emit(movingDirection);
+      this.currentStep.selected = true;
     } else {
-      movingDirection = MovingDirection.Stay;
+      // if the current step can't be left, reenter the current step
+      this.currentStep.stepExit.emit(MovingDirection.Stay);
+      this.currentStep.stepEnter.emit(MovingDirection.Stay);
     }
-
-    this.wizardSteps.forEach((wizardStep, index, array) => {
-      if (index === this.currentStepIndex) {
-        // finish processing old step
-        wizardStep.completed = true;
-      }
-
-      if (this.currentStepIndex > nextStepIndex && index > nextStepIndex) {
-        // if the next step is before the current step set all steps in between to incomplete
-        wizardStep.completed = false;
-      }
-    });
-
-    // leave current step
-    this.currentStep.stepExit.emit(movingDirection);
-    this.currentStep.selected = false;
-
-    // go to next step
-    this.currentStepIndex = nextStepIndex;
-    this.currentStep = nextStep;
-    this.currentStep.stepEnter.emit(movingDirection);
-    this.currentStep.selected = true;
   }
 }

@@ -1,5 +1,6 @@
-import {Component, Input, Output, EventEmitter, HostBinding} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
 import {MovingDirection} from '../util/MovingDirection';
+import {isBoolean} from 'util';
 
 @Component({
   selector: 'wizard-step',
@@ -12,6 +13,21 @@ export class WizardStepComponent {
    */
   @Input()
   public title: string;
+
+  /**
+   * This value can either be a boolean or a function taking a moving direction and returning boolean.
+   *
+   * If this value is a boolean the value says if the step can be exited.
+   * If this value is a function it will be called, when an exit operation has been called, like a button press.
+   * This function then receives the direction in which the step shall be left (Forwards, Backwards and Stay) and
+   * returns, if it's ok to leave the step in the given direction.
+   *
+   * This can be used to validate the content of the step before allowing the user to leave it
+   *
+   * @type {boolean}
+   */
+  @Input()
+  private canExit: ((direction: MovingDirection) => boolean) | boolean = true;
 
   /**
    * This EventEmitter is called when this step is entered.
@@ -56,5 +72,23 @@ export class WizardStepComponent {
    */
   public optional = false;
 
-  constructor() { }
+  constructor() {
+  }
+
+  /**
+   * This method returns true, if this step can be exited and false otherwise.
+   * Because this method depends on the value canExit, it will throw an error, if canExit is neither a boolean
+   * nor a function.
+   * @param direction The direction in which this step should be left
+   * @returns {any}
+   */
+  canExitStep(direction: MovingDirection): boolean {
+    if (isBoolean(this.canExit)) {
+      return this.canExit as boolean;
+    } else if (this.canExit instanceof Function) {
+      return this.canExit(direction);
+    } else {
+      throw new Error(`Input value 'canExit' is neither a boolean nor a function`);
+    }
+  }
 }
