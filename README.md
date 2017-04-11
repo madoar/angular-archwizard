@@ -38,7 +38,6 @@ export class Module { }
 ```
 
 ## How to use the wizard
-
 To use the this wizard component in an angular 2 project simply add a wizard component to the html template of your component, like this:
 
 ```html
@@ -61,23 +60,35 @@ To use the this wizard component in an angular 2 project simply add a wizard com
 </wizard>
 ``` 
 
-### <wizard>
-`<wizard>...</wizard>` is the environment, in which you define your wizard.
-This environment must contain all steps that make up your wizard.
+### \<wizard\>
+The `<wizard></wizard>` environment is the environment, in which you define your wizard.
+This environment must contain all steps, that make up your wizard.
 It's possible to pass the following parameters to a wizard environment:
 
-Possible parameters:
+Possible `<wizard>` parameters:
 
 | Parameter name    | Possible Values                             | Default Value |
 | ----------------- | ------------------------------------------- | ------------- |
 | [navBarLocation]  | top &#124; bottom &#124; left &#124; right  | top           |
 
-### <wizard-step>
-`<wizard-step>...</wizard-step>` is the wizard step environment. 
-Every step that your wizard contains must be defined inside its own `<wizard-step></wizard-step>` environment.
+### \<wizard-step\>
+The `<wizard-step></wizard-step>` environment is the wizard step environment. 
+Every step that belongs to your wizard must be defined inside its own `<wizard-step></wizard-step>` environment.
+
+#### \[title\]
 A wizard must contain a title, which is shown in the navigation bar of the wizard. 
 The title of a step can be set by adding a `title` attribute to the step definition. 
 
+#### \[canExit\]
+If you have an additional check or validation you need to perform to decide, if the step can be exited (both to the next step and to the previous step),
+you can either pass a boolean or a function, taking a `MovingDirection` enum and returning a boolean, to the `[canExit]` attribute of the wizard step.
+This boolean or function is taken in account when an operation has been performed, that leads to a change of the current step.
+If `[canExit]` has been bound to a boolean, it needs to be true to leave the step either in both a forwards and backwards direction.
+If only exiting one direction should be covered, you can pass a function taking `MovingDirection` and returning a boolean to `[canExit]`.
+This function will then be called, with the direction in which the current step should be moved, whenever an operation has been performed, that leads to a change of the current step.
+It then returns true, when the step change should succeed and false otherwise.
+
+#### \(canEnter\)
 If you need to call a function to do some initialisation work before entering a wizard step you can add a `stepEnter` attribute to the wizard step environment like this:
 
 ```html
@@ -91,37 +102,49 @@ The event emitter will call the given function with a parameter that contains th
 If the user went backwards, like from the third step to the second or first step, then `MovingDirection.Backwards` will be passed to the function. 
 If the user went forwards `MovingDirection.Forwards` will be passed to the function.
 
-Similarly you can add a `stepExit` attribute to the wizard step environment, if you want to call a function every time a wizard step is exited 
+#### \(canExit\)
+Similar to `stepEnter` you can add a `stepExit` attribute to the wizard step environment, if you want to call a function every time a wizard step is exited 
 either by pressing on a component with a `nextStep` or `previousStep` directive, or by a click on the navigation bar. 
 `stepExit`, like `stepEnter` can call the given function with an argument of type `MovingDirection` that signalises in which direction the step was exited.
 
-Possible parameters:
+#### Parameter overview
+Possible `<wizard-step>` parameters:
 
-| Parameter name    | Possible Values                             | Default Value |
-| ----------------- | ------------------------------------------- | ------------- |
-| [title]           | string                                      | null          |
-| (stepEnter)       | function(MovingDirection)                   | null          |
-| (stepExit)        | function(MovingDirection)                   | null          |
+| Parameter name    | Possible Values                                   | Default Value |
+| ----------------- | ------------------------------------------------- | ------------- |
+| [title]           | string                                            | null          |
+| [canExit]         | function(MovingDirection): boolean &#124; boolean | true          |
+| (stepEnter)       | function(MovingDirection)                         | null          |
+| (stepExit)        | function(MovingDirection)                         | null          |
 
-### [optionalStep]
+### \[optionalStep\]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
 by adding the `optionalStep` directive to the step you want to declare as optional. 
 
-### [goToStep]
-In addition to the `previousStep` and `nextStep` directives the `goToStep` directive is available to move between steps.
-The `goToStep` directive must receive an argument, that tells the directive to which the button should link:
+### \[goToStep\]
+`ng2-archwizard` has three directives, that allow moving between steps.
+These directives are the `previousStep`, `nextStep` and `goToStep` directives.
+The `goToStep` directive needs to receive an argument, that tells the wizard to which step it should change, 
+when the element with the `goToStep` directive has been clicked.
+This argument has to be the zero-based index of the destination step:
 
 ```html
 <button goToStep="2" (finalize)="finalizeStep()">Go directly to the third Step</button>
 ```
 
-In the previous example the button will move the user automatically to the third step, after the user pressed onto it.
+In the previous example the button moves the user automatically to the third step, after the user pressed onto it.
 This makes it possible to directly jump to all already completed steps and to the first not completed optional or default (not optional) next step, 
 which will set the current as completed and makes it possible to jump over steps defined as optional steps.
 
-Like the `nextStep` directive the `goToStep` directive provides a `finalize` output, that will be called every time, 
-the current step was successfully left by clicking on the button containg the `goToStep` directive. 
+In addition to a static number you can also pass a local variable from your component typescript class, 
+that contains to which step a click on the element should change the current step of the wizard. 
+This can be useful if your step transitions depend on some application dependent logic, that changes depending on the user input.
 
+#### \(finalize\)
+If you want to call a function only after pressing on a element with a `goToStep` directive, you can do this, 
+by adding the function to the `finalize` attribute of the element with the `goToStep` directive.
+
+#### Parameter overview
 Possible parameters:
 
 | Parameter name    | Possible Values                             | Default Value |
@@ -129,28 +152,45 @@ Possible parameters:
 | [goToStep]        | WizardStep &#124; number &#124; string      | null          |
 | (finalize)        | function()                                  | null          |
 
-### [nextStep]
+### \[nextStep\]
 By adding a `nextStep` directive to a button or a link inside a step, you automatically add a `onClick` listener to the button or link, that leads to the next step.
 This listener will automatically change the currently selected wizard step to the next wizard step after a click on the component.
-
-If you want to call a function only after pressing on a component with a `nextStep` directive you can add the a function 
-to the component declaration of the component tagged with `nextStep` like this:
 
 ```html
 <button (finalize)="finalizeStep()" nextStep>Next Step</button>
 ```
 
-This leads to a call of the function `finalizeStep` every time, the button is pressed.
+#### \(finalize\)
+Like the `goToStep` directive the `nextStep` directive provides a `finalize` output, that is called every time
+the current step is successfully exited, by clicking on the element containing the `nextStep` directive.
 
+In the given code snipped above, a click on the button with the text `Next Step`, leads to a call of the function `finalizeStep` every time, the button has been pressed.
+
+#### Parameter overview
 Possible parameters:
 
 | Parameter name    | Possible Values                             | Default Value |
 | ----------------- | ------------------------------------------- | ------------- |
 | (finalize)        | function()                                  | null          |
 
-### [previousStep]
+### \[previousStep\]
 By adding a `previousStep` directive to a button or a link, you automatically add a `onClick` listener to the button or link, that changes your wizard to the previous step.
 This listener will automatically change the currently selected wizard step to the previous wizard step after a click on the component.
+
+```html
+<button (finalize)="finalizeStep()" previousStep>Previous Step</button>
+```
+
+#### \(finalize\)
+Like both the `goToStep` and `nextStep` directives the `previousStep` directives too provides a `finalize` output, that is called every time
+the current step is successfully exited, by clicking on the element containing the `previousStep` directive.
+
+#### Parameter overview
+Possible parameters:
+
+| Parameter name    | Possible Values                             | Default Value |
+| ----------------- | ------------------------------------------- | ------------- |
+| (finalize)        | function()                                  | null          |
 
 ## Example
 You can find an basic example project using ng2-archwizard in the [ng2-archwizard-demo](https://github.com/madoar/ng2-archwizard-demo) repository.
