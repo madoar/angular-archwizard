@@ -61,7 +61,7 @@
     "gulp": "^3.9.1",
     "gulp-inline-ng2-template": "^4.0.0",
     "gulp-less": "^3.3.0",
-    "gulp-ngc": "^0.2.0",
+    "gulp-ngc": "0.2.0",
     "html-loader": "^0.4.0",
     "html-webpack-plugin": "^2.28.0",
     "istanbul-instrumenter-loader": "^2.0.0",
