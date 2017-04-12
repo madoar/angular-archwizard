@@ -136,9 +136,18 @@ In the previous example the button moves the user automatically to the third ste
 This makes it possible to directly jump to all already completed steps and to the first not completed optional or default (not optional) next step, 
 which will set the current as completed and makes it possible to jump over steps defined as optional steps.
 
-In addition to a static number you can also pass a local variable from your component typescript class, 
+Alternatively to an absolute step index, it's also possible to set the destination wizard step as an offset to the source step:
+```html
+<button [goToStep]="{stepOffset: 1}" (finalize)="finalizeStep()">Go to the third Step</button>
+```
+In this example a click on the "Go to the third Step" button will move the user to the next step compared to the step the button belongs to.
+If the button is for example part of the second step, a click on it will move the user to the third step.
+When using offsets it's important to use `[]` around the `goToStep` directive to tell angular that the argument is to be interpreted as javascript.
+
+In addition to a static value you can also pass a local variable from your component typescript class, 
 that contains to which step a click on the element should change the current step of the wizard. 
 This can be useful if your step transitions depend on some application dependent logic, that changes depending on the user input.
+Here again it's important to use `[]` around the `goToStep` directive to tell angular that the argument is to be interpreted as javascript.  
 
 #### \(finalize\)
 If you want to call a function only after pressing on a element with a `goToStep` directive, you can do this, 
@@ -147,10 +156,10 @@ by adding the function to the `finalize` attribute of the element with the `goTo
 #### Parameter overview
 Possible parameters:
 
-| Parameter name    | Possible Values                             | Default Value |
-| ----------------- | ------------------------------------------- | ------------- |
-| [goToStep]        | WizardStep &#124; number &#124; string      | null          |
-| (finalize)        | function()                                  | null          |
+| Parameter name    | Possible Values                                           | Default Value |
+| ----------------- | --------------------------------------------------------- | ------------- |
+| [goToStep]        | WizardStep &#124; StepOffset &#124; number &#124; string  | null          |
+| (finalize)        | function()                                                | null          |
 
 ### \[nextStep\]
 By adding a `nextStep` directive to a button or a link inside a step, you automatically add a `onClick` listener to the button or link, that leads to the next step.
