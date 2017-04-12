@@ -31,6 +31,9 @@ import {GoToStepDirective} from './directives/go-to-step.directive';
     NextStepDirective,
     PreviousStepDirective,
     OptionalStepDirective,
+  ],
+  providers: [
+    WizardStepComponent
   ]
 })
 export class WizardModule {

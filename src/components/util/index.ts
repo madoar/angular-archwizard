@@ -3,3 +3,4 @@
  */
 
 export {MovingDirection} from './MovingDirection';
+export * from './StepOffset';

@@ -137,15 +137,13 @@ export class WizardComponent implements AfterContentInit {
     return this.hasStep(nextStepIndex) && this.canGoToStep(nextStepIndex);
   }
 
-  canGoToStep(inputStep: WizardStepComponent | number | string): boolean {
+  canGoToStep(inputStep: WizardStepComponent | number ): boolean {
     let nextStepIndex: number;
 
     if (inputStep instanceof WizardStepComponent) {
       nextStepIndex = this.getIndexOfStep(inputStep);
     } else if (isNumber(inputStep)) {
       nextStepIndex = inputStep as number;
-    } else if (isString(inputStep)) {
-      nextStepIndex = parseInt(inputStep as string, 10);
     }
 
     let result: boolean = this.hasStep(nextStepIndex);
@@ -160,7 +158,7 @@ export class WizardComponent implements AfterContentInit {
     return result;
   }
 
-  goToStep(inputStep: WizardStepComponent | number | string): void {
+  goToStep(inputStep: WizardStepComponent | number ): void {
     let nextStepIndex: number;
     let nextStep: WizardStepComponent;
 
@@ -169,9 +167,6 @@ export class WizardComponent implements AfterContentInit {
       nextStep = inputStep;
     } else if (isNumber(inputStep)) {
       nextStepIndex = inputStep as number;
-      nextStep = this.getStepAtIndex(nextStepIndex);
-    } else if (isString(inputStep)) {
-      nextStepIndex = parseInt(inputStep as string, 10);
       nextStep = this.getStepAtIndex(nextStepIndex);
     }
 

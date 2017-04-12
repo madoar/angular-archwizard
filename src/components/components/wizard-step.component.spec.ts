@@ -44,7 +44,8 @@ describe('WizardStepComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardComponent, WizardStepComponent, WizardNavigationBarComponent,
-        WizardTestComponent, GoToStepDirective, OptionalStepDirective]
+        WizardTestComponent, GoToStepDirective, OptionalStepDirective],
+      providers: [WizardStepComponent]
     }).compileComponents();
   }));
 

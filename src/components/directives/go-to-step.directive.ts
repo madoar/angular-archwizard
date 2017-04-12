@@ -5,6 +5,8 @@
 import {Directive, Output, HostListener, EventEmitter, Input} from '@angular/core';
 import {WizardComponent} from '../components/wizard.component';
 import {WizardStepComponent} from '../components/wizard-step.component';
+import {isStepOffset, StepOffset} from '../util/StepOffset';
+import {isNumber, isString} from 'util';
 
 @Directive({
   selector: '[goToStep]'
@@ -14,15 +16,33 @@ export class GoToStepDirective {
   public finalize = new EventEmitter();
 
   @Input()
-  public goToStep: WizardStepComponent | number | string;
+  private goToStep: WizardStepComponent | StepOffset | number | string;
 
-  constructor(private wizard: WizardComponent) { }
+  constructor(private wizard: WizardComponent, private wizardStep: WizardStepComponent) { }
+
+  get destinationStep(): WizardStepComponent | number {
+    let destinationStep: WizardStepComponent | number;
+
+    if (isNumber(this.goToStep)) {
+      destinationStep = this.goToStep as number;
+    } else if (isString(this.goToStep)) {
+      destinationStep = parseInt(this.goToStep as string, 10);
+    } else if (isStepOffset(this.goToStep)) {
+      destinationStep = this.wizard.getIndexOfStep(this.wizardStep) + this.goToStep.stepOffset;
+    } else if (this.goToStep instanceof WizardStepComponent) {
+      destinationStep = this.goToStep;
+    } else {
+      throw new Error(`Input 'goToStep' is neither a WizardStep, StepOffset, number or string`);
+    }
+
+    return destinationStep;
+  }
 
   @HostListener('click', ['$event']) onClick(): void {
-    if (this.wizard.canGoToStep(this.goToStep)) {
+    if (this.wizard.canGoToStep(this.destinationStep)) {
       this.finalize.emit();
 
-      this.wizard.goToStep(this.goToStep);
+      this.wizard.goToStep(this.destinationStep);
     }
   }
 }
