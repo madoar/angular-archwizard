@@ -2,7 +2,7 @@
  * Created by marc on 09.01.17.
  */
 
-import {Directive, Output, HostListener, EventEmitter, Input} from '@angular/core';
+import {Directive, Output, HostListener, EventEmitter, Input, Optional} from '@angular/core';
 import {WizardComponent} from '../components/wizard.component';
 import {WizardStepComponent} from '../components/wizard-step.component';
 import {isStepOffset, StepOffset} from '../util/StepOffset';
@@ -18,7 +18,7 @@ export class GoToStepDirective {
   @Input()
   private goToStep: WizardStepComponent | StepOffset | number | string;
 
-  constructor(private wizard: WizardComponent, private wizardStep: WizardStepComponent) { }
+  constructor(private wizard: WizardComponent, @Optional() private wizardStep: WizardStepComponent) { }
 
   get destinationStep(): WizardStepComponent | number {
     let destinationStep: WizardStepComponent | number;
@@ -27,7 +27,7 @@ export class GoToStepDirective {
       destinationStep = this.goToStep as number;
     } else if (isString(this.goToStep)) {
       destinationStep = parseInt(this.goToStep as string, 10);
-    } else if (isStepOffset(this.goToStep)) {
+    } else if (isStepOffset(this.goToStep) && this.wizardStep !== null) {
       destinationStep = this.wizard.getIndexOfStep(this.wizardStep) + this.goToStep.stepOffset;
     } else if (this.goToStep instanceof WizardStepComponent) {
       destinationStep = this.goToStep;
