@@ -137,19 +137,11 @@ export class WizardComponent implements AfterContentInit {
     return this.hasStep(nextStepIndex) && this.canGoToStep(nextStepIndex);
   }
 
-  canGoToStep(inputStep: WizardStepComponent | number ): boolean {
-    let nextStepIndex: number;
-
-    if (inputStep instanceof WizardStepComponent) {
-      nextStepIndex = this.getIndexOfStep(inputStep);
-    } else if (isNumber(inputStep)) {
-      nextStepIndex = inputStep as number;
-    }
-
-    let result: boolean = this.hasStep(nextStepIndex);
+  canGoToStep(stepIndex: number): boolean {
+    let result: boolean = this.hasStep(stepIndex);
 
     this.wizardSteps.forEach((wizardStep, index, array) => {
-      if (index < nextStepIndex && index !== this.currentStepIndex) {
+      if (index < stepIndex && index !== this.currentStepIndex) {
         // all steps before the next step, that aren't the current step, must be completed or optional
         result = result && (wizardStep.completed || wizardStep.optional);
       }
@@ -158,20 +150,11 @@ export class WizardComponent implements AfterContentInit {
     return result;
   }
 
-  goToStep(inputStep: WizardStepComponent | number ): void {
-    let nextStepIndex: number;
-    let nextStep: WizardStepComponent;
-
-    if (inputStep instanceof WizardStepComponent) {
-      nextStepIndex = this.getIndexOfStep(inputStep);
-      nextStep = inputStep;
-    } else if (isNumber(inputStep)) {
-      nextStepIndex = inputStep as number;
-      nextStep = this.getStepAtIndex(nextStepIndex);
-    }
+  goToStep(destinationStepIndex: number): void {
+    const destinationStep: WizardStepComponent = this.getStepAtIndex(destinationStepIndex);
 
     // In which direction is a step transition done?
-    const movingDirection: MovingDirection = this.getMovingDirection(nextStepIndex);
+    const movingDirection: MovingDirection = this.getMovingDirection(destinationStepIndex);
 
     if (this.currentStep.canExitStep(movingDirection)) {
       // is it possible to leave the current step in the given direction?
@@ -181,7 +164,7 @@ export class WizardComponent implements AfterContentInit {
           wizardStep.completed = true;
         }
 
-        if (this.currentStepIndex > nextStepIndex && index > nextStepIndex) {
+        if (this.currentStepIndex > destinationStepIndex && index > destinationStepIndex) {
           // if the next step is before the current step set all steps in between to incomplete
           wizardStep.completed = false;
         }
@@ -192,8 +175,8 @@ export class WizardComponent implements AfterContentInit {
       this.currentStep.selected = false;
 
       // go to next step
-      this.currentStepIndex = nextStepIndex;
-      this.currentStep = nextStep;
+      this.currentStepIndex = destinationStepIndex;
+      this.currentStep = destinationStep;
       this.currentStep.stepEnter.emit(movingDirection);
       this.currentStep.selected = true;
     } else {

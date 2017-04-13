@@ -188,7 +188,7 @@ describe('GoToStepDirective', () => {
       .query(By.css('wizard-step[title="Steptitle 3"]'))
       .queryAll(By.directive(GoToStepDirective))[0].injector.get(GoToStepDirective) as GoToStepDirective;
 
-    expect(firstGoToAttribute.destinationStep).toBe(wizardTest.wizard.getStepAtIndex(0));
+    expect(firstGoToAttribute.destinationStep).toBe(0);
     expect(secondGoToAttribute.destinationStep).toBe(1);
     expect(thirdGoToAttribute.destinationStep).toBe(2);
     expect(fourthGoToAttribute.destinationStep).toBe(0);

@@ -20,8 +20,8 @@ export class GoToStepDirective {
 
   constructor(private wizard: WizardComponent, @Optional() private wizardStep: WizardStepComponent) { }
 
-  get destinationStep(): WizardStepComponent | number {
-    let destinationStep: WizardStepComponent | number;
+  get destinationStep(): number {
+    let destinationStep: number;
 
     if (isNumber(this.goToStep)) {
       destinationStep = this.goToStep as number;
@@ -30,7 +30,7 @@ export class GoToStepDirective {
     } else if (isStepOffset(this.goToStep) && this.wizardStep !== null) {
       destinationStep = this.wizard.getIndexOfStep(this.wizardStep) + this.goToStep.stepOffset;
     } else if (this.goToStep instanceof WizardStepComponent) {
-      destinationStep = this.goToStep;
+      destinationStep = this.wizard.getIndexOfStep(this.goToStep);
     } else {
       throw new Error(`Input 'goToStep' is neither a WizardStep, StepOffset, number or string`);
     }
