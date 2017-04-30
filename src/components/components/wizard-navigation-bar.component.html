@@ -1,5 +1,9 @@
 <ul class="steps-indicator steps-{{numberOfWizardSteps()}}">
   <li *ngFor="let step of getWizardSteps()"
+      [attr.step-symbol]="step.navigationSymbol"
+      [ngStyle]="{
+        'font-family': step.navigationSymbolFontFamily
+      }"
       [ngClass]="{
         default: !step.completed && !step.selected,
         current: step.selected && !step.completed,

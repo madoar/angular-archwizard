@@ -14,6 +14,12 @@ export class WizardStepComponent {
   @Input()
   public title: string;
 
+  @Input()
+  public navigationSymbol: string = "";
+
+  @Input()
+  public navigationSymbolFontFamily: string = "Times New Roman";
+
   /**
    * This value can either be a boolean or a function taking a moving direction and returning boolean.
    *

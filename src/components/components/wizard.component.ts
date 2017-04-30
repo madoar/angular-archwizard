@@ -18,6 +18,12 @@ export class WizardComponent implements AfterContentInit {
   @Input()
   public navBarLocation = 'top';
 
+  @Input()
+  public navigationLayout = "small";
+
+  @Input()
+  public showNavigationSymbols = false;
+
   @HostBinding('class.horizontal')
   public get horizontalOrientation(): boolean {
     return this.navBarLocation === 'top' || this.navBarLocation === 'bottom';
