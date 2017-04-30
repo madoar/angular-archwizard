@@ -10,14 +10,13 @@
 /*
  dot definitions
  */
+@dot-border-width: 2px;
 
 // small definitions
-@small-dot-border-width: 0px;
 @small-dot-width: 14px;
 @small-dot-height: 14px;
 
 // big definitions
-@big-dot-border-width: 2px;
 @big-dot-width: 50px;
 @big-dot-height: 50px;
 
@@ -75,7 +74,7 @@
 
       li {
         &:not(:last-child):before {
-          .line(@small-dot-width, @small-dot-height, @small-dot-border-width, @wz-color-default);
+          .line(@small-dot-width, @small-dot-height, 0, @wz-color-default);
         }
 
         &:after {
@@ -113,7 +112,7 @@
 
       li {
         &:not(:last-child):before {
-          .line(@big-dot-width, @big-dot-height, @big-dot-border-width, @wz-color-default);
+          .line(@big-dot-width, @big-dot-height, 0, @wz-color-default);
         }
 
         &:after {
@@ -151,34 +150,34 @@
 
       li {
         &:not(:last-child):before {
-          .line(@big-dot-width, @big-dot-height, @big-dot-border-width, @wz-color-default);
+          .line(@big-dot-width, @big-dot-height, @dot-border-width, @wz-color-default);
         }
 
         &:after {
           .state-circle(@big-dot-width, @big-dot-height);
-          .state-circle-with-content(@big-dot-border-width, @wz-color-default);
+          .state-circle-with-content(@dot-border-width, @wz-color-default);
         }
       }
 
       // default steps shouldn't change when hovered, because they aren't clickable
       li.default a:hover {
-        .state-circle-with-content(@big-dot-border-width, @wz-color-default);
+        .state-circle-with-content(@dot-border-width, @wz-color-default);
       }
 
       li.current:after {
-        .state-circle-with-content(@big-dot-border-width, @wz-color-default);
+        .state-circle-with-content(@dot-border-width, @wz-color-default);
       }
 
       li.done:after {
-        .state-circle-with-content(@big-dot-border-width, @wz-color-done);
+        .state-circle-with-content(@dot-border-width, @wz-color-done);
       }
 
       li.optional:after {
-        .state-circle-with-content(@big-dot-border-width, @wz-color-optional);
+        .state-circle-with-content(@dot-border-width, @wz-color-optional);
       }
 
       li.editing:after {
-        .state-circle-with-content(@big-dot-border-width, @wz-color-editing);
+        .state-circle-with-content(@dot-border-width, @wz-color-editing);
       }
     }
   }
@@ -189,12 +188,12 @@
 
       li {
         &:not(:last-child):before {
-          .line(@big-dot-width, @big-dot-height, @big-dot-border-width, @wz-color-default);
+          .line(@big-dot-width, @big-dot-height, @dot-border-width, @wz-color-default);
         }
 
         &:after {
           .state-circle(@big-dot-width, @big-dot-height);
-          .state-circle-with-content(@big-dot-border-width, @wz-color-default);
+          .state-circle-with-content(@dot-border-width, @wz-color-default);
 
           content: attr(step-symbol);
         }
@@ -202,23 +201,23 @@
 
       // default steps shouldn't change when hovered, because they aren't clickable
       li.default a:hover {
-        .state-circle-with-content(@big-dot-border-width, @wz-color-default);
+        .state-circle-with-content(@dot-border-width, @wz-color-default);
       }
 
       li.current:after {
-        .state-circle-with-content(@big-dot-border-width, @wz-color-default);
+        .state-circle-with-content(@dot-border-width, @wz-color-default);
       }
 
       li.done:after {
-        .state-circle-with-content(@big-dot-border-width, @wz-color-done);
+        .state-circle-with-content(@dot-border-width, @wz-color-done);
       }
 
       li.optional:after {
-        .state-circle-with-content(@big-dot-border-width, @wz-color-optional);
+        .state-circle-with-content(@dot-border-width, @wz-color-optional);
       }
 
       li.editing:after {
-        .state-circle-with-content(@big-dot-border-width, @wz-color-editing);
+        .state-circle-with-content(@dot-border-width, @wz-color-editing);
       }
     }
   }
