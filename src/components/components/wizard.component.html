@@ -22,6 +22,10 @@
   *ngIf="navBarLocation == 'bottom' || navBarLocation == 'right'"
   [ngClass]="{
     vertical: navBarLocation == 'right',
-    horizontal: navBarLocation == 'bottom'
+    horizontal: navBarLocation == 'bottom',
+    small: navigationLayout == 'small',
+    'large-filled': navigationLayout == 'large-filled',
+    'large-empty': navigationLayout == 'large-empty',
+    'large-symbols': navigationLayout == 'large-symbols'
   }">
 </wizard-navigation-bar>

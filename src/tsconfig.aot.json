@@ -13,10 +13,8 @@
     "module": "es2015",
     "moduleResolution": "node",
     "sourceMap": true,
-    "mapRoot": "",
     "outDir": "./../dist",
-    "skipLibCheck": true,
-    "baseUrl": ""
+    "skipLibCheck": true
   },
   "exclude": [
     "**/*.spec.ts",
