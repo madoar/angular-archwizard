@@ -10,15 +10,28 @@ import {isBoolean} from 'util';
 export class WizardStepComponent {
   /**
    * This is the visible title of this step in the navigation bar of this wizard.
+   *
+   * @type {string}
    */
   @Input()
   public title: string;
 
+  /**
+   * The symbol to be shown inside the circle belonging to this wizard step in the navigation bar.
+   *
+   * @type {string}
+   */
   @Input()
-  public navigationSymbol: string = "";
+  public navigationSymbol = '';
 
+  /**
+   * The font in which the navigation symbol should be shown.
+   * If no font is specified the system one should be taken.
+   *
+   * @type {string}
+   */
   @Input()
-  public navigationSymbolFontFamily: string = "Times New Roman";
+  public navigationSymbolFontFamily: string;
 
   /**
    * This value can either be a boolean or a function taking a moving direction and returning boolean.

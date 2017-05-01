@@ -31,7 +31,7 @@ export class WizardComponent implements AfterContentInit {
    * @type {string}
    */
   @Input()
-  public navBarLayout = "small";
+  public navBarLayout = 'small';
 
   @HostBinding('class.horizontal')
   public get horizontalOrientation(): boolean {
