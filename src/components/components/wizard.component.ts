@@ -15,14 +15,23 @@ export class WizardComponent implements AfterContentInit {
   @ContentChildren(WizardStepComponent)
   public wizardSteps: QueryList<WizardStepComponent>;
 
+  /**
+   * The location of the navigation bar inside the wizard.
+   * This location can be either top, bottom, left or right
+   *
+   * @type {string}
+   */
   @Input()
   public navBarLocation = 'top';
 
+  /**
+   * The layout of the navigation bar inside the wizard.
+   * The layout can be either small, large-filled, large-empty or large-symbols
+   *
+   * @type {string}
+   */
   @Input()
-  public navigationLayout = "small";
-
-  @Input()
-  public showNavigationSymbols = false;
+  public navBarLayout = "small";
 
   @HostBinding('class.horizontal')
   public get horizontalOrientation(): boolean {
