@@ -77,7 +77,7 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('wizard > :last-child')).name).toBe('div');
 
     expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-empty': false, 'large-symbols': false });
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
     expect(wizard.classes).toEqual({ 'horizontal': true, 'vertical': false });
     expect(wizardStepsDiv.classes).toEqual({ 'wizard-steps': true, 'horizontal': true, 'vertical': false });
   });
@@ -97,7 +97,7 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('wizard > :last-child')).name).toBe('div');
 
     expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-empty': false, 'large-symbols': false });
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
     expect(wizard.classes).toEqual({ 'horizontal': true, 'vertical': false });
     expect(wizardStepsDiv.classes).toEqual({ 'wizard-steps': true, 'horizontal': true, 'vertical': false });
   });
@@ -117,7 +117,7 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('wizard > :last-child')).name).toBe('div');
 
     expect(navBar.classes).toEqual({ 'horizontal': false, 'vertical': true, 'small': true,
-      'large-filled': false, 'large-empty': false, 'large-symbols': false });
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
     expect(wizard.classes).toEqual({ 'horizontal': false, 'vertical': true });
     expect(wizardStepsDiv.classes).toEqual({ 'wizard-steps': true, 'horizontal': false, 'vertical': true });
   });
@@ -137,7 +137,7 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('wizard > :last-child')).name).toBe('wizard-navigation-bar');
 
     expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-empty': false, 'large-symbols': false });
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
     expect(wizard.classes).toEqual({ 'horizontal': true, 'vertical': false });
     expect(wizardStepsDiv.classes).toEqual({ 'wizard-steps': true, 'horizontal': true, 'vertical': false });
   });
@@ -157,7 +157,7 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('wizard > :last-child')).name).toBe('wizard-navigation-bar');
 
     expect(navBar.classes).toEqual({ 'horizontal': false, 'vertical': true, 'small': true,
-      'large-filled': false, 'large-empty': false, 'large-symbols': false });
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
     expect(wizard.classes).toEqual({ 'horizontal': false, 'vertical': true });
     expect(wizardStepsDiv.classes).toEqual({ 'wizard-steps': true, 'horizontal': false, 'vertical': true });
   });
