@@ -65,11 +65,31 @@ The `<wizard></wizard>` environment is the environment, in which you define your
 This environment must contain all steps, that make up your wizard.
 It's possible to pass the following parameters to a wizard environment:
 
+`ng2-archwizard` enables you to choose the location and the layout of the navigation bar inside your wizard.
+
+#### \[navBarLocation\]
+The location of the navigation bar inside the wizard can be specified with the `navBarLocation` input value.
+This value can be either `top`, `bottom`, `left` or `right`, where the values specify the position at which the navigation bar will be shown.
+In addition `top` and `bottom` will lead to a horizontal navigation bar, when `left` and `right` lead to a vertical navigation bar at the
+left or right side.
+If no `navBarLocation` is given the navigation bar will be shown at the top of the wizard.
+
+#### \[navBarLayout\]
+Another option that can be changed is the design or layout of the navigation bar.
+Currently five different navigation bar layouts exist.
+These are `small`, `large-filled`, `large-empty`, `large-filled-symbols` and `large-empty-symbols`.
+
+The first three layouts are showing circles with or without a background, for each step of your wizard, in the navigation bar. 
+The second two layouts `large-filled-symbols` and `large-empty-symbols` optionally add a symbol in the center of the circle, 
+for each step of your wizard, in the navigation bar, if such a symbol has been defined for the step.
+
+#### Parameter overview
 Possible `<wizard>` parameters:
 
-| Parameter name    | Possible Values                             | Default Value |
-| ----------------- | ------------------------------------------- | ------------- |
-| [navBarLocation]  | top &#124; bottom &#124; left &#124; right  | top           |
+| Parameter name    | Possible Values                                                                                       | Default Value |
+| ----------------- | ----------------------------------------------------------------------------------------------------- | ------------- |
+| [navBarLocation]  | top &#124; bottom &#124; left &#124; right                                                            | top           |
+| [navBarLayout]    | small &#124; large-filled &#124; large-empty &#124; large-filled-symbols &#124; large-empty-symbols   | small         |
 
 ### \<wizard-step\>
 The `<wizard-step></wizard-step>` environment is the wizard step environment. 
@@ -78,6 +98,35 @@ Every step that belongs to your wizard must be defined inside its own `<wizard-s
 #### \[title\]
 A wizard must contain a title, which is shown in the navigation bar of the wizard. 
 The title of a step can be set by adding a `title` attribute to the step definition. 
+
+#### \[navigationSymbol\]
+Sometimes it's useful to add a symbol in the center of the circle in the navigation bar, that belongs to the step.
+`ng2-archwizard` supports this through the `navigationSymbol` input attribute of the wizard step.
+
+Be aware, that not all layouts display the symbols. Only the layouts `large-filled-symbols` and `large-empty-symbols` display the symbols.
+
+If you want to add a `2` to the circle in the navigation bar belonging to the second step you can do it like this:
+
+```html
+<wizard-step title="Second Step" navigationSymbol="2"></wizard-step>
+```
+
+In addition to normal symbols it's also possible to use an icon from a font as a symbol.
+To use an icon from a font you need to first search for the unicode belonging to the icon you want to insert.
+Afterwards you can use the unicode in the [numeric character reference](https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references) 
+format as the symbol for the step.
+In addition you need to specify the font family, to which the icon belongs, otherwise the symbol can't be displayed correctly.
+
+#### \[navigationSymbolFontFamily\]
+To specify the font family of the used symbol inside the center of the circle in the navigation bar, that belongs to a step, you need to set the 
+`navigationSymbolFontFamily` input attribute of the step.
+
+For example, if you want to show the icon with the unicode `\f2dd` of [FontAwesome](http://fontawesome.io/) inside a step circle in the navigation bar, then 
+you need to set the `navigationSymbol` input attribute of the step to `&#xf2dd;` and the `navigationSymbolFontFamily` to `FontAwesome`:
+
+```html
+<wizard-step title="Second Step" navigationSymbol="&#xf2dd;" navigationSymbolFontFamily="FontAwesome"></wizard-step>
+```
 
 #### \[canExit\]
 If you have an additional check or validation you need to perform to decide, if the step can be exited (both to the next step and to the previous step),
@@ -110,12 +159,14 @@ either by pressing on a component with a `nextStep` or `previousStep` directive,
 #### Parameter overview
 Possible `<wizard-step>` parameters:
 
-| Parameter name    | Possible Values                                   | Default Value |
-| ----------------- | ------------------------------------------------- | ------------- |
-| [title]           | string                                            | null          |
-| [canExit]         | function(MovingDirection): boolean &#124; boolean | true          |
-| (stepEnter)       | function(MovingDirection)                         | null          |
-| (stepExit)        | function(MovingDirection)                         | null          |
+| Parameter name                | Possible Values                                   | Default Value |
+| ----------------------------- | ------------------------------------------------- | ------------- |
+| [title]                       | string                                            | null          |
+| [navigationSymbol]            | string                                            | ''            |
+| [navigationSymbolFontFamily]  | string                                            | null          |
+| [canExit]                     | function(MovingDirection): boolean &#124; boolean | true          |
+| (stepEnter)                   | function(MovingDirection)                         | null          |
+| (stepExit)                    | function(MovingDirection)                         | null          |
 
 ### \[optionalStep\]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
