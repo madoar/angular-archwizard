@@ -27,7 +27,7 @@
 
 // padding between text and baseline
 @text-margin-left: 15px;
-@text-height: 15px;
+@text-height: 14px;
 
 @distance-between-steps: 10px;
 
@@ -89,8 +89,6 @@
       padding: (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2 + @dot-baseline-distance + @small-dot-height);
 
       li {
-        line-height: @small-dot-height;
-
         &:not(:last-child):before {
           .line(@small-dot-width, @small-dot-height, 0, @wz-color-default);
         }
@@ -98,6 +96,10 @@
         &:after {
           .state-circle(@small-dot-width, @small-dot-height);
           .state-circle-with-background(@wz-color-default);
+        }
+
+        div {
+          min-height: @small-dot-height;
         }
       }
 
@@ -129,8 +131,6 @@
       padding: (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2 + @dot-baseline-distance + @big-dot-height);
 
       li {
-        line-height: @big-dot-height;
-
         &:not(:last-child):before {
           .line(@big-dot-width, @big-dot-height, 0, @wz-color-default);
         }
@@ -138,6 +138,10 @@
         &:after {
           .state-circle(@big-dot-width, @big-dot-height);
           .state-circle-with-background(@wz-color-default);
+        }
+
+        div {
+          min-height: @big-dot-height;
         }
       }
 
@@ -169,8 +173,6 @@
       padding: (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2 + @dot-baseline-distance + @big-dot-height);
 
       li {
-        line-height: @big-dot-height;
-
         &:not(:last-child):before {
           .line(@big-dot-width, @big-dot-height, @dot-border-width, @wz-color-default);
         }
@@ -178,6 +180,10 @@
         &:after {
           .state-circle(@big-dot-width, @big-dot-height);
           .state-circle-with-border(@dot-border-width, @wz-color-default);
+        }
+
+        div {
+          min-height: @big-dot-height + 2 * @dot-border-width;
         }
       }
 
@@ -209,8 +215,6 @@
       padding: (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2 + @dot-baseline-distance + @big-dot-height);
 
       li {
-        line-height: @big-dot-height;
-
         &:not(:last-child):before {
           .line(@big-dot-width, @big-dot-height, 0, @wz-color-default);
         }
@@ -220,6 +224,10 @@
           .state-circle-with-background-and-content(@wz-color-default);
 
           content: attr(step-symbol);
+        }
+
+        div {
+          min-height: @big-dot-height;
         }
       }
 
@@ -251,8 +259,6 @@
       padding: (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2 + @dot-baseline-distance + @big-dot-height);
 
       li {
-        line-height: @big-dot-height;
-
         &:not(:last-child):before {
           .line(@big-dot-width, @big-dot-height, @dot-border-width, @wz-color-default);
         }
@@ -262,6 +268,10 @@
           .state-circle-with-border-and-content(@dot-border-width, @wz-color-default);
 
           content: attr(step-symbol);
+        }
+
+        div {
+          min-height: @big-dot-height + 2 * @dot-border-width;
         }
       }
 
@@ -289,6 +299,10 @@
   }
 
   ul.steps-indicator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     list-style: none;
     margin: auto;
 
@@ -301,26 +315,31 @@
 
     li {
       position: relative;
-      display: table;
 
       &:not(:last-child) {
         margin-bottom: 0;
         padding-bottom: @distance-between-steps;
       }
 
-      a {
-        color: @wz-color-current;
-        float: left;
-        margin-left: @text-margin-left;
-        text-decoration: none;
-        text-transform: uppercase;
-        text-align: left;
-        font-weight: bold;
-        transition: 0.25s;
-        cursor: pointer;
+      div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
 
-        &:hover {
-          color: darken(@wz-color-current, 20%);
+        a {
+          color: @wz-color-current;
+          margin-left: @text-margin-left;
+          line-height: @text-height;
+          text-decoration: none;
+          text-transform: uppercase;
+          text-align: left;
+          font-weight: bold;
+          transition: 0.25s;
+          cursor: pointer;
+
+          &:hover {
+            color: darken(@wz-color-current, 20%);
+          }
         }
       }
     }
