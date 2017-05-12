@@ -30,9 +30,6 @@
 @text-height: 14px;
 
 :host.horizontal {
-  display: flex;
-  flex-direction: row;
-
   .line(@dot-width, @dot-height, @dot-border-width, @line-color) {
     background-color: @line-color;
     content: '';
@@ -272,6 +269,10 @@
   }
 
   ul.steps-indicator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
     right: 0;
     bottom: 0;
     left: 0;
@@ -335,7 +336,6 @@
 
     li {
       position: relative;
-      display: inline-block;
       margin: 0;
       padding: @text-padding-bottom 0 0 0;
 
