@@ -264,7 +264,7 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should move back to the first step from the second step, after clicking on the corresponding link', () => {
-    const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1) > a')).nativeElement;
+    const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1) a')).nativeElement;
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
 
@@ -280,7 +280,7 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should move back to the first step from the third step, after clicking on the corresponding link', () => {
-    const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1) > a')).nativeElement;
+    const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1) a')).nativeElement;
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
 
@@ -296,7 +296,7 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should move back to the second step from the third step, after clicking on the corresponding link', () => {
-    const goToSecondStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(2) > a')).nativeElement;
+    const goToSecondStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(2) a')).nativeElement;
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
 

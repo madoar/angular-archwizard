@@ -11,6 +11,8 @@
         editing: step.selected && step.completed,
         optional: step.optional && !step.completed && !step.selected
   }">
-    <a [goToStep]="step">{{step.title}}</a>
+    <div>
+      <a [goToStep]="step">{{step.title}}</a>
+    </div>
   </li>
 </ul>

@@ -27,12 +27,9 @@
 
 // padding between text and baseline
 @text-padding-bottom: 10px;
-@text-height: 15px;
+@text-height: 14px;
 
 :host.horizontal {
-  display: flex;
-  flex-direction: row;
-
   .line(@dot-width, @dot-height, @dot-border-width, @line-color) {
     background-color: @line-color;
     content: '';
@@ -272,6 +269,10 @@
   }
 
   ul.steps-indicator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
     right: 0;
     bottom: 0;
     left: 0;
@@ -335,22 +336,27 @@
 
     li {
       position: relative;
-      float: left;
       margin: 0;
       padding: @text-padding-bottom 0 0 0;
-      text-align: center;
-      line-height: @text-height;
 
-      a {
-        color: @wz-color-current;
-        text-decoration: none;
-        text-transform: uppercase;
-        font-weight: bold;
-        transition: 0.25s;
-        cursor: pointer;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-        &:hover {
-          color: darken(@wz-color-current, 20%);
+        a {
+          color: @wz-color-current;
+          line-height: @text-height;
+          text-decoration: none;
+          text-transform: uppercase;
+          text-align: center;
+          font-weight: bold;
+          transition: 0.25s;
+          cursor: pointer;
+
+          &:hover {
+            color: darken(@wz-color-current, 20%);
+          }
         }
       }
     }
