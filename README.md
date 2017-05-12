@@ -1,6 +1,6 @@
 # Overview ng2-archwizard
 
-[![Build Status](https://travis-ci.org/madoar/ng2-archwizard.png)](https://travis-ci.org/madoar/ng2-archwizard)
+[![Build Status](https://travis-ci.org/madoar/ng2-archwizard.svg?branch=master)](https://travis-ci.org/madoar/ng2-archwizard)
 [![Dependency Status](https://david-dm.org/madoar/ng2-archwizard.svg)](https://david-dm.org/madoar/ng2-archwizard)
 [![Dev-Dependency Status](https://david-dm.org/madoar/ng2-archwizard/dev-status.svg)](https://david-dm.org/madoar/ng2-archwizard?type=dev)
 [![Dependency Licence Status](https://dependencyci.com/github/madoar/ng2-archwizard/badge)](https://dependencyci.com/github/madoar/ng2-archwizard)
