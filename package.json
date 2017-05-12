@@ -13,12 +13,15 @@
     "url": "https://github.com/madoar/ng2-archwizard"
   },
   "bugs": {
-    "url": "https://github.com/madoar/ng2-archwizard"
+    "url": "https://github.com/madoar/ng2-archwizard/issues"
   },
   "keywords": [
     "angular2",
+    "angular4",
     "angular 2",
+    "angular 4",
     "ng2",
+    "ng4",
     "typescript",
     "wizard",
     "component"
