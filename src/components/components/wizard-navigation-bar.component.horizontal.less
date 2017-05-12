@@ -27,7 +27,7 @@
 
 // padding between text and baseline
 @text-padding-bottom: 10px;
-@text-height: 15px;
+@text-height: 14px;
 
 :host.horizontal {
   display: flex;
@@ -335,22 +335,28 @@
 
     li {
       position: relative;
-      float: left;
+      display: inline-block;
       margin: 0;
       padding: @text-padding-bottom 0 0 0;
-      text-align: center;
-      line-height: @text-height;
 
-      a {
-        color: @wz-color-current;
-        text-decoration: none;
-        text-transform: uppercase;
-        font-weight: bold;
-        transition: 0.25s;
-        cursor: pointer;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-        &:hover {
-          color: darken(@wz-color-current, 20%);
+        a {
+          color: @wz-color-current;
+          line-height: @text-height;
+          text-decoration: none;
+          text-transform: uppercase;
+          text-align: center;
+          font-weight: bold;
+          transition: 0.25s;
+          cursor: pointer;
+
+          &:hover {
+            color: darken(@wz-color-current, 20%);
+          }
         }
       }
     }
