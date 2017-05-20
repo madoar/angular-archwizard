@@ -1,6 +1,6 @@
 {
   "name": "ng2-archwizard",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "license": "MIT",
   "description": "An angular 2 module containing a wizard component and its supporting components and directives",
   "homepage": "https://github.com/madoar/ng2-archwizard",
@@ -105,6 +105,7 @@
     "zone.js": "^0.8.5"
   },
   "files": [
-    "dist"
+    "dist",
+    "index.ts"
   ]
 }
