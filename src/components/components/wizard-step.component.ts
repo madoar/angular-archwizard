@@ -1,23 +1,22 @@
 import {Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
 import {MovingDirection} from '../util/MovingDirection';
 import {isBoolean} from 'util';
+import {WizardStep} from '../util/WizardStep';
 
 @Component({
   selector: 'wizard-step',
   templateUrl: 'wizard-step.component.html',
   styleUrls: ['wizard-step.component.css']
 })
-export class WizardStepComponent {
+export class WizardStepComponent implements WizardStep {
   /**
-   * This is the visible title of this step in the navigation bar of this wizard.
-   *
-   * @type {string}
+   * The visible title of this step in the navigation bar of this wizard.
    */
   @Input()
   public title: string;
 
   /**
-   * The symbol to be shown inside the circle belonging to this wizard step in the navigation bar.
+   * The symbol which is visible inside the circle belonging to this wizard step in the navigation bar.
    *
    * @type {string}
    */
@@ -27,8 +26,6 @@ export class WizardStepComponent {
   /**
    * The font in which the navigation symbol should be shown.
    * If no font is specified the system one should be taken.
-   *
-   * @type {string}
    */
   @Input()
   public navigationSymbolFontFamily: string;
@@ -45,12 +42,13 @@ export class WizardStepComponent {
    * @type {boolean}
    */
   @Input()
-  private canExit: ((direction: MovingDirection) => boolean) | boolean = true;
+  public canExit: ((direction: MovingDirection) => boolean) | boolean = true;
 
   /**
    * This EventEmitter is called when this step is entered.
    * The bound method should do initializing work.
-   * @type {EventEmitter<void>}
+   *
+   * @type {EventEmitter<MovingDirection>}
    */
   @Output()
   public stepEnter = new EventEmitter<MovingDirection>();
@@ -58,26 +56,11 @@ export class WizardStepComponent {
   /**
    * This EventEmitter is called when this step is exited.
    * The bound method should do cleanup work.
-   * @type {EventEmitter<void>}
+   *
+   * @type {EventEmitter<MovingDirection>}
    */
   @Output()
   public stepExit = new EventEmitter<MovingDirection>();
-
-  /**
-   * True if this step has been completed.
-   * All steps previous to the currently selected step must be completed.
-   * @type {boolean}
-   */
-  @HostBinding('class.done')
-  public completed = false;
-
-  /**
-   * True if this step is currently selected and therefore currently visible to the user.
-   * Always one step is selected at any time.
-   * @type {boolean}
-   */
-  @HostBinding('class.current')
-  public selected = false;
 
   @HostBinding('hidden')
   public get hidden(): boolean {
@@ -85,7 +68,24 @@ export class WizardStepComponent {
   }
 
   /**
+   * True if this step has been completed.
+   * All steps previous to the currently selected step must be completed.
+   *
+   * @type {boolean}
+   */
+  public completed = false;
+
+  /**
+   * True if this step is currently selected and therefore currently visible to the user.
+   * Always one step is selected at any time.
+   *
+   * @type {boolean}
+   */
+  public selected = false;
+
+  /**
    * True if this step is optional.
+   *
    * @type {boolean}
    */
   public optional = false;
@@ -97,6 +97,7 @@ export class WizardStepComponent {
    * This method returns true, if this step can be exited and false otherwise.
    * Because this method depends on the value canExit, it will throw an error, if canExit is neither a boolean
    * nor a function.
+   *
    * @param direction The direction in which this step should be left
    * @returns {any}
    */

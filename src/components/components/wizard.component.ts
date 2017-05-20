@@ -1,7 +1,8 @@
-import {Component, ContentChildren, QueryList, AfterContentInit, Input, HostBinding} from '@angular/core';
+import {AfterContentInit, Component, ContentChild, ContentChildren, HostBinding, Input, QueryList} from '@angular/core';
 import {WizardStepComponent} from './wizard-step.component';
-import {isNumber, isString} from 'util';
 import {MovingDirection} from '../util/MovingDirection';
+import {SuccessStepComponent} from './success-step.component';
+import {WizardStep} from '../util/WizardStep';
 
 @Component({
   selector: 'wizard',
@@ -14,6 +15,19 @@ export class WizardComponent implements AfterContentInit {
    */
   @ContentChildren(WizardStepComponent)
   public wizardSteps: QueryList<WizardStepComponent>;
+
+  @ContentChild(SuccessStepComponent)
+  public successStep: SuccessStepComponent;
+
+  public get allSteps(): Array<WizardStep> {
+    const steps: Array<WizardStep> = this.wizardSteps.toArray();
+
+    if (this.successStep) {
+      steps.push(this.successStep);
+    }
+
+    return steps;
+  }
 
   /**
    * The location of the navigation bar inside the wizard.
@@ -57,16 +71,18 @@ export class WizardComponent implements AfterContentInit {
    *
    * If this wizard contains no steps, currentStep is null
    */
-  public currentStep: WizardStepComponent;
+  public currentStep: WizardStep;
+
+  public completed: boolean;
 
   constructor() {
   }
 
   ngAfterContentInit(): void {
-    if (this.wizardSteps && this.wizardSteps.length > 0) {
+    if (this.allSteps && this.allSteps.length > 0) {
       this.currentStepIndex = 0;
 
-      this.currentStep = this.wizardSteps.first;
+      this.currentStep = this.allSteps[0];
       this.currentStep.stepEnter.emit(MovingDirection.Forwards);
       this.currentStep.completed = false;
       this.currentStep.selected = true;
@@ -79,7 +95,7 @@ export class WizardComponent implements AfterContentInit {
    * @returns {boolean} True if the given stepIndex is contained inside this wizard, false otherwise
    */
   hasStep(stepIndex: number): boolean {
-    return this.wizardSteps.length > 0 && 0 <= stepIndex && stepIndex < this.wizardSteps.length;
+    return this.allSteps.length > 0 && 0 <= stepIndex && stepIndex < this.allSteps.length;
   }
 
   hasPreviousStep(): boolean {
@@ -91,21 +107,21 @@ export class WizardComponent implements AfterContentInit {
   }
 
   isLastStep(): boolean {
-    return this.wizardSteps.length > 0 && this.currentStepIndex === this.wizardSteps.length - 1;
+    return this.allSteps.length > 0 && this.currentStepIndex === this.allSteps.length - 1;
   }
 
-  getStepAtIndex(stepIndex: number): WizardStepComponent {
+  getStepAtIndex(stepIndex: number): WizardStep {
     if (!this.hasStep(stepIndex)) {
       throw new Error(`Expected a known step, but got stepIndex: ${stepIndex}.`);
     }
 
-    return this.wizardSteps.find((item, index, array) => index === stepIndex);
+    return this.allSteps.find((item, index, array) => index === stepIndex);
   }
 
-  getIndexOfStep(step: WizardStepComponent): number {
+  getIndexOfStep(step: WizardStep): number {
     let stepIndex: number = -1;
 
-    this.wizardSteps.forEach((item, index, array) => {
+    this.allSteps.forEach((item, index, array) => {
       if (item === step) {
         stepIndex = index;
       }
@@ -155,7 +171,7 @@ export class WizardComponent implements AfterContentInit {
   canGoToStep(stepIndex: number): boolean {
     let result: boolean = this.hasStep(stepIndex);
 
-    this.wizardSteps.forEach((wizardStep, index, array) => {
+    this.allSteps.forEach((wizardStep, index, array) => {
       if (index < stepIndex && index !== this.currentStepIndex) {
         // all steps before the next step, that aren't the current step, must be completed or optional
         result = result && (wizardStep.completed || wizardStep.optional);
@@ -166,14 +182,14 @@ export class WizardComponent implements AfterContentInit {
   }
 
   goToStep(destinationStepIndex: number): void {
-    const destinationStep: WizardStepComponent = this.getStepAtIndex(destinationStepIndex);
+    const destinationStep: WizardStep = this.getStepAtIndex(destinationStepIndex);
 
     // In which direction is a step transition done?
     const movingDirection: MovingDirection = this.getMovingDirection(destinationStepIndex);
 
     if (this.currentStep.canExitStep(movingDirection)) {
       // is it possible to leave the current step in the given direction?
-      this.wizardSteps.forEach((wizardStep, index, array) => {
+      this.allSteps.forEach((wizardStep, index, array) => {
         if (index === this.currentStepIndex) {
           // finish processing old step
           wizardStep.completed = true;
