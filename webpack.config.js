@@ -4,7 +4,6 @@ var webpack = require('webpack');
 
 // Webpack Plugins
 var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
-var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -93,14 +92,14 @@ module.exports = function() {
 
 
       // all css required in src/app files will be merged in js files
-      {test: /\.css$/, exclude: root('src', 'style'), loader: ['to-string-loader', 'css-loader', 'postcss-loader']},
+      {test: /\.css$/, exclude: root('src', 'style'), loader: ['to-string-loader', 'css-loader']},
 
 
       // all less required in src/app files will be merged in js files
       {
         test: /\.less$/,
         exclude: root('src', 'style'),
-        loader: ['to-string-loader', 'css-loader', 'postcss-loader', 'less-loader']
+        loader: ['to-string-loader', 'css-loader', 'less-loader']
       },
 
 
@@ -108,7 +107,7 @@ module.exports = function() {
       {
         test: /\.(scss|sass)$/,
         exclude: root('src', 'style'),
-        loader: ['to-string-loader', 'css-loader', 'postcss-loader', 'sass-loader']
+        loader: ['to-string-loader', 'css-loader', 'sass-loader']
       },
 
       // support for .html as raw text
@@ -177,17 +176,7 @@ module.exports = function() {
          */
         sassLoader: {
           //includePaths: [path.resolve(__dirname, "node_modules/foundation-sites/scss")]
-        },
-        /**
-         * PostCSS
-         * Reference: https://github.com/postcss/autoprefixer-core
-         * Add vendor prefixes to your css
-         */
-        postcss: [
-          autoprefixer({
-            browsers: ['last 2 version']
-          })
-        ]
+        }
       }
     })
   ];
