@@ -220,4 +220,18 @@ export class WizardComponent implements AfterContentInit {
       this.currentStep.stepEnter.emit(MovingDirection.Stay);
     }
   }
+
+  reset(): void {
+    // reset the step internal state
+    this.allSteps.forEach((step, index) => {
+      step.completed = false;
+      step.selected = false;
+    });
+
+    // set the first step as the current step
+    this.currentStepIndex = 0;
+    this.currentStep = this.getStepAtIndex(0);
+    this.currentStep.selected = true;
+    this.currentStep.stepEnter.emit(MovingDirection.Forwards);
+  }
 }
