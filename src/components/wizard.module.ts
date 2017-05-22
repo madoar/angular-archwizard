@@ -8,7 +8,7 @@ import {PreviousStepDirective} from './directives/previous-step.directive';
 import {OptionalStepDirective} from './directives/optional-step.directive';
 import {WizardNavigationBarComponent} from './components/wizard-navigation-bar.component';
 import {GoToStepDirective} from './directives/go-to-step.directive';
-import {SuccessStepComponent} from './components/success-step.component';
+import {WizardCompletionStepComponent} from './components/wizard-completion-step.component';
 
 
 @NgModule({
@@ -16,7 +16,7 @@ import {SuccessStepComponent} from './components/success-step.component';
     WizardComponent,
     WizardStepComponent,
     WizardNavigationBarComponent,
-    SuccessStepComponent,
+    WizardCompletionStepComponent,
     GoToStepDirective,
     NextStepDirective,
     PreviousStepDirective,
@@ -29,7 +29,7 @@ import {SuccessStepComponent} from './components/success-step.component';
     WizardComponent,
     WizardStepComponent,
     WizardNavigationBarComponent,
-    SuccessStepComponent,
+    WizardCompletionStepComponent,
     GoToStepDirective,
     NextStepDirective,
     PreviousStepDirective,

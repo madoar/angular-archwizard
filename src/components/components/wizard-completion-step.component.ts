@@ -8,11 +8,11 @@ import {WizardComponent} from './wizard.component';
 import {WizardStep} from '../util/WizardStep';
 
 @Component({
-  selector: 'success-step',
-  templateUrl: 'success-step.component.html',
-  styleUrls: ['success-step.component.css']
+  selector: 'wizard-completion-step',
+  templateUrl: 'wizard-completion-step.component.html',
+  styleUrls: ['wizard-completion-step.component.css']
 })
-export class SuccessStepComponent implements WizardStep {
+export class WizardCompletionStepComponent implements WizardStep {
   /**
    * The visible title of this step in the navigation bar of this wizard
    */
