@@ -228,6 +228,9 @@ export class WizardComponent implements AfterContentInit {
       step.selected = false;
     });
 
+    // set the wizard to incomplete
+    this.completed = false;
+
     // set the first step as the current step
     this.currentStepIndex = 0;
     this.currentStep = this.getStepAtIndex(0);
