@@ -59,11 +59,17 @@ export class WizardCompletionStepComponent implements WizardStep {
   public selected = false;
   public optional = false;
 
-  constructor(wizard: WizardComponent) {
-    this.stepEnter.emit = direction => wizard.completed = true;
+  public canExit: ((direction: MovingDirection) => boolean) | boolean = false;
+
+  constructor(private wizard: WizardComponent) {
   }
 
-  canExitStep(direction: MovingDirection): boolean {
-    return false;
+  enter(direction: MovingDirection): void {
+    this.wizard.completed = true;
+    this.stepEnter.emit(direction);
+  }
+
+  exit(direction: MovingDirection): void {
+    // do nothing
   }
 }

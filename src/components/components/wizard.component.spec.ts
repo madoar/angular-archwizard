@@ -350,4 +350,17 @@ describe('WizardComponent', () => {
     checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
     expect(wizardTest.wizard.isLastStep()).toBe(true);
   });
+
+  it('should reset the wizard correctly', () => {
+    wizardTest.wizard.goToNextStep();
+    wizardTest.wizard.goToNextStep();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(2);
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
+
+    wizardTest.wizard.reset();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
+  });
 });

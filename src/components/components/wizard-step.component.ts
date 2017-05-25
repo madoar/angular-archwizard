@@ -93,21 +93,11 @@ export class WizardStepComponent implements WizardStep {
   constructor() {
   }
 
-  /**
-   * This method returns true, if this step can be exited and false otherwise.
-   * Because this method depends on the value canExit, it will throw an error, if canExit is neither a boolean
-   * nor a function.
-   *
-   * @param direction The direction in which this step should be left
-   * @returns {any}
-   */
-  canExitStep(direction: MovingDirection): boolean {
-    if (isBoolean(this.canExit)) {
-      return this.canExit as boolean;
-    } else if (this.canExit instanceof Function) {
-      return this.canExit(direction);
-    } else {
-      throw new Error(`Input value 'canExit' is neither a boolean nor a function`);
-    }
+  enter(direction: MovingDirection): void {
+    this.stepEnter.emit(direction);
+  }
+
+  exit(direction: MovingDirection): void {
+    this.stepExit.emit(direction);
   }
 }
