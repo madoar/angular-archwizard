@@ -214,10 +214,20 @@ describe('WizardComponent', () => {
 
     checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
     expect(wizardTest.wizard.canGoToNextStep()).toBe(false);
+
+    // should do nothing
+    wizardTest.wizard.goToNextStep();
+
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
   });
 
   it('should return correct can go to previous step', () => {
     expect(wizardTest.wizard.canGoToPreviousStep()).toBe(false);
+
+    // should do nothing
+    wizardTest.wizard.goToPreviousStep();
+
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
 
     wizardTest.wizard.goToNextStep();
 

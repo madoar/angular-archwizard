@@ -87,14 +87,7 @@ export class WizardComponent implements AfterContentInit {
   }
 
   ngAfterContentInit(): void {
-    if (this.allSteps && this.allSteps.length > 0) {
-      this.currentStepIndex = 0;
-
-      this.currentStep = this.allSteps[0];
-      this.currentStep.enter(MovingDirection.Forwards);
-      this.currentStep.completed = false;
-      this.currentStep.selected = true;
-    }
+    this.reset();
   }
 
   /**

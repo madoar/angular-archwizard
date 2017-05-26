@@ -353,4 +353,61 @@ describe('WizardNavigationBarComponent', () => {
     expect(goToSecondStepLink.classes.hasOwnProperty('default')).toBeTruthy('Second step label is clickable');
     expect(goToThirdStepLink.classes.hasOwnProperty('default')).toBeTruthy('Third step label is clickable');
   });
+
+  it('should use the \"small\" layout when no navigation bar layout is specified', () => {
+    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+
+    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': true,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
+  });
+
+  it('should use the \"small\" layout when it is specified', () => {
+    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+
+    wizardTest.wizard.navBarLayout = 'small';
+    wizardTestFixture.detectChanges();
+
+    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': true,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
+  });
+
+  it('should use the \"large-filled\" layout when it is specified', () => {
+    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+
+    wizardTest.wizard.navBarLayout = 'large-filled';
+    wizardTestFixture.detectChanges();
+
+    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
+      'large-filled': true, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
+  });
+
+  it('should use the \"large-empty\" layout when it is specified', () => {
+    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+
+    wizardTest.wizard.navBarLayout = 'large-empty';
+    wizardTestFixture.detectChanges();
+
+    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': true, 'large-empty-symbols': false });
+  });
+
+  it('should use the \"large-filled-symbols\" layout when it is specified', () => {
+    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+
+    wizardTest.wizard.navBarLayout = 'large-filled-symbols';
+    wizardTestFixture.detectChanges();
+
+    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
+      'large-filled': false, 'large-filled-symbols': true, 'large-empty': false, 'large-empty-symbols': false });
+  });
+
+  it('should use the \"large-empty-symbols\" layout when it is specified', () => {
+    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+
+    wizardTest.wizard.navBarLayout = 'large-empty-symbols';
+    wizardTestFixture.detectChanges();
+
+    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': true });
+  });
 });
