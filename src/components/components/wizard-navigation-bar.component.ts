@@ -1,6 +1,6 @@
-import {Component, QueryList} from '@angular/core';
+import {Component} from '@angular/core';
 import {WizardComponent} from './wizard.component';
-import {WizardStepComponent} from './wizard-step.component';
+import {WizardStep} from '../util/WizardStep';
 
 @Component({
   selector: 'wizard-navigation-bar',
@@ -11,11 +11,11 @@ export class WizardNavigationBarComponent {
 
   constructor(private wizard: WizardComponent) { }
 
-  getWizardSteps(): QueryList<WizardStepComponent> {
-    return this.wizard.wizardSteps;
+  get wizardSteps(): Array<WizardStep> {
+    return this.wizard.allSteps;
   }
 
-  numberOfWizardSteps(): number {
-    return this.wizard.wizardSteps.length;
+  get numberOfWizardSteps(): number {
+    return this.wizard.allSteps.length;
   }
 }

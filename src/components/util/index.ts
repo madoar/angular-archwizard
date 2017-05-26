@@ -3,4 +3,5 @@
  */
 
 export {MovingDirection} from './MovingDirection';
+export {WizardStep} from './WizardStep'
 export * from './StepOffset';

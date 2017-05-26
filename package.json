@@ -1,6 +1,6 @@
 {
   "name": "ng2-archwizard",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "license": "MIT",
   "description": "An angular 2 module containing a wizard component and its supporting components and directives",
   "homepage": "https://github.com/madoar/ng2-archwizard",
@@ -84,7 +84,6 @@
     "less-loader": "^4.0.3",
     "node-sass": "^4.5.0",
     "phantomjs-prebuilt": "^2.1.14",
-    "postcss-loader": "^1.3.0",
     "protractor": "^5.1.1",
     "raw-loader": "0.5.1",
     "reflect-metadata": "^0.1.9",
@@ -92,7 +91,7 @@
     "rimraf": "^2.6.1",
     "rxjs": "^5.1.1",
     "sass-loader": "^6.0.0",
-    "style-loader": "^0.17.0",
+    "style-loader": "^0.18.1",
     "to-string-loader": "^1.1.5",
     "ts-helpers": "^1.1.2",
     "tslint": "^5.0.0",
@@ -105,6 +104,7 @@
     "zone.js": "^0.8.5"
   },
   "files": [
-    "dist"
+    "dist",
+    "index.ts"
   ]
 }

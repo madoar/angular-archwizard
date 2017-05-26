@@ -1,15 +1,15 @@
-<ul class="steps-indicator steps-{{numberOfWizardSteps()}}">
-  <li *ngFor="let step of getWizardSteps()"
+<ul class="steps-indicator steps-{{numberOfWizardSteps}}">
+  <li *ngFor="let step of wizardSteps"
       [attr.step-symbol]="step.navigationSymbol"
       [ngStyle]="{
         'font-family': step.navigationSymbolFontFamily
       }"
       [ngClass]="{
-        default: !step.completed && !step.selected,
-        current: step.selected && !step.completed,
-        done: step.completed && !step.selected,
-        editing: step.selected && step.completed,
-        optional: step.optional && !step.completed && !step.selected
+        default: !step.optional && !step.completed && !step.selected && !wizard.completed,
+        current: (step.selected && !step.completed && !wizard.completed),
+        done: (step.completed && !step.selected) || wizard.completed,
+        editing: step.selected && step.completed && !wizard.completed,
+        optional: step.optional && !step.completed && !step.selected && !wizard.completed
   }">
     <div>
       <a [goToStep]="step">{{step.title}}</a>

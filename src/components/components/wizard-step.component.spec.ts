@@ -125,9 +125,7 @@ describe('WizardStepComponent', () => {
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(1);
-    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Forwards)).toBe(false);
-    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Backwards)).toBe(false);
-    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Stay)).toBe(false);
+    expect(wizardTest.wizard.currentStep.canExit).toBe(false);
   });
 
   it('should not be able to leave the second step in forwards direction', () => {
@@ -137,9 +135,9 @@ describe('WizardStepComponent', () => {
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(1);
-    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Forwards)).toBe(false);
-    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Backwards)).toBe(true);
-    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Stay)).toBe(true);
+    expect(wizardTest.wizard.canExitStep(wizardTest.wizard.currentStep, MovingDirection.Forwards)).toBe(false);
+    expect(wizardTest.wizard.canExitStep(wizardTest.wizard.currentStep, MovingDirection.Backwards)).toBe(true);
+    expect(wizardTest.wizard.canExitStep(wizardTest.wizard.currentStep, MovingDirection.Stay)).toBe(true);
   });
 
   it('should not be able to leave the second step in backwards direction', () => {
@@ -149,9 +147,9 @@ describe('WizardStepComponent', () => {
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(1);
-    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Forwards)).toBe(true);
-    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Backwards)).toBe(false);
-    expect(wizardTest.wizard.currentStep.canExitStep(MovingDirection.Stay)).toBe(true);
+    expect(wizardTest.wizard.canExitStep(wizardTest.wizard.currentStep, MovingDirection.Forwards)).toBe(true);
+    expect(wizardTest.wizard.canExitStep(wizardTest.wizard.currentStep, MovingDirection.Backwards)).toBe(false);
+    expect(wizardTest.wizard.canExitStep(wizardTest.wizard.currentStep, MovingDirection.Stay)).toBe(true);
   });
 
   it('should throw error when method "canExit" is malformed', () => {
@@ -161,8 +159,8 @@ describe('WizardStepComponent', () => {
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(1);
-    expect(() => wizardTest.wizard.currentStep.canExitStep(MovingDirection.Forwards))
-      .toThrow(new Error(`Input value 'canExit' is neither a boolean nor a function`));
+    expect(() => wizardTest.wizard.canExitStep(wizardTest.wizard.currentStep, MovingDirection.Forwards))
+      .toThrow(new Error(`Input value 'String' is neither a boolean nor a function`));
   });
 
   it('should not leave the second step in forward direction if it can\'t be exited', () => {

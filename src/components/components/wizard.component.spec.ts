@@ -214,10 +214,20 @@ describe('WizardComponent', () => {
 
     checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
     expect(wizardTest.wizard.canGoToNextStep()).toBe(false);
+
+    // should do nothing
+    wizardTest.wizard.goToNextStep();
+
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
   });
 
   it('should return correct can go to previous step', () => {
     expect(wizardTest.wizard.canGoToPreviousStep()).toBe(false);
+
+    // should do nothing
+    wizardTest.wizard.goToPreviousStep();
+
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
 
     wizardTest.wizard.goToNextStep();
 
@@ -349,5 +359,18 @@ describe('WizardComponent', () => {
 
     checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
     expect(wizardTest.wizard.isLastStep()).toBe(true);
+  });
+
+  it('should reset the wizard correctly', () => {
+    wizardTest.wizard.goToNextStep();
+    wizardTest.wizard.goToNextStep();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(2);
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
+
+    wizardTest.wizard.reset();
+
+    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
   });
 });
