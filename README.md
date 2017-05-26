@@ -168,6 +168,27 @@ Possible `<wizard-step>` parameters:
 | (stepEnter)                   | function(MovingDirection)                         | null          |
 | (stepExit)                    | function(MovingDirection)                         | null          |
 
+### \<wizard-completion-step\>
+In addition to the "normal" step component `<wizard-step>` it's also possible to define an optional `<wizard-completion-step>`.
+This wizard completion step is, if defined, always appended at the end of your wizard as its last step.
+It is meant as a step, which signalises the user that he successfully completed the wizard.
+When the wizard completion step has been entered by the user all wizard steps, including the optional steps, are marked as completed.
+In addition the user gets prevented from leaving the wizard completion step to another step after it has been entered. 
+
+The given parameters for the wizard completion step are identical to the normal wizard step.
+The only difference is, that it it isn't possible to pass a `(stepExit)` and `[canExit]` parameter to the wizard completion step, 
+because it can't be exited.
+
+#### Parameter overview
+Possible `<wizard-completion-step>` parameters:
+
+| Parameter name                | Possible Values                                   | Default Value |
+| ----------------------------- | ------------------------------------------------- | ------------- |
+| [title]                       | string                                            | null          |
+| [navigationSymbol]            | string                                            | ''            |
+| [navigationSymbolFontFamily]  | string                                            | null          |
+| (stepEnter)                   | function(MovingDirection)                         | null          |
+
 ### \[optionalStep\]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
 by adding the `optionalStep` directive to the step you want to declare as optional. 
