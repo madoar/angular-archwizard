@@ -6,4 +6,5 @@ export {GoToStepDirective} from './go-to-step.directive';
 export {NextStepDirective} from './next-step.directive';
 export {PreviousStepDirective} from './previous-step.directive';
 export {OptionalStepDirective} from './optional-step.directive';
+export {WizardStepTitleDirective} from './wizard-step-title.directive';
 

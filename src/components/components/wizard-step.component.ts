@@ -1,7 +1,7 @@
-import {Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
+import {Component, ContentChild, EventEmitter, HostBinding, Input, Output} from '@angular/core';
 import {MovingDirection} from '../util/MovingDirection';
-import {isBoolean} from 'util';
 import {WizardStep} from '../util/WizardStep';
+import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 
 @Component({
   selector: 'wizard-step',
@@ -9,6 +9,9 @@ import {WizardStep} from '../util/WizardStep';
   styleUrls: ['wizard-step.component.css']
 })
 export class WizardStepComponent implements WizardStep {
+  @ContentChild(WizardStepTitleDirective)
+  public titleTemplate: WizardStepTitleDirective;
+
   /**
    * The visible title of this step in the navigation bar of this wizard.
    */

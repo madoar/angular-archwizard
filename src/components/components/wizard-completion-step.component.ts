@@ -2,10 +2,11 @@
  * Created by marc on 20.05.17.
  */
 
-import {Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
+import {Component, ContentChild, EventEmitter, HostBinding, Input, Output} from '@angular/core';
 import {MovingDirection} from '../util/MovingDirection';
 import {WizardComponent} from './wizard.component';
 import {WizardStep} from '../util/WizardStep';
+import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 
 @Component({
   selector: 'wizard-completion-step',
@@ -13,6 +14,9 @@ import {WizardStep} from '../util/WizardStep';
   styleUrls: ['wizard-completion-step.component.css']
 })
 export class WizardCompletionStepComponent implements WizardStep {
+  @ContentChild(WizardStepTitleDirective)
+  public titleTemplate: WizardStepTitleDirective;
+
   /**
    * The visible title of this step in the navigation bar of this wizard
    */

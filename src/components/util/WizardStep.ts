@@ -1,4 +1,5 @@
 import {MovingDirection} from './MovingDirection';
+import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 
 /**
  * Basic functionality every wizard step needs to provide
@@ -6,7 +7,14 @@ import {MovingDirection} from './MovingDirection';
 export interface WizardStep {
   /**
    * A title property, which contains the title of the step.
-   * This title is then shown inside the navigation bar
+   * This title is then shown inside the navigation bar.
+   * Compared to ´title´ this property can contain any html content and not only plain text
+   */
+  titleTemplate: WizardStepTitleDirective,
+
+  /**
+   * A title property, which contains the title of the step.
+   * This title is only shown inside the navigation bar, if ´titleTemplate´ is not defined or null.
    */
   title: string,
 
