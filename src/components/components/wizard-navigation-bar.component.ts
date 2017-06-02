@@ -2,19 +2,38 @@ import {Component} from '@angular/core';
 import {WizardComponent} from './wizard.component';
 import {WizardStep} from '../util/WizardStep';
 
+/**
+ * The wizard navigation bar
+ *
+ * @author Marc Arndt
+ */
 @Component({
   selector: 'wizard-navigation-bar',
   templateUrl: 'wizard-navigation-bar.component.html',
   styleUrls: ['wizard-navigation-bar.component.horizontal.less', 'wizard-navigation-bar.component.vertical.less']
 })
 export class WizardNavigationBarComponent {
-
+  /**
+   * Constructor
+   *
+   * @param wizard The wizard, which includes this navigation bar
+   */
   constructor(private wizard: WizardComponent) { }
 
+  /**
+   * Returns all [[WizardStep]]s contained in the wizard
+   *
+   * @returns {Array<WizardStep>} An array containing all [[WizardStep]]s
+   */
   get wizardSteps(): Array<WizardStep> {
     return this.wizard.allSteps;
   }
 
+  /**
+   * Returns the number of wizard steps, that need to be displaced in the navigation bar
+   *
+   * @returns {number} The number of wizard steps to be displayed
+   */
   get numberOfWizardSteps(): number {
     return this.wizard.allSteps.length;
   }

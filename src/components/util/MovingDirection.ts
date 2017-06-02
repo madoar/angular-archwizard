@@ -1,9 +1,7 @@
 /**
- * Created by marc on 04.01.17.
- */
-
-/**
  * The direction in which a step transition was made
+ *
+ * @author Marc Arndt
  */
 export enum MovingDirection {
   /**
@@ -17,5 +15,5 @@ export enum MovingDirection {
   /**
    * No step transition was done
    */
-  Stay,
+  Stay
 }

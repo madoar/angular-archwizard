@@ -2,19 +2,21 @@ import {MovingDirection} from './MovingDirection';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 
 /**
- * Basic functionality every wizard step needs to provide
+ * Basic functionality every type of wizard step needs to provide
+ *
+ * @author Marc Arndt
  */
 export interface WizardStep {
   /**
    * A title property, which contains the title of the step.
    * This title is then shown inside the navigation bar.
-   * Compared to ´title´ this property can contain any html content and not only plain text
+   * Compared to `title` this property can contain any html content and not only plain text
    */
   titleTemplate: WizardStepTitleDirective,
 
   /**
    * A title property, which contains the title of the step.
-   * This title is only shown inside the navigation bar, if ´titleTemplate´ is not defined or null.
+   * This title is only shown inside the navigation bar, if `titleTemplate` is not defined or null.
    */
   title: string,
 
@@ -25,7 +27,7 @@ export interface WizardStep {
   navigationSymbol: string,
 
   /**
-   * The font family belonging to the ´navigationSymbol´.
+   * The font family belonging to the `navigationSymbol`.
    * If no font family is specified, null should be used
    */
   navigationSymbolFontFamily: string,
@@ -46,7 +48,7 @@ export interface WizardStep {
   optional: boolean,
 
   /**
-   * A function, taking a ´MovingDirection´, or boolean returning true, if the step can be exited and false otherwise.
+   * A function, taking a [[MovingDirection]], or boolean returning true, if the step can be exited and false otherwise.
    */
   canExit: ((direction: MovingDirection) => boolean) | boolean,
 

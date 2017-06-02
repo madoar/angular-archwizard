@@ -8,6 +8,11 @@ import {WizardCompletionStepComponent} from './wizard-completion-step.component'
 import {WizardStep} from '../util/WizardStep';
 import {isBoolean} from 'util';
 
+/**
+ * The main component of the wizard
+ *
+ * @author Marc Arndt
+ */
 @Component({
   selector: 'wizard',
   templateUrl: 'wizard.component.html',
@@ -27,6 +32,13 @@ export class WizardComponent implements AfterContentInit {
   @ContentChild(forwardRef(() => WizardCompletionStepComponent))
   public completionStep: WizardCompletionStepComponent;
 
+  /**
+   * Returns a list containing all steps inside this [[WizardComponent]].
+   * This list contains both the normal [[WizardStepComponent]] inside `wizardSteps` and the optional [[WizardCompletionStepComponent]]
+   * inside `completionStep`
+   *
+   * @returns {Array<WizardStep>} A list containing all steps inside this wizard
+   */
   public get allSteps(): Array<WizardStep> {
     const steps: Array<WizardStep> = this.wizardSteps.toArray();
 
@@ -55,11 +67,23 @@ export class WizardComponent implements AfterContentInit {
   @Input()
   public navBarLayout = 'small';
 
+  /**
+   * Returns true if this wizard uses a horizontal orientation.
+   * The wizard uses a horizontal orientation, iff the navigation bar is shown at the top or bottom of this wizard
+   *
+   * @returns {boolean} True if this wizard uses a horizontal orientation
+   */
   @HostBinding('class.horizontal')
   public get horizontalOrientation(): boolean {
     return this.navBarLocation === 'top' || this.navBarLocation === 'bottom';
   }
 
+  /**
+   * Returns true if this wizard uses a vertical orientation.
+   * The wizard uses a vertical orientation, iff the navigation bar is shown at the left or right of this wizard
+   *
+   * @returns {boolean} True if this wizard uses a vertical orientation
+   */
   @HostBinding('class.vertical')
   public get verticalOrientation(): boolean {
     return this.navBarLocation === 'left' || this.navBarLocation === 'right';
@@ -81,36 +105,69 @@ export class WizardComponent implements AfterContentInit {
    */
   public currentStep: WizardStep;
 
+  /**
+   * If this wizard has been completed, `completed` will be true
+   */
   public completed: boolean;
 
+  /**
+   * Constructor
+   */
   constructor() {
   }
 
+  /**
+   * Initialization work
+   */
   ngAfterContentInit(): void {
     this.reset();
   }
 
   /**
-   * Checks if a given index is inside the range of possible wizard steps inside this wizard
+   * Checks if a given index `stepIndex` is inside the range of possible wizard steps inside this wizard
+   *
    * @param stepIndex The to be checked index of a step inside this wizard
-   * @returns {boolean} True if the given stepIndex is contained inside this wizard, false otherwise
+   * @returns {boolean} True if the given `stepIndex` is contained inside this wizard, false otherwise
    */
   hasStep(stepIndex: number): boolean {
     return this.allSteps.length > 0 && 0 <= stepIndex && stepIndex < this.allSteps.length;
   }
 
+  /**
+   * Checks if this wizard has a previous step, compared to the current step
+   *
+   * @returns {boolean} True if this wizard has a previous step before the current step
+   */
   hasPreviousStep(): boolean {
     return this.hasStep(this.currentStepIndex - 1);
   }
 
+  /**
+   * Checks if this wizard has a next step, compared to the current step
+   *
+   * @returns {boolean} True if this wizard has a next step after the current step
+   */
   hasNextStep(): boolean {
     return this.hasStep(this.currentStepIndex + 1);
   }
 
+  /**
+   * Checks if this wizard is currently inside its last step
+   *
+   * @returns {boolean} True if the wizard is currently inside its last step
+   */
   isLastStep(): boolean {
     return this.allSteps.length > 0 && this.currentStepIndex === this.allSteps.length - 1;
   }
 
+  /**
+   * Finds the [[WizardStep]] at the given index `stepIndex`.
+   * If no [[WizardStep]] exists at the given index an Error is thrown
+   *
+   * @param stepIndex The given index
+   * @returns {undefined|WizardStep} The found [[WizardStep]] at the given index `stepIndex`
+   * @throws An `Error` is thrown, if the given index `stepIndex` doesn't exist
+   */
   getStepAtIndex(stepIndex: number): WizardStep {
     if (!this.hasStep(stepIndex)) {
       throw new Error(`Expected a known step, but got stepIndex: ${stepIndex}.`);
@@ -119,6 +176,13 @@ export class WizardComponent implements AfterContentInit {
     return this.allSteps.find((item, index, array) => index === stepIndex);
   }
 
+  /**
+   * Find the index of the given [[WizardStep]] `step`.
+   * If the given [[WizardStep]] is not contained inside this wizard, `-1` is returned
+   *
+   * @param step The given [[WizardStep]]
+   * @returns {number} The found index of `step` or `-1` if the step is not included in the wizard
+   */
   getIndexOfStep(step: WizardStep): number {
     let stepIndex: number = -1;
 
@@ -131,6 +195,12 @@ export class WizardComponent implements AfterContentInit {
     return stepIndex;
   }
 
+  /**
+   * Calculates the correct [[MovingDirection]] value for a given `destinationStep` compared to the `currentStepIndex`.
+   *
+   * @param destinationStep The given destination step
+   * @returns {MovingDirection} The calculated [[MovingDirection]]
+   */
   getMovingDirection(destinationStep: number): MovingDirection {
     let movingDirection: MovingDirection;
 
@@ -145,30 +215,52 @@ export class WizardComponent implements AfterContentInit {
     return movingDirection;
   }
 
+  /**
+   * Tries to transition the wizard to the previous step from the `currentStep`
+   */
   goToPreviousStep(): void {
     if (this.hasPreviousStep()) {
       this.goToStep(this.currentStepIndex - 1);
     }
   }
 
+  /**
+   * Tries to transition the wizard to the next step from the `currentStep`
+   */
   goToNextStep(): void {
     if (this.hasNextStep()) {
       this.goToStep(this.currentStepIndex + 1);
     }
   }
 
+  /**
+   * Checks if it's possible to transition to the previous step from the `currentStep`
+   *
+   * @returns {boolean} True if it's possible to transition to the previous step, false otherwise
+   */
   canGoToPreviousStep(): boolean {
     const previousStepIndex = this.currentStepIndex - 1;
 
     return this.hasStep(previousStepIndex) && this.canGoToStep(previousStepIndex);
   }
 
+  /**
+   * Checks if it's possible to transition to the next step from the `currentStep`
+   *
+   * @returns {boolean} True if it's possible to transition to the next step, false otherwise
+   */
   canGoToNextStep(): boolean {
     const nextStepIndex = this.currentStepIndex + 1;
 
     return this.hasStep(nextStepIndex) && this.canGoToStep(nextStepIndex);
   }
 
+  /**
+   * Checks if it's possible to transition to the step with the given `stepIndex` from the `currentStep`.
+   *
+   * @param stepIndex The to be checked step index
+   * @returns {boolean} True if it's possible to transition to the given `stepIndex`
+   */
   canGoToStep(stepIndex: number): boolean {
     let result: boolean =
       this.canExitStep(this.currentStep, this.getMovingDirection(stepIndex)) && this.hasStep(stepIndex);
@@ -183,6 +275,12 @@ export class WizardComponent implements AfterContentInit {
     return result;
   }
 
+  /**
+   * Tries to transition to the given `destinationStepIndex`.
+   * This will only fail, if the `currentStep` can't be left
+   *
+   * @param destinationStepIndex The index of the destination step
+   */
   goToStep(destinationStepIndex: number): void {
     const destinationStep: WizardStep = this.getStepAtIndex(destinationStepIndex);
 
@@ -219,6 +317,11 @@ export class WizardComponent implements AfterContentInit {
     }
   }
 
+  /**
+   * Resets the state of this wizard.
+   * A reset transitions the wizard automatically to the first step and sets all steps as incomplete.
+   * In addition the whole wizard is set as incomplete
+   */
   reset(): void {
     // reset the step internal state
     this.allSteps.forEach((step, index) => {
@@ -237,12 +340,14 @@ export class WizardComponent implements AfterContentInit {
   }
 
   /**
-   * This method returns true, if this step can be exited and false otherwise.
-   * Because this method depends on the value canExit, it will throw an error, if canExit is neither a boolean
+   * This method returns true, if the given step `wizardStep` can be exited and false otherwise.
+   * Because this method depends on the value `canExit`, it will throw an error, if `canExit` is neither a boolean
    * nor a function.
    *
+   * @param wizardStep The [[WizardStep]] to be checked
    * @param direction The direction in which this step should be left
-   * @returns {any}
+   * @returns {any} True if the given step `wizardStep` can be exited in the given direction, false otherwise
+   * @throws An `Error` is thrown if `wizardStep.canExit` is neither a function nor a boolean
    */
   public canExitStep(wizardStep: WizardStep, direction: MovingDirection): boolean {
     if (isBoolean(wizardStep.canExit)) {

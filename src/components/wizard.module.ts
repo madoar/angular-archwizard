@@ -12,7 +12,11 @@ import {OptionalStepDirective} from './directives/optional-step.directive';
 import {GoToStepDirective} from './directives/go-to-step.directive';
 import {WizardStepTitleDirective} from './directives/wizard-step-title.directive';
 
-
+/**
+ * The module of `ng2-archwizard`
+ *
+ * @author Marc Arndt
+ */
 @NgModule({
   declarations: [
     WizardComponent,
