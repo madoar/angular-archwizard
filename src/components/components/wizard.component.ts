@@ -9,7 +9,37 @@ import {WizardStep} from '../util/WizardStep';
 import {isBoolean} from 'util';
 
 /**
- * The main component of the wizard
+ * The `wizard` component defines the root component of a wizard.
+ * Through the setting of input parameters for the `wizard` component it's possible to change the location and size
+ * of its navigation bar.
+ *
+ * ### Syntax
+ * ```html
+ * <wizard [navBarLocation]="location of navigation bar" [navBarLayout]="layout of navigation bar">
+ *     ...
+ * </wizard>
+ * ```
+ *
+ * ### Example
+ *
+ * Without completion step:
+ *
+ * ```html
+ * <wizard navBarLocation="top" navBarLayout="small">
+ *     <wizard-step>...</wizard-step>
+ *     <wizard-step>...</wizard-step>
+ * </wizard>
+ * ```
+ *
+ * With completion step:
+ *
+ * ```html
+ * <wizard navBarLocation="top" navBarLayout="small">
+ *     <wizard-step>...</wizard-step>
+ *     <wizard-step>...</wizard-step>
+ *     <wizard-completion-step>...</wizard-completion-step>
+ * </wizard>
+ * ```
  *
  * @author Marc Arndt
  */
