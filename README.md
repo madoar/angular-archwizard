@@ -189,6 +189,24 @@ Possible `<wizard-completion-step>` parameters:
 | [navigationSymbolFontFamily]  | string                                            | null          |
 | (stepEnter)                   | function(MovingDirection)                         | null          |
 
+### \[wizardStepTitle\]
+Sometimes it's not enough to define a title with the `title` attribute in `<wizard-step>` and `<wizard-completion-step>`.
+One example for such a case is, if the title should be written in another font.
+Another example would be if it's desired that the title should be choosen depending on the available width of your screen or window.
+In such cases you may want to specify the html for the title of a wizard step yourself.
+This can be achieved by using the `[wizardStepTitle]` directive inside a wizard step on a `ng-template` component.
+
+```html
+<wizard-step (stepEnter)="enterStep($event)">
+  <ng-template wizardStepTitle>
+    <span class="hidden-sm-down">Delivery address</span>
+    <span class="hidden-md-up">Address</span>
+  </ng-template>
+</wizard-step>
+```
+
+Be aware, that you can only use `[wizardStepTitle]` together with Angular, because `ng-template` was introduced in Angular 4.
+
 ### \[optionalStep\]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
 by adding the `optionalStep` directive to the step you want to declare as optional. 
