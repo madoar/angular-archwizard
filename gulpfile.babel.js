@@ -71,7 +71,7 @@ gulp.task('typedoc', ['compile'], () => {
       mode: "file",
       module: "commonjs",
       target: "es6",
-      out: "doc",
+      out: "docs",
       preserveConstEnums: true,
       emitDecoratorMetadata: true,
       moduleResolution: "node",
