@@ -1,8 +1,56 @@
-import {Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
+import {Component, ContentChild, EventEmitter, HostBinding, Input, Output} from '@angular/core';
 import {MovingDirection} from '../util/MovingDirection';
-import {isBoolean} from 'util';
 import {WizardStep} from '../util/WizardStep';
+import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 
+/**
+ * The `wizard-step` component is used to define a normal step inside a wizard.
+ *
+ * ### Syntax
+ *
+ * With `title` input:
+ *
+ * ```html
+ * <wizard-step [title]="step title" [navigationSymbol]="symbol" [navigationSymbolFontFamily]="font-family"
+ *    [canExit]="deciding function" (stepEnter)="enter function" (stepExit)="exit function">
+ *    ...
+ * </wizard-step>
+ * ```
+ *
+ * With `wizardStepTitle` directive:
+ *
+ * ```html
+ * <wizard-step [navigationSymbol]="symbol" [navigationSymbolFontFamily]="font-family"
+ *    [canExit]="deciding function" (stepEnter)="enter function" (stepExit)="exit function">
+ *    <ng-template wizardStepTitle>
+ *        step title
+ *    </ng-template>
+ *    ...
+ * </wizard-step>
+ * ```
+ *
+ * ### Example
+ *
+ * With `title` input:
+ *
+ * ```html
+ * <wizard-step title="Address information" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ *    ...
+ * </wizard-step>
+ * ```
+ *
+ * With `wizardStepTitle` directive:
+ *
+ * ```html
+ * <wizard-step navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ *    <ng-template wizardStepTitle>
+ *        Address information
+ *    </ng-template>
+ * </wizard-step>
+ * ```
+ *
+ * @author Marc Arndt
+ */
 @Component({
   selector: 'wizard-step',
   templateUrl: 'wizard-step.component.html',
@@ -10,43 +58,38 @@ import {WizardStep} from '../util/WizardStep';
 })
 export class WizardStepComponent implements WizardStep {
   /**
-   * The visible title of this step in the navigation bar of this wizard.
+   * @inheritDoc
+   */
+  @ContentChild(WizardStepTitleDirective)
+  public titleTemplate: WizardStepTitleDirective;
+
+  /**
+   * @inheritDoc
    */
   @Input()
   public title: string;
 
   /**
-   * The symbol which is visible inside the circle belonging to this wizard step in the navigation bar.
-   *
-   * @type {string}
+   * @inheritDoc
    */
   @Input()
   public navigationSymbol = '';
 
   /**
-   * The font in which the navigation symbol should be shown.
-   * If no font is specified the system one should be taken.
+   * @inheritDoc
    */
   @Input()
   public navigationSymbolFontFamily: string;
 
   /**
-   * This value can either be a boolean or a function taking a moving direction and returning boolean.
-   *
-   * If this value is a boolean the value says, if the step can be exited both in the forwards and backwards direction.
-   * If this value is a function, it will be called when an exit operation, like a button press, has been made.
-   * This function then receives the direction in which the step should be exited (e.g. Forwards, Backwards and Stay).
-   * Next it returns true, if it's ok to leave the step in the given direction and false otherwise.
-   *
-   * This input can be used to validate the content of the step before allowing the user to leave it.
-   * @type {boolean}
+   * @inheritDoc
    */
   @Input()
   public canExit: ((direction: MovingDirection) => boolean) | boolean = true;
 
   /**
-   * This EventEmitter is called when this step is entered.
-   * The bound method should do initializing work.
+   * This EventEmitter is called when the step is entered.
+   * The bound method should be used to do initialization work.
    *
    * @type {EventEmitter<MovingDirection>}
    */
@@ -54,49 +97,56 @@ export class WizardStepComponent implements WizardStep {
   public stepEnter = new EventEmitter<MovingDirection>();
 
   /**
-   * This EventEmitter is called when this step is exited.
-   * The bound method should do cleanup work.
+   * This EventEmitter is called when the step is exited.
+   * The bound method can be used to do cleanup work.
    *
    * @type {EventEmitter<MovingDirection>}
    */
   @Output()
   public stepExit = new EventEmitter<MovingDirection>();
 
+  /**
+   * Returns if this wizard step should be visible to the user.
+   * If the step should be visible to the user false is returned, otherwise true
+   *
+   * @returns {boolean}
+   */
   @HostBinding('hidden')
   public get hidden(): boolean {
     return !this.selected;
   }
 
   /**
-   * True if this step has been completed.
-   * All steps previous to the currently selected step must be completed.
-   *
-   * @type {boolean}
+   * @inheritDoc
    */
   public completed = false;
 
   /**
-   * True if this step is currently selected and therefore currently visible to the user.
-   * Always one step is selected at any time.
-   *
-   * @type {boolean}
+   * @inheritDoc
    */
   public selected = false;
 
   /**
-   * True if this step is optional.
-   *
-   * @type {boolean}
+   * @inheritDoc
    */
   public optional = false;
 
+  /**
+   * Constructor
+   */
   constructor() {
   }
 
+  /**
+   * @inheritDoc
+   */
   enter(direction: MovingDirection): void {
     this.stepEnter.emit(direction);
   }
 
+  /**
+   * @inheritDoc
+   */
   exit(direction: MovingDirection): void {
     this.stepExit.emit(direction);
   }

@@ -12,7 +12,10 @@
         optional: step.optional && !step.completed && !step.selected && !wizard.completed
   }">
     <div>
-      <a [goToStep]="step">{{step.title}}</a>
+      <a [goToStep]="step">
+        <ng-container *ngIf="step.titleTemplate" [ngTemplateOutlet]="step.titleTemplate.templateRef"></ng-container>
+        <ng-container *ngIf="!step.titleTemplate">{{step.title}}</ng-container>
+      </a>
     </div>
   </li>
 </ul>

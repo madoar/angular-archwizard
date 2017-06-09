@@ -1,9 +1,13 @@
 /**
- * Created by marc on 04.01.17.
+ * The direction in which a step transition was made
+ *
+ * @author Marc Arndt
  */
 
 /**
- * The direction in which a step transition was made
+ * This enum contains the different possible moving directions in which a wizard can be traversed
+ *
+ * @author Marc Arndt
  */
 export enum MovingDirection {
   /**
@@ -17,5 +21,5 @@ export enum MovingDirection {
   /**
    * No step transition was done
    */
-  Stay,
+  Stay
 }

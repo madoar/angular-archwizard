@@ -2,6 +2,7 @@ import gulp from 'gulp';
 import ngc from 'gulp-ngc';
 import less from 'gulp-less';
 import inline from 'gulp-inline-ng2-template';
+import typedoc from 'gulp-typedoc';
 
 import rimraf from 'rimraf';
 
@@ -60,4 +61,23 @@ gulp.task('compile', ['inline'], () => {
   return ngc('tmp/tsconfig.aot.json');
 });
 
-gulp.task('default', ['cleanup', 'move-to-tmp', 'less', 'inline', 'compile']);
+/**
+ * create the typescript documentation in the "./doc" folder
+ */
+gulp.task('typedoc', ['compile'], () => {
+  return gulp
+    .src(["src/**/*.ts", '!src/**/*.spec.ts'])
+    .pipe(typedoc({
+      mode: "file",
+      module: "commonjs",
+      target: "es6",
+      out: "docs",
+      preserveConstEnums: true,
+      emitDecoratorMetadata: true,
+      moduleResolution: "node",
+      stripInternal: true,
+      experimentalDecorators: true
+    }));
+});
+
+gulp.task('default', ['cleanup', 'move-to-tmp', 'less', 'inline', 'compile', 'typedoc']);

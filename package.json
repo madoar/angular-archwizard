@@ -1,6 +1,6 @@
 {
   "name": "ng2-archwizard",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "license": "MIT",
   "description": "An angular 2 module containing a wizard component and its supporting components and directives",
   "homepage": "https://github.com/madoar/ng2-archwizard",
@@ -65,6 +65,7 @@
     "gulp-inline-ng2-template": "^4.0.0",
     "gulp-less": "^3.3.0",
     "gulp-ngc": "^0.3.0",
+    "gulp-typedoc": "^2.0.2",
     "html-loader": "^0.4.0",
     "html-webpack-plugin": "^2.28.0",
     "istanbul-instrumenter-loader": "^2.0.0",
@@ -96,6 +97,7 @@
     "ts-helpers": "^1.1.2",
     "tslint": "^5.0.0",
     "tslint-loader": "^3.5.1",
+    "typedoc": "^0.7.1",
     "typescript": "^2.2.2",
     "typings": "^2.1.0",
     "url-loader": "^0.5.6",
