@@ -2,8 +2,23 @@ import {Directive, OnInit} from '@angular/core';
 import {WizardStepComponent} from '../components/wizard-step.component';
 
 /**
- * A directive used to define an optional [[WizardStep]].
- * An optional [[WizardStep]] is a [[WizardStep]] that doesn't need to be completed to transition to later wizard steps
+ * The `optionalStep` directive can be used to define an optional `wizard-step`.
+ * An optional `wizard-step` is a [[WizardStepComponent]] that doesn't need to be completed to transition to later wizard steps.
+ * It's important to note, that this directive can only be used on a [[WizardStepComponent]] and not a [[WizardCompletionStepComponent]]
+ *
+ * ### Syntax
+ *
+ * <wizard-step optionalStep>
+ *     ...
+ * </wizard-step>
+ *
+ * ### Example
+ *
+ * <wizard-step title="Second step" optionalStep>
+ *     ...
+ * </wizard-step>
+ *
+ * @author Marc Arndt
  */
 @Directive({
   selector: 'wizard-step[optionalStep]'

@@ -2,7 +2,14 @@ import {Directive, HostListener} from '@angular/core';
 import {WizardComponent} from '../components/wizard.component';
 
 /**
- * A directive used to transition to the previous step from the current step
+ * The `previousStep` directive can be used to navigate to the previous step.
+ * Compared to the [[NextStepDirective]] it's important to note, that this directive doesn't contain a `finalize` output method.
+ *
+ * ### Syntax
+ *
+ * ```html
+ * <button previousStep>...</button>
+ * ```
  *
  * @author Marc Arndt
  */

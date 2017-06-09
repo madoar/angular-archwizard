@@ -3,6 +3,12 @@
  *
  * @author Marc Arndt
  */
+
+/**
+ * This enum contains the different possible moving directions in which a wizard can be traversed
+ *
+ * @author Marc Arndt
+ */
 export enum MovingDirection {
   /**
    * A forward step transition

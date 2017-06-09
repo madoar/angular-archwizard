@@ -13,7 +13,7 @@ import {GoToStepDirective} from './directives/go-to-step.directive';
 import {WizardStepTitleDirective} from './directives/wizard-step-title.directive';
 
 /**
- * The module of `ng2-archwizard`
+ * The module defining all the content inside `ng2-archwizard`
  *
  * @author Marc Arndt
  */

@@ -2,7 +2,13 @@ import {Directive, Output, HostListener, EventEmitter} from '@angular/core';
 import {WizardComponent} from '../components/wizard.component';
 
 /**
- * A directive used to transition to the next step from the current step
+ * The `nextStep` directive can be used to navigate to the next step.
+ *
+ * ### Syntax
+ *
+ * ```html
+ * <button nextStep (finalize)="finalize method">...</button>
+ * ```
  *
  * @author Marc Arndt
  */

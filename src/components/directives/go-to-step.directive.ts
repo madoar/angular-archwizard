@@ -10,8 +10,28 @@ import {isNumber, isString} from 'util';
 import {WizardStep} from '../util/WizardStep';
 
 /**
- * A directive used to navigate to a given step.
- * This step can be given in one of multiple representations
+ * The `goToStep` directive can be used to navigate to a given step.
+ * This step can be defined in one of multiple formats
+ *
+ * ### Syntax
+ *
+ * With absolute step index:
+ *
+ * ```html
+ * <button [goToStep]="absolute step index" (finalize)="finalize method">...</button>
+ * ```
+ *
+ * With a wizard step object:
+ *
+ * ```html
+ * <button [goToStep]="wizard step object" (finalize)="finalize method">...</button>
+ * ```
+ *
+ * With an offset to the defining step
+ *
+ * ```html
+ * <button [goToStep]="{ stepOffset: offset }" (finalize)="finalize method">...</button>
+ * ```
  *
  * @author Marc Arndt
  */
