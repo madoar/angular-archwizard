@@ -8,15 +8,19 @@ import {WizardStepComponent} from '../components/wizard-step.component';
  *
  * ### Syntax
  *
+ * ```html
  * <wizard-step optionalStep>
  *     ...
  * </wizard-step>
+ * ```
  *
  * ### Example
  *
+ * ```html
  * <wizard-step title="Second step" optionalStep>
  *     ...
  * </wizard-step>
+ * ```
  *
  * @author Marc Arndt
  */
