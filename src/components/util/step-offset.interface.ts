@@ -20,5 +20,5 @@ export interface StepOffset {
  * @returns {boolean} True if the given value implements [[StepOffset]] and false otherwise
  */
 export function isStepOffset(value: any): value is StepOffset {
-  return 'stepOffset' in value;
+  return value.hasOwnProperty('stepOffset');
 }

@@ -74,5 +74,9 @@ export abstract class WizardStep {
  * @returns {boolean} True if the given value implements interface [[WizardStep]]
  */
 export function isWizardStep(value: any): value is WizardStep {
-  return 'titleTemplate' in value && 'title' in value;
+  return value.hasOwnProperty('titleTemplate') &&
+    value.hasOwnProperty('title') &&
+    value.hasOwnProperty('completed') &&
+    value.hasOwnProperty('selected') &&
+    value.hasOwnProperty('optional');
 }
