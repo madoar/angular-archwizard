@@ -1,12 +1,9 @@
-/* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {QueryList, Component, ViewChild} from '@angular/core';
 import {WizardComponent} from './wizard.component';
-import {WizardStepComponent} from './wizard-step.component';
-import {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
-import {GoToStepDirective} from '../directives/go-to-step.directive';
 import {By} from '@angular/platform-browser';
 import {WizardStep} from '../util/wizard-step.interface';
+import {WizardModule} from '../wizard.module';
 
 @Component({
   selector: 'test-wizard',
@@ -49,8 +46,8 @@ describe('WizardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WizardComponent, WizardStepComponent, WizardNavigationBarComponent,
-        WizardTestComponent, GoToStepDirective ]
+      declarations: [WizardTestComponent],
+      imports: [WizardModule]
     }).compileComponents();
   }));
 

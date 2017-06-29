@@ -1,9 +1,6 @@
 /**
  * Created by marc on 29.06.17.
  */
-/**
- * Created by marc on 09.01.17.
- */
 import {Component, ViewChild} from '@angular/core';
 import {WizardComponent} from '../components/wizard.component';
 import {ComponentFixture, async, TestBed} from '@angular/core/testing';

@@ -1,13 +1,9 @@
-/* tslint:disable:no-unused-variable */
-
 import { PreviousStepDirective } from './previous-step.directive';
 import {ViewChild, Component} from '@angular/core';
 import {WizardComponent} from '../components/wizard.component';
-import {GoToStepDirective} from './go-to-step.directive';
-import {WizardNavigationBarComponent} from '../components/wizard-navigation-bar.component';
-import {WizardStepComponent} from '../components/wizard-step.component';
 import {TestBed, async, ComponentFixture} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
+import {WizardModule} from '../wizard.module';
 
 @Component({
   selector: 'test-wizard',
@@ -35,8 +31,8 @@ describe('PreviousStepDirective', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WizardComponent, WizardStepComponent, WizardNavigationBarComponent,
-        WizardTestComponent, GoToStepDirective, PreviousStepDirective]
+      declarations: [WizardTestComponent],
+      imports: [WizardModule]
     }).compileComponents();
   }));
 

@@ -5,10 +5,8 @@ import {GoToStepDirective} from './go-to-step.directive';
 import {Component, ViewChild} from '@angular/core';
 import {WizardComponent} from '../components/wizard.component';
 import {ComponentFixture, async, TestBed} from '@angular/core/testing';
-import {WizardStepComponent} from '../components/wizard-step.component';
-import {WizardNavigationBarComponent} from '../components/wizard-navigation-bar.component';
 import {By} from '@angular/platform-browser';
-import {OptionalStepDirective} from './optional-step.directive';
+import {WizardModule} from '../wizard.module';
 
 @Component({
   selector: 'test-wizard',
@@ -53,8 +51,8 @@ describe('GoToStepDirective', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WizardComponent, WizardStepComponent, WizardNavigationBarComponent,
-        WizardTestComponent, GoToStepDirective, OptionalStepDirective]
+      declarations: [WizardTestComponent],
+      imports: [WizardModule]
     }).compileComponents();
   }));
 
