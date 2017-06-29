@@ -6,6 +6,7 @@ import {WizardStepTitleDirective} from '../directives/wizard-step-title.directiv
  *
  * @author Marc Arndt
  */
+/* istanbul ignore next */
 export abstract class WizardStep {
   /**
    * A title property, which contains the title of the step.
