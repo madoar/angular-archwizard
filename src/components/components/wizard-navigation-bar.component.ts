@@ -34,7 +34,7 @@ export class WizardNavigationBarComponent {
    * @returns {Array<WizardStep>} An array containing all [[WizardStep]]s
    */
   get wizardSteps(): Array<WizardStep> {
-    return this.wizard.allSteps;
+    return this.wizard.wizardSteps.toArray();
   }
 
   /**
@@ -43,6 +43,6 @@ export class WizardNavigationBarComponent {
    * @returns {number} The number of wizard steps to be displayed
    */
   get numberOfWizardSteps(): number {
-    return this.wizard.allSteps.length;
+    return this.wizard.wizardSteps.length;
   }
 }

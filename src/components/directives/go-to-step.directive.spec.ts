@@ -81,28 +81,30 @@ describe('GoToStepDirective', () => {
     const secondStepGoToButton = wizardTestFixture.debugElement.query(
       By.css('wizard-step[title="Steptitle 2"] > button')).nativeElement;
 
+    const wizardSteps = wizardTest.wizard.wizardSteps.toArray();
+
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTest.wizard.allSteps[0].selected).toBe(true);
-    expect(wizardTest.wizard.allSteps[1].selected).toBe(false);
-    expect(wizardTest.wizard.allSteps[2].selected).toBe(false);
+    expect(wizardSteps[0].selected).toBe(true);
+    expect(wizardSteps[1].selected).toBe(false);
+    expect(wizardSteps[2].selected).toBe(false);
 
     // click button
     firstStepGoToButton.click();
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(1);
-    expect(wizardTest.wizard.allSteps[0].selected).toBe(false);
-    expect(wizardTest.wizard.allSteps[1].selected).toBe(true);
-    expect(wizardTest.wizard.allSteps[2].selected).toBe(false);
+    expect(wizardSteps[0].selected).toBe(false);
+    expect(wizardSteps[1].selected).toBe(true);
+    expect(wizardSteps[2].selected).toBe(false);
 
     // click button
     secondStepGoToButton.click();
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(2);
-    expect(wizardTest.wizard.allSteps[0].selected).toBe(false);
-    expect(wizardTest.wizard.allSteps[1].selected).toBe(false);
-    expect(wizardTest.wizard.allSteps[2].selected).toBe(true);
+    expect(wizardSteps[0].selected).toBe(false);
+    expect(wizardSteps[1].selected).toBe(false);
+    expect(wizardSteps[2].selected).toBe(true);
   });
 
   it('should jump over an optional step correctly', () => {
@@ -111,47 +113,51 @@ describe('GoToStepDirective', () => {
     const thirdStepGoToButton = wizardTestFixture.debugElement.query(
       By.css('wizard-step[title="Steptitle 3"] > button')).nativeElement;
 
+    const wizardSteps = wizardTest.wizard.wizardSteps.toArray();
+
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTest.wizard.allSteps[0].selected).toBe(true);
-    expect(wizardTest.wizard.allSteps[1].selected).toBe(false);
-    expect(wizardTest.wizard.allSteps[2].selected).toBe(false);
+    expect(wizardSteps[0].selected).toBe(true);
+    expect(wizardSteps[1].selected).toBe(false);
+    expect(wizardSteps[2].selected).toBe(false);
 
     // click button
     firstStepGoToButton.click();
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(2);
-    expect(wizardTest.wizard.allSteps[0].selected).toBe(false);
-    expect(wizardTest.wizard.allSteps[1].selected).toBe(false);
-    expect(wizardTest.wizard.allSteps[2].selected).toBe(true);
+    expect(wizardSteps[0].selected).toBe(false);
+    expect(wizardSteps[1].selected).toBe(false);
+    expect(wizardSteps[2].selected).toBe(true);
 
     // click button
     thirdStepGoToButton.click();
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTest.wizard.allSteps[0].selected).toBe(true);
-    expect(wizardTest.wizard.allSteps[1].selected).toBe(false);
-    expect(wizardTest.wizard.allSteps[2].selected).toBe(false);
+    expect(wizardSteps[0].selected).toBe(true);
+    expect(wizardSteps[1].selected).toBe(false);
+    expect(wizardSteps[2].selected).toBe(false);
   });
 
   it('should stay at current step correctly', () => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(
       By.css('wizard-step[title="Steptitle 1"] > button:nth-child(1)')).nativeElement;
 
+    const wizardSteps = wizardTest.wizard.wizardSteps.toArray();
+
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTest.wizard.allSteps[0].selected).toBe(true);
-    expect(wizardTest.wizard.allSteps[1].selected).toBe(false);
-    expect(wizardTest.wizard.allSteps[2].selected).toBe(false);
+    expect(wizardSteps[0].selected).toBe(true);
+    expect(wizardSteps[1].selected).toBe(false);
+    expect(wizardSteps[2].selected).toBe(false);
 
     // click button
     firstStepGoToButton.click();
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTest.wizard.allSteps[0].selected).toBe(true);
-    expect(wizardTest.wizard.allSteps[1].selected).toBe(false);
-    expect(wizardTest.wizard.allSteps[2].selected).toBe(false);
+    expect(wizardSteps[0].selected).toBe(true);
+    expect(wizardSteps[1].selected).toBe(false);
+    expect(wizardSteps[2].selected).toBe(false);
   });
 
   it('should finalize step correctly', () => {
