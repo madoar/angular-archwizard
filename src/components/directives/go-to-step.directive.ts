@@ -4,7 +4,7 @@
 
 import {Directive, Output, HostListener, EventEmitter, Input, Optional} from '@angular/core';
 import {WizardComponent} from '../components/wizard.component';
-import {isStepOffset, StepOffset} from '../util/StepOffset';
+import {isStepOffset, StepOffset} from '../util/step-offset.interface';
 import {isNumber, isString} from 'util';
 import {isWizardStep, WizardStep} from '../util/WizardStep';
 

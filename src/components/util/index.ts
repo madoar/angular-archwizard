@@ -4,4 +4,4 @@
 
 export {MovingDirection} from './moving-direction.enum';
 export {WizardStep} from './WizardStep'
-export * from './StepOffset';
+export * from './step-offset.interface';
