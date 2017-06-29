@@ -14,10 +14,11 @@ export interface StepOffset {
 }
 
 /**
- * This method returns true, if the given `value` is a [[StepOffset]]
+ * Checks wether the given `value` implements the interface [[StepOffset]].
+ *
  * @param value The value to be checked
- * @returns {boolean} True if the given value is a [[StepOffset]] and false otherwise
+ * @returns {boolean} True if the given value implements [[StepOffset]] and false otherwise
  */
 export function isStepOffset(value: any): value is StepOffset {
-  return value.stepOffset !== undefined;
+  return 'stepOffset' in value;
 }

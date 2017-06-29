@@ -1,10 +1,5 @@
-import {
-  AfterContentInit, Component, ContentChild, ContentChildren, forwardRef, HostBinding, Input,
-  QueryList
-} from '@angular/core';
-import {WizardStepComponent} from './wizard-step.component';
+import {AfterContentInit, Component, ContentChildren, HostBinding, Input, QueryList} from '@angular/core';
 import {MovingDirection} from '../util/MovingDirection';
-import {WizardCompletionStepComponent} from './wizard-completion-step.component';
 import {WizardStep} from '../util/WizardStep';
 import {isBoolean} from 'util';
 
@@ -52,15 +47,8 @@ export class WizardComponent implements AfterContentInit {
   /**
    * A QueryList containing all WizardSteps in this Wizard
    */
-  @ContentChildren(WizardStepComponent)
-  public wizardSteps: QueryList<WizardStepComponent>;
-
-  /**
-   * An optional step, which is always the last step in the wizard and should be entered
-   * when the wizard has been successfully completed
-   */
-  @ContentChild(forwardRef(() => WizardCompletionStepComponent))
-  public completionStep: WizardCompletionStepComponent;
+  @ContentChildren(WizardStep)
+  public wizardSteps: QueryList<WizardStep>;
 
   /**
    * Returns a list containing all steps inside this [[WizardComponent]].
@@ -71,10 +59,6 @@ export class WizardComponent implements AfterContentInit {
    */
   public get allSteps(): Array<WizardStep> {
     const steps: Array<WizardStep> = this.wizardSteps.toArray();
-
-    if (this.completionStep) {
-      steps.push(this.completionStep);
-    }
 
     return steps;
   }

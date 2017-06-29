@@ -4,10 +4,9 @@
 
 import {Directive, Output, HostListener, EventEmitter, Input, Optional} from '@angular/core';
 import {WizardComponent} from '../components/wizard.component';
-import {WizardStepComponent} from '../components/wizard-step.component';
 import {isStepOffset, StepOffset} from '../util/StepOffset';
 import {isNumber, isString} from 'util';
-import {WizardStep} from '../util/WizardStep';
+import {isWizardStep, WizardStep} from '../util/WizardStep';
 
 /**
  * The `goToStep` directive can be used to navigate to a given step.
@@ -63,7 +62,7 @@ export class GoToStepDirective {
    * @param wizard The wizard, which contains this [[GoToStepDirective]]
    * @param wizardStep The wizard step, which contains this [[GoToStepDirective]]
    */
-  constructor(private wizard: WizardComponent, @Optional() private wizardStep: WizardStepComponent) { }
+  constructor(private wizard: WizardComponent, @Optional() private wizardStep: WizardStep) { }
 
   /**
    * Returns the destination step of this directive as an absolute step index inside the wizard
@@ -80,7 +79,7 @@ export class GoToStepDirective {
       destinationStep = parseInt(this.goToStep as string, 10);
     } else if (isStepOffset(this.goToStep) && this.wizardStep !== null) {
       destinationStep = this.wizard.getIndexOfStep(this.wizardStep) + this.goToStep.stepOffset;
-    } else if (this.goToStep instanceof WizardStepComponent) {
+    } else if (isWizardStep(this.goToStep)) {
       destinationStep = this.wizard.getIndexOfStep(this.goToStep);
     } else {
       throw new Error(`Input 'goToStep' is neither a WizardStep, StepOffset, number or string`);
