@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {WizardComponent} from './wizard.component';
-import {WizardStep} from '../util/WizardStep';
+import {WizardStep} from '../util/wizard-step.interface';
 
 /**
  * The `wizard-navigation-bar` component contains the navigation bar inside a [[WizardComponent]].

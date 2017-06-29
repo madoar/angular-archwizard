@@ -1,6 +1,6 @@
 import {Component, ContentChild, EventEmitter, forwardRef, HostBinding, Input, Output} from '@angular/core';
 import {MovingDirection} from '../util/moving-direction.enum';
-import {WizardStep} from '../util/WizardStep';
+import {WizardStep} from '../util/wizard-step.interface';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 
 /**
