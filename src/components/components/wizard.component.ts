@@ -1,5 +1,5 @@
 import {AfterContentInit, Component, ContentChildren, HostBinding, Input, QueryList} from '@angular/core';
-import {MovingDirection} from '../util/MovingDirection';
+import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardStep} from '../util/WizardStep';
 import {isBoolean} from 'util';
 

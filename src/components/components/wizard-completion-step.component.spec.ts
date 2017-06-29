@@ -7,7 +7,7 @@ import {WizardStepComponent} from './wizard-step.component';
 import {WizardCompletionStepComponent} from './wizard-completion-step.component';
 import {ViewChild, Component} from '@angular/core';
 import {WizardComponent} from './wizard.component';
-import {MovingDirection} from '../util/MovingDirection';
+import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
 import {GoToStepDirective} from '../directives/go-to-step.directive';
 import {By} from '@angular/platform-browser';

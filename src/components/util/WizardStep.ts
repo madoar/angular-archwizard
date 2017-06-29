@@ -1,4 +1,4 @@
-import {MovingDirection} from './MovingDirection';
+import {MovingDirection} from './moving-direction.enum';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 
 /**
