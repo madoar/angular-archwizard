@@ -58,14 +58,14 @@ export abstract class WizardStep {
    *
    * @param direction The direction in which the step is entered
    */
-  enter: (direction: MovingDirection) => void;
+  abstract enter(direction: MovingDirection): void;
 
   /**
    * A function called when the step is exited
    *
    * @param direction The direction in which the step is exited
    */
-  exit: (direction: MovingDirection) => void;
+  abstract exit(direction: MovingDirection): void;
 }
 
 /**
@@ -75,9 +75,5 @@ export abstract class WizardStep {
  * @returns {boolean} True if the given value implements interface [[WizardStep]]
  */
 export function isWizardStep(value: any): value is WizardStep {
-  return value.hasOwnProperty('titleTemplate') &&
-    value.hasOwnProperty('title') &&
-    value.hasOwnProperty('completed') &&
-    value.hasOwnProperty('selected') &&
-    value.hasOwnProperty('optional');
+  return value instanceof WizardStep;
 }

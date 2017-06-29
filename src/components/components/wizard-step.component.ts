@@ -59,7 +59,7 @@ import {WizardStepTitleDirective} from '../directives/wizard-step-title.directiv
     { provide: WizardStep, useExisting: forwardRef(() => WizardStepComponent) }
   ]
 })
-export class WizardStepComponent implements WizardStep {
+export class WizardStepComponent extends WizardStep {
   /**
    * @inheritDoc
    */
@@ -138,6 +138,7 @@ export class WizardStepComponent implements WizardStep {
    * Constructor
    */
   constructor() {
+    super();
   }
 
   /**

@@ -52,7 +52,7 @@ import {WizardStepTitleDirective} from '../directives/wizard-step-title.directiv
     { provide: WizardStep, useExisting: forwardRef(() => WizardCompletionStepComponent) }
   ]
 })
-export class WizardCompletionStepComponent implements WizardStep {
+export class WizardCompletionStepComponent extends WizardStep {
   /**
    * @inheritDoc
    */
@@ -129,7 +129,9 @@ export class WizardCompletionStepComponent implements WizardStep {
    * Constructor
    * @param wizard The [[WizardComponent]], this completion step is contained inside
    */
-  constructor(@Inject(forwardRef(() => WizardComponent)) private wizard: WizardComponent) { }
+  constructor(@Inject(forwardRef(() => WizardComponent)) private wizard: WizardComponent) {
+    super();
+  }
 
   /**
    * @inheritDoc
