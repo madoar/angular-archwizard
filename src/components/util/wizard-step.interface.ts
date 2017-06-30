@@ -1,6 +1,6 @@
 import {MovingDirection} from './moving-direction.enum';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
-import {EventEmitter} from "@angular/core";
+import {EventEmitter} from '@angular/core';
 
 /**
  * Basic functionality every type of wizard step needs to provide
