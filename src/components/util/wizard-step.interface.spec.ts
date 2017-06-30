@@ -8,6 +8,8 @@ import {WizardStepComponent} from '../components/wizard-step.component';
 import {WizardCompletionStepComponent} from '../components/wizard-completion-step.component';
 import {WizardModule} from '../wizard.module';
 import {WizardStep} from './wizard-step.interface';
+import {WizardCompletionStepDirective} from '../directives/wizard-completion-step.directive';
+import {WizardStepDirective} from '../directives/wizard-step.directive';
 
 @Component({
   selector: 'test-wizard',
@@ -25,9 +27,15 @@ import {WizardStep} from './wizard-step.interface';
         </ng-template>
         Step 3
       </wizard-step>
-      <wizard-completion-step #step4 title='Steptitle 4'>
+      <div wizardStep #step4 title='Steptitle 4'>
         Step 4
+      </div>
+      <wizard-completion-step #step5 title='Steptitle 5'>
+        Step 5
       </wizard-completion-step>
+      <div wizardCompletionStep #step6 title='Steptitle 6'>
+        Step 6
+      </div>
     </wizard>
   `
 })
@@ -44,8 +52,14 @@ class WizardTestComponent {
   @ViewChild('step3')
   public step3: WizardStepComponent;
 
-  @ViewChild('step4')
-  public step4: WizardCompletionStepComponent;
+  @ViewChild('step4', {read: WizardStepDirective})
+  public step4: WizardStepDirective;
+
+  @ViewChild('step5')
+  public step5: WizardCompletionStepComponent;
+
+  @ViewChild('step6', {read: WizardCompletionStepDirective})
+  public step6: WizardCompletionStepDirective;
 }
 
 describe('WizardStep', () => {
@@ -70,16 +84,22 @@ describe('WizardStep', () => {
     expect(wizardTest.step2).toBeDefined();
     expect(wizardTest.step3).toBeDefined();
     expect(wizardTest.step4).toBeDefined();
+    expect(wizardTest.step5).toBeDefined();
+    expect(wizardTest.step6).toBeDefined();
+
+    expect(wizardTest.wizard.wizardSteps.length).toBe(6);
   });
 
-  it('should fulfill isStepWizard', () => {
+  it('should be a WizardStep', () => {
     expect(wizardTest.step1 instanceof WizardStep).toBe(true, 'Step 1 couldn\'t be identified as a WizardStep');
     expect(wizardTest.step2 instanceof WizardStep).toBe(true, 'Step 2 couldn\'t be identified as a WizardStep');
     expect(wizardTest.step3 instanceof WizardStep).toBe(true, 'Step 3 couldn\'t be identified as a WizardStep');
     expect(wizardTest.step4 instanceof WizardStep).toBe(true, 'Step 4 couldn\'t be identified as a WizardStep');
+    expect(wizardTest.step5 instanceof WizardStep).toBe(true, 'Step 5 couldn\'t be identified as a WizardStep');
+    expect(wizardTest.step6 instanceof WizardStep).toBe(true, 'Step 6 couldn\'t be identified as a WizardStep');
   });
 
-  it('should not fulfill isStepWizard', () => {
+  it('should not be a WizardStep', () => {
     expect({stepOffset: 1} instanceof WizardStep).toBe(false);
     expect({title: 'Test title'} instanceof WizardStep).toBe(false);
   });
