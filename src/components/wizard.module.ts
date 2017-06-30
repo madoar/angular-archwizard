@@ -11,6 +11,7 @@ import {PreviousStepDirective} from './directives/previous-step.directive';
 import {OptionalStepDirective} from './directives/optional-step.directive';
 import {GoToStepDirective} from './directives/go-to-step.directive';
 import {WizardStepTitleDirective} from './directives/wizard-step-title.directive';
+import {EnableBackLinksDirective} from './directives/enable-back-links.directive';
 
 /**
  * The module defining all the content inside `ng2-archwizard`
@@ -27,7 +28,8 @@ import {WizardStepTitleDirective} from './directives/wizard-step-title.directive
     NextStepDirective,
     PreviousStepDirective,
     OptionalStepDirective,
-    WizardStepTitleDirective
+    WizardStepTitleDirective,
+    EnableBackLinksDirective
   ],
   imports: [
     CommonModule
@@ -41,7 +43,8 @@ import {WizardStepTitleDirective} from './directives/wizard-step-title.directive
     NextStepDirective,
     PreviousStepDirective,
     OptionalStepDirective,
-    WizardStepTitleDirective
+    WizardStepTitleDirective,
+    EnableBackLinksDirective
   ]
 })
 export class WizardModule {

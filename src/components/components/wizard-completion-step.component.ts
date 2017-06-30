@@ -145,6 +145,7 @@ export class WizardCompletionStepComponent extends WizardStep {
    * @inheritDoc
    */
   exit(direction: MovingDirection): void {
-    // do nothing
+    this.wizard.completed = false;
+    this.stepExit.emit(direction);
   }
 }
