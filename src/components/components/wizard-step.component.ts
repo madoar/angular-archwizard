@@ -1,6 +1,6 @@
-import {Component, ContentChild, EventEmitter, HostBinding, Input, Output} from '@angular/core';
-import {MovingDirection} from '../util/MovingDirection';
-import {WizardStep} from '../util/WizardStep';
+import {Component, ContentChild, EventEmitter, forwardRef, HostBinding, Input, Output} from '@angular/core';
+import {MovingDirection} from '../util/moving-direction.enum';
+import {WizardStep} from '../util/wizard-step.interface';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 
 /**
@@ -54,9 +54,12 @@ import {WizardStepTitleDirective} from '../directives/wizard-step-title.directiv
 @Component({
   selector: 'wizard-step',
   templateUrl: 'wizard-step.component.html',
-  styleUrls: ['wizard-step.component.css']
+  styleUrls: ['wizard-step.component.css'],
+  providers: [
+    { provide: WizardStep, useExisting: forwardRef(() => WizardStepComponent) }
+  ]
 })
-export class WizardStepComponent implements WizardStep {
+export class WizardStepComponent extends WizardStep {
   /**
    * @inheritDoc
    */
@@ -135,6 +138,7 @@ export class WizardStepComponent implements WizardStep {
    * Constructor
    */
   constructor() {
+    super();
   }
 
   /**

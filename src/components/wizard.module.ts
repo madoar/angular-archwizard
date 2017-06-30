@@ -45,6 +45,7 @@ import {WizardStepTitleDirective} from './directives/wizard-step-title.directive
   ]
 })
 export class WizardModule {
+  /* istanbul ignore next */
   static forRoot(): ModuleWithProviders {
     return {ngModule: WizardModule, providers: []};
   }

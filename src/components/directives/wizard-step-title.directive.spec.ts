@@ -1,18 +1,12 @@
 /**
  * Created by marc on 02.06.17.
  */
-
 import {ViewChild, Component} from '@angular/core';
 import {TestBed, async, ComponentFixture} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 
 import {WizardComponent} from '../components/wizard.component';
-import {WizardStepComponent} from '../components/wizard-step.component';
-import {WizardCompletionStepComponent} from '../components/wizard-completion-step.component';
-import {WizardNavigationBarComponent} from '../components/wizard-navigation-bar.component';
-
-import {GoToStepDirective} from './go-to-step.directive';
-import {WizardStepTitleDirective} from './wizard-step-title.directive';
+import {WizardModule} from '../wizard.module';
 
 
 @Component({
@@ -45,8 +39,8 @@ describe('PreviousStepDirective', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WizardComponent, WizardStepComponent, WizardCompletionStepComponent, WizardNavigationBarComponent,
-        WizardTestComponent, GoToStepDirective, WizardStepTitleDirective]
+      declarations: [WizardTestComponent],
+      imports: [WizardModule]
     }).compileComponents();
   }));
 

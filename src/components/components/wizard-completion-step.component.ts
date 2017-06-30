@@ -2,10 +2,10 @@
  * Created by marc on 20.05.17.
  */
 
-import {Component, ContentChild, EventEmitter, HostBinding, Input, Output} from '@angular/core';
-import {MovingDirection} from '../util/MovingDirection';
+import {Component, ContentChild, EventEmitter, forwardRef, HostBinding, Inject, Input, Output} from '@angular/core';
+import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardComponent} from './wizard.component';
-import {WizardStep} from '../util/WizardStep';
+import {WizardStep} from '../util/wizard-step.interface';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 
 /**
@@ -47,9 +47,12 @@ import {WizardStepTitleDirective} from '../directives/wizard-step-title.directiv
 @Component({
   selector: 'wizard-completion-step',
   templateUrl: 'wizard-completion-step.component.html',
-  styleUrls: ['wizard-completion-step.component.css']
+  styleUrls: ['wizard-completion-step.component.css'],
+  providers: [
+    { provide: WizardStep, useExisting: forwardRef(() => WizardCompletionStepComponent) }
+  ]
 })
-export class WizardCompletionStepComponent implements WizardStep {
+export class WizardCompletionStepComponent extends WizardStep {
   /**
    * @inheritDoc
    */
@@ -126,7 +129,9 @@ export class WizardCompletionStepComponent implements WizardStep {
    * Constructor
    * @param wizard The [[WizardComponent]], this completion step is contained inside
    */
-  constructor(private wizard: WizardComponent) { }
+  constructor(@Inject(forwardRef(() => WizardComponent)) private wizard: WizardComponent) {
+    super();
+  }
 
   /**
    * @inheritDoc
