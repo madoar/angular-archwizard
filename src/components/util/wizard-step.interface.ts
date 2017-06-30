@@ -1,5 +1,6 @@
 import {MovingDirection} from './moving-direction.enum';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
+import {EventEmitter} from "@angular/core";
 
 /**
  * Basic functionality every type of wizard step needs to provide
@@ -51,6 +52,30 @@ export abstract class WizardStep {
    * A function, taking a [[MovingDirection]], or boolean returning true, if the step can be exited and false otherwise.
    */
   canExit: ((direction: MovingDirection) => boolean) | boolean;
+
+  /**
+   * This EventEmitter is called when the step is entered.
+   * The bound method should be used to do initialization work.
+   *
+   * @type {EventEmitter<MovingDirection>}
+   */
+  public stepEnter: EventEmitter<MovingDirection>;
+
+  /**
+   * This EventEmitter is called when the step is exited.
+   * The bound method can be used to do cleanup work.
+   *
+   * @type {EventEmitter<MovingDirection>}
+   */
+  public stepExit: EventEmitter<MovingDirection>;
+
+  /**
+   * Returns if this wizard step should be visible to the user.
+   * If the step should be visible to the user false is returned, otherwise true
+   *
+   * @returns {boolean}
+   */
+  abstract get hidden(): boolean;
 
   /**
    * A function called when the step is entered

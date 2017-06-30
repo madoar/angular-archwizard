@@ -80,27 +80,18 @@ export class WizardCompletionStepComponent extends WizardCompletionStep {
   public navigationSymbolFontFamily: string;
 
   /**
-   * This EventEmitter is called when the step is entered.
-   * The bound method should be used to do initialization work.
-   *
-   * @type {EventEmitter<MovingDirection>}
+   * @inheritDoc
    */
   @Output()
   public stepEnter = new EventEmitter<MovingDirection>();
 
   /**
-   * This EventEmitter is called when the step is exited.
-   * The bound method can be used to do cleanup work.
-   *
-   * @type {EventEmitter<MovingDirection>}
+   * @inheritDoc
    */
   public stepExit = new EventEmitter<MovingDirection>();
 
   /**
-   * Returns if this wizard step should be visible to the user.
-   * If the step should be visible to the user false is returned, otherwise true
-   *
-   * @returns {boolean}
+   * @inheritDoc
    */
   @HostBinding('hidden')
   public get hidden(): boolean {
