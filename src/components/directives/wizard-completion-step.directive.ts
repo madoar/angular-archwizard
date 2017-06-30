@@ -1,60 +1,54 @@
-/**
- * Created by marc on 20.05.17.
- */
-
-import {Component, ContentChild, EventEmitter, forwardRef, HostBinding, Inject, Input, Output} from '@angular/core';
+import {ContentChild, Directive, EventEmitter, forwardRef, HostBinding, Inject, Input, Output} from '@angular/core';
 import {MovingDirection} from '../util/moving-direction.enum';
-import {WizardComponent} from './wizard.component';
+import {WizardComponent} from '../components/wizard.component';
 import {WizardStep} from '../util/wizard-step.interface';
-import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
+import {WizardStepTitleDirective} from './wizard-step-title.directive';
 import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
 
 /**
- * The `wizard-completion-step` component can be used to define a completion/success step at the end of your wizard
- * After a `wizard-completion-step` has been entered, it has the characteristic that the user is blocked from
+ * The `wizardCompletionStep` directive can be used to define a completion/success step at the end of your wizard
+ * After a [[WizardCompletionStep]] has been entered, it has the characteristic that the user is blocked from
  * leaving it again to a previous step.
- * In addition entering a `wizard-completion-step` automatically sets the `wizard` amd all steps inside the `wizard`
+ * In addition entering a [[WizardCompletionStep]] automatically sets the `wizard` amd all steps inside the `wizard`
  * as completed.
  *
  * ### Syntax
  *
  * ```html
- * <wizard-completion-step [title]="title of the wizard step" [navigationSymbol]="navigation symbol"
+ * <div wizardCompletionStep [title]="title of the wizard step" [navigationSymbol]="navigation symbol"
  *    [navigationSymbolFontFamily]="navigation symbol font family"
  *    (stepEnter)="event emitter to be called when the wizard step is entered"
  *    (stepExit)="event emitter to be called when the wizard step is exited">
  *    ...
- * </wizard-completion-step>
+ * </div>
  * ```
  *
  * ### Example
  *
  * ```html
- * <wizard-completion-step title="Step 1" navigationSymbol="1">
+ * <div wizardCompletionStep title="Step 1" navigationSymbol="1">
  *    ...
- * </wizard-completion-step>
+ * </div>
  * ```
  *
  * With a navigation symbol from the `font-awesome` font:
  *
  * ```html
- * <wizard-completion-step title="Step 1" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ * <div wizardCompletionStep title="Step 1" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
  *    ...
- * </wizard-completion-step>
+ * </div>
  * ```
  *
  * @author Marc Arndt
  */
-@Component({
-  selector: 'wizard-completion-step',
-  templateUrl: 'wizard-completion-step.component.html',
-  styleUrls: ['wizard-completion-step.component.css'],
+@Directive({
+  selector: '[wizardCompletionStep]',
   providers: [
-    { provide: WizardStep, useExisting: forwardRef(() => WizardCompletionStepComponent) },
-    { provide: WizardCompletionStep, useExisting: forwardRef(() => WizardCompletionStepComponent) }
+    { provide: WizardStep, useExisting: forwardRef(() => WizardCompletionStepDirective) },
+    { provide: WizardCompletionStep, useExisting: forwardRef(() => WizardCompletionStepDirective) }
   ]
 })
-export class WizardCompletionStepComponent extends WizardCompletionStep {
+export class WizardCompletionStepDirective extends WizardCompletionStep {
   /**
    * @inheritDoc
    */
