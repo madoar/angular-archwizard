@@ -7,7 +7,7 @@ import {ComponentFixture, async, TestBed} from '@angular/core/testing';
 import {WizardStepComponent} from '../components/wizard-step.component';
 import {WizardCompletionStepComponent} from '../components/wizard-completion-step.component';
 import {WizardModule} from '../wizard.module';
-import {isWizardStep} from './wizard-step.interface';
+import {WizardStep} from './wizard-step.interface';
 
 @Component({
   selector: 'test-wizard',
@@ -73,15 +73,14 @@ describe('WizardStep', () => {
   });
 
   it('should fulfill isStepWizard', () => {
-    expect(isWizardStep(wizardTest.step1)).toBe(true, 'Step 1 couldn\'t be identified as a WizardStep');
-    expect(isWizardStep(wizardTest.step2)).toBe(true, 'Step 2 couldn\'t be identified as a WizardStep');
-    expect(isWizardStep(wizardTest.step3)).toBe(true, 'Step 3 couldn\'t be identified as a WizardStep');
-    expect(isWizardStep(wizardTest.step4)).toBe(true, 'Step 4 couldn\'t be identified as a WizardStep');
+    expect(wizardTest.step1 instanceof WizardStep).toBe(true, 'Step 1 couldn\'t be identified as a WizardStep');
+    expect(wizardTest.step2 instanceof WizardStep).toBe(true, 'Step 2 couldn\'t be identified as a WizardStep');
+    expect(wizardTest.step3 instanceof WizardStep).toBe(true, 'Step 3 couldn\'t be identified as a WizardStep');
+    expect(wizardTest.step4 instanceof WizardStep).toBe(true, 'Step 4 couldn\'t be identified as a WizardStep');
   });
 
   it('should not fulfill isStepWizard', () => {
-    expect(isWizardStep(1)).toBe(false);
-    expect(isWizardStep('1')).toBe(false);
-    expect(isWizardStep({stepOffset: 1})).toBe(false);
+    expect({stepOffset: 1} instanceof WizardStep).toBe(false);
+    expect({title: 'Test title'} instanceof WizardStep).toBe(false);
   });
 });

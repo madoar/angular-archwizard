@@ -67,13 +67,3 @@ export abstract class WizardStep {
    */
   abstract exit(direction: MovingDirection): void;
 }
-
-/**
- * Checks whether the given `value` implements the interface [[WizardStep]].
- *
- * @param value The value to be checked
- * @returns {boolean} True if the given value implements interface [[WizardStep]]
- */
-export function isWizardStep(value: any): value is WizardStep {
-  return value instanceof WizardStep;
-}

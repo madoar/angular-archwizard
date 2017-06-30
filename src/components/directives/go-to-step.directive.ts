@@ -6,7 +6,7 @@ import {Directive, Output, HostListener, EventEmitter, Input, Optional} from '@a
 import {WizardComponent} from '../components/wizard.component';
 import {isStepOffset, StepOffset} from '../util/step-offset.interface';
 import {isNumber, isString} from 'util';
-import {isWizardStep, WizardStep} from '../util/wizard-step.interface';
+import {WizardStep} from '../util/wizard-step.interface';
 
 /**
  * The `goToStep` directive can be used to navigate to a given step.
@@ -79,7 +79,7 @@ export class GoToStepDirective {
       destinationStep = parseInt(this.goToStep as string, 10);
     } else if (isStepOffset(this.goToStep) && this.wizardStep !== null) {
       destinationStep = this.wizard.getIndexOfStep(this.wizardStep) + this.goToStep.stepOffset;
-    } else if (isWizardStep(this.goToStep)) {
+    } else if (this.goToStep instanceof WizardStep) {
       destinationStep = this.wizard.getIndexOfStep(this.goToStep);
     } else {
       throw new Error(`Input 'goToStep' is neither a WizardStep, StepOffset, number or string`);
