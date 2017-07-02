@@ -1,32 +1,32 @@
-import {Component, ContentChild, EventEmitter, forwardRef, HostBinding, Input, Output} from '@angular/core';
+import {ContentChild, Directive, EventEmitter, forwardRef, HostBinding, Input, Output} from '@angular/core';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardStep} from '../util/wizard-step.interface';
-import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
+import {WizardStepTitleDirective} from './wizard-step-title.directive';
 
 /**
- * The `wizard-step` component is used to define a normal step inside a wizard.
+ * The `wizardStep` directive can be used to define a normal step inside a wizard.
  *
  * ### Syntax
  *
  * With `title` input:
  *
  * ```html
- * <wizard-step [title]="step title" [navigationSymbol]="symbol" [navigationSymbolFontFamily]="font-family"
+ * <div wizardStep [title]="step title" [navigationSymbol]="symbol" [navigationSymbolFontFamily]="font-family"
  *    [canExit]="deciding function" (stepEnter)="enter function" (stepExit)="exit function">
  *    ...
- * </wizard-step>
+ * </div>
  * ```
  *
  * With `wizardStepTitle` directive:
  *
  * ```html
- * <wizard-step [navigationSymbol]="symbol" [navigationSymbolFontFamily]="font-family"
+ * <div wizardStep [navigationSymbol]="symbol" [navigationSymbolFontFamily]="font-family"
  *    [canExit]="deciding function" (stepEnter)="enter function" (stepExit)="exit function">
  *    <ng-template wizardStepTitle>
  *        step title
  *    </ng-template>
  *    ...
- * </wizard-step>
+ * </div>
  * ```
  *
  * ### Example
@@ -34,32 +34,30 @@ import {WizardStepTitleDirective} from '../directives/wizard-step-title.directiv
  * With `title` input:
  *
  * ```html
- * <wizard-step title="Address information" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ * <div wizardStep title="Address information" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
  *    ...
- * </wizard-step>
+ * </div>
  * ```
  *
  * With `wizardStepTitle` directive:
  *
  * ```html
- * <wizard-step navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ * <div wizardStep navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
  *    <ng-template wizardStepTitle>
  *        Address information
  *    </ng-template>
- * </wizard-step>
+ * </div>
  * ```
  *
  * @author Marc Arndt
  */
-@Component({
-  selector: 'wizard-step',
-  templateUrl: 'wizard-step.component.html',
-  styleUrls: ['wizard-step.component.css'],
+@Directive({
+  selector: '[wizardStep]',
   providers: [
-    { provide: WizardStep, useExisting: forwardRef(() => WizardStepComponent) }
+    { provide: WizardStep, useExisting: forwardRef(() => WizardStepDirective) }
   ]
 })
-export class WizardStepComponent extends WizardStep {
+export class WizardStepDirective extends WizardStep {
   /**
    * @inheritDoc
    */

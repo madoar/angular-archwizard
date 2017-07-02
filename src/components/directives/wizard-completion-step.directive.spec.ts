@@ -2,21 +2,27 @@
  * Created by marc on 20.05.17.
  */
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {WizardCompletionStepComponent} from './wizard-completion-step.component';
 import {ViewChild, Component} from '@angular/core';
-import {WizardComponent} from './wizard.component';
+import {WizardComponent} from '../components/wizard.component';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {By} from '@angular/platform-browser';
 import {WizardModule} from '../wizard.module';
+import {WizardCompletionStepDirective} from './wizard-completion-step.directive';
 
 @Component({
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step title='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">Step 1</wizard-step>
+      <wizard-step title='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
+        Step 1
+      </wizard-step>
       <wizard-step title='Steptitle 2' [canExit]="isValid"
-                   optionalStep (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">Step 2</wizard-step>
-      <wizard-completion-step title='Completion steptitle 3' (stepEnter)="enterInto($event, 3)">Step 3</wizard-completion-step>
+                   optionalStep (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">
+        Step 2
+      </wizard-step>
+      <div wizardCompletionStep title='Completion steptitle 3' (stepEnter)="enterInto($event, 3)">
+        Step 3
+      </div>
     </wizard>
   `
 })
@@ -37,7 +43,7 @@ class WizardTestComponent {
   }
 }
 
-describe('WizardCompletionStepComponent', () => {
+describe('WizardCompletionStepDirective', () => {
   let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
@@ -57,7 +63,7 @@ describe('WizardCompletionStepComponent', () => {
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
     expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-step')).length).toBe(2);
-    expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-completion-step')).length).toBe(1);
+    expect(wizardTestFixture.debugElement.queryAll(By.directive(WizardCompletionStepDirective)).length).toBe(1);
   });
 
   it('should have correct step title', () => {
