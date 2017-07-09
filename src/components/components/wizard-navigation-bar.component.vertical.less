@@ -38,17 +38,17 @@
   position: sticky;
   top: 0;
 
-  .line(@dot-width, @dot-height, @dot-border-width, @line-color) {
+  .line(@dot-width, @dot-height, @line-color) {
     background-color: @line-color;
     content: '';
     position: absolute;
     left: -(@dot-baseline-distance + @dot-height / 2);
-    top: @dot-height + @dot-border-width;
-    height: calc(100% ~'-' @dot-height + @dot-border-width);
+    top: @dot-height;
+    height: calc(100% ~'-' @dot-height);
     width: 1px;
   }
 
-  .state-circle(@dot-width, @dot-height) {
+  .state-circle(@dot-width, @dot-height, @dot-border-width) {
     position: absolute;
     top: 0;
     left: -(@dot-baseline-distance + @dot-width);
@@ -57,7 +57,7 @@
     content: '';
     text-align: center;
     vertical-align: middle;
-    line-height: @dot-height;
+    line-height: @dot-height - 2 * @dot-border-width;
     transition: 0.25s;
     border-radius: 100%;
   }
@@ -88,11 +88,11 @@
 
       li {
         &:not(:last-child):before {
-          .line(@small-dot-width, @small-dot-height, 0, @wz-color-default);
+          .line(@small-dot-width, @small-dot-height, @wz-color-default);
         }
 
         &:after {
-          .state-circle(@small-dot-width, @small-dot-height);
+          .state-circle(@small-dot-width, @small-dot-height, 0);
           .state-circle-with-background(@wz-color-default);
         }
 
@@ -130,11 +130,11 @@
 
       li {
         &:not(:last-child):before {
-          .line(@big-dot-width, @big-dot-height, 0, @wz-color-default);
+          .line(@big-dot-width, @big-dot-height, @wz-color-default);
         }
 
         &:after {
-          .state-circle(@big-dot-width, @big-dot-height);
+          .state-circle(@big-dot-width, @big-dot-height, 0);
           .state-circle-with-background(@wz-color-default);
         }
 
@@ -172,11 +172,11 @@
 
       li {
         &:not(:last-child):before {
-          .line(@big-dot-width, @big-dot-height, @dot-border-width, @wz-color-default);
+          .line(@big-dot-width, @big-dot-height, @wz-color-default);
         }
 
         &:after {
-          .state-circle(@big-dot-width, @big-dot-height);
+          .state-circle(@big-dot-width, @big-dot-height, @dot-border-width);
           .state-circle-with-border(@dot-border-width, @wz-color-default);
         }
 
@@ -214,11 +214,11 @@
 
       li {
         &:not(:last-child):before {
-          .line(@big-dot-width, @big-dot-height, 0, @wz-color-default);
+          .line(@big-dot-width, @big-dot-height, @wz-color-default);
         }
 
         &:after {
-          .state-circle(@big-dot-width, @big-dot-height);
+          .state-circle(@big-dot-width, @big-dot-height, 0);
           .state-circle-with-background-and-content(@wz-color-default);
 
           content: attr(step-symbol);
@@ -258,11 +258,11 @@
 
       li {
         &:not(:last-child):before {
-          .line(@big-dot-width, @big-dot-height, @dot-border-width, @wz-color-default);
+          .line(@big-dot-width, @big-dot-height, @wz-color-default);
         }
 
         &:after {
-          .state-circle(@big-dot-width, @big-dot-height);
+          .state-circle(@big-dot-width, @big-dot-height, @dot-border-width);
           .state-circle-with-border-and-content(@dot-border-width, @wz-color-default);
 
           content: attr(step-symbol);
@@ -328,6 +328,7 @@
           color: @wz-color-current;
           margin-left: @text-margin-left;
           line-height: @text-height;
+          font-size: @text-height;
           text-decoration: none;
           text-transform: uppercase;
           text-align: left;
