@@ -8,7 +8,7 @@
 [![Test Coverage](https://codeclimate.com/github/madoar/ng2-archwizard/badges/coverage.svg)](https://codeclimate.com/github/madoar/ng2-archwizard/coverage)
 [![NPM Version](https://img.shields.io/npm/v/ng2-archwizard.svg)](https://www.npmjs.com/package/ng2-archwizard)
 
-This project contains a functional wizard component for [Angular 2](https://angular.io/).
+This project contains a functional wizard component for [Angular 2 and 4](https://angular.io/).
 
 ## Build
 
@@ -20,7 +20,7 @@ Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github
 
 ## Installation
 
-Ng2-archwizard is available as an NPM package. To install ng2-archwizard in your project directory run:
+`ng2-archwizard` is available as an NPM package. To install ng2-archwizard in your project directory run:
 ```
 $ npm install --save ng2-archwizard
 ```
@@ -189,6 +189,24 @@ Possible `<wizard-completion-step>` parameters:
 | [navigationSymbolFontFamily]  | string                                            | null          |
 | (stepEnter)                   | function(MovingDirection)                         | null          |
 
+### \[enableBackLinks\]
+In some cases it may be required that the user is able to leave an entered `wizard-completion-step`.
+If this is the case you can enable this by adding the directive `[enableBackLinks]` to the `wizard-completion-step`.
+
+```html
+<wizard-completion-step enableBackLinks>
+  Final wizard step
+</wizard-completion-step>
+```
+
+#### Parameter overview
+Possible `[enableBackLinks]` parameters:
+
+| Parameter name                | Possible Values                                   | Default Value |
+| ----------------------------- | ------------------------------------------------- | ------------- |
+| (stepExit)                    | function(MovingDirection)                         | null          |
+
+
 ### \[wizardStepTitle\]
 Sometimes it's not enough to define a title with the `title` attribute in `<wizard-step>` and `<wizard-completion-step>`.
 One example for such a case is, if the title should be written in another font.
@@ -291,7 +309,62 @@ Possible parameters:
 | ----------------- | ------------------------------------------- | ------------- |
 | (finalize)        | function()                                  | null          |
 
+### \[wizardStep\]
+In some cases it may be a good idea to move a wizard step to a custom component.
+This can be done by defining adding the `[wizardStep]` directive to the component, that contains the wizard step.
+
+```html
+<wizard>
+  <wizard-step title="Steptitle 1">
+    Step 1
+  </wizard-step>
+  <custom-step wizardStep title="Steptitle 2"></custom-step>
+  <wizard-step title="Steptitle 3">
+    Step 3
+  </wizard-step>
+</wizard>
+```
+
+#### Parameter overview
+Possible `[wizardStep]` parameters:
+
+| Parameter name                | Possible Values                                   | Default Value |
+| ----------------------------- | ------------------------------------------------- | ------------- |
+| [title]                       | string                                            | null          |
+| [navigationSymbol]            | string                                            | ''            |
+| [navigationSymbolFontFamily]  | string                                            | null          |
+| [canExit]                     | function(MovingDirection): boolean &#124; boolean | true          |
+| (stepEnter)                   | function(MovingDirection)                         | null          |
+| (stepExit)                    | function(MovingDirection)                         | null          |
+
+### \[wizardCompletionStep\]
+In addition to the possibility of defining a normal wizard step in a custom component, 
+it is also possible to define a wizard completion step in a custom component.
+To define a wizard completion step in a custom component you need to add the `[wizardCompletionStep]` directive to the custom component, 
+that contains the wizard completion step.
+
+```html
+<wizard>
+  <wizard-step title="Steptitle 1">
+    Step 1
+  </wizard-step>
+  <custom-step wizardCompletionStep title="Completion steptitle">
+  </custom-step>
+</wizard>
+```
+
+#### Parameter overview
+Possible `[wizardCompletionStep]` parameters:
+
+| Parameter name                | Possible Values                                   | Default Value |
+| ----------------------------- | ------------------------------------------------- | ------------- |
+| [title]                       | string                                            | null          |
+| [navigationSymbol]            | string                                            | ''            |
+| [navigationSymbolFontFamily]  | string                                            | null          |
+| (stepEnter)                   | function(MovingDirection)                         | null          |
+
+
 ## Example
-You can find an basic example project using ng2-archwizard [here](https://madoar.github.io/ng2-archwizard-demo). 
+You can find an basic example project using `ng2-archwizard` [here](https://madoar.github.io/ng2-archwizard-demo). 
 The sources for the example can be found in the [ng2-archwizard-demo](https://github.com/madoar/ng2-archwizard-demo) repository.
 It illustrates how the wizard looks like and how the different settings can change its layout.
