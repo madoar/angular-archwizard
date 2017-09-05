@@ -94,7 +94,7 @@ export class WizardComponent implements AfterContentInit {
    * The index of the currently visible and selected step inside the wizardSteps QueryList.
    * If this wizard contains no steps, currentStepIndex is -1
    */
-  public currentStepIndex: number = -1;
+  public currentStepIndex = -1;
 
   /**
    * The WizardStep object belonging to the currently visible and selected step.
