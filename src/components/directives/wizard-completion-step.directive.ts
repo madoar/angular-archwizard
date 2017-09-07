@@ -95,7 +95,7 @@ export class WizardCompletionStepDirective extends WizardCompletionStep {
   /**
    * @inheritDoc
    */
-  public completed: false;
+  public completed = false;
 
   /**
    * @inheritDoc
@@ -133,6 +133,9 @@ export class WizardCompletionStepDirective extends WizardCompletionStep {
    * @inheritDoc
    */
   exit(direction: MovingDirection): void {
+    // set this completion step as incomplete
+    this.completed = false;
+    // set the wizard itself as incomplete
     this.wizard.completed = false;
     this.stepExit.emit(direction);
   }

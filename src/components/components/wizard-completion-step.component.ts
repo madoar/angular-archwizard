@@ -101,7 +101,7 @@ export class WizardCompletionStepComponent extends WizardCompletionStep {
   /**
    * @inheritDoc
    */
-  public completed: false;
+  public completed = false;
 
   /**
    * @inheritDoc

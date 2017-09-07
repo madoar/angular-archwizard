@@ -1,7 +1,15 @@
-import {AfterContentInit, Component, ContentChildren, HostBinding, Input, QueryList} from '@angular/core';
+import {
+  AfterContentInit, Component, ContentChildren, HostBinding, Inject, Injector, Input, OnChanges, OnInit, QueryList,
+  SimpleChanges
+} from '@angular/core';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardStep} from '../util/wizard-step.interface';
 import {isBoolean} from 'util';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {StrictNavigationMode} from '../navigation/strict-navigation-mode';
+import {FreeNavigationMode} from '../navigation/free-navigation-mode';
+import {SemiStrictNavigationMode} from '../navigation/semi-strict-navigation-mode';
+import {NAVIGATION_MODE, navigationModeProvider} from '../navigation/navigation-mode.provider';
 
 /**
  * The `wizard` component defines the root component of a wizard.
@@ -41,9 +49,10 @@ import {isBoolean} from 'util';
 @Component({
   selector: 'wizard',
   templateUrl: 'wizard.component.html',
-  styleUrls: ['wizard.component.less']
+  styleUrls: ['wizard.component.less'],
+  providers: [navigationModeProvider]
 })
-export class WizardComponent implements AfterContentInit {
+export class WizardComponent implements AfterContentInit, OnInit, OnChanges {
   /**
    * A QueryList containing all WizardSteps in this Wizard
    */
@@ -67,6 +76,9 @@ export class WizardComponent implements AfterContentInit {
    */
   @Input()
   public navBarLayout = 'small';
+
+  @Input()
+  public navigationMode = 'strict';
 
   /**
    * Returns true if this wizard uses a horizontal orientation.
@@ -111,10 +123,12 @@ export class WizardComponent implements AfterContentInit {
    */
   public completed: boolean;
 
+  private navigationModeInstance: NavigationMode;
+
   /**
    * Constructor
    */
-  constructor() {
+  constructor(private injector: Injector) {
   }
 
   /**
@@ -123,6 +137,20 @@ export class WizardComponent implements AfterContentInit {
   ngAfterContentInit(): void {
     this.reset();
   }
+
+  /**
+   * Initialization work
+   */
+  ngOnInit(): void {
+    this.navigationModeInstance = this.injector.get(NAVIGATION_MODE);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.hasOwnProperty('navigationMode')) {
+      this.navigationModeInstance = this.injector.get(NAVIGATION_MODE);
+    }
+  }
+
 
   /**
    * Checks if a given index `stepIndex` is inside the range of possible wizard steps inside this wizard
@@ -185,9 +213,9 @@ export class WizardComponent implements AfterContentInit {
    * @returns {number} The found index of `step` or `-1` if the step is not included in the wizard
    */
   getIndexOfStep(step: WizardStep): number {
-    let stepIndex: number = -1;
+    let stepIndex = -1;
 
-    this.wizardSteps.forEach((item, index, array) => {
+    this.wizardSteps.forEach((item, index) => {
       if (item === step) {
         stepIndex = index;
       }
@@ -263,17 +291,7 @@ export class WizardComponent implements AfterContentInit {
    * @returns {boolean} True if it's possible to transition to the given `stepIndex`
    */
   canGoToStep(stepIndex: number): boolean {
-    let result: boolean =
-      this.canExitStep(this.currentStep, this.getMovingDirection(stepIndex)) && this.hasStep(stepIndex);
-
-    this.wizardSteps.forEach((wizardStep, index, array) => {
-      if (index < stepIndex && index !== this.currentStepIndex) {
-        // all steps before the next step, that aren't the current step, must be completed or optional
-        result = result && (wizardStep.completed || wizardStep.optional);
-      }
-    });
-
-    return result;
+    return this.navigationModeInstance.canGoToStep(stepIndex);
   }
 
   /**
@@ -283,39 +301,7 @@ export class WizardComponent implements AfterContentInit {
    * @param destinationStepIndex The index of the destination step
    */
   goToStep(destinationStepIndex: number): void {
-    const destinationStep: WizardStep = this.getStepAtIndex(destinationStepIndex);
-
-    // In which direction is a step transition done?
-    const movingDirection: MovingDirection = this.getMovingDirection(destinationStepIndex);
-
-    if (this.canExitStep(this.currentStep, movingDirection)) {
-      // is it possible to leave the current step in the given direction?
-      this.wizardSteps.forEach((wizardStep, index, array) => {
-        if (index === this.currentStepIndex) {
-          // finish processing old step
-          wizardStep.completed = true;
-        }
-
-        if (this.currentStepIndex > destinationStepIndex && index > destinationStepIndex) {
-          // if the next step is before the current step set all steps in between to incomplete
-          wizardStep.completed = false;
-        }
-      });
-
-      // leave current step
-      this.currentStep.exit(movingDirection);
-      this.currentStep.selected = false;
-
-      // go to next step
-      this.currentStepIndex = destinationStepIndex;
-      this.currentStep = destinationStep;
-      this.currentStep.enter(movingDirection);
-      this.currentStep.selected = true;
-    } else {
-      // if the current step can't be left, reenter the current step
-      this.currentStep.exit(MovingDirection.Stay);
-      this.currentStep.enter(MovingDirection.Stay);
-    }
+    this.navigationModeInstance.goToStep(destinationStepIndex);
   }
 
   /**
