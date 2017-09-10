@@ -1,5 +1,7 @@
 import {Directive, HostListener} from '@angular/core';
 import {WizardComponent} from '../components/wizard.component';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {navigationModeFactory} from '../navigation/navigation-mode.provider';
 
 /**
  * The `previousStep` directive can be used to navigate to the previous step.
@@ -20,17 +22,17 @@ export class PreviousStepDirective {
   /**
    * Constructor
    *
-   * @param wizard The [[WizardComponent]], this directive is used inside
+   * @param navigationMode The navigation mode used for the wizard
    */
-  constructor(private wizard: WizardComponent) { }
+  constructor(private navigationMode: NavigationMode) { }
 
   /**
    * Listener method for `click` events on the component with this directive.
    * After this method is called the wizard will try to transition to the previous step
    */
   @HostListener('click', ['$event']) onClick(): void {
-    if (this.wizard.canGoToPreviousStep()) {
-      this.wizard.goToPreviousStep();
+    if (this.navigationMode.canGoToPreviousStep()) {
+      this.navigationMode.goToPreviousStep();
     }
   }
 }

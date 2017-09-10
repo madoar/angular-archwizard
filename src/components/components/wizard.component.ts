@@ -1,15 +1,8 @@
-import {
-  AfterContentInit, Component, ContentChildren, HostBinding, Inject, Injector, Input, OnChanges, OnInit, QueryList,
-  SimpleChanges
-} from '@angular/core';
-import {MovingDirection} from '../util/moving-direction.enum';
+import {AfterContentInit, Component, ContentChildren, HostBinding, Injector, Input, OnInit, QueryList} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
-import {isBoolean} from 'util';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {StrictNavigationMode} from '../navigation/strict-navigation-mode';
-import {FreeNavigationMode} from '../navigation/free-navigation-mode';
-import {SemiStrictNavigationMode} from '../navigation/semi-strict-navigation-mode';
-import {NAVIGATION_MODE, navigationModeProvider} from '../navigation/navigation-mode.provider';
+import {navigationModeFactory} from '../navigation/navigation-mode.provider';
+import {WizardState} from '../navigation/wizard-state.model';
 
 /**
  * The `wizard` component defines the root component of a wizard.
@@ -50,11 +43,14 @@ import {NAVIGATION_MODE, navigationModeProvider} from '../navigation/navigation-
   selector: 'wizard',
   templateUrl: 'wizard.component.html',
   styleUrls: ['wizard.component.less'],
-  providers: [navigationModeProvider]
+  providers: [
+    WizardState,
+    { provide: NavigationMode, useFactory: navigationModeFactory, deps: [WizardComponent, WizardState] }
+  ]
 })
-export class WizardComponent implements AfterContentInit, OnInit, OnChanges {
+export class WizardComponent implements AfterContentInit {
   /**
-   * A QueryList containing all WizardSteps in this Wizard
+   * A QueryList containing all [[WizardStep]]s inside this wizard
    */
   @ContentChildren(WizardStep)
   public wizardSteps: QueryList<WizardStep>;
@@ -77,6 +73,11 @@ export class WizardComponent implements AfterContentInit, OnInit, OnChanges {
   @Input()
   public navBarLayout = 'small';
 
+  /**
+   * The navigation mode used for transitioning between different steps
+   *
+   * @type {string}
+   */
   @Input()
   public navigationMode = 'strict';
 
@@ -103,246 +104,15 @@ export class WizardComponent implements AfterContentInit, OnInit, OnChanges {
   }
 
   /**
-   * The index of the currently visible and selected step inside the wizardSteps QueryList.
-   * If this wizard contains no steps, currentStepIndex is -1
-   */
-  public currentStepIndex = -1;
-
-  /**
-   * The WizardStep object belonging to the currently visible and selected step.
-   * The currentStep is always the currently selected wizard step.
-   * The currentStep can be either completed, if it was visited earlier,
-   * or not completed, if it is visited for the first time or its state is currently out of date.
-   *
-   * If this wizard contains no steps, currentStep is null
-   */
-  public currentStep: WizardStep;
-
-  /**
-   * If this wizard has been completed, `completed` will be true
-   */
-  public completed: boolean;
-
-  private navigationModeInstance: NavigationMode;
-
-  /**
    * Constructor
    */
-  constructor(private injector: Injector) {
+  constructor(private model: WizardState) {
   }
 
   /**
    * Initialization work
    */
   ngAfterContentInit(): void {
-    this.reset();
-  }
-
-  /**
-   * Initialization work
-   */
-  ngOnInit(): void {
-    this.navigationModeInstance = this.injector.get(NAVIGATION_MODE);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.hasOwnProperty('navigationMode')) {
-      this.navigationModeInstance = this.injector.get(NAVIGATION_MODE);
-    }
-  }
-
-
-  /**
-   * Checks if a given index `stepIndex` is inside the range of possible wizard steps inside this wizard
-   *
-   * @param stepIndex The to be checked index of a step inside this wizard
-   * @returns {boolean} True if the given `stepIndex` is contained inside this wizard, false otherwise
-   */
-  hasStep(stepIndex: number): boolean {
-    return this.wizardSteps.length > 0 && 0 <= stepIndex && stepIndex < this.wizardSteps.length;
-  }
-
-  /**
-   * Checks if this wizard has a previous step, compared to the current step
-   *
-   * @returns {boolean} True if this wizard has a previous step before the current step
-   */
-  hasPreviousStep(): boolean {
-    return this.hasStep(this.currentStepIndex - 1);
-  }
-
-  /**
-   * Checks if this wizard has a next step, compared to the current step
-   *
-   * @returns {boolean} True if this wizard has a next step after the current step
-   */
-  hasNextStep(): boolean {
-    return this.hasStep(this.currentStepIndex + 1);
-  }
-
-  /**
-   * Checks if this wizard is currently inside its last step
-   *
-   * @returns {boolean} True if the wizard is currently inside its last step
-   */
-  isLastStep(): boolean {
-    return this.wizardSteps.length > 0 && this.currentStepIndex === this.wizardSteps.length - 1;
-  }
-
-  /**
-   * Finds the [[WizardStep]] at the given index `stepIndex`.
-   * If no [[WizardStep]] exists at the given index an Error is thrown
-   *
-   * @param stepIndex The given index
-   * @returns {undefined|WizardStep} The found [[WizardStep]] at the given index `stepIndex`
-   * @throws An `Error` is thrown, if the given index `stepIndex` doesn't exist
-   */
-  getStepAtIndex(stepIndex: number): WizardStep {
-    if (!this.hasStep(stepIndex)) {
-      throw new Error(`Expected a known step, but got stepIndex: ${stepIndex}.`);
-    }
-
-    return this.wizardSteps.find((item, index, array) => index === stepIndex);
-  }
-
-  /**
-   * Find the index of the given [[WizardStep]] `step`.
-   * If the given [[WizardStep]] is not contained inside this wizard, `-1` is returned
-   *
-   * @param step The given [[WizardStep]]
-   * @returns {number} The found index of `step` or `-1` if the step is not included in the wizard
-   */
-  getIndexOfStep(step: WizardStep): number {
-    let stepIndex = -1;
-
-    this.wizardSteps.forEach((item, index) => {
-      if (item === step) {
-        stepIndex = index;
-      }
-    });
-
-    return stepIndex;
-  }
-
-  /**
-   * Calculates the correct [[MovingDirection]] value for a given `destinationStep` compared to the `currentStepIndex`.
-   *
-   * @param destinationStep The given destination step
-   * @returns {MovingDirection} The calculated [[MovingDirection]]
-   */
-  getMovingDirection(destinationStep: number): MovingDirection {
-    let movingDirection: MovingDirection;
-
-    if (destinationStep > this.currentStepIndex) {
-      movingDirection = MovingDirection.Forwards;
-    } else if (destinationStep < this.currentStepIndex) {
-      movingDirection = MovingDirection.Backwards;
-    } else {
-      movingDirection = MovingDirection.Stay;
-    }
-
-    return movingDirection;
-  }
-
-  /**
-   * Tries to transition the wizard to the previous step from the `currentStep`
-   */
-  goToPreviousStep(): void {
-    if (this.hasPreviousStep()) {
-      this.goToStep(this.currentStepIndex - 1);
-    }
-  }
-
-  /**
-   * Tries to transition the wizard to the next step from the `currentStep`
-   */
-  goToNextStep(): void {
-    if (this.hasNextStep()) {
-      this.goToStep(this.currentStepIndex + 1);
-    }
-  }
-
-  /**
-   * Checks if it's possible to transition to the previous step from the `currentStep`
-   *
-   * @returns {boolean} True if it's possible to transition to the previous step, false otherwise
-   */
-  canGoToPreviousStep(): boolean {
-    const previousStepIndex = this.currentStepIndex - 1;
-
-    return this.hasStep(previousStepIndex) && this.canGoToStep(previousStepIndex);
-  }
-
-  /**
-   * Checks if it's possible to transition to the next step from the `currentStep`
-   *
-   * @returns {boolean} True if it's possible to transition to the next step, false otherwise
-   */
-  canGoToNextStep(): boolean {
-    const nextStepIndex = this.currentStepIndex + 1;
-
-    return this.hasStep(nextStepIndex) && this.canGoToStep(nextStepIndex);
-  }
-
-  /**
-   * Checks if it's possible to transition to the step with the given `stepIndex` from the `currentStep`.
-   *
-   * @param stepIndex The to be checked step index
-   * @returns {boolean} True if it's possible to transition to the given `stepIndex`
-   */
-  canGoToStep(stepIndex: number): boolean {
-    return this.navigationModeInstance.canGoToStep(stepIndex);
-  }
-
-  /**
-   * Tries to transition to the given `destinationStepIndex`.
-   * This will only fail, if the `currentStep` can't be left
-   *
-   * @param destinationStepIndex The index of the destination step
-   */
-  goToStep(destinationStepIndex: number): void {
-    this.navigationModeInstance.goToStep(destinationStepIndex);
-  }
-
-  /**
-   * Resets the state of this wizard.
-   * A reset transitions the wizard automatically to the first step and sets all steps as incomplete.
-   * In addition the whole wizard is set as incomplete
-   */
-  reset(): void {
-    // reset the step internal state
-    this.wizardSteps.forEach((step, index) => {
-      step.completed = false;
-      step.selected = false;
-    });
-
-    // set the wizard to incomplete
-    this.completed = false;
-
-    // set the first step as the current step
-    this.currentStepIndex = 0;
-    this.currentStep = this.getStepAtIndex(0);
-    this.currentStep.selected = true;
-    this.currentStep.enter(MovingDirection.Forwards);
-  }
-
-  /**
-   * This method returns true, if the given step `wizardStep` can be exited and false otherwise.
-   * Because this method depends on the value `canExit`, it will throw an error, if `canExit` is neither a boolean
-   * nor a function.
-   *
-   * @param wizardStep The [[WizardStep]] to be checked
-   * @param direction The direction in which this step should be left
-   * @returns {any} True if the given step `wizardStep` can be exited in the given direction, false otherwise
-   * @throws An `Error` is thrown if `wizardStep.canExit` is neither a function nor a boolean
-   */
-  public canExitStep(wizardStep: WizardStep, direction: MovingDirection): boolean {
-    if (isBoolean(wizardStep.canExit)) {
-      return wizardStep.canExit as boolean;
-    } else if (wizardStep.canExit instanceof Function) {
-      return wizardStep.canExit(direction);
-    } else {
-      throw new Error(`Input value '${wizardStep.canExit}' is neither a boolean nor a function`);
-    }
+    this.model.initialize(this.wizardSteps);
   }
 }

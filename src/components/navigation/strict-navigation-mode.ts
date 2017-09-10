@@ -3,6 +3,7 @@ import {WizardComponent} from '../components/wizard.component';
 import {WizardStep} from '../util/wizard-step.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {Injectable} from '@angular/core';
+import {WizardState} from './wizard-state.model';
 
 /**
  * A [[NavigationMode]], which allows the user to navigate with strict limitations.
@@ -13,13 +14,14 @@ import {Injectable} from '@angular/core';
  * @author Marc Arndt
  */
 @Injectable()
-export class StrictNavigationMode implements NavigationMode {
+export class StrictNavigationMode extends NavigationMode {
   /**
    * Constructor
    *
-   * @param {WizardComponent} wizard The wizard, that is configured with this navigation mode
+   * @param {WizardState} wizardState The state of the wizard, that is configured with this navigation mode
    */
-  constructor(private wizard: WizardComponent) {
+  constructor(wizardState: WizardState) {
+    super(wizardState);
   }
 
   /**
@@ -33,14 +35,13 @@ export class StrictNavigationMode implements NavigationMode {
    * @returns {boolean} True if the destination wizard step can be entered, false otherwise
    */
   canGoToStep(destinationIndex: number): boolean {
-    const movingDirection: MovingDirection = this.wizard.getMovingDirection(destinationIndex);
+    const movingDirection = this.wizardState.getMovingDirection(destinationIndex);
 
-    const canExit = this.wizard.canExitStep(this.wizard.currentStep, movingDirection);
+    const canExit = this.wizardState.currentStep.canExitStep(movingDirection);
+    const hasStep = this.wizardState.hasStep(destinationIndex);
 
-    const hasStep = this.wizard.hasStep(destinationIndex);
-
-    const allPreviousStepsComplete = this.wizard.wizardSteps
-      .filter((step, index) => index < destinationIndex && index !== this.wizard.currentStepIndex)
+    const allPreviousStepsComplete = this.wizardState.wizardSteps
+      .filter((step, index) => index < destinationIndex && index !== this.wizardState.currentStepIndex)
       .every(step => step.completed || step.optional);
 
     return canExit && hasStep && allPreviousStepsComplete;
@@ -62,31 +63,32 @@ export class StrictNavigationMode implements NavigationMode {
    * @param {number} destinationIndex The index of the destination wizard step, which should be entered
    */
   goToStep(destinationIndex: number): void {
-    const destinationStep: WizardStep = this.wizard.getStepAtIndex(destinationIndex);
-
-    const movingDirection: MovingDirection = this.wizard.getMovingDirection(destinationIndex);
+    const movingDirection: MovingDirection = this.wizardState.getMovingDirection(destinationIndex);
 
     if (this.canGoToStep(destinationIndex)) {
       // leave current step
-      this.wizard.currentStep.completed = true;
-      this.wizard.currentStep.exit(movingDirection);
-      this.wizard.currentStep.selected = false;
+      this.wizardState.currentStep.completed = true;
+      this.wizardState.currentStep.exit(movingDirection);
+      this.wizardState.currentStep.selected = false;
 
       // set all steps after the destination step to incomplete
-      this.wizard.wizardSteps
-        .filter((step, index) => this.wizard.currentStepIndex > destinationIndex && index > destinationIndex)
+      this.wizardState.wizardSteps
+        .filter((step, index) => this.wizardState.currentStepIndex > destinationIndex && index > destinationIndex)
         .forEach(step => step.completed = false);
 
-      this.wizard.currentStepIndex = destinationIndex;
-      this.wizard.currentStep = destinationStep;
+      this.wizardState.currentStepIndex = destinationIndex;
 
       // go to next step
-      this.wizard.currentStep.enter(movingDirection);
-      this.wizard.currentStep.selected = true;
+      this.wizardState.currentStep.enter(movingDirection);
+      this.wizardState.currentStep.selected = true;
     } else {
       // if the current step can't be left, reenter the current step
-      this.wizard.currentStep.exit(MovingDirection.Stay);
-      this.wizard.currentStep.enter(MovingDirection.Stay);
+      this.wizardState.currentStep.exit(MovingDirection.Stay);
+      this.wizardState.currentStep.enter(MovingDirection.Stay);
     }
+  }
+
+  isNavigable(destinationIndex: number): boolean {
+    return false;
   }
 }

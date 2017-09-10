@@ -1,6 +1,7 @@
 import {MovingDirection} from './moving-direction.enum';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 import {EventEmitter} from '@angular/core';
+import {isBoolean} from 'util';
 
 /**
  * Basic functionality every type of wizard step needs to provide
@@ -90,4 +91,24 @@ export abstract class WizardStep {
    * @param direction The direction in which the step is exited
    */
   abstract exit(direction: MovingDirection): void;
+
+  /**
+   * This method returns true, if the given step `wizardStep` can be exited and false otherwise.
+   * Because this method depends on the value `canExit`, it will throw an error, if `canExit` is neither a boolean
+   * nor a function.
+   *
+   * @param wizardStep The [[WizardStep]] to be checked
+   * @param direction The direction in which this step should be left
+   * @returns {any} True if the given step `wizardStep` can be exited in the given direction, false otherwise
+   * @throws An `Error` is thrown if `wizardStep.canExit` is neither a function nor a boolean
+   */
+  public canExitStep(direction: MovingDirection): boolean {
+    if (isBoolean(this.canExit)) {
+      return this.canExit as boolean;
+    } else if (this.canExit instanceof Function) {
+      return this.canExit(direction);
+    } else {
+      throw new Error(`Input value '${this.canExit}' is neither a boolean nor a function`);
+    }
+  }
 }

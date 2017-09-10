@@ -1,9 +1,10 @@
-import { OptionalStepDirective } from './optional-step.directive';
-import {Component, ViewChild} from '@angular/core';
-import {WizardComponent} from '../components/wizard.component';
-import {ComponentFixture, TestBed, async} from '@angular/core/testing';
+import {OptionalStepDirective} from './optional-step.directive';
+import {Component} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {WizardModule} from '../wizard.module';
+import {WizardState} from '../navigation/wizard-state.model';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 @Component({
   selector: 'test-wizard',
@@ -22,13 +23,14 @@ import {WizardModule} from '../wizard.module';
   `
 })
 class WizardTestComponent {
-  @ViewChild(WizardComponent)
-  public wizard: WizardComponent;
 }
 
 describe('OptionalStepDirective', () => {
   let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
+
+  let wizardState: WizardState;
+  let navigationMode: NavigationMode;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,6 +42,9 @@ describe('OptionalStepDirective', () => {
   beforeEach(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTest = wizardTestFixture.componentInstance;
+    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
+    navigationMode = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(NavigationMode);
+
     wizardTestFixture.detectChanges();
   });
 
@@ -49,8 +54,8 @@ describe('OptionalStepDirective', () => {
   });
 
   it('should set optional correctly', () => {
-    expect(wizardTest.wizard.getStepAtIndex(0).optional).toBe(false);
-    expect(wizardTest.wizard.getStepAtIndex(1).optional).toBe(true);
-    expect(wizardTest.wizard.getStepAtIndex(2).optional).toBe(false);
+    expect(wizardState.getStepAtIndex(0).optional).toBe(false);
+    expect(wizardState.getStepAtIndex(1).optional).toBe(true);
+    expect(wizardState.getStepAtIndex(2).optional).toBe(false);
   });
 });

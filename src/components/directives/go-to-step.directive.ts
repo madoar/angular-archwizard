@@ -7,6 +7,8 @@ import {WizardComponent} from '../components/wizard.component';
 import {isStepOffset, StepOffset} from '../util/step-offset.interface';
 import {isNumber, isString} from 'util';
 import {WizardStep} from '../util/wizard-step.interface';
+import {WizardState} from '../navigation/wizard-state.model';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 /**
  * The `goToStep` directive can be used to navigate to a given step.
@@ -59,10 +61,11 @@ export class GoToStepDirective {
   /**
    * Constructor
    *
-   * @param wizard The wizard, which contains this [[GoToStepDirective]]
+   * @param wizardState The wizard state
+   * @param navigationMode The navigation mode, used for the wizard
    * @param wizardStep The wizard step, which contains this [[GoToStepDirective]]
    */
-  constructor(private wizard: WizardComponent, @Optional() private wizardStep: WizardStep) { }
+  constructor(private wizardState: WizardState, private navigationMode: NavigationMode, @Optional() private wizardStep: WizardStep) { }
 
   /**
    * Returns the destination step of this directive as an absolute step index inside the wizard
@@ -78,9 +81,9 @@ export class GoToStepDirective {
     } else if (isString(this.goToStep)) {
       destinationStep = parseInt(this.goToStep as string, 10);
     } else if (isStepOffset(this.goToStep) && this.wizardStep !== null) {
-      destinationStep = this.wizard.getIndexOfStep(this.wizardStep) + this.goToStep.stepOffset;
+      destinationStep = this.wizardState.getIndexOfStep(this.wizardStep) + this.goToStep.stepOffset;
     } else if (this.goToStep instanceof WizardStep) {
-      destinationStep = this.wizard.getIndexOfStep(this.goToStep);
+      destinationStep = this.wizardState.getIndexOfStep(this.goToStep);
     } else {
       throw new Error(`Input 'goToStep' is neither a WizardStep, StepOffset, number or string`);
     }
@@ -93,10 +96,10 @@ export class GoToStepDirective {
    * After this method is called the wizard will try to transition to the `destinationStep`
    */
   @HostListener('click', ['$event']) onClick(): void {
-    if (this.wizard.canGoToStep(this.destinationStep)) {
+    if (this.navigationMode.canGoToStep(this.destinationStep)) {
       this.finalize.emit();
 
-      this.wizard.goToStep(this.destinationStep);
+      this.navigationMode.goToStep(this.destinationStep);
     }
   }
 }

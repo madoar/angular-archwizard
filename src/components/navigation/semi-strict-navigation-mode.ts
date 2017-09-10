@@ -4,6 +4,7 @@ import {WizardStep} from '../util/wizard-step.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
 import {Injectable} from '@angular/core';
+import {WizardState} from './wizard-state.model';
 
 /**
  * A [[NavigationMode]], which allows the user to navigate with some limitations.
@@ -14,13 +15,14 @@ import {Injectable} from '@angular/core';
  * @author Marc Arndt
  */
 @Injectable()
-export class SemiStrictNavigationMode implements NavigationMode {
+export class SemiStrictNavigationMode extends NavigationMode {
   /**
    * Constructor
    *
    * @param {WizardComponent} wizard The wizard, that is configured with this navigation mode
    */
-  constructor(private wizard: WizardComponent) {
+  constructor(wizardState: WizardState) {
+    super(wizardState);
   }
 
   /**
@@ -28,23 +30,22 @@ export class SemiStrictNavigationMode implements NavigationMode {
    * A destination wizard step can be entered if:
    * - it exists
    * - the current step can be exited in the direction of the destination step
-   * - all "normal" wizard steps have been completed or are optional, or the destination step isn't a completion step
+   * - all "normal" wizard steps have been completed, are optional or selected, or the destination step isn't a completion step
    *
    * @param {number} destinationIndex The index of the destination wizard step
    * @returns {boolean} True if the destination wizard step can be entered, false otherwise
    */
   canGoToStep(destinationIndex: number): boolean {
-    const movingDirection: MovingDirection = this.wizard.getMovingDirection(destinationIndex);
+    const movingDirection = this.wizardState.getMovingDirection(destinationIndex);
 
-    const canExit = this.wizard.canExitStep(this.wizard.currentStep, movingDirection);
+    const canExit = this.wizardState.currentStep.canExitStep(movingDirection);
+    const hasStep = this.wizardState.hasStep(destinationIndex);
 
-    const hasStep = this.wizard.hasStep(destinationIndex);
-
-    const allNormalStepsCompleted = this.wizard.wizardSteps
+    const allNormalStepsCompleted = this.wizardState.wizardSteps
       .filter((step, index) => index < destinationIndex)
-      .every(step => step.completed || step.optional);
+      .every(step => step.completed || step.optional || step.selected);
 
-    const destinationStep: WizardStep = this.wizard.getStepAtIndex(destinationIndex);
+    const destinationStep: WizardStep = this.wizardState.getStepAtIndex(destinationIndex);
 
     return canExit && hasStep && (!(destinationStep instanceof WizardCompletionStep) || allNormalStepsCompleted);
   }
@@ -64,27 +65,30 @@ export class SemiStrictNavigationMode implements NavigationMode {
    * @param {number} destinationIndex The index of the destination wizard step, which should be entered
    */
   goToStep(destinationIndex: number): void {
-    const destinationStep: WizardStep = this.wizard.getStepAtIndex(destinationIndex);
+    const destinationStep: WizardStep = this.wizardState.getStepAtIndex(destinationIndex);
 
-    const movingDirection: MovingDirection = this.wizard.getMovingDirection(destinationIndex);
+    const movingDirection: MovingDirection = this.wizardState.getMovingDirection(destinationIndex);
 
     // the current step can be exited in the given direction
     if (this.canGoToStep(destinationIndex)) {
       // leave current step
-      this.wizard.currentStep.completed = true;
-      this.wizard.currentStep.exit(movingDirection);
-      this.wizard.currentStep.selected = false;
+      this.wizardState.currentStep.completed = true;
+      this.wizardState.currentStep.exit(movingDirection);
+      this.wizardState.currentStep.selected = false;
 
-      this.wizard.currentStepIndex = destinationIndex;
-      this.wizard.currentStep = destinationStep;
+      this.wizardState.currentStepIndex = destinationIndex;
 
       // go to next step
-      this.wizard.currentStep.enter(movingDirection);
-      this.wizard.currentStep.selected = true;
+      this.wizardState.currentStep.enter(movingDirection);
+      this.wizardState.currentStep.selected = true;
     } else {
       // if the current step can't be left, reenter the current step
-      this.wizard.currentStep.exit(MovingDirection.Stay);
-      this.wizard.currentStep.enter(MovingDirection.Stay);
+      this.wizardState.currentStep.exit(MovingDirection.Stay);
+      this.wizardState.currentStep.enter(MovingDirection.Stay);
     }
+  }
+
+  isNavigable(destinationIndex: number): boolean {
+    return this.canGoToStep(destinationIndex);
   }
 }

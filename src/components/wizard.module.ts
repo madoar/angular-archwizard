@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 
 import {WizardComponent} from './components/wizard.component';
 import {WizardNavigationBarComponent} from './components/wizard-navigation-bar.component';
@@ -14,7 +14,6 @@ import {WizardStepTitleDirective} from './directives/wizard-step-title.directive
 import {EnableBackLinksDirective} from './directives/enable-back-links.directive';
 import {WizardStepDirective} from './directives/wizard-step.directive';
 import {WizardCompletionStepDirective} from './directives/wizard-completion-step.directive';
-import {navigationModeProvider} from './navigation/navigation-mode.provider';
 
 /**
  * The module defining all the content inside `ng2-archwizard`
