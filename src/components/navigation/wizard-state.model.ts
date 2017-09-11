@@ -23,6 +23,7 @@ export class WizardState {
    * An array representation of all wizard steps belonging to this model
    */
   public get wizardSteps(): Array<WizardStep> {
+    /* istanbul ignore else */
     if (this._wizardSteps) {
       return this._wizardSteps.toArray();
     } else {

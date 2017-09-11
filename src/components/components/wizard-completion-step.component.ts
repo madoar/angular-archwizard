@@ -119,13 +119,6 @@ export class WizardCompletionStepComponent extends WizardCompletionStep {
   public canExit: ((direction: MovingDirection) => boolean) | boolean = false;
 
   /**
-   * Constructor
-   */
-  constructor() {
-    super();
-  }
-
-  /**
    * @inheritDoc
    */
   enter(direction: MovingDirection): void {
