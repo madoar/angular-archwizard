@@ -6,6 +6,7 @@ import {WizardModule} from '../wizard.module';
 import {WizardState} from './wizard-state.model';
 import {WizardComponent} from '../components/wizard.component';
 import {NavigationMode} from './navigation-mode.interface';
+import {StrictNavigationMode} from './strict-navigation-mode';
 
 @Component({
   selector: 'test-wizard',
@@ -68,6 +69,8 @@ describe('StrictNavigationMode', () => {
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
     expect(wizardTestFixture.debugElement.query(By.css('wizard'))).toBeTruthy();
+    expect(navigationMode instanceof StrictNavigationMode).toBe(true,
+      'Navigation mode is not an instance of StrictNavigationMode');
   });
 
   it('should return correct can go to step', () => {

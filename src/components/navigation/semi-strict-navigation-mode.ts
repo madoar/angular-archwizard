@@ -44,9 +44,10 @@ export class SemiStrictNavigationMode extends NavigationMode {
       .filter((step, index) => index < destinationIndex)
       .every(step => step.completed || step.optional || step.selected);
 
-    const destinationStep: WizardStep = this.wizardState.getStepAtIndex(destinationIndex);
+    // provide the destination step as a lambda in case the index doesn't exist (i.e. hasStep === false)
+    const destinationStep = () => this.wizardState.getStepAtIndex(destinationIndex);
 
-    return canExit && hasStep && (!(destinationStep instanceof WizardCompletionStep) || allNormalStepsCompleted);
+    return canExit && hasStep && (!(destinationStep() instanceof WizardCompletionStep) || allNormalStepsCompleted);
   }
 
   /**
