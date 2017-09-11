@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ContentChildren, HostBinding, Injector, Input, OnInit, QueryList} from '@angular/core';
+import {AfterContentInit, Component, ContentChildren, HostBinding, Input, QueryList} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {navigationModeFactory} from '../navigation/navigation-mode.provider';

@@ -1,6 +1,4 @@
 import {NavigationMode} from './navigation-mode.interface';
-import {WizardComponent} from '../components/wizard.component';
-import {WizardStep} from '../util/wizard-step.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {Injectable} from '@angular/core';
 import {WizardState} from './wizard-state.model';
@@ -16,7 +14,7 @@ export class FreeNavigationMode extends NavigationMode {
   /**
    * Constructor
    *
-   * @param {WizardComponent} wizard The wizard, that is configured with this navigation mode
+   * @param {WizardState} wizardState The model/state of the wizard, that is configured with this navigation mode
    */
   constructor(wizardState: WizardState) {
     super(wizardState);

@@ -1,6 +1,4 @@
 import {NavigationMode} from './navigation-mode.interface';
-import {WizardComponent} from '../components/wizard.component';
-import {WizardStep} from '../util/wizard-step.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {Injectable} from '@angular/core';
 import {WizardState} from './wizard-state.model';
