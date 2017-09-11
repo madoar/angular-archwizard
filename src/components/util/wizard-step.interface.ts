@@ -97,7 +97,6 @@ export abstract class WizardStep {
    * Because this method depends on the value `canExit`, it will throw an error, if `canExit` is neither a boolean
    * nor a function.
    *
-   * @param wizardStep The [[WizardStep]] to be checked
    * @param direction The direction in which this step should be left
    * @returns {any} True if the given step `wizardStep` can be exited in the given direction, false otherwise
    * @throws An `Error` is thrown if `wizardStep.canExit` is neither a function nor a boolean
