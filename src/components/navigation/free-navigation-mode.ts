@@ -55,8 +55,6 @@ export class FreeNavigationMode extends NavigationMode {
    * @param {number} destinationIndex The index of the destination wizard step, which should be entered
    */
   goToStep(destinationIndex: number): void {
-    const destinationStep: WizardStep = this.wizardState.getStepAtIndex(destinationIndex);
-
     const movingDirection: MovingDirection = this.wizardState.getMovingDirection(destinationIndex);
 
     // the current step can be exited in the given direction

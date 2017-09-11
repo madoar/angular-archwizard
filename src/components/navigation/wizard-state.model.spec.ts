@@ -53,11 +53,10 @@ describe('WizardState', () => {
 
   beforeEach(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
-    wizardTest = wizardTestFixture.componentInstance;
-
-    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
-
     wizardTestFixture.detectChanges();
+
+    wizardTest = wizardTestFixture.componentInstance;
+    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
   });
 
   it('should create', () => {
@@ -149,5 +148,10 @@ describe('WizardState', () => {
 
     expect(wizardState.currentStepIndex).toBe(0);
     checkWizardSteps(wizardState.wizardSteps, 0);
+  });
+
+  it('should return null when staying in an incorrect step', () => {
+    wizardState.currentStepIndex = -1;
+    expect(wizardState.currentStep).toBeNull();
   });
 });
