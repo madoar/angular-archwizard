@@ -24,7 +24,7 @@ class WizardTestComponent {
 }
 
 function checkWizardSteps(steps: Array<WizardStep>, selectedStepIndex: number) {
-  steps.forEach((step, index, array) => {
+  steps.forEach((step, index) => {
     // Only the selected step should be selected
     if (index === selectedStepIndex) {
       expect(step.selected).toBe(true, `the selected wizard step index ${index} is not selected`);
@@ -193,5 +193,30 @@ describe('StrictNavigationMode', () => {
     expect(wizardState.currentStep).toBe(wizardState.getStepAtIndex(0));
 
     checkWizardSteps(wizardState.wizardSteps, 0);
+  });
+
+  it('should reset the wizard correctly', () => {
+    navigationMode.goToNextStep();
+    navigationMode.goToNextStep();
+
+    expect(wizardState.currentStepIndex).toBe(2);
+    expect(wizardState.getStepAtIndex(0).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(0).completed).toBe(true);
+    expect(wizardState.getStepAtIndex(1).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(1).completed).toBe(true);
+    expect(wizardState.getStepAtIndex(2).selected).toBe(true);
+    expect(wizardState.getStepAtIndex(2).completed).toBe(false);
+    expect(wizardState.completed).toBe(false);
+
+    navigationMode.reset();
+
+    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizardState.getStepAtIndex(0).selected).toBe(true);
+    expect(wizardState.getStepAtIndex(0).completed).toBe(false);
+    expect(wizardState.getStepAtIndex(1).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(1).completed).toBe(false);
+    expect(wizardState.getStepAtIndex(2).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(2).completed).toBe(false);
+    expect(wizardState.completed).toBe(false);
   });
 });

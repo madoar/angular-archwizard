@@ -241,4 +241,29 @@ describe('SemiStrictNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
   });
+
+  it('should reset the wizard correctly', () => {
+    navigationMode.goToNextStep();
+    navigationMode.goToNextStep();
+
+    expect(wizardState.currentStepIndex).toBe(2);
+    expect(wizardState.getStepAtIndex(0).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(0).completed).toBe(true);
+    expect(wizardState.getStepAtIndex(1).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(1).completed).toBe(true);
+    expect(wizardState.getStepAtIndex(2).selected).toBe(true);
+    expect(wizardState.getStepAtIndex(2).completed).toBe(true);
+    expect(wizardState.completed).toBe(true);
+
+    navigationMode.reset();
+
+    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizardState.getStepAtIndex(0).selected).toBe(true);
+    expect(wizardState.getStepAtIndex(0).completed).toBe(false);
+    expect(wizardState.getStepAtIndex(1).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(1).completed).toBe(false);
+    expect(wizardState.getStepAtIndex(2).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(2).completed).toBe(false);
+    expect(wizardState.completed).toBe(false);
+  });
 });

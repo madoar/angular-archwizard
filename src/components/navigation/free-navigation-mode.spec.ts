@@ -1,7 +1,6 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Component, ViewChild} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {WizardStep} from '../util/wizard-step.interface';
 import {WizardModule} from '../wizard.module';
 import {WizardState} from './wizard-state.model';
 import {WizardComponent} from '../components/wizard.component';
@@ -236,6 +235,31 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
     expect(wizardState.getStepAtIndex(0).completed).toBe(true);
+    expect(wizardState.getStepAtIndex(1).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(1).completed).toBe(false);
+    expect(wizardState.getStepAtIndex(2).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(2).completed).toBe(false);
+    expect(wizardState.completed).toBe(false);
+  });
+
+  it('should reset the wizard correctly', () => {
+    navigationMode.goToNextStep();
+    navigationMode.goToNextStep();
+
+    expect(wizardState.currentStepIndex).toBe(2);
+    expect(wizardState.getStepAtIndex(0).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(0).completed).toBe(true);
+    expect(wizardState.getStepAtIndex(1).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(1).completed).toBe(true);
+    expect(wizardState.getStepAtIndex(2).selected).toBe(true);
+    expect(wizardState.getStepAtIndex(2).completed).toBe(false);
+    expect(wizardState.completed).toBe(false);
+
+    navigationMode.reset();
+
+    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizardState.getStepAtIndex(0).selected).toBe(true);
+    expect(wizardState.getStepAtIndex(0).completed).toBe(false);
     expect(wizardState.getStepAtIndex(1).selected).toBe(false);
     expect(wizardState.getStepAtIndex(1).completed).toBe(false);
     expect(wizardState.getStepAtIndex(2).selected).toBe(false);

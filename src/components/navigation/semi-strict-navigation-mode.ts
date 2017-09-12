@@ -1,5 +1,4 @@
 import {NavigationMode} from './navigation-mode.interface';
-import {WizardStep} from '../util/wizard-step.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
 import {Injectable} from '@angular/core';

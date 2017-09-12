@@ -1,10 +1,9 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardModule} from '../wizard.module';
 import {WizardState} from './wizard-state.model';
-import {WizardComponent} from '../components/wizard.component';
 
 @Component({
   selector: 'test-wizard',
@@ -132,22 +131,6 @@ describe('WizardState', () => {
     wizardState.currentStepIndex++;
 
     expect(wizardState.isLastStep()).toBe(true);
-  });
-
-  it('should reset the wizard correctly', () => {
-    wizardState.currentStepIndex = 2;
-    wizardState.getStepAtIndex(0).completed = true;
-    wizardState.getStepAtIndex(0).selected = false;
-    wizardState.getStepAtIndex(1).completed = true;
-    wizardState.getStepAtIndex(2).selected = true;
-
-    expect(wizardState.currentStepIndex).toBe(2);
-    checkWizardSteps(wizardState.wizardSteps, 2);
-
-    wizardState.reset();
-
-    expect(wizardState.currentStepIndex).toBe(0);
-    checkWizardSteps(wizardState.wizardSteps, 0);
   });
 
   it('should return null when staying in an incorrect step', () => {

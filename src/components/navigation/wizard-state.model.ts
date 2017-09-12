@@ -75,7 +75,6 @@ export class WizardState {
    */
   initialize(wizardSteps: QueryList<WizardStep>): void {
     this._wizardSteps = wizardSteps;
-    this.reset();
   }
 
   /**
@@ -160,23 +159,5 @@ export class WizardState {
     }
 
     return movingDirection;
-  }
-
-  /**
-   * Resets the state of this wizard.
-   * A reset transitions the wizard automatically to the first step and sets all steps as incomplete.
-   * In addition the whole wizard is set as incomplete
-   */
-  reset(): void {
-    // reset the step internal state
-    this.wizardSteps.forEach(step => {
-      step.completed = false;
-      step.selected = false;
-    });
-
-    // set the first step as the current step
-    this.currentStepIndex = 0;
-    this.currentStep.selected = true;
-    this.currentStep.enter(MovingDirection.Forwards);
   }
 }
