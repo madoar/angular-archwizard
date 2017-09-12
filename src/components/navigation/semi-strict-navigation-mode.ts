@@ -1,7 +1,6 @@
 import {NavigationMode} from './navigation-mode.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
-import {Injectable} from '@angular/core';
 import {WizardState} from './wizard-state.model';
 
 /**
@@ -12,7 +11,6 @@ import {WizardState} from './wizard-state.model';
  *
  * @author Marc Arndt
  */
-@Injectable()
 export class SemiStrictNavigationMode extends NavigationMode {
   /**
    * Constructor

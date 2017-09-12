@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {WizardComponent} from './wizard.component';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
@@ -24,12 +23,20 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 })
 export class WizardNavigationBarComponent {
   /**
+   * The navigation mode
+   *
+   * @returns {NavigationMode}
+   */
+  public get navigationMode(): NavigationMode {
+    return this.wizardState.navigationMode;
+  }
+
+  /**
    * Constructor
    *
    * @param wizardState The state the wizard currently resides in
-   * @param navigationMode The navigation mode used for navigating between different steps
    */
-  constructor(public wizardState: WizardState, public navigationMode: NavigationMode) { }
+  constructor(public wizardState: WizardState) { }
 
   /**
    * Returns all [[WizardStep]]s contained in the wizard

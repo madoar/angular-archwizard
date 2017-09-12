@@ -1,6 +1,8 @@
 import {Injectable, QueryList} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
+import {NavigationMode} from './navigation-mode.interface';
+import {navigationModeFactory} from './navigation-mode.provider';
 
 /**
  * The internal model/state of a wizard.
@@ -36,6 +38,8 @@ export class WizardState {
    * If this wizard contains no steps, currentStepIndex is -1
    */
   public currentStepIndex = -1;
+
+  public navigationMode: NavigationMode;
 
   /**
    * The WizardStep object belonging to the currently visible and selected step.
@@ -73,8 +77,10 @@ export class WizardState {
    *
    * @param {QueryList<WizardStep>} wizardSteps The wizard steps
    */
-  initialize(wizardSteps: QueryList<WizardStep>): void {
+  initialize(wizardSteps: QueryList<WizardStep>, navigationMode: string): void {
     this._wizardSteps = wizardSteps;
+    this.navigationMode = navigationModeFactory(navigationMode, this);
+    this.navigationMode.reset();
   }
 
   /**

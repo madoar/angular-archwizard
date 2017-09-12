@@ -1,7 +1,6 @@
 import {Directive, HostListener} from '@angular/core';
-import {WizardComponent} from '../components/wizard.component';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {navigationModeFactory} from '../navigation/navigation-mode.provider';
+import {WizardState} from '../navigation/wizard-state.model';
 
 /**
  * The `previousStep` directive can be used to navigate to the previous step.
@@ -20,11 +19,20 @@ import {navigationModeFactory} from '../navigation/navigation-mode.provider';
 })
 export class PreviousStepDirective {
   /**
+   * The navigation mode
+   *
+   * @returns {NavigationMode}
+   */
+  private get navigationMode(): NavigationMode {
+    return this.wizardState.navigationMode;
+  }
+
+  /**
    * Constructor
    *
-   * @param navigationMode The navigation mode used for the wizard
+   * @param wizardState The state of the wizard
    */
-  constructor(private navigationMode: NavigationMode) { }
+  constructor(private wizardState: WizardState) { }
 
   /**
    * Listener method for `click` events on the component with this directive.

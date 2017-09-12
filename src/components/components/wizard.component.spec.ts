@@ -32,8 +32,9 @@ describe('WizardComponent', () => {
 
   beforeEach(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
-    wizardTest = wizardTestFixture.componentInstance;
     wizardTestFixture.detectChanges();
+
+    wizardTest = wizardTestFixture.componentInstance;
   });
 
   it('should create', () => {

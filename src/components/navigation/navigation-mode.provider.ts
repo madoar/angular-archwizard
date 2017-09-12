@@ -13,8 +13,8 @@ import {WizardState} from './wizard-state.model';
  * @param {WizardState} wizardState The wizard state of the wizard
  * @returns {NavigationMode} The created [[NavigationMode]]
  */
-export function navigationModeFactory(wizard: WizardComponent, wizardState: WizardState): NavigationMode {
-  switch (wizard.navigationMode) {
+export function navigationModeFactory(navigationMode: string, wizardState: WizardState): NavigationMode {
+  switch (navigationMode) {
     case 'free':
       return new FreeNavigationMode(wizardState);
     case 'semi-strict':

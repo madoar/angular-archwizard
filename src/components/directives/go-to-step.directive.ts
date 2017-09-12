@@ -2,8 +2,7 @@
  * Created by marc on 09.01.17.
  */
 
-import {Directive, Output, HostListener, EventEmitter, Input, Optional} from '@angular/core';
-import {WizardComponent} from '../components/wizard.component';
+import {Directive, EventEmitter, HostListener, Input, Optional, Output} from '@angular/core';
 import {isStepOffset, StepOffset} from '../util/step-offset.interface';
 import {isNumber, isString} from 'util';
 import {WizardStep} from '../util/wizard-step.interface';
@@ -56,16 +55,24 @@ export class GoToStepDirective {
    * or a step index as a number or string
    */
   @Input()
-  private goToStep: WizardStep | StepOffset | number | string;
+  public goToStep: WizardStep | StepOffset | number | string;
+
+  /**
+   * The navigation mode
+   *
+   * @returns {NavigationMode}
+   */
+  private get navigationMode(): NavigationMode {
+    return this.wizardState.navigationMode;
+  }
 
   /**
    * Constructor
    *
    * @param wizardState The wizard state
-   * @param navigationMode The navigation mode, used for the wizard
    * @param wizardStep The wizard step, which contains this [[GoToStepDirective]]
    */
-  constructor(private wizardState: WizardState, private navigationMode: NavigationMode, @Optional() private wizardStep: WizardStep) { }
+  constructor(private wizardState: WizardState, @Optional() private wizardStep: WizardStep) { }
 
   /**
    * Returns the destination step of this directive as an absolute step index inside the wizard

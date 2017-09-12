@@ -45,11 +45,11 @@ describe('NextStepDirective', () => {
 
   beforeEach(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
+    wizardTestFixture.detectChanges();
+
     wizardTest = wizardTestFixture.componentInstance;
     wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
-    navigationMode = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(NavigationMode);
-
-    wizardTestFixture.detectChanges();
+    navigationMode = wizardState.navigationMode;
   });
 
   it('should create an instance', () => {

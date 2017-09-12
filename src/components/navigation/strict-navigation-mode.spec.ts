@@ -63,7 +63,7 @@ describe('StrictNavigationMode', () => {
 
     wizardTest = wizardTestFixture.componentInstance;
     wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
-    navigationMode = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(NavigationMode);
+    navigationMode = wizardState.navigationMode;
   });
 
   it('should create', () => {

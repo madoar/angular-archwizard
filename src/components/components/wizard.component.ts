@@ -1,8 +1,7 @@
-import {AfterContentInit, Component, ContentChildren, HostBinding, Injector, Input, QueryList} from '@angular/core';
+import {AfterContentInit, Component, ContentChildren, HostBinding, Input, QueryList} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {navigationModeFactory} from '../navigation/navigation-mode.provider';
 import {WizardState} from '../navigation/wizard-state.model';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 /**
  * The `wizard` component defines the root component of a wizard.
@@ -43,10 +42,7 @@ import {WizardState} from '../navigation/wizard-state.model';
   selector: 'wizard',
   templateUrl: 'wizard.component.html',
   styleUrls: ['wizard.component.less'],
-  providers: [
-    WizardState,
-    { provide: NavigationMode, useFactory: navigationModeFactory, deps: [WizardComponent, WizardState] }
-  ]
+  providers: [WizardState]
 })
 export class WizardComponent implements AfterContentInit {
   /**
@@ -104,23 +100,24 @@ export class WizardComponent implements AfterContentInit {
   }
 
   /**
-   * The navigation mode object, that is associated to the input `navigationMode`
+   * The navigation mode for this wizard
+   *
+   * @returns {NavigationMode}
    */
-  public navigation: NavigationMode;
+  public get navigation(): NavigationMode {
+    return this.model.navigationMode;
+}
 
   /**
    * Constructor
    */
-  constructor(public model: WizardState, private injector: Injector) {
+  constructor(public model: WizardState) {
   }
 
   /**
    * Initialization work
    */
   ngAfterContentInit(): void {
-    this.navigation = this.injector.get(NavigationMode);
-
-    this.model.initialize(this.wizardSteps);
-    this.navigation.reset();
+    this.model.initialize(this.wizardSteps, this.navigationMode);
   }
 }
