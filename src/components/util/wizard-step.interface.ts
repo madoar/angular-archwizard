@@ -57,16 +57,12 @@ export abstract class WizardStep {
   /**
    * This EventEmitter is called when the step is entered.
    * The bound method should be used to do initialization work.
-   *
-   * @type {EventEmitter<MovingDirection>}
    */
   public stepEnter: EventEmitter<MovingDirection>;
 
   /**
    * This EventEmitter is called when the step is exited.
    * The bound method can be used to do cleanup work.
-   *
-   * @type {EventEmitter<MovingDirection>}
    */
   public stepExit: EventEmitter<MovingDirection>;
 
@@ -98,7 +94,7 @@ export abstract class WizardStep {
    * nor a function.
    *
    * @param direction The direction in which this step should be left
-   * @returns {any} True if the given step `wizardStep` can be exited in the given direction, false otherwise
+   * @returns {boolean} True if the given step `wizardStep` can be exited in the given direction, false otherwise
    * @throws An `Error` is thrown if `wizardStep.canExit` is neither a function nor a boolean
    */
   public canExitStep(direction: MovingDirection): boolean {
