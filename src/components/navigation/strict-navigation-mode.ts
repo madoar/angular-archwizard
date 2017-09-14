@@ -31,16 +31,18 @@ export class StrictNavigationMode extends NavigationMode {
    * @returns {boolean} True if the destination wizard step can be entered, false otherwise
    */
   canGoToStep(destinationIndex: number): boolean {
+    const hasStep = this.wizardState.hasStep(destinationIndex);
+
     const movingDirection = this.wizardState.getMovingDirection(destinationIndex);
 
-    const canExit = this.wizardState.currentStep.canExitStep(movingDirection);
-    const hasStep = this.wizardState.hasStep(destinationIndex);
+    const canExitCurrentStep = () => this.wizardState.currentStep.canExitStep(movingDirection);
+    const canEnterDestinationStep = () => this.wizardState.getStepAtIndex(destinationIndex).canEnterStep(movingDirection);
 
     const allPreviousStepsComplete = this.wizardState.wizardSteps
       .filter((step, index) => index < destinationIndex && index !== this.wizardState.currentStepIndex)
       .every(step => step.completed || step.optional);
 
-    return canExit && hasStep && allPreviousStepsComplete;
+    return hasStep && canExitCurrentStep() && canEnterDestinationStep() && allPreviousStepsComplete;
   }
 
   /**

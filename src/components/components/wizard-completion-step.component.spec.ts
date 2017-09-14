@@ -24,7 +24,7 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 class WizardTestComponent {
   public isValid: any = true;
 
-  public eventLog: Array<string> = new Array<string>();
+  public eventLog: Array<string> = [];
 
   enterInto(direction: MovingDirection, destination: number): void {
     this.eventLog.push(`enter ${MovingDirection[direction]} ${destination}`);
