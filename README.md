@@ -149,6 +149,14 @@ you need to set the `navigationSymbol` input attribute of the step to `&#xf2dd;`
 <wizard-step title="Second Step" navigationSymbol="&#xf2dd;" navigationSymbolFontFamily="FontAwesome"></wizard-step>
 ```
 
+#### \[canEnter\]
+Sometimes it's required to only allow the user to enter a specific step if a certain validation method returns true.
+In such a case you can use the `[canEnter]` input of the targeted wizard step.
+This input can be either a boolean, which directly tells the wizard if the targeted step can be entered, 
+or a lambda function, taking a `MovingDirection` and returning a boolean.
+This function will then be called, with the direction in which the targeted step will be entered, whenever an operation has been performed, that leads to a change of the current step.
+It then returns true, when the step change should succeed and false otherwise.
+
 #### \[canExit\]
 If you have an additional check or validation you need to perform to decide, if the step can be exited (both to the next step and to the previous step),
 you can either pass a boolean or a function, taking a `MovingDirection` enum and returning a boolean, to the `[canExit]` attribute of the wizard step.
@@ -158,7 +166,7 @@ If only exiting one direction should be covered, you can pass a function taking 
 This function will then be called, with the direction in which the current step should be moved, whenever an operation has been performed, that leads to a change of the current step.
 It then returns true, when the step change should succeed and false otherwise.
 
-#### \(canEnter\)
+#### \(stepEnter\)
 If you need to call a function to do some initialisation work before entering a wizard step you can add a `stepEnter` attribute to the wizard step environment like this:
 
 ```html
@@ -172,7 +180,7 @@ The event emitter will call the given function with a parameter that contains th
 If the user went backwards, like from the third step to the second or first step, then `MovingDirection.Backwards` will be passed to the function. 
 If the user went forwards `MovingDirection.Forwards` will be passed to the function.
 
-#### \(canExit\)
+#### \(stepExit\)
 Similar to `stepEnter` you can add a `stepExit` attribute to the wizard step environment, if you want to call a function every time a wizard step is exited 
 either by pressing on a component with a `nextStep` or `previousStep` directive, or by a click on the navigation bar. 
 `stepExit`, like `stepEnter` can call the given function with an argument of type `MovingDirection` that signalises in which direction the step was exited.
@@ -185,6 +193,7 @@ Possible `<wizard-step>` parameters:
 | [title]                       | string                                            | null          |
 | [navigationSymbol]            | string                                            | ''            |
 | [navigationSymbolFontFamily]  | string                                            | null          |
+| [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
 | [canExit]                     | function(MovingDirection): boolean &#124; boolean | true          |
 | (stepEnter)                   | function(MovingDirection)                         | null          |
 | (stepExit)                    | function(MovingDirection)                         | null          |
@@ -208,6 +217,7 @@ Possible `<wizard-completion-step>` parameters:
 | [title]                       | string                                            | null          |
 | [navigationSymbol]            | string                                            | ''            |
 | [navigationSymbolFontFamily]  | string                                            | null          |
+| [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
 | (stepEnter)                   | function(MovingDirection)                         | null          |
 
 ### \[enableBackLinks\]
@@ -354,6 +364,7 @@ Possible `[wizardStep]` parameters:
 | [title]                       | string                                            | null          |
 | [navigationSymbol]            | string                                            | ''            |
 | [navigationSymbolFontFamily]  | string                                            | null          |
+| [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
 | [canExit]                     | function(MovingDirection): boolean &#124; boolean | true          |
 | (stepEnter)                   | function(MovingDirection)                         | null          |
 | (stepExit)                    | function(MovingDirection)                         | null          |
@@ -382,6 +393,7 @@ Possible `[wizardCompletionStep]` parameters:
 | [title]                       | string                                            | null          |
 | [navigationSymbol]            | string                                            | ''            |
 | [navigationSymbolFontFamily]  | string                                            | null          |
+| [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
 | (stepEnter)                   | function(MovingDirection)                         | null          |
 
 
