@@ -32,10 +32,12 @@ export class SemiStrictNavigationMode extends NavigationMode {
    * @returns {boolean} True if the destination wizard step can be entered, false otherwise
    */
   canGoToStep(destinationIndex: number): boolean {
+    const hasStep = this.wizardState.hasStep(destinationIndex);
+
     const movingDirection = this.wizardState.getMovingDirection(destinationIndex);
 
-    const canExit = this.wizardState.currentStep.canExitStep(movingDirection);
-    const hasStep = this.wizardState.hasStep(destinationIndex);
+    const canExitCurrentStep = () => this.wizardState.currentStep.canExitStep(movingDirection);
+    const canEnterDestinationStep = () => this.wizardState.getStepAtIndex(destinationIndex).canEnterStep(movingDirection);
 
     const allNormalStepsCompleted = this.wizardState.wizardSteps
       .filter((step, index) => index < destinationIndex)
@@ -44,7 +46,8 @@ export class SemiStrictNavigationMode extends NavigationMode {
     // provide the destination step as a lambda in case the index doesn't exist (i.e. hasStep === false)
     const destinationStep = () => this.wizardState.getStepAtIndex(destinationIndex);
 
-    return canExit && hasStep && (!(destinationStep() instanceof WizardCompletionStep) || allNormalStepsCompleted);
+    return hasStep && canExitCurrentStep() && canEnterDestinationStep() &&
+      (!(destinationStep() instanceof WizardCompletionStep) || allNormalStepsCompleted);
   }
 
   /**

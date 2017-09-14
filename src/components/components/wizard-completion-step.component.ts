@@ -116,6 +116,12 @@ export class WizardCompletionStepComponent extends WizardCompletionStep {
   /**
    * @inheritDoc
    */
+  @Input()
+  public canEnter: ((direction: MovingDirection) => boolean) | boolean = true;
+
+  /**
+   * @inheritDoc
+   */
   public canExit: ((direction: MovingDirection) => boolean) | boolean = false;
 
   /**

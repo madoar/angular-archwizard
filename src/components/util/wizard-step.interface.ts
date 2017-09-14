@@ -50,7 +50,12 @@ export abstract class WizardStep {
   optional: boolean;
 
   /**
-   * A function, taking a [[MovingDirection]], or boolean returning true, if the step can be exited and false otherwise.
+   * A function taking a [[MovingDirection]], or boolean returning true, if the step can be entered and false otherwise.
+   */
+  canEnter: ((direction: MovingDirection) => boolean) | boolean;
+
+  /**
+   * A function taking a [[MovingDirection]], or boolean returning true, if the step can be exited and false otherwise.
    */
   canExit: ((direction: MovingDirection) => boolean) | boolean;
 
@@ -87,6 +92,25 @@ export abstract class WizardStep {
    * @param direction The direction in which the step is exited
    */
   abstract exit(direction: MovingDirection): void;
+
+  /**
+   * This method returns true, if the given step `wizardStep` can be entered and false otherwise.
+   * Because this method depends on the value `canEnter`, it will throw an error, if `canEnter` is neither a boolean
+   * nor a function.
+   *
+   * @param direction The direction in which this step should be entered
+   * @returns {boolean} True if the given step `wizardStep` can be entered in the given direction, false otherwise
+   * @throws An `Error` is thrown if `wizardStep.canEnter` is neither a function nor a boolean
+   */
+  public canEnterStep(direction: MovingDirection): boolean {
+    if (isBoolean(this.canEnter)) {
+      return this.canEnter as boolean;
+    } else if (this.canEnter instanceof Function) {
+      return this.canEnter(direction);
+    } else {
+      throw new Error(`Input value '${this.canEnter}' is neither a boolean nor a function`);
+    }
+  }
 
   /**
    * This method returns true, if the given step `wizardStep` can be exited and false otherwise.

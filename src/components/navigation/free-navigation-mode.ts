@@ -28,12 +28,14 @@ export class FreeNavigationMode extends NavigationMode {
    * @returns {boolean} True if the destination wizard step can be entered, false otherwise
    */
   canGoToStep(destinationIndex: number): boolean {
-    const movingDirection = this.wizardState.getMovingDirection(destinationIndex);
-
-    const canExit = this.wizardState.currentStep.canExitStep(movingDirection);
     const hasStep = this.wizardState.hasStep(destinationIndex);
 
-    return canExit && hasStep;
+    const movingDirection = this.wizardState.getMovingDirection(destinationIndex);
+
+    const canExitCurrentStep = () => this.wizardState.currentStep.canExitStep(movingDirection);
+    const canEnterDestinationStep = () => this.wizardState.getStepAtIndex(destinationIndex).canEnterStep(movingDirection);
+
+    return hasStep && canExitCurrentStep() && canEnterDestinationStep();
   }
 
   /**

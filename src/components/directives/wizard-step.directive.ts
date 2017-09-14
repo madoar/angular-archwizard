@@ -86,6 +86,12 @@ export class WizardStepDirective extends WizardStep {
    * @inheritDoc
    */
   @Input()
+  public canEnter: ((direction: MovingDirection) => boolean) | boolean = true;
+
+  /**
+   * @inheritDoc
+   */
+  @Input()
   public canExit: ((direction: MovingDirection) => boolean) | boolean = true;
 
   /**
