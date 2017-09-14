@@ -45,6 +45,11 @@ export abstract class WizardStep {
   selected: boolean;
 
   /**
+   * A boolean describing, if the wizard step should be selected by default, i.e. after the wizard has been initialized as the initial step
+   */
+  defaultSelected: boolean;
+
+  /**
    * A boolean describing if the wizard step is an optional step
    */
   optional: boolean;

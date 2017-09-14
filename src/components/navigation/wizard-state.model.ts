@@ -22,6 +22,11 @@ export class WizardState {
   private _wizardSteps: QueryList<WizardStep>;
 
   /**
+   * The initial step index, as taken from the [[WizardComponent]]
+   */
+  private _defaultStepIndex = 0;
+
+  /**
    * An array representation of all wizard steps belonging to this model
    */
   public get wizardSteps(): Array<WizardStep> {
@@ -34,11 +39,30 @@ export class WizardState {
   }
 
   /**
+   * The initial step index.
+   * This value can be either:
+   * - the index of a wizard step with a `selected` directive, or
+   * - the default step index, set in the [[WizardComponent]]
+   */
+  public get defaultStepIndex(): number {
+    const foundDefaultStep = this.wizardSteps.find(step => step.defaultSelected);
+
+    if (foundDefaultStep) {
+      return this.getIndexOfStep(foundDefaultStep);
+    } else {
+      return this._defaultStepIndex;
+    }
+  };
+
+  /**
    * The index of the currently visible and selected step inside the wizardSteps QueryList.
    * If this wizard contains no steps, currentStepIndex is -1
    */
   public currentStepIndex = -1;
 
+  /**
+   * The navigation mode used to navigate inside the wizard
+   */
   public navigationMode: NavigationMode;
 
   /**
@@ -77,8 +101,9 @@ export class WizardState {
    *
    * @param {QueryList<WizardStep>} wizardSteps The wizard steps
    */
-  initialize(wizardSteps: QueryList<WizardStep>, navigationMode: string): void {
+  initialize(wizardSteps: QueryList<WizardStep>, navigationMode: string, defaultStepIndex: number): void {
     this._wizardSteps = wizardSteps;
+    this._defaultStepIndex = defaultStepIndex;
     this.navigationMode = navigationModeFactory(navigationMode, this);
     this.navigationMode.reset();
   }

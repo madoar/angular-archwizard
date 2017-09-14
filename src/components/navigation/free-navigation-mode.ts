@@ -77,4 +77,22 @@ export class FreeNavigationMode extends NavigationMode {
   isNavigable(destinationIndex: number): boolean {
     return true;
   }
+
+  /**
+   * Resets the state of this wizard.
+   * A reset transitions the wizard automatically to the first step and sets all steps as incomplete.
+   * In addition the whole wizard is set as incomplete
+   */
+  reset(): void {
+    // reset the step internal state
+    this.wizardState.wizardSteps.forEach(step => {
+      step.completed = false;
+      step.selected = false;
+    });
+
+    // set the first step as the current step
+    this.wizardState.currentStepIndex = this.wizardState.defaultStepIndex;
+    this.wizardState.currentStep.selected = true;
+    this.wizardState.currentStep.enter(MovingDirection.Forwards);
+  }
 }
