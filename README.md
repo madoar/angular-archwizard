@@ -83,6 +83,26 @@ The first three layouts are showing circles with or without a background, for ea
 The second two layouts `large-filled-symbols` and `large-empty-symbols` optionally add a symbol in the center of the circle, 
 for each step of your wizard, in the navigation bar, if such a symbol has been defined for the step.
 
+#### \[navigationMode\]
+`ng2-archwizard` supports three different navigation modes:
+- **strict** navigation mode: 
+   The first navigation mode is strict navigation. 
+   This mode describes the status quo, i.e. the current navigation behavior of the wizard. 
+   Currently you can only navigate through the wizard steps in a linear fashion, 
+   where you can only enter the next step if all previous steps have been completed and the exit condition of your current step have been fulfilled. 
+   In this mode it is not possible to jump between different steps, i.e. move to step 3 from step 1, then go to step 2 to finally go to step 4. 
+   The only exception to this rule are optional steps, which a user can skip. 
+   Therefore you are required to do the steps in the order `1 -> 2 -> 3 -> 4`.
+- **semi-strict** navigation mode:
+   The second navigation mode is semi-strict navigation. 
+   This mode lets the user navigate between the steps in any order he likes. 
+   This means that in this navigation mode a user could complete the steps in the order `1 -> 3 -> 2 -> 4`, if the exit conditions have been fulfilled. 
+   This mode has only one restriction, where the user can enter the completion step after he has completed all previous steps. 
+   Again optional steps are skipable in this mode.
+- **free** navigation mode:
+   The third navigation mode is free navigation. 
+   This mode let's the user navigate freely between the different steps, including the completion step, in any order he desires.
+
 #### Parameter overview
 Possible `<wizard>` parameters:
 
@@ -90,6 +110,7 @@ Possible `<wizard>` parameters:
 | ----------------- | ----------------------------------------------------------------------------------------------------- | ------------- |
 | [navBarLocation]  | top &#124; bottom &#124; left &#124; right                                                            | top           |
 | [navBarLayout]    | small &#124; large-filled &#124; large-empty &#124; large-filled-symbols &#124; large-empty-symbols   | small         |
+| [navigationMode]  | strict &#124; semi-strict &#124; free                                                                 | strict        |
 
 ### \<wizard-step\>
 The `<wizard-step></wizard-step>` environment is the wizard step environment. 
@@ -363,6 +384,24 @@ Possible `[wizardCompletionStep]` parameters:
 | [navigationSymbolFontFamily]  | string                                            | null          |
 | (stepEnter)                   | function(MovingDirection)                         | null          |
 
+
+### Accessing the wizard component instance
+Sometimes it's required to access the wizard component directly. 
+In such a case you can get the instance of the used wizard component in your own component via:
+```typescript
+@ViewChild(WizardComponent)
+public wizard: WizardComponent;
+```
+
+In case you've created your own wizard step component with the `wizardStep` directive,
+you can inject the state of your wizard in your own component:
+```typescript
+constructor(private wizardState: WizardState)
+```
+
+Through the `WizardState` you can access the navigation mode of your wizard, 
+which allows you to navigate the wizard programmatically.
+Both instances, the wizard state and the navigation mode, can also be obtained from the injected `WizardComponent`.
 
 ## Example
 You can find an basic example project using `ng2-archwizard` [here](https://madoar.github.io/ng2-archwizard-demo). 

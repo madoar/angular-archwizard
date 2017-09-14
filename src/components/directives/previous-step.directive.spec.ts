@@ -1,9 +1,10 @@
-import { PreviousStepDirective } from './previous-step.directive';
-import {ViewChild, Component} from '@angular/core';
-import {WizardComponent} from '../components/wizard.component';
-import {TestBed, async, ComponentFixture} from '@angular/core/testing';
+import {PreviousStepDirective} from './previous-step.directive';
+import {Component} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {WizardModule} from '../wizard.module';
+import {WizardState} from '../navigation/wizard-state.model';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 @Component({
   selector: 'test-wizard',
@@ -21,13 +22,14 @@ import {WizardModule} from '../wizard.module';
   `
 })
 class WizardTestComponent {
-  @ViewChild(WizardComponent)
-  public wizard: WizardComponent;
 }
 
 describe('PreviousStepDirective', () => {
   let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
+
+  let wizardState: WizardState;
+  let navigationMode: NavigationMode;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -38,8 +40,11 @@ describe('PreviousStepDirective', () => {
 
   beforeEach(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
-    wizardTest = wizardTestFixture.componentInstance;
     wizardTestFixture.detectChanges();
+
+    wizardTest = wizardTestFixture.componentInstance;
+    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
+    navigationMode = wizardState.navigationMode;
   });
 
   it('should create an instance', () => {
@@ -57,22 +62,22 @@ describe('PreviousStepDirective', () => {
     const secondStepButton = wizardTestFixture.debugElement.query(
       By.css('wizard-step[title="Steptitle 2"] > button[previousStep]')).nativeElement;
 
-    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+    expect(wizardState.currentStepIndex).toBe(0);
 
     // don't go to zero (-1) step, because it doesn't exist
     firstStepButton.click();
 
-    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+    expect(wizardState.currentStepIndex).toBe(0);
 
     // move to second step to test the previousStep directive
-    wizardTest.wizard.goToStep(1);
+    navigationMode.goToStep(1);
     wizardTestFixture.detectChanges();
 
-    expect(wizardTest.wizard.currentStepIndex).toBe(1);
+    expect(wizardState.currentStepIndex).toBe(1);
 
     // go back to first step
     secondStepButton.click();
 
-    expect(wizardTest.wizard.currentStepIndex).toBe(0);
+    expect(wizardState.currentStepIndex).toBe(0);
   });
 });

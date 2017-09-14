@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {WizardComponent} from './wizard.component';
 import {WizardStep} from '../util/wizard-step.interface';
+import {WizardState} from '../navigation/wizard-state.model';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 /**
  * The `wizard-navigation-bar` component contains the navigation bar inside a [[WizardComponent]].
@@ -22,11 +23,20 @@ import {WizardStep} from '../util/wizard-step.interface';
 })
 export class WizardNavigationBarComponent {
   /**
+   * The navigation mode
+   *
+   * @returns {NavigationMode}
+   */
+  public get navigationMode(): NavigationMode {
+    return this.wizardState.navigationMode;
+  }
+
+  /**
    * Constructor
    *
-   * @param wizard The wizard, which includes this navigation bar
+   * @param wizardState The state the wizard currently resides in
    */
-  constructor(private wizard: WizardComponent) { }
+  constructor(public wizardState: WizardState) { }
 
   /**
    * Returns all [[WizardStep]]s contained in the wizard
@@ -34,7 +44,7 @@ export class WizardNavigationBarComponent {
    * @returns {Array<WizardStep>} An array containing all [[WizardStep]]s
    */
   get wizardSteps(): Array<WizardStep> {
-    return this.wizard.wizardSteps.toArray();
+    return this.wizardState.wizardSteps;
   }
 
   /**
@@ -43,6 +53,6 @@ export class WizardNavigationBarComponent {
    * @returns {number} The number of wizard steps to be displayed
    */
   get numberOfWizardSteps(): number {
-    return this.wizard.wizardSteps.length;
+    return this.wizardState.wizardSteps.length;
   }
 }

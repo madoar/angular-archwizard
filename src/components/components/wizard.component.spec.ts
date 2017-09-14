@@ -1,8 +1,7 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {QueryList, Component, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {WizardComponent} from './wizard.component';
 import {By} from '@angular/platform-browser';
-import {WizardStep} from '../util/wizard-step.interface';
 import {WizardModule} from '../wizard.module';
 
 @Component({
@@ -20,26 +19,6 @@ class WizardTestComponent {
   public wizard: WizardComponent;
 }
 
-function checkWizardSteps(steps: QueryList<WizardStep>, selectedStepIndex: number) {
-  steps.forEach((step, index, array) => {
-    // Only the selected step should be selected
-    if (index === selectedStepIndex) {
-      expect(step.selected).toBe(true, `the selected wizard step index ${index} is not selected`);
-    } else {
-      expect(step.selected).toBe(false, `the not selected wizard step index ${index} is selected`);
-    }
-
-    // All steps before the selected step need to be completed
-    if (index < selectedStepIndex) {
-      expect(step.completed).toBe(true,
-        `the wizard step ${index} is not completed while the currently selected step index is ${selectedStepIndex}`);
-    } else if (index > selectedStepIndex) {
-      expect(step.completed).toBe(false,
-        `the wizard step ${index} is completed while the currently selected step index is ${selectedStepIndex}`);
-    }
-  });
-}
-
 describe('WizardComponent', () => {
   let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
@@ -53,13 +32,15 @@ describe('WizardComponent', () => {
 
   beforeEach(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
-    wizardTest = wizardTestFixture.componentInstance;
     wizardTestFixture.detectChanges();
+
+    wizardTest = wizardTestFixture.componentInstance;
   });
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
     expect(wizardTest.wizard).toBeTruthy();
+
     expect(wizardTestFixture.debugElement.query(By.css('wizard'))).toBeTruthy();
   });
 
@@ -158,217 +139,5 @@ describe('WizardComponent', () => {
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
     expect(wizard.classes).toEqual({ 'horizontal': false, 'vertical': true });
     expect(wizardStepsDiv.classes).toEqual({ 'wizard-steps': true, 'horizontal': false, 'vertical': true });
-  });
-
-  it('should have steps', () => {
-    expect(wizardTest.wizard.wizardSteps.length).toBe(3);
-  });
-
-  it('should start at first step', () => {
-    expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTest.wizard.currentStep.title).toBe('Steptitle 1');
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
-  });
-
-  it('should return correct step at index', () => {
-    expect(() => wizardTest.wizard.getStepAtIndex(-1))
-      .toThrow(new Error(`Expected a known step, but got stepIndex: -1.`));
-
-    expect(wizardTest.wizard.getStepAtIndex(0).title).toBe('Steptitle 1');
-    expect(wizardTest.wizard.getStepAtIndex(1).title).toBe('Steptitle 2');
-    expect(wizardTest.wizard.getStepAtIndex(2).title).toBe('Steptitle 3');
-
-    // Check that the first wizard step is the only selected one
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
-
-    expect(() => wizardTest.wizard.getStepAtIndex(3))
-      .toThrow(new Error(`Expected a known step, but got stepIndex: 3.`));
-  });
-
-  it('should return correct index at step', () => {
-    expect(wizardTest.wizard.getIndexOfStep(wizardTest.wizard.getStepAtIndex(0))).toBe(0);
-    expect(wizardTest.wizard.getIndexOfStep(wizardTest.wizard.getStepAtIndex(1))).toBe(1);
-    expect(wizardTest.wizard.getIndexOfStep(wizardTest.wizard.getStepAtIndex(2))).toBe(2);
-  });
-
-  it('should return correct can go to step', () => {
-    expect(wizardTest.wizard.canGoToStep(-1)).toBe(false);
-    expect(wizardTest.wizard.canGoToStep(0)).toBe(true);
-    expect(wizardTest.wizard.canGoToStep(1)).toBe(true);
-    expect(wizardTest.wizard.canGoToStep(2)).toBe(false);
-    expect(wizardTest.wizard.canGoToStep(3)).toBe(false);
-  });
-
-  it('should return correct can go to next step', () => {
-    expect(wizardTest.wizard.canGoToNextStep()).toBe(true);
-
-    wizardTest.wizard.goToNextStep();
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
-    expect(wizardTest.wizard.canGoToNextStep()).toBe(true);
-
-    wizardTest.wizard.goToNextStep();
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
-    expect(wizardTest.wizard.canGoToNextStep()).toBe(false);
-
-    // should do nothing
-    wizardTest.wizard.goToNextStep();
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
-  });
-
-  it('should return correct can go to previous step', () => {
-    expect(wizardTest.wizard.canGoToPreviousStep()).toBe(false);
-
-    // should do nothing
-    wizardTest.wizard.goToPreviousStep();
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
-
-    wizardTest.wizard.goToNextStep();
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
-    expect(wizardTest.wizard.canGoToPreviousStep()).toBe(true);
-  });
-
-  it('should go to step', () => {
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
-
-    wizardTest.wizard.goToStep(1);
-
-    expect(wizardTest.wizard.currentStepIndex).toBe(1);
-    expect(wizardTest.wizard.currentStep).toBe(wizardTest.wizard.getStepAtIndex(1));
-    expect(wizardTest.wizard.currentStep.completed).toBe(false);
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
-
-    wizardTest.wizard.goToStep(2);
-
-    expect(wizardTest.wizard.currentStepIndex).toBe(2);
-    expect(wizardTest.wizard.currentStep).toBe(wizardTest.wizard.getStepAtIndex(2));
-    expect(wizardTest.wizard.currentStep.completed).toBe(false);
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
-
-    wizardTest.wizard.goToStep(0);
-
-    expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTest.wizard.currentStep).toBe(wizardTest.wizard.getStepAtIndex(0));
-    expect(wizardTest.wizard.currentStep.completed).toBe(true);
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
-
-    wizardTest.wizard.goToStep(1);
-
-    expect(wizardTest.wizard.currentStepIndex).toBe(1);
-    expect(wizardTest.wizard.currentStep).toBe(wizardTest.wizard.getStepAtIndex(1));
-    expect(wizardTest.wizard.currentStep.completed).toBe(false);
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
-
-    wizardTest.wizard.goToStep(2);
-
-    expect(wizardTest.wizard.currentStepIndex).toBe(2);
-    expect(wizardTest.wizard.currentStep).toBe(wizardTest.wizard.getStepAtIndex(2));
-    expect(wizardTest.wizard.currentStep.completed).toBe(false);
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
-
-    wizardTest.wizard.goToStep(1);
-
-    expect(wizardTest.wizard.currentStepIndex).toBe(1);
-    expect(wizardTest.wizard.currentStep).toBe(wizardTest.wizard.getStepAtIndex(1));
-    expect(wizardTest.wizard.currentStep.completed).toBe(true);
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
-  });
-
-  it('should go to next step', () => {
-    wizardTest.wizard.goToNextStep();
-
-    wizardTestFixture.detectChanges();
-
-    expect(wizardTest.wizard.currentStepIndex).toBe(1);
-    expect(wizardTest.wizard.currentStep.title).toBe('Steptitle 2');
-    expect(wizardTest.wizard.currentStep.completed).toBe(false);
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
-  });
-
-  it('should go to previous step', () => {
-    expect(wizardTest.wizard.getStepAtIndex(0).completed).toBe(false);
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
-
-    wizardTest.wizard.goToStep(1);
-
-    expect(wizardTest.wizard.getStepAtIndex(0).completed).toBe(true);
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
-
-    wizardTest.wizard.goToPreviousStep();
-
-    expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    expect(wizardTest.wizard.currentStep).toBe(wizardTest.wizard.getStepAtIndex(0));
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
-  });
-
-  it('should have next step', () => {
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
-    expect(wizardTest.wizard.hasNextStep()).toBe(true);
-
-    wizardTest.wizard.goToNextStep();
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
-    expect(wizardTest.wizard.hasNextStep()).toBe(true);
-
-    wizardTest.wizard.goToNextStep();
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
-    expect(wizardTest.wizard.hasNextStep()).toBe(false);
-  });
-
-  it('should have previous step', () => {
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
-    expect(wizardTest.wizard.hasPreviousStep()).toBe(false);
-
-    wizardTest.wizard.goToNextStep();
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
-    expect(wizardTest.wizard.hasPreviousStep()).toBe(true);
-
-    wizardTest.wizard.goToNextStep();
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
-    expect(wizardTest.wizard.hasPreviousStep()).toBe(true);
-  });
-
-  it('should be last step', () => {
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
-    expect(wizardTest.wizard.isLastStep()).toBe(false);
-
-    wizardTest.wizard.goToNextStep();
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 1);
-    expect(wizardTest.wizard.isLastStep()).toBe(false);
-
-    wizardTest.wizard.goToNextStep();
-
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
-    expect(wizardTest.wizard.isLastStep()).toBe(true);
-  });
-
-  it('should reset the wizard correctly', () => {
-    wizardTest.wizard.goToNextStep();
-    wizardTest.wizard.goToNextStep();
-
-    expect(wizardTest.wizard.currentStepIndex).toBe(2);
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 2);
-
-    wizardTest.wizard.reset();
-
-    expect(wizardTest.wizard.currentStepIndex).toBe(0);
-    checkWizardSteps(wizardTest.wizard.wizardSteps, 0);
   });
 });

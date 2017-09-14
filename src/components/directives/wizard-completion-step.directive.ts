@@ -1,6 +1,5 @@
-import {ContentChild, Directive, EventEmitter, forwardRef, HostBinding, Inject, Input, Output} from '@angular/core';
+import {ContentChild, Directive, EventEmitter, forwardRef, HostBinding, Input, Output} from '@angular/core';
 import {MovingDirection} from '../util/moving-direction.enum';
-import {WizardComponent} from '../components/wizard.component';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardStepTitleDirective} from './wizard-step-title.directive';
 import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
@@ -95,7 +94,7 @@ export class WizardCompletionStepDirective extends WizardCompletionStep {
   /**
    * @inheritDoc
    */
-  public completed: false;
+  public completed = false;
 
   /**
    * @inheritDoc
@@ -113,19 +112,10 @@ export class WizardCompletionStepDirective extends WizardCompletionStep {
   public canExit: ((direction: MovingDirection) => boolean) | boolean = false;
 
   /**
-   * Constructor
-   * @param wizard The [[WizardComponent]], this completion step is contained inside
-   */
-  /* istanbul ignore next */
-  constructor(@Inject(forwardRef(() => WizardComponent)) private wizard: WizardComponent) {
-    super();
-  }
-
-  /**
    * @inheritDoc
    */
   enter(direction: MovingDirection): void {
-    this.wizard.completed = true;
+    this.completed = true;
     this.stepEnter.emit(direction);
   }
 
@@ -133,7 +123,8 @@ export class WizardCompletionStepDirective extends WizardCompletionStep {
    * @inheritDoc
    */
   exit(direction: MovingDirection): void {
-    this.wizard.completed = false;
+    // set this completion step as incomplete
+    this.completed = false;
     this.stepExit.emit(direction);
   }
 }

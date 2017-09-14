@@ -101,7 +101,7 @@ export class WizardCompletionStepComponent extends WizardCompletionStep {
   /**
    * @inheritDoc
    */
-  public completed: false;
+  public completed = false;
 
   /**
    * @inheritDoc
@@ -119,19 +119,10 @@ export class WizardCompletionStepComponent extends WizardCompletionStep {
   public canExit: ((direction: MovingDirection) => boolean) | boolean = false;
 
   /**
-   * Constructor
-   * @param wizard The [[WizardComponent]], this completion step is contained inside
-   */
-  /* istanbul ignore next */
-  constructor(@Inject(forwardRef(() => WizardComponent)) private wizard: WizardComponent) {
-    super();
-  }
-
-  /**
    * @inheritDoc
    */
   enter(direction: MovingDirection): void {
-    this.wizard.completed = true;
+    this.completed = true;
     this.stepEnter.emit(direction);
   }
 
@@ -139,7 +130,8 @@ export class WizardCompletionStepComponent extends WizardCompletionStep {
    * @inheritDoc
    */
   exit(direction: MovingDirection): void {
-    this.wizard.completed = false;
+    // set this completion step as incomplete
+    this.completed = false;
     this.stepExit.emit(direction);
   }
 }
