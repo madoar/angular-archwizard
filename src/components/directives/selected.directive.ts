@@ -15,7 +15,7 @@ import {WizardStep} from '../util/wizard-step.interface';
  * @author Marc Arndt
  */
 @Directive({
-  selector: 'selected'
+  selector: '[selected]'
 })
 export class SelectedDirective implements OnInit {
   /**
