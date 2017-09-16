@@ -78,6 +78,14 @@ export class WizardComponent implements AfterContentInit {
   public navigationMode = 'strict';
 
   /**
+   * The initially selected step, represented by its index
+   *
+   * @type {number}
+   */
+  @Input()
+  public defaultStepIndex = 0;
+
+  /**
    * Returns true if this wizard uses a horizontal orientation.
    * The wizard uses a horizontal orientation, iff the navigation bar is shown at the top or bottom of this wizard
    *
@@ -118,6 +126,6 @@ export class WizardComponent implements AfterContentInit {
    * Initialization work
    */
   ngAfterContentInit(): void {
-    this.model.initialize(this.wizardSteps, this.navigationMode);
+    this.model.initialize(this.wizardSteps, this.navigationMode, this.defaultStepIndex);
   }
 }

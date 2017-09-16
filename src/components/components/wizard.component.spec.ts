@@ -3,6 +3,8 @@ import {Component, ViewChild} from '@angular/core';
 import {WizardComponent} from './wizard.component';
 import {By} from '@angular/platform-browser';
 import {WizardModule} from '../wizard.module';
+import {WizardState} from '../navigation/wizard-state.model';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 @Component({
   selector: 'test-wizard',
@@ -23,6 +25,9 @@ describe('WizardComponent', () => {
   let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
+  let wizardState: WizardState;
+  let navigationMode: NavigationMode;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
@@ -35,6 +40,8 @@ describe('WizardComponent', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
+    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
+    navigationMode = wizardState.navigationMode;
   });
 
   it('should create', () => {
@@ -42,6 +49,11 @@ describe('WizardComponent', () => {
     expect(wizardTest.wizard).toBeTruthy();
 
     expect(wizardTestFixture.debugElement.query(By.css('wizard'))).toBeTruthy();
+    expect(wizardTest.wizard.model).toBeTruthy();
+    expect(wizardTest.wizard.navigation).toBeTruthy();
+
+    expect(wizardTest.wizard.model).toBe(wizardState);
+    expect(wizardTest.wizard.navigation).toBe(navigationMode);
   });
 
   it('should contain navigation bar at the correct position in default navBarLocation mode', () => {

@@ -86,7 +86,39 @@ export class SemiStrictNavigationMode extends NavigationMode {
     }
   }
 
+  /**
+   * @inheritDoc
+   */
   isNavigable(destinationIndex: number): boolean {
     return this.canGoToStep(destinationIndex);
+  }
+
+  /**
+   * @inheritDoc
+   */
+  reset(): void {
+    // the wizard doesn't contain a step with the default step index
+    if (!this.wizardState.hasStep(this.wizardState.defaultStepIndex)) {
+      throw new Error(`The wizard doesn't contain a step with index ${this.wizardState.defaultStepIndex}`);
+    }
+
+    // the default step is a completion step and the wizard contains more than one step
+    const defaultCompletionStep = this.wizardState.getStepAtIndex(this.wizardState.defaultStepIndex) instanceof WizardCompletionStep &&
+      this.wizardState.wizardSteps.length !== 1;
+
+    if (defaultCompletionStep) {
+      throw new Error(`The default step index ${this.wizardState.defaultStepIndex} references a completion step`);
+    }
+
+    // reset the step internal state
+    this.wizardState.wizardSteps.forEach(step => {
+      step.completed = false;
+      step.selected = false;
+    });
+
+    // set the first step as the current step
+    this.wizardState.currentStepIndex = this.wizardState.defaultStepIndex;
+    this.wizardState.currentStep.selected = true;
+    this.wizardState.currentStep.enter(MovingDirection.Forwards);
   }
 }
