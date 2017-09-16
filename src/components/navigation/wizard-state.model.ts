@@ -39,6 +39,16 @@ export class WizardState {
   }
 
   /**
+   * Sets the initial default step.
+   * Beware: This initial default is only used if no wizard step has been enhanced with the `selected` directive
+   *
+   * @param defaultStepIndex The new default wizard step index
+   */
+  public set defaultStepIndex(defaultStepIndex) {
+    this._defaultStepIndex = defaultStepIndex;
+  }
+
+  /**
    * The initial step index.
    * This value can be either:
    * - the index of a wizard step with a `selected` directive, or

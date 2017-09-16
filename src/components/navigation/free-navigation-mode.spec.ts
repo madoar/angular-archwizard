@@ -265,5 +265,29 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).selected).toBe(false);
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
+
+    wizardState.defaultStepIndex = -1;
+    expect(() => navigationMode.reset()).toThrow(new Error(`The wizard doesn't contain a step with index -1`));
+
+    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizardState.getStepAtIndex(0).selected).toBe(true);
+    expect(wizardState.getStepAtIndex(0).completed).toBe(false);
+    expect(wizardState.getStepAtIndex(1).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(1).completed).toBe(false);
+    expect(wizardState.getStepAtIndex(2).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(2).completed).toBe(false);
+    expect(wizardState.completed).toBe(false);
+
+    wizardState.defaultStepIndex = 2;
+    navigationMode.reset();
+
+    expect(wizardState.currentStepIndex).toBe(2);
+    expect(wizardState.getStepAtIndex(0).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(0).completed).toBe(false);
+    expect(wizardState.getStepAtIndex(1).selected).toBe(false);
+    expect(wizardState.getStepAtIndex(1).completed).toBe(false);
+    expect(wizardState.getStepAtIndex(2).selected).toBe(true);
+    expect(wizardState.getStepAtIndex(2).completed).toBe(false);
+    expect(wizardState.completed).toBe(false);
   });
 });

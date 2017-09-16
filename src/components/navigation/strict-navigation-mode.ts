@@ -96,11 +96,10 @@ export class StrictNavigationMode extends NavigationMode {
    * In addition the whole wizard is set as incomplete
    */
   reset(): void {
-    // reset the step internal state
-    this.wizardState.wizardSteps.forEach(step => {
-      step.completed = false;
-      step.selected = false;
-    });
+    // the wizard doesn't contain a step with the default step index
+    if (!this.wizardState.hasStep(this.wizardState.defaultStepIndex)) {
+      throw new Error(`The wizard doesn't contain a step with index ${this.wizardState.defaultStepIndex}`);
+    }
 
     // at least one step is before the default step, that is not optional
     const illegalDefaultStep = this.wizardState.wizardSteps
@@ -110,6 +109,12 @@ export class StrictNavigationMode extends NavigationMode {
     if (illegalDefaultStep) {
       throw new Error(`The default step index ${this.wizardState.defaultStepIndex} is located after a non optional step`);
     }
+
+    // reset the step internal state
+    this.wizardState.wizardSteps.forEach(step => {
+      step.completed = false;
+      step.selected = false;
+    });
 
     // set the first step as the current step
     this.wizardState.currentStepIndex = this.wizardState.defaultStepIndex;

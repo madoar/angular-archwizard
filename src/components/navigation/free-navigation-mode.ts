@@ -84,6 +84,11 @@ export class FreeNavigationMode extends NavigationMode {
    * In addition the whole wizard is set as incomplete
    */
   reset(): void {
+    // the wizard doesn't contain a step with the default step index
+    if (!this.wizardState.hasStep(this.wizardState.defaultStepIndex)) {
+      throw new Error(`The wizard doesn't contain a step with index ${this.wizardState.defaultStepIndex}`);
+    }
+
     // reset the step internal state
     this.wizardState.wizardSteps.forEach(step => {
       step.completed = false;
