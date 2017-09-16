@@ -110,6 +110,8 @@ export class WizardState {
    * This process contains a reset of the wizard
    *
    * @param {QueryList<WizardStep>} wizardSteps The wizard steps
+   * @param {string} navigationMode The name of the navigation mode to be set
+   * @param {string} defaultStepIndex The default step index, to be used during the initialisation
    */
   initialize(wizardSteps: QueryList<WizardStep>, navigationMode: string, defaultStepIndex: number): void {
     this._wizardSteps = wizardSteps;

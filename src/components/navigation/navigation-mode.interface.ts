@@ -1,5 +1,4 @@
 import {WizardState} from './wizard-state.model';
-import {MovingDirection} from '../util/moving-direction.enum';
 
 /**
  * An interface describing the basic functionality, which must be provided by a navigation mode.
