@@ -103,14 +103,20 @@ for each step of your wizard, in the navigation bar, if such a symbol has been d
    The third navigation mode is free navigation. 
    This mode let's the user navigate freely between the different steps, including the completion step, in any order he desires.
 
+#### \[defaultStepIndex\]
+Per default the wizard always starts with the first wizard step, after initialisation. The same applies for a reset, where the wizard normally resets to the first step.
+Sometimes this needs to be changed. If another default wizard step needs to be used, you can set it, by using the `[defaultStepIndex]` input of the wizard component.
+For example, to start the wizard in the second step, `defaultStepIndex="2"` can to be set.
+
 #### Parameter overview
 Possible `<wizard>` parameters:
 
-| Parameter name    | Possible Values                                                                                       | Default Value |
-| ----------------- | ----------------------------------------------------------------------------------------------------- | ------------- |
-| [navBarLocation]  | top &#124; bottom &#124; left &#124; right                                                            | top           |
-| [navBarLayout]    | small &#124; large-filled &#124; large-empty &#124; large-filled-symbols &#124; large-empty-symbols   | small         |
-| [navigationMode]  | strict &#124; semi-strict &#124; free                                                                 | strict        |
+| Parameter name     | Possible Values                                                                                       | Default Value |
+| ------------------ | ----------------------------------------------------------------------------------------------------- | ------------- |
+| [navBarLocation]   | top &#124; bottom &#124; left &#124; right                                                            | top           |
+| [navBarLayout]     | small &#124; large-filled &#124; large-empty &#124; large-filled-symbols &#124; large-empty-symbols   | small         |
+| [navigationMode]   | strict &#124; semi-strict &#124; free                                                                 | strict        |
+| [defaultStepIndex] | number                                                                                                | 0             |
 
 ### \<wizard-step\>
 The `<wizard-step></wizard-step>` environment is the wizard step environment. 
@@ -260,6 +266,12 @@ Be aware, that you can only use `[wizardStepTitle]` together with Angular, becau
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
 by adding the `optionalStep` directive to the step you want to declare as optional. 
 
+### \[selected\]
+In some cases it may be a better choice to set the default wizard step not via a static number.
+Another way to set the default wizard step is by using the `selected` directive.
+When attaching the `selected` directive to an arbitrary wizard step, it will be marked as the default wizard step,
+which is shown directly after the wizard startup.
+
 ### \[goToStep\]
 `ng2-archwizard` has three directives, that allow moving between steps.
 These directives are the `previousStep`, `nextStep` and `goToStep` directives.
@@ -395,7 +407,6 @@ Possible `[wizardCompletionStep]` parameters:
 | [navigationSymbolFontFamily]  | string                                            | null          |
 | [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
 | (stepEnter)                   | function(MovingDirection)                         | null          |
-
 
 ### Accessing the wizard component instance
 Sometimes it's required to access the wizard component directly. 
