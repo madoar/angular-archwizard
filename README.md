@@ -108,15 +108,20 @@ Per default the wizard always starts with the first wizard step, after initialis
 Sometimes this needs to be changed. If another default wizard step needs to be used, you can set it, by using the `[defaultStepIndex]` input of the wizard component.
 For example, to start the wizard in the second step, `defaultStepIndex="2"` can to be set.
 
+#### \[disableNavigationBar\]
+Sometimes it may be necessary to disable navigation via the navigation bar.
+In such a case you can disable navigation via the navigation bar by setting the input `disableNavigationBar` of the wizard component to `true`.
+
 #### Parameter overview
 Possible `<wizard>` parameters:
 
-| Parameter name     | Possible Values                                                                                       | Default Value |
-| ------------------ | ----------------------------------------------------------------------------------------------------- | ------------- |
-| [navBarLocation]   | top &#124; bottom &#124; left &#124; right                                                            | top           |
-| [navBarLayout]     | small &#124; large-filled &#124; large-empty &#124; large-filled-symbols &#124; large-empty-symbols   | small         |
-| [navigationMode]   | strict &#124; semi-strict &#124; free                                                                 | strict        |
-| [defaultStepIndex] | number                                                                                                | 0             |
+| Parameter name         | Possible Values                                                                                       | Default Value |
+| ---------------------- | ----------------------------------------------------------------------------------------------------- | ------------- |
+| [navBarLocation]       | top &#124; bottom &#124; left &#124; right                                                            | top           |
+| [navBarLayout]         | small &#124; large-filled &#124; large-empty &#124; large-filled-symbols &#124; large-empty-symbols   | small         |
+| [navigationMode]       | strict &#124; semi-strict &#124; free                                                                 | strict        |
+| [defaultStepIndex]     | number                                                                                                | 0             |
+| [disableNavigationBar] | boolean                                                                                               | false         |
 
 ### \<wizard-step\>
 The `<wizard-step></wizard-step>` environment is the wizard step environment. 
