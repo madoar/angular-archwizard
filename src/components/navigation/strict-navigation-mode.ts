@@ -87,7 +87,8 @@ export class StrictNavigationMode extends NavigationMode {
   }
 
   isNavigable(destinationIndex: number): boolean {
-    return false;
+    // a wizard step can be navigated to through the navigation bar, iff it's located before the current wizard step
+    return destinationIndex < this.wizardState.currentStepIndex;
   }
 
   /**

@@ -55,4 +55,28 @@ export class WizardNavigationBarComponent {
   get numberOfWizardSteps(): number {
     return this.wizardState.wizardSteps.length;
   }
+
+  public isCurrent(wizardStep: WizardStep): boolean {
+    return wizardStep.selected && !wizardStep.completed && !this.wizardState.completed;
+  }
+
+  public isDone(wizardStep: WizardStep): boolean {
+    return (wizardStep.completed && !wizardStep.selected) || this.wizardState.completed;
+  }
+
+  public isDefault(wizardStep: WizardStep): boolean {
+    return !wizardStep.optional && !wizardStep.completed && !wizardStep.selected && !this.wizardState.completed;
+  }
+
+  public isEditing(wizardStep: WizardStep): boolean {
+    return wizardStep.selected && wizardStep.completed && !this.wizardState.completed;
+  }
+
+  public isOptional(wizardStep: WizardStep): boolean {
+    return wizardStep.optional && !wizardStep.completed && !wizardStep.selected && !this.wizardState.completed
+  }
+
+  public isNavigable(wizardStep: WizardStep): boolean {
+    return !wizardStep.selected && this.navigationMode.isNavigable(this.wizardState.getIndexOfStep(wizardStep));
+  }
 }
