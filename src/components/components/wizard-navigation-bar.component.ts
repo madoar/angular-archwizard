@@ -108,12 +108,17 @@ export class WizardNavigationBarComponent {
   }
 
   /**
-   * Checks, whether a [[WizardStep]] can be marked as `navigable` in the navigation bar
+   * Checks, whether a [[WizardStep]] can be marked as `navigable` in the navigation bar.
+   * A wizard step can be navigated to if:
+   * - the step is currently not selected
+   * - the navigation bar isn't disabled
+   * - the navigation mode allows navigation to the step
    *
    * @param {WizardStep} wizardStep The wizard step to be checked
    * @returns {boolean} True if the step can be marked as navigable
    */
   public isNavigable(wizardStep: WizardStep): boolean {
-    return !wizardStep.selected && this.navigationMode.isNavigable(this.wizardState.getIndexOfStep(wizardStep));
+    return !wizardStep.selected && !this.wizardState.disableNavigationBar &&
+      this.navigationMode.isNavigable(this.wizardState.getIndexOfStep(wizardStep));
   }
 }
