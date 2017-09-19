@@ -76,6 +76,11 @@ export class WizardState {
   public navigationMode: NavigationMode;
 
   /**
+   * True, if the navigation bar shouldn't be used for navigating
+   */
+  public disableNavigationBar: boolean;
+
+  /**
    * The WizardStep object belonging to the currently visible and selected step.
    * The currentStep is always the currently selected wizard step.
    * The currentStep can be either completed, if it was visited earlier,
@@ -112,10 +117,13 @@ export class WizardState {
    * @param {QueryList<WizardStep>} wizardSteps The wizard steps
    * @param {string} navigationMode The name of the navigation mode to be set
    * @param {string} defaultStepIndex The default step index, to be used during the initialisation
+   * @param {boolean} disableNavigationBar True, if the navigation bar should be disabled, i.e. not be used for navigating
    */
-  initialize(wizardSteps: QueryList<WizardStep>, navigationMode: string, defaultStepIndex: number): void {
+  initialize(wizardSteps: QueryList<WizardStep>, navigationMode: string, defaultStepIndex: number, disableNavigationBar: boolean): void {
     this._wizardSteps = wizardSteps;
     this._defaultStepIndex = defaultStepIndex;
+    this.disableNavigationBar = disableNavigationBar;
+
     this.navigationMode = navigationModeFactory(navigationMode, this);
     this.navigationMode.reset();
   }

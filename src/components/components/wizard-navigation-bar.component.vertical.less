@@ -313,6 +313,7 @@
 
     li {
       position: relative;
+      pointer-events: none;
 
       &:not(:last-child) {
         margin-bottom: 0;
@@ -341,13 +342,6 @@
           }
         }
       }
-    }
-
-    li.default,
-    li.current,
-    li.optional,
-    li.editing {
-      pointer-events: none;
     }
 
     li.navigable {

@@ -90,7 +90,14 @@ export class SemiStrictNavigationMode extends NavigationMode {
    * @inheritDoc
    */
   isNavigable(destinationIndex: number): boolean {
-    return this.canGoToStep(destinationIndex);
+    if (this.wizardState.getStepAtIndex(destinationIndex) instanceof WizardCompletionStep) {
+      // a completion step can only be entered, if all previous steps have been completed, are optional, or selected
+      return this.wizardState.wizardSteps.filter((step, index) => index < destinationIndex)
+        .every(step => step.completed || step.optional || step.selected);
+    } else {
+      // a "normal" step can always be entered
+      return true;
+    }
   }
 
   /**

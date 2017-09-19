@@ -86,6 +86,14 @@ export class WizardComponent implements AfterContentInit {
   public defaultStepIndex = 0;
 
   /**
+   * True, if the navigation bar shouldn't be used for navigating
+   *
+   * @type {boolean}
+   */
+  @Input()
+  public disableNavigationBar = false;
+
+  /**
    * Returns true if this wizard uses a horizontal orientation.
    * The wizard uses a horizontal orientation, iff the navigation bar is shown at the top or bottom of this wizard
    *
@@ -126,6 +134,6 @@ export class WizardComponent implements AfterContentInit {
    * Initialization work
    */
   ngAfterContentInit(): void {
-    this.model.initialize(this.wizardSteps, this.navigationMode, this.defaultStepIndex);
+    this.model.initialize(this.wizardSteps, this.navigationMode, this.defaultStepIndex, this.disableNavigationBar);
   }
 }
