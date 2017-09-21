@@ -1,4 +1,6 @@
 import {WizardStep} from './wizard-step.interface';
+import {MovingDirection} from './moving-direction.enum';
+import {EventEmitter} from '@angular/core';
 
 /**
  * Basic functionality every wizard completion step needs to provide
@@ -7,9 +9,29 @@ import {WizardStep} from './wizard-step.interface';
  */
 export abstract class WizardCompletionStep extends WizardStep {
   /**
-   * Constructor
+   * @inheritDoc
    */
-  constructor() {
-    super();
+  public stepExit = new EventEmitter<MovingDirection>();
+
+  /**
+   * @inheritDoc
+   */
+  public canExit: ((direction: MovingDirection) => boolean) | boolean = false;
+
+  /**
+   * @inheritDoc
+   */
+  public enter(direction: MovingDirection): void {
+    this.completed = true;
+    this.stepEnter.emit(direction);
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public exit(direction: MovingDirection): void {
+    // set this completion step as incomplete
+    this.completed = false;
+    this.stepExit.emit(direction);
   }
 }
