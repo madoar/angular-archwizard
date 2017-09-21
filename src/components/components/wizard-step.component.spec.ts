@@ -60,13 +60,6 @@ describe('WizardStepComponent', () => {
     expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-step')).length).toBe(3);
   });
 
-  it('should have correct step title', () => {
-    expect(wizardTest).toBeTruthy();
-    expect(wizardState.getStepAtIndex(0).title).toBe('Steptitle 1');
-    expect(wizardState.getStepAtIndex(1).title).toBe('Steptitle 2');
-    expect(wizardState.getStepAtIndex(2).title).toBe('Steptitle 3');
-  });
-
   it('should enter first step after initialisation', () => {
     expect(wizardTest.eventLog).toEqual(['enter Forwards 1']);
   });

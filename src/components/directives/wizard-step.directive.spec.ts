@@ -14,7 +14,7 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
       <div wizardStep title='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
         Step 1
       </div>
-      <test-wizard-step wizardStep optionalStep>
+      <test-wizard-step wizardStep title='Steptitle 2' optionalStep>
         Step 2
       </test-wizard-step>
       <div wizardStep title='Steptitle 3' (stepEnter)="enterInto($event, 3)" (stepExit)="exitFrom($event, 3)">
@@ -50,7 +50,6 @@ class WizardStepTestComponent {
   }
 
   constructor(@Host() private wizardStep: WizardStepDirective, wizard: WizardTestComponent) {
-    wizardStep.title = 'Steptitle 2';
     wizardStep.stepEnter.emit = direction => wizard.enterInto(direction, 2);
     wizardStep.stepExit.emit = direction => wizard.exitFrom(direction, 2);
   }
@@ -83,13 +82,6 @@ describe('WizardStepDirective', () => {
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
     expect(wizardTestFixture.debugElement.queryAll(By.directive(WizardStepDirective)).length).toBe(3);
-  });
-
-  it('should have correct step title', () => {
-    expect(wizardTest).toBeTruthy();
-    expect(wizardState.getStepAtIndex(0).title).toBe('Steptitle 1');
-    expect(wizardState.getStepAtIndex(1).title).toBe('Steptitle 2');
-    expect(wizardState.getStepAtIndex(2).title).toBe('Steptitle 3');
   });
 
   it('should enter first step after initialisation', () => {
