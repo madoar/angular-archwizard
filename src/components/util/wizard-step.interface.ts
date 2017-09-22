@@ -15,11 +15,11 @@ export abstract class WizardStep {
    * Compared to `title` this property can contain any html content and not only plain text
    */
   @ContentChild(WizardStepTitleDirective)
-  public titleTemplate: WizardStepTitleDirective;
+  public stepTitleTemplate: WizardStepTitleDirective;
 
   /**
    * A title property, which contains the title of the step.
-   * This title is only shown inside the navigation bar, if `titleTemplate` is not defined or null.
+   * This title is only shown inside the navigation bar, if `stepTitleTemplate` is not defined or null.
    */
   @Input()
   public title: string;
