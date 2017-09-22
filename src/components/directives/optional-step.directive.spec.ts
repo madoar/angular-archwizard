@@ -49,8 +49,8 @@ describe('OptionalStepDirective', () => {
   });
 
   it('should create an instance', () => {
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step[optional]'))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-step[optional]')).length).toBe(1);
+    expect(wizardTestFixture.debugElement.query(By.directive(OptionalStepDirective))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.queryAll(By.directive(OptionalStepDirective)).length).toBe(1);
   });
 
   it('should set optional correctly', () => {
