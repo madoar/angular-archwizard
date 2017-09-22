@@ -25,7 +25,7 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 class WizardTestComponent {
 }
 
-describe('SelectedDirective', () => {
+describe('SelectedStepDirective', () => {
   let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 

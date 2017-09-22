@@ -17,7 +17,7 @@ import {WizardStep} from '../util/wizard-step.interface';
 @Directive({
   selector: '[selected], [selectedStep]'
 })
-export class SelectedDirective implements OnInit {
+export class SelectedStepDirective implements OnInit {
   /**
    * Constructor
    * @param wizardStep The wizard step, which should be selected by default
