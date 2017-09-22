@@ -13,8 +13,8 @@ import {WizardModule} from '../wizard.module';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step stepTitle='Other not visible title'>
-        <ng-template wizardStepTitle>
+      <wizard-step stepTitle='Not visible title'>
+        <ng-template stepTitle>
           Steptitle 1
         </ng-template>
         Step 1
