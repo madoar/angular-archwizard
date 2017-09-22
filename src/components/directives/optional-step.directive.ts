@@ -16,7 +16,7 @@ import {WizardStep} from '../util/wizard-step.interface';
  * ### Example
  *
  * ```html
- * <wizard-step title="Second step" optionalStep>
+ * <wizard-step stepTitle="Second step" optionalStep>
  *     ...
  * </wizard-step>
  * ```

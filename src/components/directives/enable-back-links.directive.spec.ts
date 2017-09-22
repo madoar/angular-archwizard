@@ -13,14 +13,14 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step title='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
+      <wizard-step stepTitle='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
         Step 1
       </wizard-step>
-      <wizard-step title='Steptitle 2' [canExit]="isValid"
+      <wizard-step stepTitle='Steptitle 2' [canExit]="isValid"
                    optionalStep (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">
         Step 2
       </wizard-step>
-      <wizard-completion-step enableBackLinks title='Completion steptitle 3' (stepEnter)="enterInto($event, 3)"
+      <wizard-completion-step enableBackLinks stepTitle='Completion steptitle 3' (stepEnter)="enterInto($event, 3)"
                               (stepExit)="completionStepExit($event, 3)">
         Step 3
       </wizard-completion-step>

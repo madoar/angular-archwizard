@@ -12,9 +12,9 @@ import {StrictNavigationMode} from './strict-navigation-mode';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step title='Steptitle 1' optionalStep>Step 1</wizard-step>
-      <wizard-step title='Steptitle 2'>Step 2</wizard-step>
-      <wizard-step title='Steptitle 3'>Step 3</wizard-step>
+      <wizard-step stepTitle='Steptitle 1' optionalStep>Step 1</wizard-step>
+      <wizard-step stepTitle='Steptitle 2'>Step 2</wizard-step>
+      <wizard-step stepTitle='Steptitle 3'>Step 3</wizard-step>
     </wizard>
   `
 })
@@ -172,7 +172,7 @@ describe('StrictNavigationMode', () => {
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
-    expect(wizardState.currentStep.title).toBe('Steptitle 2');
+    expect(wizardState.currentStep.stepTitle).toBe('Steptitle 2');
     expect(wizardState.currentStep.completed).toBe(false);
 
     checkWizardSteps(wizardState.wizardSteps, 1);

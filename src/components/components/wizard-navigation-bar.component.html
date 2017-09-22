@@ -15,7 +15,7 @@
     <div>
       <a [goToStep]="step">
         <ng-container *ngIf="step.stepTitleTemplate" [ngTemplateOutlet]="step.stepTitleTemplate.templateRef"></ng-container>
-        <ng-container *ngIf="!step.stepTitleTemplate">{{step.title}}</ng-container>
+        <ng-container *ngIf="!step.stepTitleTemplate">{{step.stepTitle}}</ng-container>
       </a>
     </div>
   </li>

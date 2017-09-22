@@ -16,7 +16,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  * ### Example
  *
  * ```html
- * <wizard-completion-step title="Final step" enableBackLinks>
+ * <wizard-completion-step stepTitle="Final step" enableBackLinks>
  *     ...
  * </wizard-completion-step>
  * ```

@@ -19,10 +19,10 @@ import {MovingDirection} from './moving-direction.enum';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step title='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">Step 1</wizard-step>
-      <wizard-step title='Steptitle 2' [canExit]="canExit" [canEnter]="canEnter" optionalStep
+      <wizard-step stepTitle='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">Step 1</wizard-step>
+      <wizard-step stepTitle='Steptitle 2' [canExit]="canExit" [canEnter]="canEnter" optionalStep
                    (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">Step 2</wizard-step>
-      <wizard-step title='Steptitle 3' (stepEnter)="enterInto($event, 3)" (stepExit)="exitFrom($event, 3)">Step 3</wizard-step>
+      <wizard-step stepTitle='Steptitle 3' (stepEnter)="enterInto($event, 3)" (stepExit)="exitFrom($event, 3)">Step 3</wizard-step>
     </wizard>
   `
 })
@@ -71,7 +71,7 @@ describe('WizardStep', () => {
 
   it('should not be a WizardStep', () => {
     expect({stepOffset: 1} instanceof WizardStep).toBe(false);
-    expect({title: 'Test title'} instanceof WizardStep).toBe(false);
+    expect({title: 'Test stepTitle'} instanceof WizardStep).toBe(false);
   });
 
   it('should evaluate canEnter correctly', () => {

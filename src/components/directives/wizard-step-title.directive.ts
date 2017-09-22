@@ -4,9 +4,9 @@
 import {Directive, TemplateRef} from '@angular/core';
 
 /**
- * The `wizardStepTitle` directive can be used as an alternative to the `title` input of a [[WizardStep]]
+ * The `wizardStepTitle` directive can be used as an alternative to the `stepTitle` input of a [[WizardStep]]
  * to define the content of a step title inside the navigation bar.
- * This title can be freely created and can contain more than only plain text
+ * This step title can be freely created and can contain more than only plain text
  *
  * ### Syntax
  *

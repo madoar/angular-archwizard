@@ -9,9 +9,9 @@ import {WizardState} from './wizard-state.model';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step title='Steptitle 1'>Step 1</wizard-step>
-      <wizard-step title='Steptitle 2'>Step 2</wizard-step>
-      <wizard-step title='Steptitle 3'>Step 3</wizard-step>
+      <wizard-step stepTitle='Steptitle 1'>Step 1</wizard-step>
+      <wizard-step stepTitle='Steptitle 2'>Step 2</wizard-step>
+      <wizard-step stepTitle='Steptitle 3'>Step 3</wizard-step>
     </wizard>
   `
 })
@@ -71,7 +71,7 @@ describe('WizardState', () => {
 
   it('should start at first step', () => {
     expect(wizardState.currentStepIndex).toBe(0);
-    expect(wizardState.currentStep.title).toBe('Steptitle 1');
+    expect(wizardState.currentStep.stepTitle).toBe('Steptitle 1');
 
     checkWizardSteps(wizardState.wizardSteps, 0);
   });
@@ -80,9 +80,9 @@ describe('WizardState', () => {
     expect(() => wizardState.getStepAtIndex(-1))
       .toThrow(new Error(`Expected a known step, but got stepIndex: -1.`));
 
-    expect(wizardState.getStepAtIndex(0).title).toBe('Steptitle 1');
-    expect(wizardState.getStepAtIndex(1).title).toBe('Steptitle 2');
-    expect(wizardState.getStepAtIndex(2).title).toBe('Steptitle 3');
+    expect(wizardState.getStepAtIndex(0).stepTitle).toBe('Steptitle 1');
+    expect(wizardState.getStepAtIndex(1).stepTitle).toBe('Steptitle 2');
+    expect(wizardState.getStepAtIndex(2).stepTitle).toBe('Steptitle 3');
 
     // Check that the first wizard step is the only selected one
     checkWizardSteps(wizardState.wizardSteps, 0);

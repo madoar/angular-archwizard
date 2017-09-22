@@ -11,9 +11,9 @@ import {SemiStrictNavigationMode} from './semi-strict-navigation-mode';
   selector: 'test-wizard',
   template: `
     <wizard navigationMode="semi-strict">
-      <wizard-step title='Steptitle 1'>Step 1</wizard-step>
-      <wizard-step title='Steptitle 2'>Step 2</wizard-step>
-      <wizard-completion-step enableBackLinks title='Completion Steptitle'>Step 3</wizard-completion-step>
+      <wizard-step stepTitle='Steptitle 1'>Step 1</wizard-step>
+      <wizard-step stepTitle='Steptitle 2'>Step 2</wizard-step>
+      <wizard-completion-step enableBackLinks stepTitle='Completion Steptitle'>Step 3</wizard-completion-step>
     </wizard>
   `
 })

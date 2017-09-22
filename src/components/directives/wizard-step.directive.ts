@@ -8,10 +8,10 @@ import {WizardStepTitleDirective} from './wizard-step-title.directive';
  *
  * ### Syntax
  *
- * With `title` input:
+ * With `stepTitle` input:
  *
  * ```html
- * <div wizardStep [title]="step title" [navigationSymbol]="symbol" [navigationSymbolFontFamily]="font-family"
+ * <div wizardStep [stepTitle]="step title" [navigationSymbol]="symbol" [navigationSymbolFontFamily]="font-family"
  *    [canExit]="deciding function" (stepEnter)="enter function" (stepExit)="exit function">
  *    ...
  * </div>
@@ -31,10 +31,10 @@ import {WizardStepTitleDirective} from './wizard-step-title.directive';
  *
  * ### Example
  *
- * With `title` input:
+ * With `stepTitle` input:
  *
  * ```html
- * <div wizardStep title="Address information" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ * <div wizardStep stepTitle="Address information" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
  *    ...
  * </div>
  * ```

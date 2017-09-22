@@ -7,7 +7,7 @@ import {WizardStep} from '../util/wizard-step.interface';
  * ### Syntax
  *
  * ```html
- * <wizard-step title="Step title" selected>
+ * <wizard-step stepTitle="Step title" selected>
  *     ...
  * </wizard-step>
  * ```

@@ -10,9 +10,9 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step title='Steptitle 1'>Step 1</wizard-step>
-      <wizard-step title='Steptitle 2'>Step 2</wizard-step>
-      <wizard-step title='Steptitle 3'>Step 3</wizard-step>
+      <wizard-step stepTitle='Steptitle 1'>Step 1</wizard-step>
+      <wizard-step stepTitle='Steptitle 2'>Step 2</wizard-step>
+      <wizard-step stepTitle='Steptitle 3'>Step 3</wizard-step>
     </wizard>
   `
 })

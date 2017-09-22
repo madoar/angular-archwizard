@@ -10,19 +10,19 @@ import {isBoolean} from 'util';
  */
 export abstract class WizardStep {
   /**
-   * A title property, which contains the title of the step.
+   * A step title property, which contains the stepTitle of the step.
    * This title is then shown inside the navigation bar.
-   * Compared to `title` this property can contain any html content and not only plain text
+   * Compared to `stepTitle` this property can contain any html content and not only plain text
    */
   @ContentChild(WizardStepTitleDirective)
   public stepTitleTemplate: WizardStepTitleDirective;
 
   /**
-   * A title property, which contains the title of the step.
+   * A step title property, which contains the stepTitle of the step.
    * This title is only shown inside the navigation bar, if `stepTitleTemplate` is not defined or null.
    */
   @Input()
-  public title: string;
+  public stepTitle: string;
 
   /**
    * A symbol property, which contains an optional symbol for the step inside the navigation bar.

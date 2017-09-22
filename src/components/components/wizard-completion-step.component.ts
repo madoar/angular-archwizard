@@ -19,7 +19,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  * ### Syntax
  *
  * ```html
- * <wizard-completion-step [title]="title of the wizard step" [navigationSymbol]="navigation symbol"
+ * <wizard-completion-step [stepTitle]="title of the wizard step" [navigationSymbol]="navigation symbol"
  *    [navigationSymbolFontFamily]="navigation symbol font family"
  *    (stepEnter)="event emitter to be called when the wizard step is entered"
  *    (stepExit)="event emitter to be called when the wizard step is exited">
@@ -30,7 +30,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  * ### Example
  *
  * ```html
- * <wizard-completion-step title="Step 1" navigationSymbol="1">
+ * <wizard-completion-step stepTitle="Step 1" navigationSymbol="1">
  *    ...
  * </wizard-completion-step>
  * ```
@@ -38,7 +38,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  * With a navigation symbol from the `font-awesome` font:
  *
  * ```html
- * <wizard-completion-step title="Step 1" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ * <wizard-completion-step stepTitle="Step 1" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
  *    ...
  * </wizard-completion-step>
  * ```

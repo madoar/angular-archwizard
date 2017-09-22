@@ -11,13 +11,13 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <div wizardStep title='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
+      <div wizardStep stepTitle='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
         Step 1
       </div>
-      <test-wizard-step wizardStep title='Steptitle 2' optionalStep>
+      <test-wizard-step wizardStep stepTitle='Steptitle 2' optionalStep>
         Step 2
       </test-wizard-step>
-      <div wizardStep title='Steptitle 3' (stepEnter)="enterInto($event, 3)" (stepExit)="exitFrom($event, 3)">
+      <div wizardStep stepTitle='Steptitle 3' (stepEnter)="enterInto($event, 3)" (stepExit)="exitFrom($event, 3)">
         Step 3
       </div>
     </wizard>
