@@ -7,7 +7,7 @@ import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardComponent} from './wizard.component';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
-import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
+import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 
 /**
  * The `wizard-completion-step` component can be used to define a completion/success step at the end of your wizard

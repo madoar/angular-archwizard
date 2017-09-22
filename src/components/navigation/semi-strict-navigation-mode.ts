@@ -1,6 +1,6 @@
 import {NavigationMode} from './navigation-mode.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
-import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
+import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 import {WizardState} from './wizard-state.model';
 
 /**

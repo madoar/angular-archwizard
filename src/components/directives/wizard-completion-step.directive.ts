@@ -2,7 +2,7 @@ import {ContentChild, Directive, EventEmitter, forwardRef, HostBinding, Input, O
 import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardStepTitleDirective} from './wizard-step-title.directive';
-import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
+import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 
 /**
  * The `wizardCompletionStep` directive can be used to define a completion/success step at the end of your wizard
