@@ -10,13 +10,13 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step title='Steptitle 1'>
+      <wizard-step stepTitle='Steptitle 1'>
         Step 1
       </wizard-step>
-      <wizard-step title='Steptitle 2' optionalStep>
+      <wizard-step stepTitle='Steptitle 2' optional>
         Step 2
       </wizard-step>
-      <wizard-step title='Steptitle 3'>
+      <wizard-step stepTitle='Steptitle 3'>
         Step 3
       </wizard-step>
     </wizard>
@@ -49,8 +49,8 @@ describe('OptionalStepDirective', () => {
   });
 
   it('should create an instance', () => {
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step[optionalStep]'))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-step[optionalStep]')).length).toBe(1);
+    expect(wizardTestFixture.debugElement.query(By.directive(OptionalStepDirective))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.queryAll(By.directive(OptionalStepDirective)).length).toBe(1);
   });
 
   it('should set optional correctly', () => {

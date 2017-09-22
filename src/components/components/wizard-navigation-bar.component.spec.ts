@@ -11,9 +11,9 @@ import {WizardState} from '../navigation/wizard-state.model';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step title='Steptitle 1'>Step 1</wizard-step>
-      <wizard-step title='Steptitle 2' optionalStep>Step 2</wizard-step>
-      <wizard-step title='Steptitle 3'>Step 3</wizard-step>
+      <wizard-step stepTitle='Steptitle 1'>Step 1</wizard-step>
+      <wizard-step stepTitle='Steptitle 2' optionalStep>Step 2</wizard-step>
+      <wizard-step stepTitle='Steptitle 3'>Step 3</wizard-step>
     </wizard>
   `
 })
@@ -479,5 +479,14 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': true });
+  });
+
+  it('should show the correct step titles', () => {
+    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('wizard-navigation-bar ul li a'));
+
+    expect(navigationLinks.length).toBe(3);
+    expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 1');
+    expect(navigationLinks[1].nativeElement.innerText).toBe('STEPTITLE 2');
+    expect(navigationLinks[2].nativeElement.innerText).toBe('STEPTITLE 3');
   });
 });

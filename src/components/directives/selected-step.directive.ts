@@ -7,7 +7,7 @@ import {WizardStep} from '../util/wizard-step.interface';
  * ### Syntax
  *
  * ```html
- * <wizard-step title="Step title" selected>
+ * <wizard-step stepTitle="Step title" selected>
  *     ...
  * </wizard-step>
  * ```
@@ -15,9 +15,9 @@ import {WizardStep} from '../util/wizard-step.interface';
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[selected]'
+  selector: '[selected], [selectedStep]'
 })
-export class SelectedDirective implements OnInit {
+export class SelectedStepDirective implements OnInit {
   /**
    * Constructor
    * @param wizardStep The wizard step, which should be selected by default

@@ -7,7 +7,7 @@ import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardComponent} from './wizard.component';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
-import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
+import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 
 /**
  * The `wizard-completion-step` component can be used to define a completion/success step at the end of your wizard
@@ -19,7 +19,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
  * ### Syntax
  *
  * ```html
- * <wizard-completion-step [title]="title of the wizard step" [navigationSymbol]="navigation symbol"
+ * <wizard-completion-step [stepTitle]="title of the wizard step" [navigationSymbol]="navigation symbol"
  *    [navigationSymbolFontFamily]="navigation symbol font family"
  *    (stepEnter)="event emitter to be called when the wizard step is entered"
  *    (stepExit)="event emitter to be called when the wizard step is exited">
@@ -30,7 +30,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
  * ### Example
  *
  * ```html
- * <wizard-completion-step title="Step 1" navigationSymbol="1">
+ * <wizard-completion-step stepTitle="Step 1" navigationSymbol="1">
  *    ...
  * </wizard-completion-step>
  * ```
@@ -38,7 +38,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
  * With a navigation symbol from the `font-awesome` font:
  *
  * ```html
- * <wizard-completion-step title="Step 1" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ * <wizard-completion-step stepTitle="Step 1" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
  *    ...
  * </wizard-completion-step>
  * ```
@@ -55,89 +55,4 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
   ]
 })
 export class WizardCompletionStepComponent extends WizardCompletionStep {
-  /**
-   * @inheritDoc
-   */
-  @ContentChild(WizardStepTitleDirective)
-  public titleTemplate: WizardStepTitleDirective;
-
-  /**
-   * @inheritDoc
-   */
-  @Input()
-  public title: string;
-
-  /**
-   * @inheritDoc
-   */
-  @Input()
-  public navigationSymbol = '';
-
-  /**
-   * @inheritDoc
-   */
-  @Input()
-  public navigationSymbolFontFamily: string;
-
-  /**
-   * @inheritDoc
-   */
-  @Output()
-  public stepEnter = new EventEmitter<MovingDirection>();
-
-  /**
-   * @inheritDoc
-   */
-  public stepExit = new EventEmitter<MovingDirection>();
-
-  /**
-   * @inheritDoc
-   */
-  @HostBinding('hidden')
-  public get hidden(): boolean {
-    return !this.selected;
-  }
-
-  /**
-   * @inheritDoc
-   */
-  public completed = false;
-
-  /**
-   * @inheritDoc
-   */
-  public selected = false;
-
-  /**
-   * @inheritDoc
-   */
-  public optional = false;
-
-  /**
-   * @inheritDoc
-   */
-  @Input()
-  public canEnter: ((direction: MovingDirection) => boolean) | boolean = true;
-
-  /**
-   * @inheritDoc
-   */
-  public canExit: ((direction: MovingDirection) => boolean) | boolean = false;
-
-  /**
-   * @inheritDoc
-   */
-  enter(direction: MovingDirection): void {
-    this.completed = true;
-    this.stepEnter.emit(direction);
-  }
-
-  /**
-   * @inheritDoc
-   */
-  exit(direction: MovingDirection): void {
-    // set this completion step as incomplete
-    this.completed = false;
-    this.stepExit.emit(direction);
-  }
 }

@@ -16,7 +16,7 @@ import {WizardStep} from '../util/wizard-step.interface';
  * ### Example
  *
  * ```html
- * <wizard-step title="Second step" optionalStep>
+ * <wizard-step stepTitle="Second step" optionalStep>
  *     ...
  * </wizard-step>
  * ```
@@ -24,7 +24,7 @@ import {WizardStep} from '../util/wizard-step.interface';
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[optionalStep]'
+  selector: '[optional], [optionalStep]'
 })
 export class OptionalStepDirective implements OnInit {
   /**

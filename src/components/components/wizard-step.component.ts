@@ -8,10 +8,10 @@ import {WizardStepTitleDirective} from '../directives/wizard-step-title.directiv
  *
  * ### Syntax
  *
- * With `title` input:
+ * With `stepTitle` input:
  *
  * ```html
- * <wizard-step [title]="step title" [navigationSymbol]="symbol" [navigationSymbolFontFamily]="font-family"
+ * <wizard-step [stepTitle]="step title" [navigationSymbol]="symbol" [navigationSymbolFontFamily]="font-family"
  *    [canExit]="deciding function" (stepEnter)="enter function" (stepExit)="exit function">
  *    ...
  * </wizard-step>
@@ -31,10 +31,10 @@ import {WizardStepTitleDirective} from '../directives/wizard-step-title.directiv
  *
  * ### Example
  *
- * With `title` input:
+ * With `stepTitle` input:
  *
  * ```html
- * <wizard-step title="Address information" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ * <wizard-step stepTitle="Address information" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
  *    ...
  * </wizard-step>
  * ```
@@ -60,95 +60,4 @@ import {WizardStepTitleDirective} from '../directives/wizard-step-title.directiv
   ]
 })
 export class WizardStepComponent extends WizardStep {
-  /**
-   * @inheritDoc
-   */
-  @ContentChild(WizardStepTitleDirective)
-  public titleTemplate: WizardStepTitleDirective;
-
-  /**
-   * @inheritDoc
-   */
-  @Input()
-  public title: string;
-
-  /**
-   * @inheritDoc
-   */
-  @Input()
-  public navigationSymbol = '';
-
-  /**
-   * @inheritDoc
-   */
-  @Input()
-  public navigationSymbolFontFamily: string;
-
-  /**
-   * @inheritDoc
-   */
-  @Input()
-  public canEnter: ((direction: MovingDirection) => boolean) | boolean = true;
-
-  /**
-   * @inheritDoc
-   */
-  @Input()
-  public canExit: ((direction: MovingDirection) => boolean) | boolean = true;
-
-  /**
-   * @inheritDoc
-   */
-  @Output()
-  public stepEnter = new EventEmitter<MovingDirection>();
-
-  /**
-   * @inheritDoc
-   */
-  @Output()
-  public stepExit = new EventEmitter<MovingDirection>();
-
-  /**
-   * @inheritDoc
-   */
-  @HostBinding('hidden')
-  public get hidden(): boolean {
-    return !this.selected;
-  }
-
-  /**
-   * @inheritDoc
-   */
-  public completed = false;
-
-  /**
-   * @inheritDoc
-   */
-  public selected = false;
-
-  /**
-   * @inheritDoc
-   */
-  public optional = false;
-
-  /**
-   * Constructor
-   */
-  constructor() {
-    super();
-  }
-
-  /**
-   * @inheritDoc
-   */
-  enter(direction: MovingDirection): void {
-    this.stepEnter.emit(direction);
-  }
-
-  /**
-   * @inheritDoc
-   */
-  exit(direction: MovingDirection): void {
-    this.stepExit.emit(direction);
-  }
 }

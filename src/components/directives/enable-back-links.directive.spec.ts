@@ -13,14 +13,14 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step title='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
+      <wizard-step stepTitle='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
         Step 1
       </wizard-step>
-      <wizard-step title='Steptitle 2' [canExit]="isValid"
+      <wizard-step stepTitle='Steptitle 2' [canExit]="isValid"
                    optionalStep (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">
         Step 2
       </wizard-step>
-      <wizard-completion-step enableBackLinks title='Completion steptitle 3' (stepEnter)="enterInto($event, 3)"
+      <wizard-completion-step enableBackLinks stepTitle='Completion steptitle 3' (stepEnter)="enterInto($event, 3)"
                               (stepExit)="completionStepExit($event, 3)">
         Step 3
       </wizard-completion-step>
@@ -70,42 +70,6 @@ describe('EnableBackLinksDirective', () => {
     expect(wizardTest).toBeTruthy();
     expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-step')).length).toBe(2);
     expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-completion-step')).length).toBe(1);
-  });
-
-  it('should have correct step title', () => {
-    expect(wizardTest).toBeTruthy();
-    expect(wizardState.getStepAtIndex(0).title).toBe('Steptitle 1');
-    expect(wizardState.getStepAtIndex(1).title).toBe('Steptitle 2');
-    expect(wizardState.getStepAtIndex(2).title).toBe('Completion steptitle 3');
-  });
-
-  it('should enter first step after initialisation', () => {
-    expect(wizardTest.eventLog).toEqual(['enter Forwards 1']);
-  });
-
-  it('should enter completion step after first step', () => {
-    expect(wizardState.currentStepIndex).toBe(0);
-
-    navigationMode.goToNextStep();
-    wizardTestFixture.detectChanges();
-
-    expect(wizardState.currentStepIndex).toBe(1);
-    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2']);
-
-    navigationMode.goToNextStep();
-    wizardTestFixture.detectChanges();
-
-    expect(wizardState.currentStepIndex).toBe(2);
-    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2',
-      'exit Forwards 2', 'enter Forwards 3']);
-  });
-
-  it('should enter completion step after jumping over second optional step', () => {
-    navigationMode.goToStep(2);
-    wizardTestFixture.detectChanges();
-
-    expect(wizardState.completed).toBe(true);
-    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 3']);
   });
 
   it('should be able to leave the completion step', () => {

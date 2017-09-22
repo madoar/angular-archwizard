@@ -13,13 +13,13 @@ import {WizardModule} from '../wizard.module';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step title='Other not visible title'>
-        <ng-template wizardStepTitle>
+      <wizard-step stepTitle='Not visible title'>
+        <ng-template stepTitle>
           Steptitle 1
         </ng-template>
         Step 1
       </wizard-step>
-      <wizard-completion-step title='Other not visible title'>
+      <wizard-completion-step stepTitle='Other not visible title'>
         <ng-template wizardStepTitle>
           Steptitle 2
         </ng-template>

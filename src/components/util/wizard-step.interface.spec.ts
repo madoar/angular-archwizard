@@ -19,55 +19,27 @@ import {MovingDirection} from './moving-direction.enum';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step #step1 title='Steptitle 1'>
-        Step 1
-      </wizard-step>
-      <wizard-step #step2 title='Steptitle 2' optionalStep>
-        Step 2
-      </wizard-step>
-      <wizard-step [canEnter]="canEnter" [canExit]="canExit" #step3>
-        <ng-template wizardStepTitle>
-          Steptitle 3
-        </ng-template>
-        Step 3
-      </wizard-step>
-      <div wizardStep #step4 title='Steptitle 4'>
-        Step 4
-      </div>
-      <wizard-completion-step #step5 title='Steptitle 5'>
-        Step 5
-      </wizard-completion-step>
-      <div wizardCompletionStep #step6 title='Steptitle 6'>
-        Step 6
-      </div>
+      <wizard-step stepTitle='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">Step 1</wizard-step>
+      <wizard-step stepTitle='Steptitle 2' [canExit]="canExit" [canEnter]="canEnter" optionalStep
+                   (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">Step 2</wizard-step>
+      <wizard-step stepTitle='Steptitle 3' (stepEnter)="enterInto($event, 3)" (stepExit)="exitFrom($event, 3)">Step 3</wizard-step>
     </wizard>
   `
 })
 class WizardTestComponent {
-  @ViewChild(WizardComponent)
-  public wizard: WizardComponent;
-
-  @ViewChild('step1')
-  public step1: WizardStepComponent;
-
-  @ViewChild('step2')
-  public step2: WizardStepComponent;
-
-  @ViewChild('step3')
-  public step3: WizardStepComponent;
-
-  @ViewChild('step4', {read: WizardStepDirective})
-  public step4: WizardStepDirective;
-
-  @ViewChild('step5')
-  public step5: WizardCompletionStepComponent;
-
-  @ViewChild('step6', {read: WizardCompletionStepDirective})
-  public step6: WizardCompletionStepDirective;
-
   public canEnter: any = true;
 
   public canExit: any = true;
+
+  public eventLog: Array<string> = [];
+
+  enterInto(direction: MovingDirection, destination: number): void {
+    this.eventLog.push(`enter ${MovingDirection[direction]} ${destination}`);
+  }
+
+  exitFrom(direction: MovingDirection, source: number): void {
+    this.eventLog.push(`exit ${MovingDirection[direction]} ${source}`);
+  }
 }
 
 describe('WizardStep', () => {
@@ -94,97 +66,229 @@ describe('WizardStep', () => {
   });
 
   it('should create an instance', () => {
-    expect(wizardTest.step1).toBeDefined();
-    expect(wizardTest.step2).toBeDefined();
-    expect(wizardTest.step3).toBeDefined();
-    expect(wizardTest.step4).toBeDefined();
-    expect(wizardTest.step5).toBeDefined();
-    expect(wizardTest.step6).toBeDefined();
-
-    expect(wizardTest.wizard.wizardSteps.length).toBe(6);
-  });
-
-  it('should be a WizardStep', () => {
-    expect(wizardTest.step1 instanceof WizardStep).toBe(true, 'Step 1 couldn\'t be identified as a WizardStep');
-    expect(wizardTest.step2 instanceof WizardStep).toBe(true, 'Step 2 couldn\'t be identified as a WizardStep');
-    expect(wizardTest.step3 instanceof WizardStep).toBe(true, 'Step 3 couldn\'t be identified as a WizardStep');
-    expect(wizardTest.step4 instanceof WizardStep).toBe(true, 'Step 4 couldn\'t be identified as a WizardStep');
-    expect(wizardTest.step5 instanceof WizardStep).toBe(true, 'Step 5 couldn\'t be identified as a WizardStep');
-    expect(wizardTest.step6 instanceof WizardStep).toBe(true, 'Step 6 couldn\'t be identified as a WizardStep');
+    expect(wizardState.wizardSteps.length).toBe(3);
   });
 
   it('should not be a WizardStep', () => {
     expect({stepOffset: 1} instanceof WizardStep).toBe(false);
-    expect({title: 'Test title'} instanceof WizardStep).toBe(false);
+    expect({title: 'Test stepTitle'} instanceof WizardStep).toBe(false);
   });
 
   it('should evaluate canEnter correctly', () => {
-    expect(navigationMode.canGoToStep(2)).toBe(true);
+    expect(navigationMode.canGoToStep(1)).toBe(true);
 
     wizardTest.canEnter = true;
     wizardTestFixture.detectChanges();
 
-    expect(navigationMode.canGoToStep(2)).toBe(true);
+    expect(navigationMode.canGoToStep(1)).toBe(true);
 
     wizardTest.canEnter = false;
     wizardTestFixture.detectChanges();
 
-    expect(navigationMode.canGoToStep(2)).toBe(false);
+    expect(navigationMode.canGoToStep(1)).toBe(false);
 
     wizardTest.canEnter = (direction) => direction === MovingDirection.Forwards;
     wizardTestFixture.detectChanges();
 
-    expect(navigationMode.canGoToStep(2)).toBe(true);
+    expect(navigationMode.canGoToStep(1)).toBe(true);
 
     wizardTest.canEnter = (direction) => direction === MovingDirection.Backwards;
     wizardTestFixture.detectChanges();
 
-    expect(navigationMode.canGoToStep(2)).toBe(false);
+    expect(navigationMode.canGoToStep(1)).toBe(false);
 
     wizardTest.canEnter = 'malformed input';
     wizardTestFixture.detectChanges();
 
-    expect(() => navigationMode.canGoToStep(2))
+    expect(() => navigationMode.canGoToStep(1))
       .toThrow(new Error(`Input value 'malformed input' is neither a boolean nor a function`));
   });
 
   it('should evaluate canExit correctly', () => {
-    navigationMode.goToStep(2);
+    navigationMode.goToNextStep();
     wizardTestFixture.detectChanges();
 
-    expect(navigationMode.canGoToStep(1)).toBe(true);
-    expect(navigationMode.canGoToStep(3)).toBe(true);
+    expect(navigationMode.canGoToStep(0)).toBe(true);
+    expect(navigationMode.canGoToStep(2)).toBe(true);
 
     wizardTest.canExit = true;
     wizardTestFixture.detectChanges();
 
-    expect(navigationMode.canGoToStep(1)).toBe(true);
-    expect(navigationMode.canGoToStep(3)).toBe(true);
+    expect(navigationMode.canGoToStep(0)).toBe(true);
+    expect(navigationMode.canGoToStep(2)).toBe(true);
 
     wizardTest.canExit = false;
     wizardTestFixture.detectChanges();
 
-    expect(navigationMode.canGoToStep(1)).toBe(false);
-    expect(navigationMode.canGoToStep(3)).toBe(false);
+    expect(navigationMode.canGoToStep(0)).toBe(false);
+    expect(navigationMode.canGoToStep(2)).toBe(false);
 
     wizardTest.canExit = (direction) => direction === MovingDirection.Forwards;
     wizardTestFixture.detectChanges();
 
-    expect(navigationMode.canGoToStep(1)).toBe(false);
-    expect(navigationMode.canGoToStep(3)).toBe(true);
+    expect(navigationMode.canGoToStep(0)).toBe(false);
+    expect(navigationMode.canGoToStep(2)).toBe(true);
 
     wizardTest.canExit = (direction) => direction === MovingDirection.Backwards;
     wizardTestFixture.detectChanges();
 
-    expect(navigationMode.canGoToStep(1)).toBe(true);
-    expect(navigationMode.canGoToStep(3)).toBe(false);
+    expect(navigationMode.canGoToStep(0)).toBe(true);
+    expect(navigationMode.canGoToStep(2)).toBe(false);
 
     wizardTest.canExit = 'malformed input';
     wizardTestFixture.detectChanges();
 
-    expect(() => navigationMode.canGoToStep(1))
+    expect(() => navigationMode.canGoToStep(0))
       .toThrow(new Error(`Input value 'malformed input' is neither a boolean nor a function`));
-    expect(() => navigationMode.canGoToStep(3))
+    expect(() => navigationMode.canGoToStep(2))
       .toThrow(new Error(`Input value 'malformed input' is neither a boolean nor a function`));
+  });
+
+  it('should enter first step after initialisation', () => {
+    expect(wizardTest.eventLog).toEqual(['enter Forwards 1']);
+  });
+
+  it('should enter second step after first step', () => {
+    navigationMode.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2']);
+  });
+
+  it('should enter first step after exiting second step', () => {
+    navigationMode.goToNextStep();
+    navigationMode.goToPreviousStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Backwards 2', 'enter Backwards 1']);
+  });
+
+  it('should enter third step after jumping over second optional step', () => {
+    navigationMode.goToStep(2);
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 3']);
+  });
+
+  it('should enter first step after jumping over second optional step two times', () => {
+    navigationMode.goToStep(2);
+    navigationMode.goToStep(0);
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 3', 'exit Backwards 3', 'enter Backwards 1']);
+  });
+
+  it('should enter second step after jumping over second optional step and the going back once', () => {
+    navigationMode.goToStep(2);
+    navigationMode.goToPreviousStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 3', 'exit Backwards 3', 'enter Backwards 2']);
+  });
+
+  it('should stay at first step correctly', () => {
+    navigationMode.goToStep(0);
+    wizardTestFixture.detectChanges();
+
+    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Stay 1', 'enter Stay 1']);
+  });
+
+  it('should not leave the second step in forward direction if it can\'t be exited', () => {
+    wizardTest.canExit = false;
+
+    navigationMode.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardState.currentStepIndex).toBe(1);
+
+    navigationMode.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardState.currentStepIndex).toBe(1);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Stay 2', 'enter Stay 2']);
+  });
+
+  it('should not leave the second step in backward direction if it can\'t be exited', () => {
+    wizardTest.canExit = false;
+
+    navigationMode.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardState.currentStepIndex).toBe(1);
+
+    navigationMode.goToPreviousStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardState.currentStepIndex).toBe(1);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Stay 2', 'enter Stay 2']);
+  });
+
+  it('should not leave the second step in forward direction if it can\'t be exited in this direction', () => {
+    wizardTest.canExit = direction => direction === MovingDirection.Backwards;
+
+    navigationMode.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardState.currentStepIndex).toBe(1);
+
+    navigationMode.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardState.currentStepIndex).toBe(1);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Stay 2', 'enter Stay 2']);
+  });
+
+  it('should not leave the second step in backward direction if it can\'t be exited in this direction', () => {
+    wizardTest.canExit = direction => direction === MovingDirection.Forwards;
+
+    navigationMode.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardState.currentStepIndex).toBe(1);
+
+    navigationMode.goToPreviousStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardState.currentStepIndex).toBe(1);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Stay 2', 'enter Stay 2']);
+  });
+
+  it('should leave the second step in forward direction if it can be exited in this direction', () => {
+    wizardTest.canExit = direction => direction === MovingDirection.Forwards;
+
+    navigationMode.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardState.currentStepIndex).toBe(1);
+
+    navigationMode.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardState.currentStepIndex).toBe(2);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Forwards 2', 'enter Forwards 3']);
+  });
+
+  it('should leave the second step in backward direction if it can be exited in this direction', () => {
+    wizardTest.canExit = direction => direction === MovingDirection.Backwards;
+
+    navigationMode.goToNextStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardState.currentStepIndex).toBe(1);
+
+    navigationMode.goToPreviousStep();
+    wizardTestFixture.detectChanges();
+
+    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizardTest.eventLog)
+      .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Backwards 2', 'enter Backwards 1']);
   });
 });

@@ -42,17 +42,17 @@ To use the this wizard component in an angular 2 project simply add a wizard com
 
 ```html
 <wizard>
-  <wizard-step title="Title of step 1">
+  <wizard-step stepTitle="Title of step 1">
     Content of Step 1
     <button type="button" nextStep>Next Step</button>
     <button type="button" goToStep="2">Go directly to third Step</button>
   </wizard-step>
-  <wizard-step title="Title of step 2" optionalStep>
+  <wizard-step stepTitle="Title of step 2" optionalStep>
     Content of Step 2
     <button type="button" previousStep>Go to previous step</button>
     <button type="button" nextStep>Go to next step</button>
   </wizard-step>
-  <wizard-step title="Title of step 3">
+  <wizard-step stepTitle="Title of step 3">
     Content of Step 3
     <button type="button" previousStep>Previous Step</button>
     <button type="button" (click)="finishFunction()">Finish</button>
@@ -127,9 +127,9 @@ Possible `<wizard>` parameters:
 The `<wizard-step></wizard-step>` environment is the wizard step environment. 
 Every step that belongs to your wizard must be defined inside its own `<wizard-step></wizard-step>` environment.
 
-#### \[title\]
-A wizard must contain a title, which is shown in the navigation bar of the wizard. 
-The title of a step can be set by adding a `title` attribute to the step definition. 
+#### \[stepTitle\]
+A wizard step must contain a title, which is shown in the navigation bar of the wizard. 
+The step title can be set by adding a `stepTitle` attribute to the step definition. 
 
 #### \[navigationSymbol\]
 Sometimes it's useful to add a symbol in the center of the circle in the navigation bar, that belongs to the step.
@@ -140,7 +140,7 @@ Be aware, that not all layouts display the symbols. Only the layouts `large-fill
 If you want to add a `2` to the circle in the navigation bar belonging to the second step you can do it like this:
 
 ```html
-<wizard-step title="Second Step" navigationSymbol="2"></wizard-step>
+<wizard-step stepTitle="Second Step" navigationSymbol="2"></wizard-step>
 ```
 
 In addition to normal symbols it's also possible to use an icon from a font as a symbol.
@@ -157,7 +157,7 @@ For example, if you want to show the icon with the unicode `\f2dd` of [FontAweso
 you need to set the `navigationSymbol` input attribute of the step to `&#xf2dd;` and the `navigationSymbolFontFamily` to `FontAwesome`:
 
 ```html
-<wizard-step title="Second Step" navigationSymbol="&#xf2dd;" navigationSymbolFontFamily="FontAwesome"></wizard-step>
+<wizard-step stepTitle="Second Step" navigationSymbol="&#xf2dd;" navigationSymbolFontFamily="FontAwesome"></wizard-step>
 ```
 
 #### \[canEnter\]
@@ -181,7 +181,7 @@ It then returns true, when the step change should succeed and false otherwise.
 If you need to call a function to do some initialisation work before entering a wizard step you can add a `stepEnter` attribute to the wizard step environment like this:
 
 ```html
-<wizard-step title="Second Step" (stepEnter)="enterSecondStep($event)"></wizard-step>
+<wizard-step stepTitle="Second Step" (stepEnter)="enterSecondStep($event)"></wizard-step>
 ```
 
 This leads to the calling of the `enterSecondStep` function when the wizard moves to this step.
@@ -201,7 +201,7 @@ Possible `<wizard-step>` parameters:
 
 | Parameter name                | Possible Values                                   | Default Value |
 | ----------------------------- | ------------------------------------------------- | ------------- |
-| [title]                       | string                                            | null          |
+| [stepTitle]                   | string                                            | null          |
 | [navigationSymbol]            | string                                            | ''            |
 | [navigationSymbolFontFamily]  | string                                            | null          |
 | [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
@@ -225,7 +225,7 @@ Possible `<wizard-completion-step>` parameters:
 
 | Parameter name                | Possible Values                                   | Default Value |
 | ----------------------------- | ------------------------------------------------- | ------------- |
-| [title]                       | string                                            | null          |
+| [stepTitle]                   | string                                            | null          |
 | [navigationSymbol]            | string                                            | ''            |
 | [navigationSymbolFontFamily]  | string                                            | null          |
 | [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
@@ -250,7 +250,7 @@ Possible `[enableBackLinks]` parameters:
 
 
 ### \[wizardStepTitle\]
-Sometimes it's not enough to define a title with the `title` attribute in `<wizard-step>` and `<wizard-completion-step>`.
+Sometimes it's not enough to define a title with the `stepTitle` attribute in `<wizard-step>` and `<wizard-completion-step>`.
 One example for such a case is, if the title should be written in another font.
 Another example would be if it's desired that the title should be choosen depending on the available width of your screen or window.
 In such cases you may want to specify the html for the title of a wizard step yourself.
@@ -270,12 +270,14 @@ Be aware, that you can only use `[wizardStepTitle]` together with Angular, becau
 ### \[optionalStep\]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
 by adding the `optionalStep` directive to the step you want to declare as optional. 
+To add the `optionalStep` directive to a wizard step, you can either add `optional` or `optionalStep` to the step definition.
 
-### \[selected\]
+### \[selectedStep\]
 In some cases it may be a better choice to set the default wizard step not via a static number.
-Another way to set the default wizard step is by using the `selected` directive.
-When attaching the `selected` directive to an arbitrary wizard step, it will be marked as the default wizard step,
+Another way to set the default wizard step is by using the `selectedStep` directive.
+When attaching the `selectedStep` directive to an arbitrary wizard step, it will be marked as the default wizard step,
 which is shown directly after the wizard startup.
+To add the `selectedStep` directive to a wizard step, you can either add `selected` or `selectedStep` to the step definition. 
 
 ### \[goToStep\]
 `ng2-archwizard` has three directives, that allow moving between steps.
@@ -363,11 +365,11 @@ This can be done by defining adding the `[wizardStep]` directive to the componen
 
 ```html
 <wizard>
-  <wizard-step title="Steptitle 1">
+  <wizard-step stepTitle="Steptitle 1">
     Step 1
   </wizard-step>
-  <custom-step wizardStep title="Steptitle 2"></custom-step>
-  <wizard-step title="Steptitle 3">
+  <custom-step wizardStep stepTitle="Steptitle 2"></custom-step>
+  <wizard-step stepTitle="Steptitle 3">
     Step 3
   </wizard-step>
 </wizard>
@@ -378,7 +380,7 @@ Possible `[wizardStep]` parameters:
 
 | Parameter name                | Possible Values                                   | Default Value |
 | ----------------------------- | ------------------------------------------------- | ------------- |
-| [title]                       | string                                            | null          |
+| [stepTitle]                   | string                                            | null          |
 | [navigationSymbol]            | string                                            | ''            |
 | [navigationSymbolFontFamily]  | string                                            | null          |
 | [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
@@ -394,10 +396,10 @@ that contains the wizard completion step.
 
 ```html
 <wizard>
-  <wizard-step title="Steptitle 1">
+  <wizard-step stepTitle="Steptitle 1">
     Step 1
   </wizard-step>
-  <custom-step wizardCompletionStep title="Completion steptitle">
+  <custom-step wizardCompletionStep stepTitle="Completion steptitle">
   </custom-step>
 </wizard>
 ```
@@ -407,7 +409,7 @@ Possible `[wizardCompletionStep]` parameters:
 
 | Parameter name                | Possible Values                                   | Default Value |
 | ----------------------------- | ------------------------------------------------- | ------------- |
-| [title]                       | string                                            | null          |
+| [stepTitle]                   | string                                            | null          |
 | [navigationSymbol]            | string                                            | ''            |
 | [navigationSymbolFontFamily]  | string                                            | null          |
 | [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |

@@ -10,11 +10,11 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
   selector: 'test-wizard',
   template: `
     <wizard>
-      <wizard-step title='Steptitle 1'>
+      <wizard-step stepTitle='Steptitle 1'>
         Step 1
         <button type="button" previousStep>Go to zero step</button>
       </wizard-step>
-      <wizard-step title='Steptitle 2'>
+      <wizard-step stepTitle='Steptitle 2'>
         Step 2
         <button type="button" previousStep>Go to first step</button>
       </wizard-step>
@@ -49,18 +49,18 @@ describe('PreviousStepDirective', () => {
 
   it('should create an instance', () => {
     expect(wizardTestFixture.debugElement.query(
-      By.css('wizard-step[title="Steptitle 1"] > button[previousStep]'))).toBeTruthy();
+      By.css('wizard-step[stepTitle="Steptitle 1"] > button[previousStep]'))).toBeTruthy();
     expect(wizardTestFixture.debugElement.query(
-      By.css('wizard-step[title="Steptitle 2"] > button[previousStep]'))).toBeTruthy();
+      By.css('wizard-step[stepTitle="Steptitle 2"] > button[previousStep]'))).toBeTruthy();
     expect(wizardTestFixture.debugElement.queryAll(
       By.css('wizard-step > button[previousStep]')).length).toBe(2);
   });
 
   it('should move correctly to the previous step', () => {
     const firstStepButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[title="Steptitle 1"] > button[previousStep]')).nativeElement;
+      By.css('wizard-step[stepTitle="Steptitle 1"] > button[previousStep]')).nativeElement;
     const secondStepButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[title="Steptitle 2"] > button[previousStep]')).nativeElement;
+      By.css('wizard-step[stepTitle="Steptitle 2"] > button[previousStep]')).nativeElement;
 
     expect(wizardState.currentStepIndex).toBe(0);
 

@@ -1,6 +1,6 @@
 import {Directive, EventEmitter, Host, OnInit, Output} from '@angular/core';
 import {MovingDirection} from '../util/moving-direction.enum';
-import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
+import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 
 /**
  * The `enableBackLinks` directive can be used to allow the user to leave a [[WizardCompletionStep]] after is has been entered.
@@ -16,7 +16,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
  * ### Example
  *
  * ```html
- * <wizard-completion-step title="Final step" enableBackLinks>
+ * <wizard-completion-step stepTitle="Final step" enableBackLinks>
  *     ...
  * </wizard-completion-step>
  * ```
