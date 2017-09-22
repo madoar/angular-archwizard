@@ -42,16 +42,6 @@ module.exports = function() {
   }
 
   /**
-   * Entry
-   * Reference: http://webpack.github.io/docs/configuration.html#entry
-   */
-  config.entry = {
-    'polyfills': './src/polyfills.ts',
-    'vendor': './src/vendor.ts',
-    'app': './src/index.ts' // our angular app
-  };
-
-  /**
    * Resolve
    * Reference: http://webpack.github.io/docs/configuration.html#resolve
    */
