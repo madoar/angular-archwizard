@@ -2,11 +2,8 @@
  * Created by marc on 20.05.17.
  */
 
-import {Component, ContentChild, EventEmitter, forwardRef, HostBinding, Inject, Input, Output} from '@angular/core';
-import {MovingDirection} from '../util/moving-direction.enum';
-import {WizardComponent} from './wizard.component';
+import {Component, forwardRef} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
-import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 
 /**
