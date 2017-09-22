@@ -127,9 +127,9 @@ Possible `<wizard>` parameters:
 The `<wizard-step></wizard-step>` environment is the wizard step environment. 
 Every step that belongs to your wizard must be defined inside its own `<wizard-step></wizard-step>` environment.
 
-#### \[title\]
-A wizard must contain a title, which is shown in the navigation bar of the wizard. 
-The title of a step can be set by adding a `stepTitle` attribute to the step definition. 
+#### \[stepTitle\]
+A wizard step must contain a title, which is shown in the navigation bar of the wizard. 
+The step title can be set by adding a `stepTitle` attribute to the step definition. 
 
 #### \[navigationSymbol\]
 Sometimes it's useful to add a symbol in the center of the circle in the navigation bar, that belongs to the step.
@@ -201,7 +201,7 @@ Possible `<wizard-step>` parameters:
 
 | Parameter name                | Possible Values                                   | Default Value |
 | ----------------------------- | ------------------------------------------------- | ------------- |
-| [title]                       | string                                            | null          |
+| [stepTitle]                   | string                                            | null          |
 | [navigationSymbol]            | string                                            | ''            |
 | [navigationSymbolFontFamily]  | string                                            | null          |
 | [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
@@ -225,7 +225,7 @@ Possible `<wizard-completion-step>` parameters:
 
 | Parameter name                | Possible Values                                   | Default Value |
 | ----------------------------- | ------------------------------------------------- | ------------- |
-| [title]                       | string                                            | null          |
+| [stepTitle]                   | string                                            | null          |
 | [navigationSymbol]            | string                                            | ''            |
 | [navigationSymbolFontFamily]  | string                                            | null          |
 | [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
@@ -270,12 +270,14 @@ Be aware, that you can only use `[wizardStepTitle]` together with Angular, becau
 ### \[optionalStep\]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
 by adding the `optionalStep` directive to the step you want to declare as optional. 
+To add the `optionalStep` directive to a wizard step, you can either add `optional` or `optionalStep` to the step definition.
 
-### \[selected\]
+### \[selectedStep\]
 In some cases it may be a better choice to set the default wizard step not via a static number.
-Another way to set the default wizard step is by using the `selected` directive.
-When attaching the `selected` directive to an arbitrary wizard step, it will be marked as the default wizard step,
+Another way to set the default wizard step is by using the `selectedStep` directive.
+When attaching the `selectedStep` directive to an arbitrary wizard step, it will be marked as the default wizard step,
 which is shown directly after the wizard startup.
+To add the `selectedStep` directive to a wizard step, you can either add `selected` or `selectedStep` to the step definition. 
 
 ### \[goToStep\]
 `ng2-archwizard` has three directives, that allow moving between steps.
@@ -378,7 +380,7 @@ Possible `[wizardStep]` parameters:
 
 | Parameter name                | Possible Values                                   | Default Value |
 | ----------------------------- | ------------------------------------------------- | ------------- |
-| [title]                       | string                                            | null          |
+| [stepTitle]                   | string                                            | null          |
 | [navigationSymbol]            | string                                            | ''            |
 | [navigationSymbolFontFamily]  | string                                            | null          |
 | [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
@@ -407,7 +409,7 @@ Possible `[wizardCompletionStep]` parameters:
 
 | Parameter name                | Possible Values                                   | Default Value |
 | ----------------------------- | ------------------------------------------------- | ------------- |
-| [title]                       | string                                            | null          |
+| [stepTitle]                   | string                                            | null          |
 | [navigationSymbol]            | string                                            | ''            |
 | [navigationSymbolFontFamily]  | string                                            | null          |
 | [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
