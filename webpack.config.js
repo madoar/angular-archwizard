@@ -92,14 +92,6 @@ module.exports = function() {
         loader: ['to-string-loader', 'css-loader', 'less-loader']
       },
 
-
-      // all scss required in src/app files will be merged in js files
-      {
-        test: /\.(scss|sass)$/,
-        exclude: root('src', 'style'),
-        loader: ['to-string-loader', 'css-loader', 'sass-loader']
-      },
-
       // support for .html as raw text
       // todo: change the loader to something that adds a hash to images
       {test: /\.html$/, loader: 'raw-loader', exclude: root('src', 'public')}
@@ -158,14 +150,6 @@ module.exports = function() {
         tslint: {
           emitErrors: false,
           failOnHint: false
-        },
-        /**
-         * Sass
-         * Reference: https://github.com/jtangelder/sass-loader
-         * Transforms .scss files to .css
-         */
-        sassLoader: {
-          //includePaths: [path.resolve(__dirname, "node_modules/foundation-sites/scss")]
         }
       }
     })
