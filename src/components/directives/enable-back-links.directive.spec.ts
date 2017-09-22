@@ -72,35 +72,6 @@ describe('EnableBackLinksDirective', () => {
     expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-completion-step')).length).toBe(1);
   });
 
-  it('should enter first step after initialisation', () => {
-    expect(wizardTest.eventLog).toEqual(['enter Forwards 1']);
-  });
-
-  it('should enter completion step after first step', () => {
-    expect(wizardState.currentStepIndex).toBe(0);
-
-    navigationMode.goToNextStep();
-    wizardTestFixture.detectChanges();
-
-    expect(wizardState.currentStepIndex).toBe(1);
-    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2']);
-
-    navigationMode.goToNextStep();
-    wizardTestFixture.detectChanges();
-
-    expect(wizardState.currentStepIndex).toBe(2);
-    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2',
-      'exit Forwards 2', 'enter Forwards 3']);
-  });
-
-  it('should enter completion step after jumping over second optional step', () => {
-    navigationMode.goToStep(2);
-    wizardTestFixture.detectChanges();
-
-    expect(wizardState.completed).toBe(true);
-    expect(wizardTest.eventLog).toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 3']);
-  });
-
   it('should be able to leave the completion step', () => {
     navigationMode.goToStep(2);
     wizardTestFixture.detectChanges();
