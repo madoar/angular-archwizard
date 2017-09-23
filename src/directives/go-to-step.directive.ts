@@ -40,13 +40,38 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 })
 export class GoToStepDirective {
   /**
-   * An EventEmitter to be called when this directive is used to exit the current step.
-   * This EventEmitter can be used to do cleanup work
+   * This [[EventEmitter]] is called directly before the current step is exited during a transition through a component with this directive.
    *
    * @type {EventEmitter}
    */
   @Output()
-  public finalize = new EventEmitter();
+  public preFinalize: EventEmitter<void> = new EventEmitter();
+
+  /**
+   * This [[EventEmitter]] is called directly after the current step is exited during a transition through a component with this directive.
+   *
+   * @type {EventEmitter}
+   */
+  @Output()
+  public postFinalize: EventEmitter<void> = new EventEmitter();
+
+  /**
+   * A convenience name for `preFinalize`
+   *
+   * @param {EventEmitter<void>} emitter The [[EventEmitter]] to be set
+   */
+  @Output()
+  public set finalize(emitter: EventEmitter<void>) {
+    /* istanbul ignore next */
+    this.preFinalize = emitter;
+  }
+
+  /**
+   * A convenience field for `preFinalize`
+   */
+  public get finalize(): EventEmitter<void> {
+    return this.preFinalize;
+  }
 
   /**
    * The destination step, to which the wizard should navigate, after the component, having this directive has been activated.
@@ -103,10 +128,6 @@ export class GoToStepDirective {
    * After this method is called the wizard will try to transition to the `destinationStep`
    */
   @HostListener('click', ['$event']) onClick(): void {
-    if (this.navigationMode.canGoToStep(this.destinationStep)) {
-      this.finalize.emit();
-
-      this.navigationMode.goToStep(this.destinationStep);
-    }
+    this.navigationMode.goToStep(this.destinationStep, this.preFinalize, this.postFinalize);
   }
 }

@@ -1,6 +1,7 @@
 import {NavigationMode} from './navigation-mode.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardState} from './wizard-state.model';
+import {EventEmitter} from '@angular/core';
 
 /**
  * A [[NavigationMode]], which allows the user to navigate without any limitations,
@@ -51,12 +52,19 @@ export class FreeNavigationMode extends NavigationMode {
    * - the current step is exited and entered in the direction `MovingDirection.Stay`
    *
    * @param {number} destinationIndex The index of the destination wizard step, which should be entered
+   * @param {EventEmitter<void>} preFinalize An event emitter, to be called before the step has been transitioned
+   * @param {EventEmitter<void>} postFinalize An event emitter, to be called after the step has been transitioned
    */
-  goToStep(destinationIndex: number): void {
+  goToStep(destinationIndex: number, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
     const movingDirection: MovingDirection = this.wizardState.getMovingDirection(destinationIndex);
 
     // the current step can be exited in the given direction
     if (this.canGoToStep(destinationIndex)) {
+      /* istanbul ignore if */
+      if (preFinalize) {
+        preFinalize.emit();
+      }
+
       // leave current step
       this.wizardState.currentStep.completed = true;
       this.wizardState.currentStep.exit(movingDirection);
@@ -67,6 +75,11 @@ export class FreeNavigationMode extends NavigationMode {
       // go to next step
       this.wizardState.currentStep.enter(movingDirection);
       this.wizardState.currentStep.selected = true;
+
+      /* istanbul ignore if */
+      if (postFinalize) {
+        postFinalize.emit();
+      }
     } else {
       // if the current step can't be left, reenter the current step
       this.wizardState.currentStep.exit(MovingDirection.Stay);

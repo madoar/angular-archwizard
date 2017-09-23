@@ -60,34 +60,6 @@ describe('SemiStrictNavigationMode', () => {
     expect(navigationMode.canGoToStep(3)).toBe(false);
   });
 
-  it('should return correct can go to next step', () => {
-    expect(navigationMode.canGoToNextStep()).toBe(true);
-
-    navigationMode.goToNextStep();
-
-    expect(navigationMode.canGoToNextStep()).toBe(true);
-
-    navigationMode.goToNextStep();
-
-    expect(navigationMode.canGoToNextStep()).toBe(false);
-  });
-
-  it('should return correct can go to previous step', () => {
-    expect(navigationMode.canGoToPreviousStep()).toBe(false);
-
-    // should do nothing
-    navigationMode.goToPreviousStep();
-
-    expect(wizardState.currentStepIndex).toBe(0);
-    expect(wizardState.currentStep.selected).toBe(true);
-    expect(wizardState.currentStep.completed).toBe(false);
-    expect(navigationMode.canGoToPreviousStep()).toBe(false);
-
-    navigationMode.goToNextStep();
-
-    expect(navigationMode.canGoToPreviousStep()).toBe(true);
-  });
-
   it('should go to step', () => {
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);

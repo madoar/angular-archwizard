@@ -1,4 +1,5 @@
 import {WizardState} from './wizard-state.model';
+import {EventEmitter} from '@angular/core';
 
 /**
  * An interface describing the basic functionality, which must be provided by a navigation mode.
@@ -23,8 +24,10 @@ export abstract class NavigationMode {
    * If this is not possible, the current wizard step should be exited and then reentered with `MovingDirection.Stay`
    *
    * @param {number} destinationIndex The index of the destination step
+   * @param {EventEmitter<void>} preFinalize An event emitter, to be called before the step has been transitioned
+   * @param {EventEmitter<void>} postFinalize An event emitter, to be called after the step has been transitioned
    */
-  abstract goToStep(destinationIndex: number): void;
+  abstract goToStep(destinationIndex: number, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void;
 
   /**
    * Checks, whether the wizard step, located at the given index, is can be navigated to
@@ -44,40 +47,18 @@ export abstract class NavigationMode {
   /**
    * Tries to transition the wizard to the previous step from the `currentStep`
    */
-  goToPreviousStep(): void {
+  goToPreviousStep(preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
     if (this.wizardState.hasPreviousStep()) {
-      this.goToStep(this.wizardState.currentStepIndex - 1);
+      this.goToStep(this.wizardState.currentStepIndex - 1, preFinalize, postFinalize);
     }
   }
 
   /**
    * Tries to transition the wizard to the next step from the `currentStep`
    */
-  goToNextStep(): void {
+  goToNextStep(preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
     if (this.wizardState.hasNextStep()) {
-      this.goToStep(this.wizardState.currentStepIndex + 1);
+      this.goToStep(this.wizardState.currentStepIndex + 1, preFinalize, postFinalize);
     }
-  }
-
-  /**
-   * Checks if it's possible to transition to the previous step from the `currentStep`
-   *
-   * @returns {boolean} True if it's possible to transition to the previous step, false otherwise
-   */
-  canGoToPreviousStep(): boolean {
-    const previousStepIndex = this.wizardState.currentStepIndex - 1;
-
-    return this.wizardState.hasStep(previousStepIndex) && this.canGoToStep(previousStepIndex);
-  }
-
-  /**
-   * Checks if it's possible to transition to the next step from the `currentStep`
-   *
-   * @returns {boolean} True if it's possible to transition to the next step, false otherwise
-   */
-  canGoToNextStep(): boolean {
-    const nextStepIndex = this.wizardState.currentStepIndex + 1;
-
-    return this.wizardState.hasStep(nextStepIndex) && this.canGoToStep(nextStepIndex);
   }
 }

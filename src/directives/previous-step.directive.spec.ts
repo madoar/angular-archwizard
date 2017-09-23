@@ -12,16 +12,22 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
     <wizard>
       <wizard-step stepTitle='Steptitle 1'>
         Step 1
-        <button type="button" previousStep>Go to zero step</button>
+        <button type="button" (finalize)="finalizeStep(1)" previousStep>Go to zero step</button>
       </wizard-step>
       <wizard-step stepTitle='Steptitle 2'>
         Step 2
-        <button type="button" previousStep>Go to first step</button>
+        <button type="button" (finalize)="finalizeStep(2)" previousStep>Go to first step</button>
+        <button type="button" (postFinalize)="finalizeStep(2)" previousStep>Go to first step</button>
       </wizard-step>
     </wizard>
   `
 })
 class WizardTestComponent {
+  public eventLog: Array<string> = [];
+
+  finalizeStep(stepIndex: number): void {
+    this.eventLog.push(`finalize ${stepIndex}`);
+  }
 }
 
 describe('PreviousStepDirective', () => {
@@ -53,7 +59,7 @@ describe('PreviousStepDirective', () => {
     expect(wizardTestFixture.debugElement.query(
       By.css('wizard-step[stepTitle="Steptitle 2"] > button[previousStep]'))).toBeTruthy();
     expect(wizardTestFixture.debugElement.queryAll(
-      By.css('wizard-step > button[previousStep]')).length).toBe(2);
+      By.directive(PreviousStepDirective)).length).toBe(3);
   });
 
   it('should move correctly to the previous step', () => {
@@ -79,5 +85,45 @@ describe('PreviousStepDirective', () => {
     secondStepButton.click();
 
     expect(wizardState.currentStepIndex).toBe(0);
+  });
+
+  it('should call finalize correctly when going the previous step', () => {
+    const secondStepButtons = wizardTestFixture.debugElement.queryAll(
+      By.css('wizard-step[stepTitle="Steptitle 2"] > button[previousStep]'));
+
+    navigationMode.goToStep(1);
+
+    expect(wizardTest.eventLog).toEqual([]);
+
+    // go to second step
+    secondStepButtons[0].nativeElement.click();
+
+    expect(wizardTest.eventLog).toEqual(['finalize 2']);
+  });
+
+  it('should call postFinalize correctly when going the previous step', () => {
+    const secondStepButtons = wizardTestFixture.debugElement.queryAll(
+      By.css('wizard-step[stepTitle="Steptitle 2"] > button[previousStep]'));
+
+    navigationMode.goToStep(1);
+
+    expect(wizardTest.eventLog).toEqual([]);
+
+    // go to second step
+    secondStepButtons[1].nativeElement.click();
+
+    expect(wizardTest.eventLog).toEqual(['finalize 2']);
+  });
+
+  it('shouldn\'t call finalize when going to an nonexistent step', () => {
+    const firstStepButton = wizardTestFixture.debugElement.query(
+      By.css('wizard-step[stepTitle="Steptitle 1"] > button[previousStep]')).nativeElement;
+
+    expect(wizardTest.eventLog).toEqual([]);
+
+    // don't go to third step because it doesn't exist
+    firstStepButton.click();
+
+    expect(wizardTest.eventLog).toEqual([]);
   });
 });

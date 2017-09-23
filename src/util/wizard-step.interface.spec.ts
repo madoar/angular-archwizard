@@ -1,15 +1,10 @@
 /**
  * Created by marc on 29.06.17.
  */
-import {Component, ViewChild} from '@angular/core';
-import {WizardComponent} from '../components/wizard.component';
-import {ComponentFixture, async, TestBed} from '@angular/core/testing';
-import {WizardStepComponent} from '../components/wizard-step.component';
-import {WizardCompletionStepComponent} from '../components/wizard-completion-step.component';
+import {Component} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {WizardModule} from '../wizard.module';
 import {WizardStep} from './wizard-step.interface';
-import {WizardCompletionStepDirective} from '../directives/wizard-completion-step.directive';
-import {WizardStepDirective} from '../directives/wizard-step.directive';
 import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {By} from '@angular/platform-browser';
