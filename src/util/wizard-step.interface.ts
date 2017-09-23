@@ -96,6 +96,25 @@ export abstract class WizardStep {
   }
 
   /**
+   * This method returns true, if this wizard step can be transitioned with a given direction.
+   * Transitioned in this case means either entered or exited, depending on the given `condition` parameter.
+   *
+   * @param condition A condition variable, deciding if the step can be transitioned
+   * @param direction The direction in which this step should be transitioned
+   * @returns {boolean} True if this step can transitioned in the given direction
+   * @throws An `Error` is thrown if `condition` is neither a function nor a boolean
+   */
+  private static canTransitionStep(condition: ((direction: MovingDirection) => boolean) | boolean, direction: MovingDirection): boolean {
+    if (isBoolean(condition)) {
+      return condition as boolean;
+    } else if (condition instanceof Function) {
+      return condition(direction);
+    } else {
+      throw new Error(`Input value '${condition}' is neither a boolean nor a function`);
+    }
+  }
+
+  /**
    * A function called when the step is entered
    *
    * @param direction The direction in which the step is entered
@@ -114,40 +133,28 @@ export abstract class WizardStep {
   }
 
   /**
-   * This method returns true, if the given step `wizardStep` can be entered and false otherwise.
+   * This method returns true, if this wizard step can be entered from the given direction.
    * Because this method depends on the value `canEnter`, it will throw an error, if `canEnter` is neither a boolean
    * nor a function.
    *
    * @param direction The direction in which this step should be entered
-   * @returns {boolean} True if the given step `wizardStep` can be entered in the given direction, false otherwise
-   * @throws An `Error` is thrown if `wizardStep.canEnter` is neither a function nor a boolean
+   * @returns {boolean} True if the step can be entered in the given direction, false otherwise
+   * @throws An `Error` is thrown if `anEnter` is neither a function nor a boolean
    */
   public canEnterStep(direction: MovingDirection): boolean {
-    if (isBoolean(this.canEnter)) {
-      return this.canEnter as boolean;
-    } else if (this.canEnter instanceof Function) {
-      return this.canEnter(direction);
-    } else {
-      throw new Error(`Input value '${this.canEnter}' is neither a boolean nor a function`);
-    }
+    return WizardStep.canTransitionStep(this.canEnter, direction);
   }
 
   /**
-   * This method returns true, if the given step `wizardStep` can be exited and false otherwise.
+   * This method returns true, if this wizard step can be exited into given direction.
    * Because this method depends on the value `canExit`, it will throw an error, if `canExit` is neither a boolean
    * nor a function.
    *
    * @param direction The direction in which this step should be left
-   * @returns {boolean} True if the given step `wizardStep` can be exited in the given direction, false otherwise
-   * @throws An `Error` is thrown if `wizardStep.canExit` is neither a function nor a boolean
+   * @returns {boolean} True if the step can be exited in the given direction, false otherwise
+   * @throws An `Error` is thrown if `canExit` is neither a function nor a boolean
    */
   public canExitStep(direction: MovingDirection): boolean {
-    if (isBoolean(this.canExit)) {
-      return this.canExit as boolean;
-    } else if (this.canExit instanceof Function) {
-      return this.canExit(direction);
-    } else {
-      throw new Error(`Input value '${this.canExit}' is neither a boolean nor a function`);
-    }
+    return WizardStep.canTransitionStep(this.canExit, direction);
   }
 }

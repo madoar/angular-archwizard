@@ -307,9 +307,18 @@ that contains to which step a click on the element should change the current ste
 This can be useful if your step transitions depend on some application dependent logic, that changes depending on the user input.
 Here again it's important to use `[]` around the `goToStep` directive to tell angular that the argument is to be interpreted as javascript.  
 
+#### \(preFinalize\)
+Sometimes it's required to bind an event emitter to a specific element, which can perform a step transition. 
+Such an event emitter can be bound to the `(preFinalize)` output of the element, which contains the `goToStep` directive.
+This event emitter is then called, directly before the wizard transitions to the given step.
+
+#### \(postFinalize\)
+Alternatively you can also bind an event emitter to `(postFinalize)`, 
+which is executed directly after the wizard transitions to the given step.
+
 #### \(finalize\)
-If you want to call a function only after pressing on a element with a `goToStep` directive, you can do this, 
-by adding the function to the `finalize` attribute of the element with the `goToStep` directive.
+In case you don't really care when the finalization event emitter is called, you can also bind it simply to `(finalize)`. 
+`finalize` is a synonym for `preFinalize`. 
 
 #### Parameter overview
 Possible parameters:
@@ -317,6 +326,8 @@ Possible parameters:
 | Parameter name    | Possible Values                                           | Default Value |
 | ----------------- | --------------------------------------------------------- | ------------- |
 | [goToStep]        | WizardStep &#124; StepOffset &#124; number &#124; string  | null          |
+| (preFinalize)     | function()                                                | null          |
+| (postFinalize)    | function()                                                | null          |
 | (finalize)        | function()                                                | null          |
 
 ### \[nextStep\]
@@ -328,16 +339,18 @@ This listener will automatically change the currently selected wizard step to th
 ```
 
 #### \(finalize\)
-Like the `goToStep` directive the `nextStep` directive provides a `finalize` output, that is called every time
+Like the `goToStep` directive the `nextStep` directive provides a `preFinalize`, `postFinalize` and `finalize` output, which are called every time
 the current step is successfully exited, by clicking on the element containing the `nextStep` directive.
 
-In the given code snipped above, a click on the button with the text `Next Step`, leads to a call of the function `finalizeStep` every time, the button has been pressed.
+In the given code snipped above, a click on the button with the text `Next Step`, leads to a call of the `finalize` functions every time, the button has been pressed.
 
 #### Parameter overview
 Possible parameters:
 
 | Parameter name    | Possible Values                             | Default Value |
 | ----------------- | ------------------------------------------- | ------------- |
+| (preFinalize)     | function()                                  | null          |
+| (postFinalize)    | function()                                  | null          |
 | (finalize)        | function()                                  | null          |
 
 ### \[previousStep\]
@@ -349,7 +362,7 @@ This listener will automatically change the currently selected wizard step to th
 ```
 
 #### \(finalize\)
-Like both the `goToStep` and `nextStep` directives the `previousStep` directives too provides a `finalize` output, that is called every time
+Like both the `goToStep` and `nextStep` directives the `previousStep` directives too provides a `preFinalize`, `postFinalize` and `finalize` output, which are called every time
 the current step is successfully exited, by clicking on the element containing the `previousStep` directive.
 
 #### Parameter overview
@@ -357,6 +370,8 @@ Possible parameters:
 
 | Parameter name    | Possible Values                             | Default Value |
 | ----------------- | ------------------------------------------- | ------------- |
+| (preFinalize)     | function()                                  | null          |
+| (postFinalize)    | function()                                  | null          |
 | (finalize)        | function()                                  | null          |
 
 ### \[wizardStep\]

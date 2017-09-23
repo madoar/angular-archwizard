@@ -13,10 +13,11 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
       <wizard-step stepTitle='Steptitle 1'>
         Step 1
         <button type="button" nextStep (finalize)="finalizeStep(1)">Go to second step</button>
+        <button type="button" nextStep (postFinalize)="finalizeStep(1)">Go to second step</button>
       </wizard-step>
       <wizard-step stepTitle='Steptitle 2'>
         Step 2
-        <button type="button" nextStep (finalize)="finalizeStep(2)">Go to third step</button>
+        <button type="button" nextStep (postFinalize)="finalizeStep(2)">Go to first step</button>
       </wizard-step>
     </wizard>
   `
@@ -58,7 +59,7 @@ describe('NextStepDirective', () => {
     expect(wizardTestFixture.debugElement.query(
       By.css('wizard-step[stepTitle="Steptitle 2"] > button[nextStep]'))).toBeTruthy();
     expect(wizardTestFixture.debugElement.queryAll(
-      By.css('wizard-step > button[nextStep]')).length).toBe(2);
+      By.directive(NextStepDirective)).length).toBe(3);
   });
 
   it('should move correctly to the next step', () => {
@@ -80,22 +81,41 @@ describe('NextStepDirective', () => {
     expect(wizardState.currentStepIndex).toBe(1);
   });
 
-  it('should move call finalize correctly when going the next step', () => {
-    const firstStepButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 1"] > button[nextStep]')).nativeElement;
-    const secondStepButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 2"] > button[nextStep]')).nativeElement;
+  it('should call finalize correctly when going the next step', () => {
+    const firstStepButtons = wizardTestFixture.debugElement.queryAll(
+      By.css('wizard-step[stepTitle="Steptitle 1"] > button[nextStep]'));
 
     expect(wizardTest.eventLog).toEqual([]);
 
     // go to second step
-    firstStepButton.click();
+    firstStepButtons[0].nativeElement.click();
 
     expect(wizardTest.eventLog).toEqual(['finalize 1']);
+  });
+
+  it('should call postFinalize correctly when going the next step', () => {
+    const firstStepButtons = wizardTestFixture.debugElement.queryAll(
+      By.css('wizard-step[stepTitle="Steptitle 1"] > button[nextStep]'));
+
+    expect(wizardTest.eventLog).toEqual([]);
+
+    // go to second step
+    firstStepButtons[1].nativeElement.click();
+
+    expect(wizardTest.eventLog).toEqual(['finalize 1']);
+  });
+
+  it('shouldn\'t call finalize when going to an nonexistent step', () => {
+    const secondStepButton = wizardTestFixture.debugElement.query(
+      By.css('wizard-step[stepTitle="Steptitle 2"] > button[nextStep]')).nativeElement;
+
+    navigationMode.goToStep(1);
+
+    expect(wizardTest.eventLog).toEqual([]);
 
     // don't go to third step because it doesn't exist
     secondStepButton.click();
 
-    expect(wizardTest.eventLog).toEqual(['finalize 1']);
+    expect(wizardTest.eventLog).toEqual([]);
   });
 });

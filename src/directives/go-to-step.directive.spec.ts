@@ -15,9 +15,9 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
     <wizard>
       <wizard-step stepTitle='Steptitle 1' [canExit]="canExit">
         Step 1
-        <button type="button" goToStep="0" (finalize)="finalizeStep(1)">Stay at this step</button>
-        <button type="button" [goToStep]="goToSecondStep" (finalize)="finalizeStep(1)">Go to second step</button>
-        <button type="button" [goToStep]="{stepOffset: 2}" (finalize)="finalizeStep(1)">Go to third step</button>
+        <button type="button" goToStep="0" (preFinalize)="finalizeStep(1)">Stay at this step</button>
+        <button type="button" [goToStep]="goToSecondStep" (preFinalize)="finalizeStep(1)">Go to second step</button>
+        <button type="button" [goToStep]="{stepOffset: 2}" (preFinalize)="finalizeStep(1)">Go to third step</button>
       </wizard-step>
       <wizard-step stepTitle='Steptitle 2' optionalStep>
         Step 2
@@ -26,7 +26,7 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
       </wizard-step>
       <wizard-step stepTitle='Steptitle 3'>
         Step 3
-        <button type="button" [goToStep]="{stepOffset: -2}" (finalize)="finalizeStep(3)">Go to first step</button>
+        <button type="button" [goToStep]="{stepOffset: -2}" (postFinalize)="finalizeStep(3)">Go to first step</button>
       </wizard-step>
     </wizard>
   `

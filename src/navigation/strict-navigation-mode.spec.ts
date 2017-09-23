@@ -81,39 +81,6 @@ describe('StrictNavigationMode', () => {
     expect(navigationMode.canGoToStep(3)).toBe(false);
   });
 
-  it('should return correct can go to next step', () => {
-    expect(navigationMode.canGoToNextStep()).toBe(true);
-
-    navigationMode.goToNextStep();
-
-    checkWizardSteps(wizardState.wizardSteps, 1);
-    expect(navigationMode.canGoToNextStep()).toBe(true);
-
-    navigationMode.goToNextStep();
-
-    checkWizardSteps(wizardState.wizardSteps, 2);
-    expect(navigationMode.canGoToNextStep()).toBe(false);
-
-    // should do nothing
-    navigationMode.goToNextStep();
-
-    checkWizardSteps(wizardState.wizardSteps, 2);
-  });
-
-  it('should return correct can go to previous step', () => {
-    expect(navigationMode.canGoToPreviousStep()).toBe(false);
-
-    // should do nothing
-    navigationMode.goToPreviousStep();
-
-    checkWizardSteps(wizardState.wizardSteps, 0);
-
-    navigationMode.goToNextStep();
-
-    checkWizardSteps(wizardState.wizardSteps, 1);
-    expect(navigationMode.canGoToPreviousStep()).toBe(true);
-  });
-
   it('should go to step', () => {
     checkWizardSteps(wizardState.wizardSteps, 0);
 
