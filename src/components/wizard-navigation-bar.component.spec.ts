@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {Component, ViewChild} from '@angular/core';
 import {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
 import {WizardComponent} from './wizard.component';
@@ -88,11 +88,12 @@ describe('WizardNavigationBarComponent', () => {
     expect(navigableLi.length).toBe(0);
   });
 
-  it('should show the second step correctly', () => {
+  it('should show the second step correctly', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
 
     // go to second step
     navigationMode.goToNextStep();
+    tick();
     wizardTestFixture.detectChanges();
 
     const allLi = navBar.queryAll(By.css('li'));
@@ -124,15 +125,19 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(navigableLi.length).toBe(1);
     expect(navigableLi[0]).toBe(allLi[0]);
-  });
+  }));
 
-  it('should show the third step correctly', () => {
+  it('should show the third step correctly', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
 
     // go to second step
     navigationMode.goToNextStep();
+    tick();
+    wizardTestFixture.detectChanges();
+
     // go to third step
     navigationMode.goToNextStep();
+    tick();
     wizardTestFixture.detectChanges();
 
     const allLi = navBar.queryAll(By.css('li'));
@@ -165,13 +170,14 @@ describe('WizardNavigationBarComponent', () => {
     expect(doneLi.length).toBe(2);
     expect(navigableLi[0]).toBe(allLi[0]);
     expect(navigableLi[1]).toBe(allLi[1]);
-  });
+  }));
 
-  it('should show the third step correctly, after jump from first to third step', () => {
+  it('should show the third step correctly, after jump from first to third step', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
 
     // go to third step and jump over the optional second step
     navigationMode.goToStep(2);
+    tick();
     wizardTestFixture.detectChanges();
 
     const allLi = navBar.queryAll(By.css('li'));
@@ -204,15 +210,19 @@ describe('WizardNavigationBarComponent', () => {
     expect(navigableLi.length).toBe(2);
     expect(navigableLi[0]).toBe(allLi[0]);
     expect(navigableLi[1]).toBe(allLi[1]);
-  });
+  }));
 
-  it('should show the first step correctly, after going back from the second step to the first step', () => {
+  it('should show the first step correctly, after going back from the second step to the first step', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
 
     // go to second step
     navigationMode.goToNextStep();
+    tick();
+    wizardTestFixture.detectChanges();
+
     // go back to first step
     navigationMode.goToPreviousStep();
+    tick();
     wizardTestFixture.detectChanges();
 
     const allLi = navBar.queryAll(By.css('li'));
@@ -243,16 +253,20 @@ describe('WizardNavigationBarComponent', () => {
     expect(defaultLi[0]).toBe(allLi[2]);
 
     expect(navigableLi.length).toBe(0);
-  });
+  }));
 
   it('should show the first step correctly, after first jumping from the first to the third step ' +
-    'and then back from the third step to the first step', () => {
+    'and then back from the third step to the first step', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step
     navigationMode.goToStep(2);
+    tick();
+    wizardTestFixture.detectChanges();
+
     // go back to first step
     navigationMode.goToStep(0);
+    tick();
     wizardTestFixture.detectChanges();
 
     const allLi = navBar.queryAll(By.css('li'));
@@ -283,16 +297,20 @@ describe('WizardNavigationBarComponent', () => {
     expect(defaultLi[0]).toBe(allLi[2]);
 
     expect(navigableLi.length).toBe(0);
-  });
+  }));
 
   it('should show the second step correctly, after first jumping from the first to the third step ' +
-    'and then back from the third step to the second step', () => {
+    'and then back from the third step to the second step', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step
     navigationMode.goToStep(2);
+    tick();
+    wizardTestFixture.detectChanges();
+
     // go back to second step
     navigationMode.goToPreviousStep();
+    tick();
     wizardTestFixture.detectChanges();
 
     const allLi = navBar.queryAll(By.css('li'));
@@ -324,14 +342,16 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(navigableLi.length).toBe(1);
     expect(navigableLi[0]).toBe(allLi[0]);
-  });
+  }));
 
-  it('should disable navigation through the navigation bar correctly', () => {
+  it('should disable navigation through the navigation bar correctly', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
 
     wizardState.disableNavigationBar = true;
+
     // go to third step and jump over the optional second step
     navigationMode.goToStep(2);
+    tick();
     wizardTestFixture.detectChanges();
 
     const allLi = navBar.queryAll(By.css('li'));
@@ -362,55 +382,67 @@ describe('WizardNavigationBarComponent', () => {
     expect(defaultLi.length).toBe(0);
 
     expect(navigableLi.length).toBe(0);
-  });
+  }));
 
-  it('should move back to the first step from the second step, after clicking on the corresponding link', () => {
+  it('should move back to the first step from the second step, after clicking on the corresponding link', fakeAsync(() => {
     const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1) a')).nativeElement;
 
     expect(wizardState.currentStepIndex).toBe(0);
 
     // go to the second step
     navigationMode.goToNextStep();
+    tick();
+    wizardTestFixture.detectChanges();
+
     expect(wizardState.currentStepIndex).toBe(1);
 
     // go back to the first step
     goToFirstStepLink.click();
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
-  });
+  }));
 
-  it('should move back to the first step from the third step, after clicking on the corresponding link', () => {
+  it('should move back to the first step from the third step, after clicking on the corresponding link', fakeAsync(() => {
     const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1) a')).nativeElement;
 
     expect(wizardState.currentStepIndex).toBe(0);
 
     // go to the second step
     navigationMode.goToStep(2);
+    tick();
+    wizardTestFixture.detectChanges();
+
     expect(wizardState.currentStepIndex).toBe(2);
 
     // go back to the first step
     goToFirstStepLink.click();
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
-  });
+  }));
 
-  it('should move back to the second step from the third step, after clicking on the corresponding link', () => {
+  it('should move back to the second step from the third step, after clicking on the corresponding link', fakeAsync(() => {
     const goToSecondStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(2) a')).nativeElement;
 
     expect(wizardState.currentStepIndex).toBe(0);
 
     // go to the second step
     navigationMode.goToStep(2);
+    tick();
+    wizardTestFixture.detectChanges();
+
     expect(wizardState.currentStepIndex).toBe(2);
 
     // go back to the first step
     goToSecondStepLink.click();
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
-  });
+  }));
 
   it('should not move to the second step from the first step, after clicking on the corresponding link', () => {
     const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1)'));

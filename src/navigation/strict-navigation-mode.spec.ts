@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {Component, ViewChild} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {WizardStep} from '../util/wizard-step.interface';
@@ -73,18 +73,20 @@ describe('StrictNavigationMode', () => {
       'Navigation mode is not an instance of StrictNavigationMode');
   });
 
-  it('should return correct can go to step', () => {
-    expect(navigationMode.canGoToStep(-1)).toBe(false);
-    expect(navigationMode.canGoToStep(0)).toBe(true);
-    expect(navigationMode.canGoToStep(1)).toBe(true);
-    expect(navigationMode.canGoToStep(2)).toBe(false);
-    expect(navigationMode.canGoToStep(3)).toBe(false);
-  });
+  it('should return correct can go to step', async(() => {
+    navigationMode.canGoToStep(-1).then(result => expect(result).toBe(false));
+    navigationMode.canGoToStep(0).then(result => expect(result).toBe(true));
+    navigationMode.canGoToStep(1).then(result => expect(result).toBe(true));
+    navigationMode.canGoToStep(2).then(result => expect(result).toBe(false));
+    navigationMode.canGoToStep(3).then(result => expect(result).toBe(false));
+  }));
 
-  it('should go to step', () => {
+  it('should go to step', fakeAsync(() => {
     checkWizardSteps(wizardState.wizardSteps, 0);
 
     navigationMode.goToStep(1);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
     expect(wizardState.currentStep).toBe(wizardState.getStepAtIndex(1));
@@ -93,6 +95,8 @@ describe('StrictNavigationMode', () => {
     checkWizardSteps(wizardState.wizardSteps, 1);
 
     navigationMode.goToStep(2);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
     expect(wizardState.currentStep).toBe(wizardState.getStepAtIndex(2));
@@ -101,6 +105,8 @@ describe('StrictNavigationMode', () => {
     checkWizardSteps(wizardState.wizardSteps, 2);
 
     navigationMode.goToStep(0);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.currentStep).toBe(wizardState.getStepAtIndex(0));
@@ -109,6 +115,8 @@ describe('StrictNavigationMode', () => {
     checkWizardSteps(wizardState.wizardSteps, 0);
 
     navigationMode.goToStep(1);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
     expect(wizardState.currentStep).toBe(wizardState.getStepAtIndex(1));
@@ -117,6 +125,8 @@ describe('StrictNavigationMode', () => {
     checkWizardSteps(wizardState.wizardSteps, 1);
 
     navigationMode.goToStep(2);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
     expect(wizardState.currentStep).toBe(wizardState.getStepAtIndex(2));
@@ -125,17 +135,19 @@ describe('StrictNavigationMode', () => {
     checkWizardSteps(wizardState.wizardSteps, 2);
 
     navigationMode.goToStep(1);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
     expect(wizardState.currentStep).toBe(wizardState.getStepAtIndex(1));
     expect(wizardState.currentStep.completed).toBe(true);
 
     checkWizardSteps(wizardState.wizardSteps, 1);
-  });
+  }));
 
-  it('should go to next step', () => {
+  it('should go to next step', fakeAsync(() => {
     navigationMode.goToNextStep();
-
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
@@ -143,28 +155,37 @@ describe('StrictNavigationMode', () => {
     expect(wizardState.currentStep.completed).toBe(false);
 
     checkWizardSteps(wizardState.wizardSteps, 1);
-  });
+  }));
 
-  it('should go to previous step', () => {
+  it('should go to previous step', fakeAsync(() => {
     expect(wizardState.getStepAtIndex(0).completed).toBe(false);
     checkWizardSteps(wizardState.wizardSteps, 0);
 
     navigationMode.goToStep(1);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.getStepAtIndex(0).completed).toBe(true);
     checkWizardSteps(wizardState.wizardSteps, 1);
 
     navigationMode.goToPreviousStep();
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.currentStep).toBe(wizardState.getStepAtIndex(0));
 
     checkWizardSteps(wizardState.wizardSteps, 0);
-  });
+  }));
 
-  it('should reset the wizard correctly', () => {
+  it('should reset the wizard correctly', fakeAsync(() => {
     navigationMode.goToNextStep();
+    tick();
+    wizardTestFixture.detectChanges();
+
     navigationMode.goToNextStep();
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
     expect(wizardState.getStepAtIndex(0).selected).toBe(false);
@@ -221,5 +242,5 @@ describe('StrictNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).selected).toBe(false);
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
-  });
+  }));
 });

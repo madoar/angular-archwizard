@@ -32,23 +32,37 @@ export class SemiStrictNavigationMode extends NavigationMode {
    * @param {number} destinationIndex The index of the destination wizard step
    * @returns {boolean} True if the destination wizard step can be entered, false otherwise
    */
-  canGoToStep(destinationIndex: number): boolean {
+  canGoToStep(destinationIndex: number): Promise<boolean> {
     const hasStep = this.wizardState.hasStep(destinationIndex);
 
     const movingDirection = this.wizardState.getMovingDirection(destinationIndex);
 
-    const canExitCurrentStep = () => this.wizardState.currentStep.canExitStep(movingDirection);
-    const canEnterDestinationStep = () => this.wizardState.getStepAtIndex(destinationIndex).canEnterStep(movingDirection);
+    const canExitCurrentStep = (previous: boolean) => {
+      return previous ? this.wizardState.currentStep.canExitStep(movingDirection) : Promise.resolve(false);
+    };
 
-    const allNormalStepsCompleted = this.wizardState.wizardSteps
-      .filter((step, index) => index < destinationIndex)
-      .every(step => step.completed || step.optional || step.selected);
+    const canEnterDestinationStep = (previous: boolean) => {
+      return previous ? this.wizardState.getStepAtIndex(destinationIndex).canEnterStep(movingDirection) : Promise.resolve(false);
+    };
 
     // provide the destination step as a lambda in case the index doesn't exist (i.e. hasStep === false)
-    const destinationStep = () => this.wizardState.getStepAtIndex(destinationIndex);
+    const destinationStep = (previous: boolean) => {
+      if (previous) {
+        const allNormalStepsCompleted = this.wizardState.wizardSteps
+          .filter((step, index) => index < destinationIndex)
+          .every(step => step.completed || step.optional || step.selected);
 
-    return hasStep && canExitCurrentStep() && canEnterDestinationStep() &&
-      (!(destinationStep() instanceof WizardCompletionStep) || allNormalStepsCompleted);
+        return Promise.resolve(
+          !(this.wizardState.getStepAtIndex(destinationIndex) instanceof WizardCompletionStep) || allNormalStepsCompleted);
+      } else {
+        return Promise.resolve(false);
+      }
+    };
+
+    return Promise.resolve(hasStep)
+        .then(canExitCurrentStep)
+        .then(canEnterDestinationStep)
+        .then(destinationStep);
   }
 
   /**
@@ -68,35 +82,37 @@ export class SemiStrictNavigationMode extends NavigationMode {
    * @param {EventEmitter<void>} postFinalize An event emitter, to be called after the step has been transitioned
    */
   goToStep(destinationIndex: number, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
-    const movingDirection: MovingDirection = this.wizardState.getMovingDirection(destinationIndex);
+    this.canGoToStep(destinationIndex).then(navigationAllowed => {
+      if (navigationAllowed) {
+        // the current step can be exited in the given direction
+        const movingDirection: MovingDirection = this.wizardState.getMovingDirection(destinationIndex);
 
-    // the current step can be exited in the given direction
-    if (this.canGoToStep(destinationIndex)) {
-      /* istanbul ignore if */
-      if (preFinalize) {
-        preFinalize.emit();
+        /* istanbul ignore if */
+        if (preFinalize) {
+          preFinalize.emit();
+        }
+
+        // leave current step
+        this.wizardState.currentStep.completed = true;
+        this.wizardState.currentStep.exit(movingDirection);
+        this.wizardState.currentStep.selected = false;
+
+        this.wizardState.currentStepIndex = destinationIndex;
+
+        // go to next step
+        this.wizardState.currentStep.enter(movingDirection);
+        this.wizardState.currentStep.selected = true;
+
+        /* istanbul ignore if */
+        if (postFinalize) {
+          postFinalize.emit();
+        }
+      } else {
+        // if the current step can't be left, reenter the current step
+        this.wizardState.currentStep.exit(MovingDirection.Stay);
+        this.wizardState.currentStep.enter(MovingDirection.Stay);
       }
-
-      // leave current step
-      this.wizardState.currentStep.completed = true;
-      this.wizardState.currentStep.exit(movingDirection);
-      this.wizardState.currentStep.selected = false;
-
-      this.wizardState.currentStepIndex = destinationIndex;
-
-      // go to next step
-      this.wizardState.currentStep.enter(movingDirection);
-      this.wizardState.currentStep.selected = true;
-
-      /* istanbul ignore if */
-      if (postFinalize) {
-        postFinalize.emit();
-      }
-    } else {
-      // if the current step can't be left, reenter the current step
-      this.wizardState.currentStep.exit(MovingDirection.Stay);
-      this.wizardState.currentStep.enter(MovingDirection.Stay);
-    }
+    });
   }
 
   /**

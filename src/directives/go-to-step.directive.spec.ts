@@ -3,7 +3,7 @@
  */
 import {GoToStepDirective} from './go-to-step.directive';
 import {Component} from '@angular/core';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {WizardModule} from '../wizard.module';
 import {WizardState} from '../navigation/wizard-state.model';
@@ -79,7 +79,7 @@ describe('GoToStepDirective', () => {
     expect(wizardTestFixture.debugElement.queryAll(By.directive(GoToStepDirective)).length).toBe(9);
   });
 
-  it('should move to step correctly', () => {
+  it('should move to step correctly', fakeAsync(() => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(
       By.css('wizard-step[stepTitle="Steptitle 1"] > button:nth-child(2)')).nativeElement;
     const secondStepGoToButton = wizardTestFixture.debugElement.query(
@@ -94,6 +94,7 @@ describe('GoToStepDirective', () => {
 
     // click button
     firstStepGoToButton.click();
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
@@ -103,15 +104,16 @@ describe('GoToStepDirective', () => {
 
     // click button
     secondStepGoToButton.click();
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
     expect(wizardSteps[0].selected).toBe(false);
     expect(wizardSteps[1].selected).toBe(false);
     expect(wizardSteps[2].selected).toBe(true);
-  });
+  }));
 
-  it('should jump over an optional step correctly', () => {
+  it('should jump over an optional step correctly', fakeAsync(() => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(
       By.css('wizard-step[stepTitle="Steptitle 1"] > button:nth-child(3)')).nativeElement;
     const thirdStepGoToButton = wizardTestFixture.debugElement.query(
@@ -126,6 +128,7 @@ describe('GoToStepDirective', () => {
 
     // click button
     firstStepGoToButton.click();
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
@@ -135,15 +138,16 @@ describe('GoToStepDirective', () => {
 
     // click button
     thirdStepGoToButton.click();
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardSteps[0].selected).toBe(true);
     expect(wizardSteps[1].selected).toBe(false);
     expect(wizardSteps[2].selected).toBe(false);
-  });
+  }));
 
-  it('should stay at current step correctly', () => {
+  it('should stay at current step correctly', fakeAsync(() => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(
       By.css('wizard-step[stepTitle="Steptitle 1"] > button:nth-child(1)')).nativeElement;
 
@@ -156,15 +160,16 @@ describe('GoToStepDirective', () => {
 
     // click button
     firstStepGoToButton.click();
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardSteps[0].selected).toBe(true);
     expect(wizardSteps[1].selected).toBe(false);
     expect(wizardSteps[2].selected).toBe(false);
-  });
+  }));
 
-  it('should finalize step correctly', () => {
+  it('should finalize step correctly', fakeAsync(() => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(
       By.css('wizard-step[stepTitle="Steptitle 1"] > button:nth-child(3)')).nativeElement;
     const thirdStepGoToButton = wizardTestFixture.debugElement.query(
@@ -175,6 +180,7 @@ describe('GoToStepDirective', () => {
 
     // click button
     firstStepGoToButton.click();
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
@@ -182,22 +188,23 @@ describe('GoToStepDirective', () => {
 
     // click button
     thirdStepGoToButton.click();
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardTest.eventLog).toEqual(['finalize 1', 'finalize 3']);
-  });
+  }));
 
-  it('should throw an error when using an invalid goToStep value', () => {
+  it('should throw an error when using an invalid goToStep value', fakeAsync(() => {
     const invalidGoToAttribute = wizardTestFixture.debugElement
       .query(By.css('wizard-step[stepTitle="Steptitle 2"]'))
       .queryAll(By.directive(GoToStepDirective))[1].injector.get(GoToStepDirective) as GoToStepDirective;
 
     expect(() => invalidGoToAttribute.destinationStep)
       .toThrow(new Error(`Input 'goToStep' is neither a WizardStep, StepOffset, number or string`));
-  });
+  }));
 
-  it('should return correct destination step for correct goToStep values', () => {
+  it('should return correct destination step for correct goToStep values', fakeAsync(() => {
     const firstGoToAttribute = wizardTestFixture.debugElement
       .query(By.css('wizard-navigation-bar'))
       .queryAll(By.directive(GoToStepDirective))[0].injector.get(GoToStepDirective) as GoToStepDirective;
@@ -218,9 +225,9 @@ describe('GoToStepDirective', () => {
     expect(secondGoToAttribute.destinationStep).toBe(1);
     expect(thirdGoToAttribute.destinationStep).toBe(2);
     expect(fourthGoToAttribute.destinationStep).toBe(0);
-  });
+  }));
 
-  it('should not leave current step if it the destination step can not be entered', () => {
+  it('should not leave current step if it the destination step can not be entered', fakeAsync(() => {
     expect(wizardState.currentStepIndex).toBe(0);
 
     wizardTest.canExit = false;
@@ -231,8 +238,9 @@ describe('GoToStepDirective', () => {
       .queryAll(By.directive(GoToStepDirective))[1].nativeElement;
 
     secondGoToAttribute.click();
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
-  });
+  }));
 });

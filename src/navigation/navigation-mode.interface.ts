@@ -17,7 +17,7 @@ export abstract class NavigationMode {
    * @param {number} destinationIndex The index of the destination step
    * @returns {boolean} True if the destination step can be transitioned to, false otherwise
    */
-  abstract canGoToStep(destinationIndex: number): boolean;
+  abstract canGoToStep(destinationIndex: number): Promise<boolean>;
 
   /**
    * Tries to transition to the wizard step, as denoted by the given destination index.

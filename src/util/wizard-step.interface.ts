@@ -62,13 +62,13 @@ export abstract class WizardStep {
    * A function taking a [[MovingDirection]], or boolean returning true, if the step can be entered and false otherwise.
    */
   @Input()
-  public canEnter: ((direction: MovingDirection) => boolean) | boolean = true;
+  public canEnter: ((direction: MovingDirection) => boolean) | ((direction: MovingDirection) => Promise<boolean>) | boolean = true;
 
   /**
    * A function taking a [[MovingDirection]], or boolean returning true, if the step can be exited and false otherwise.
    */
   @Input()
-  public canExit: ((direction: MovingDirection) => boolean) | boolean = true;
+  public canExit: ((direction: MovingDirection) => boolean) | ((direction: MovingDirection) => Promise<boolean>) | boolean = true;
 
   /**
    * This EventEmitter is called when the step is entered.
@@ -104,13 +104,17 @@ export abstract class WizardStep {
    * @returns {boolean} True if this step can transitioned in the given direction
    * @throws An `Error` is thrown if `condition` is neither a function nor a boolean
    */
-  private static canTransitionStep(condition: ((direction: MovingDirection) => boolean) | boolean, direction: MovingDirection): boolean {
+  private static canTransitionStep(condition:
+                                     ((direction: MovingDirection) => boolean) |
+                                     ((direction: MovingDirection) => Promise<boolean>) |
+                                     boolean,
+                                   direction: MovingDirection): Promise<boolean> {
     if (isBoolean(condition)) {
-      return condition as boolean;
+      return Promise.resolve(condition as boolean);
     } else if (condition instanceof Function) {
-      return condition(direction);
+      return Promise.resolve(condition(direction));
     } else {
-      throw new Error(`Input value '${condition}' is neither a boolean nor a function`);
+      return Promise.reject(new Error(`Input value '${condition}' is neither a boolean nor a function`));
     }
   }
 
@@ -141,7 +145,7 @@ export abstract class WizardStep {
    * @returns {boolean} True if the step can be entered in the given direction, false otherwise
    * @throws An `Error` is thrown if `anEnter` is neither a function nor a boolean
    */
-  public canEnterStep(direction: MovingDirection): boolean {
+  public canEnterStep(direction: MovingDirection): Promise<boolean> {
     return WizardStep.canTransitionStep(this.canEnter, direction);
   }
 
@@ -154,7 +158,7 @@ export abstract class WizardStep {
    * @returns {boolean} True if the step can be exited in the given direction, false otherwise
    * @throws An `Error` is thrown if `canExit` is neither a function nor a boolean
    */
-  public canExitStep(direction: MovingDirection): boolean {
+  public canExitStep(direction: MovingDirection): Promise<boolean> {
     return WizardStep.canTransitionStep(this.canExit, direction);
   }
 }
