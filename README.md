@@ -117,11 +117,11 @@ Possible `<wizard>` parameters:
 
 | Parameter name         | Possible Values                                                                                       | Default Value |
 | ---------------------- | ----------------------------------------------------------------------------------------------------- | ------------- |
-| [navBarLocation]       | top &#124; bottom &#124; left &#124; right                                                            | top           |
-| [navBarLayout]         | small &#124; large-filled &#124; large-empty &#124; large-filled-symbols &#124; large-empty-symbols   | small         |
-| [navigationMode]       | strict &#124; semi-strict &#124; free                                                                 | strict        |
-| [defaultStepIndex]     | number                                                                                                | 0             |
-| [disableNavigationBar] | boolean                                                                                               | false         |
+| [navBarLocation]       | `top | bottom | left | right`                                                                         | top           |
+| [navBarLayout]         | `small | large-filled | large-empty | large-filled-symbols | large-empty-symbols`                     | small         |
+| [navigationMode]       | `strict | semi-strict | free`                                                                         | strict        |
+| [defaultStepIndex]     | `number`                                                                                              | 0             |
+| [disableNavigationBar] | `boolean`                                                                                             | false         |
 
 ### \<wizard-step\>
 The `<wizard-step></wizard-step>` environment is the wizard step environment. 
@@ -200,13 +200,13 @@ Possible `<wizard-step>` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| [stepTitle]                   | string                                                                                               | null          |
-| [navigationSymbol]            | string                                                                                               | ''            |
-| [navigationSymbolFontFamily]  | string                                                                                               | null          |
-| [canEnter]                    | function(MovingDirection): boolean &#124; function(MovingDirection): Promise<boolean> &#124; boolean | true          |
-| [canExit]                     | function(MovingDirection): boolean &#124; boolean                                                    | true          |
-| (stepEnter)                   | function(MovingDirection)                                                                            | null          |
-| (stepExit)                    | function(MovingDirection)                                                                            | null          |
+| [stepTitle]                   | `string`                                                                                             | null          |
+| [navigationSymbol]            | `string`                                                                                             | ''            |
+| [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
+| [canEnter]                    | `function(MovingDirection): boolean | function(MovingDirection): Promise<boolean> | boolean`         | true          |
+| [canExit]                     | `function(MovingDirection): boolean | function(MovingDirection): Promise<boolean> | boolean`         | true          |
+| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
+| (stepExit)                    | `function(MovingDirection): void`                                                                    | null          |
 
 ### \<wizard-completion-step\>
 In addition to the "normal" step component `<wizard-step>` it's also possible to define an optional `<wizard-completion-step>`.
@@ -224,11 +224,11 @@ Possible `<wizard-completion-step>` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| [stepTitle]                   | string                                                                                               | null          |
-| [navigationSymbol]            | string                                                                                               | ''            |
-| [navigationSymbolFontFamily]  | string                                                                                               | null          |
-| [canEnter]                    | function(MovingDirection): boolean &#124; function(MovingDirection): Promise<boolean> &#124; boolean | true          |
-| (stepEnter)                   | function(MovingDirection)                                                                            | null          |
+| [stepTitle]                   | `string`                                                                                             | null          |
+| [navigationSymbol]            | `string`                                                                                             | ''            |
+| [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
+| [canEnter]                    | `function(MovingDirection): boolean | function(MovingDirection): Promise<boolean> | boolean`         | true          |
+| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 
 ### \[enableBackLinks\]
 In some cases it may be required that the user is able to leave an entered `wizard-completion-step`.
@@ -243,9 +243,9 @@ If this is the case you can enable this by adding the directive `[enableBackLink
 #### Parameter overview
 Possible `[enableBackLinks]` parameters:
 
-| Parameter name                | Possible Values                                   | Default Value |
-| ----------------------------- | ------------------------------------------------- | ------------- |
-| (stepExit)                    | function(MovingDirection)                         | null          |
+| Parameter name                | Possible Values                                                                                      | Default Value |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
+| (stepExit)                    | `function(MovingDirection): void`                                                                    | null          |
 
 
 ### \[wizardStepTitle\]
@@ -322,12 +322,12 @@ In case you don't really care when the finalization event emitter is called, you
 #### Parameter overview
 Possible parameters:
 
-| Parameter name    | Possible Values                                           | Default Value |
-| ----------------- | --------------------------------------------------------- | ------------- |
-| [goToStep]        | WizardStep &#124; StepOffset &#124; number &#124; string  | null          |
-| (preFinalize)     | function()                                                | null          |
-| (postFinalize)    | function()                                                | null          |
-| (finalize)        | function()                                                | null          |
+| Parameter name    | Possible Values                                                   | Default Value |
+| ----------------- | ----------------------------------------------------------------- | ------------- |
+| [goToStep]        | `WizardStep | StepOffset | number | string`                       | null          |
+| (preFinalize)     | `function(): void`                                                | null          |
+| (postFinalize)    | `function(): void`                                                | null          |
+| (finalize)        | `function(): void`                                                | null          |
 
 ### \[nextStep\]
 By adding a `nextStep` directive to a button or a link inside a step, you automatically add a `onClick` listener to the button or link, that leads to the next step.
@@ -346,11 +346,11 @@ In the given code snipped above, a click on the button with the text `Next Step`
 #### Parameter overview
 Possible parameters:
 
-| Parameter name    | Possible Values                             | Default Value |
-| ----------------- | ------------------------------------------- | ------------- |
-| (preFinalize)     | function()                                  | null          |
-| (postFinalize)    | function()                                  | null          |
-| (finalize)        | function()                                  | null          |
+| Parameter name    | Possible Values                                                   | Default Value |
+| ----------------- | ----------------------------------------------------------------- | ------------- |
+| (preFinalize)     | `function(): void`                                                | null          |
+| (postFinalize)    | `function(): void`                                                | null          |
+| (finalize)        | `function(): void`                                                | null          |
 
 ### \[previousStep\]
 By adding a `previousStep` directive to a button or a link, you automatically add a `onClick` listener to the button or link, that changes your wizard to the previous step.
@@ -367,11 +367,11 @@ the current step is successfully exited, by clicking on the element containing t
 #### Parameter overview
 Possible parameters:
 
-| Parameter name    | Possible Values                             | Default Value |
-| ----------------- | ------------------------------------------- | ------------- |
-| (preFinalize)     | function()                                  | null          |
-| (postFinalize)    | function()                                  | null          |
-| (finalize)        | function()                                  | null          |
+| Parameter name    | Possible Values                                                   | Default Value |
+| ----------------- | ----------------------------------------------------------------- | ------------- |
+| (preFinalize)     | `function(): void`                                                | null          |
+| (postFinalize)    | `function(): void`                                                | null          |
+| (finalize)        | `function(): void`                                                | null          |
 
 ### \[wizardStep\]
 In some cases it may be a good idea to move a wizard step to a custom component.
@@ -394,13 +394,13 @@ Possible `[wizardStep]` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| [stepTitle]                   | string                                                                                               | null          |
-| [navigationSymbol]            | string                                                                                               | ''            |
-| [navigationSymbolFontFamily]  | string                                                                                               | null          |
-| [canEnter]                    | function(MovingDirection): boolean &#124; function(MovingDirection): Promise<boolean> &#124; boolean | true          |
-| [canExit]                     | function(MovingDirection): boolean &#124; boolean                                                    | true          |
-| (stepEnter)                   | function(MovingDirection)                                                                            | null          |
-| (stepExit)                    | function(MovingDirection)                                                                            | null          |
+| [stepTitle]                   | `string`                                                                                             | null          |
+| [navigationSymbol]            | `string`                                                                                             | ''            |
+| [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
+| [canEnter]                    | `function(MovingDirection): boolean | function(MovingDirection): Promise<boolean> | boolean`         | true          |
+| [canExit]                     | `function(MovingDirection): boolean | function(MovingDirection): Promise<boolean> | boolean`         | true          |
+| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
+| (stepExit)                    | `function(MovingDirection): void`                                                                    | null          |
 
 ### \[wizardCompletionStep\]
 In addition to the possibility of defining a normal wizard step in a custom component, 
@@ -423,11 +423,11 @@ Possible `[wizardCompletionStep]` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| [stepTitle]                   | string                                                                                               | null          |
-| [navigationSymbol]            | string                                                                                               | ''            |
-| [navigationSymbolFontFamily]  | string                                                                                               | null          |
-| [canEnter]                    | function(MovingDirection): boolean &#124; function(MovingDirection): Promise<boolean> &#124; boolean | true          |
-| (stepEnter)                   | function(MovingDirection)                                                                            | null          |
+| [stepTitle]                   | `string`                                                                                             | null          |
+| [navigationSymbol]            | `string`                                                                                             | ''            |
+| [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
+| [canEnter]                    | `function(MovingDirection): boolean | function(MovingDirection): Promise<boolean> | boolean`         | true          |
+| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 
 ### Accessing the wizard component instance
 Sometimes it's required to access the wizard component directly. 
