@@ -117,9 +117,9 @@ Possible `<wizard>` parameters:
 
 | Parameter name         | Possible Values                                                                                       | Default Value |
 | ---------------------- | ----------------------------------------------------------------------------------------------------- | ------------- |
-| [navBarLocation]       | `top | bottom | left | right`                                                                         | top           |
-| [navBarLayout]         | `small | large-filled | large-empty | large-filled-symbols | large-empty-symbols`                     | small         |
-| [navigationMode]       | `strict | semi-strict | free`                                                                         | strict        |
+| [navBarLocation]       | `top` \| `bottom` \| `left` \| `right`                                                                | top           |
+| [navBarLayout]         | `small` \| `large-filled` \| `large-empty` \| `large-filled-symbols` \| `large-empty-symbols`         | small         |
+| [navigationMode]       | `strict` \| `semi-strict` \| `free`                                                                   | strict        |
 | [defaultStepIndex]     | `number`                                                                                              | 0             |
 | [disableNavigationBar] | `boolean`                                                                                             | false         |
 
@@ -203,8 +203,8 @@ Possible `<wizard-step>` parameters:
 | [stepTitle]                   | `string`                                                                                             | null          |
 | [navigationSymbol]            | `string`                                                                                             | ''            |
 | [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
-| [canEnter]                    | `function(MovingDirection): boolean | function(MovingDirection): Promise<boolean> | boolean`         | true          |
-| [canExit]                     | `function(MovingDirection): boolean | function(MovingDirection): Promise<boolean> | boolean`         | true          |
+| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
+| [canExit]                     | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 | (stepExit)                    | `function(MovingDirection): void`                                                                    | null          |
 
@@ -227,7 +227,7 @@ Possible `<wizard-completion-step>` parameters:
 | [stepTitle]                   | `string`                                                                                             | null          |
 | [navigationSymbol]            | `string`                                                                                             | ''            |
 | [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
-| [canEnter]                    | `function(MovingDirection): boolean | function(MovingDirection): Promise<boolean> | boolean`         | true          |
+| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 
 ### \[enableBackLinks\]
@@ -397,8 +397,8 @@ Possible `[wizardStep]` parameters:
 | [stepTitle]                   | `string`                                                                                             | null          |
 | [navigationSymbol]            | `string`                                                                                             | ''            |
 | [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
-| [canEnter]                    | `function(MovingDirection): boolean | function(MovingDirection): Promise<boolean> | boolean`         | true          |
-| [canExit]                     | `function(MovingDirection): boolean | function(MovingDirection): Promise<boolean> | boolean`         | true          |
+| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
+| [canExit]                     | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 | (stepExit)                    | `function(MovingDirection): void`                                                                    | null          |
 
@@ -426,7 +426,7 @@ Possible `[wizardCompletionStep]` parameters:
 | [stepTitle]                   | `string`                                                                                             | null          |
 | [navigationSymbol]            | `string`                                                                                             | ''            |
 | [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
-| [canEnter]                    | `function(MovingDirection): boolean | function(MovingDirection): Promise<boolean> | boolean`         | true          |
+| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 
 ### Accessing the wizard component instance
