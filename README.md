@@ -164,18 +164,17 @@ you need to set the `navigationSymbol` input attribute of the step to `&#xf2dd;`
 Sometimes it's required to only allow the user to enter a specific step if a certain validation method returns true.
 In such a case you can use the `[canEnter]` input of the targeted wizard step.
 This input can be either a boolean, which directly tells the wizard if the targeted step can be entered, 
-or a lambda function, taking a `MovingDirection` and returning a boolean.
+or a lambda function, taking a `MovingDirection` and returning a `boolean` or a `Promise<boolean>`.
 This function will then be called, with the direction in which the targeted step will be entered, whenever an operation has been performed, that leads to a change of the current step.
 It then returns true, when the step change should succeed and false otherwise.
 
 #### \[canExit\]
 If you have an additional check or validation you need to perform to decide, if the step can be exited (both to the next step and to the previous step),
-you can either pass a boolean or a function, taking a `MovingDirection` enum and returning a boolean, to the `[canExit]` attribute of the wizard step.
-This boolean or function is taken in account when an operation has been performed, that leads to a change of the current step.
+you can either pass a boolean or a function, taking a `MovingDirection` enum and returning a boolean or a `Promise<boolean>`, to the `[canExit]` attribute of the wizard step.
+This boolean, or function, is taken into account, when an operation has been performed, which leads to a transition of the current step.
 If `[canExit]` has been bound to a boolean, it needs to be true to leave the step either in both a forwards and backwards direction.
-If only exiting one direction should be covered, you can pass a function taking `MovingDirection` and returning a boolean to `[canExit]`.
-This function will then be called, with the direction in which the current step should be moved, whenever an operation has been performed, that leads to a change of the current step.
-It then returns true, when the step change should succeed and false otherwise.
+If only exiting in one direction should be covered, you can pass a function, taking a `MovingDirection` and returning a boolean, to `[canExit]`.
+This function will then be called whenever an operation has been performed, that leads to a change of the current step.
 
 #### \(stepEnter\)
 If you need to call a function to do some initialisation work before entering a wizard step you can add a `stepEnter` attribute to the wizard step environment like this:
@@ -199,15 +198,15 @@ either by pressing on a component with a `nextStep` or `previousStep` directive,
 #### Parameter overview
 Possible `<wizard-step>` parameters:
 
-| Parameter name                | Possible Values                                   | Default Value |
-| ----------------------------- | ------------------------------------------------- | ------------- |
-| [stepTitle]                   | string                                            | null          |
-| [navigationSymbol]            | string                                            | ''            |
-| [navigationSymbolFontFamily]  | string                                            | null          |
-| [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
-| [canExit]                     | function(MovingDirection): boolean &#124; boolean | true          |
-| (stepEnter)                   | function(MovingDirection)                         | null          |
-| (stepExit)                    | function(MovingDirection)                         | null          |
+| Parameter name                | Possible Values                                                                                      | Default Value |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
+| [stepTitle]                   | string                                                                                               | null          |
+| [navigationSymbol]            | string                                                                                               | ''            |
+| [navigationSymbolFontFamily]  | string                                                                                               | null          |
+| [canEnter]                    | function(MovingDirection): boolean &#124; function(MovingDirection): Promise<boolean> &#124; boolean | true          |
+| [canExit]                     | function(MovingDirection): boolean &#124; boolean                                                    | true          |
+| (stepEnter)                   | function(MovingDirection)                                                                            | null          |
+| (stepExit)                    | function(MovingDirection)                                                                            | null          |
 
 ### \<wizard-completion-step\>
 In addition to the "normal" step component `<wizard-step>` it's also possible to define an optional `<wizard-completion-step>`.
@@ -223,13 +222,13 @@ because it can't be exited.
 #### Parameter overview
 Possible `<wizard-completion-step>` parameters:
 
-| Parameter name                | Possible Values                                   | Default Value |
-| ----------------------------- | ------------------------------------------------- | ------------- |
-| [stepTitle]                   | string                                            | null          |
-| [navigationSymbol]            | string                                            | ''            |
-| [navigationSymbolFontFamily]  | string                                            | null          |
-| [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
-| (stepEnter)                   | function(MovingDirection)                         | null          |
+| Parameter name                | Possible Values                                                                                      | Default Value |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
+| [stepTitle]                   | string                                                                                               | null          |
+| [navigationSymbol]            | string                                                                                               | ''            |
+| [navigationSymbolFontFamily]  | string                                                                                               | null          |
+| [canEnter]                    | function(MovingDirection): boolean &#124; function(MovingDirection): Promise<boolean> &#124; boolean | true          |
+| (stepEnter)                   | function(MovingDirection)                                                                            | null          |
 
 ### \[enableBackLinks\]
 In some cases it may be required that the user is able to leave an entered `wizard-completion-step`.
@@ -393,15 +392,15 @@ This can be done by defining adding the `[wizardStep]` directive to the componen
 #### Parameter overview
 Possible `[wizardStep]` parameters:
 
-| Parameter name                | Possible Values                                   | Default Value |
-| ----------------------------- | ------------------------------------------------- | ------------- |
-| [stepTitle]                   | string                                            | null          |
-| [navigationSymbol]            | string                                            | ''            |
-| [navigationSymbolFontFamily]  | string                                            | null          |
-| [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
-| [canExit]                     | function(MovingDirection): boolean &#124; boolean | true          |
-| (stepEnter)                   | function(MovingDirection)                         | null          |
-| (stepExit)                    | function(MovingDirection)                         | null          |
+| Parameter name                | Possible Values                                                                                      | Default Value |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
+| [stepTitle]                   | string                                                                                               | null          |
+| [navigationSymbol]            | string                                                                                               | ''            |
+| [navigationSymbolFontFamily]  | string                                                                                               | null          |
+| [canEnter]                    | function(MovingDirection): boolean &#124; function(MovingDirection): Promise<boolean> &#124; boolean | true          |
+| [canExit]                     | function(MovingDirection): boolean &#124; boolean                                                    | true          |
+| (stepEnter)                   | function(MovingDirection)                                                                            | null          |
+| (stepExit)                    | function(MovingDirection)                                                                            | null          |
 
 ### \[wizardCompletionStep\]
 In addition to the possibility of defining a normal wizard step in a custom component, 
@@ -422,13 +421,13 @@ that contains the wizard completion step.
 #### Parameter overview
 Possible `[wizardCompletionStep]` parameters:
 
-| Parameter name                | Possible Values                                   | Default Value |
-| ----------------------------- | ------------------------------------------------- | ------------- |
-| [stepTitle]                   | string                                            | null          |
-| [navigationSymbol]            | string                                            | ''            |
-| [navigationSymbolFontFamily]  | string                                            | null          |
-| [canEnter]                    | function(MovingDirection): boolean &#124; boolean | true          |
-| (stepEnter)                   | function(MovingDirection)                         | null          |
+| Parameter name                | Possible Values                                                                                      | Default Value |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
+| [stepTitle]                   | string                                                                                               | null          |
+| [navigationSymbol]            | string                                                                                               | ''            |
+| [navigationSymbolFontFamily]  | string                                                                                               | null          |
+| [canEnter]                    | function(MovingDirection): boolean &#124; function(MovingDirection): Promise<boolean> &#124; boolean | true          |
+| (stepEnter)                   | function(MovingDirection)                                                                            | null          |
 
 ### Accessing the wizard component instance
 Sometimes it's required to access the wizard component directly. 

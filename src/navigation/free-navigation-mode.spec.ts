@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {Component, ViewChild} from '@angular/core';
 import {By} from '@angular/platform-browser';
 import {WizardModule} from '../wizard.module';
@@ -52,15 +52,15 @@ describe('FreeNavigationMode', () => {
       'Navigation mode is not an instance of FreeNavigationMode');
   });
 
-  it('should return correct can go to step', () => {
-    expect(navigationMode.canGoToStep(-1)).toBe(false);
-    expect(navigationMode.canGoToStep(0)).toBe(true);
-    expect(navigationMode.canGoToStep(1)).toBe(true);
-    expect(navigationMode.canGoToStep(2)).toBe(true);
-    expect(navigationMode.canGoToStep(3)).toBe(false);
-  });
+  it('should return correct can go to step', async(() => {
+    navigationMode.canGoToStep(-1).then(result => expect(result).toBe(false));
+    navigationMode.canGoToStep(0).then(result => expect(result).toBe(true));
+    navigationMode.canGoToStep(1).then(result => expect(result).toBe(true));
+    navigationMode.canGoToStep(2).then(result => expect(result).toBe(true));
+    navigationMode.canGoToStep(3).then(result => expect(result).toBe(false));
+  }));
 
-  it('should go to step', () => {
+  it('should go to step', fakeAsync(() => {
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
     expect(wizardState.getStepAtIndex(0).completed).toBe(false);
@@ -70,6 +70,8 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
 
     navigationMode.goToStep(1);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
     expect(wizardState.getStepAtIndex(0).selected).toBe(false);
@@ -81,6 +83,8 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     navigationMode.goToStep(2);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
     expect(wizardState.getStepAtIndex(0).selected).toBe(false);
@@ -92,6 +96,8 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     navigationMode.goToStep(0);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
@@ -103,6 +109,8 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.completed).toBe(true);
 
     navigationMode.goToStep(1);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
     expect(wizardState.getStepAtIndex(0).selected).toBe(false);
@@ -114,6 +122,8 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.completed).toBe(true);
 
     navigationMode.goToStep(2);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
     expect(wizardState.getStepAtIndex(0).selected).toBe(false);
@@ -125,6 +135,8 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.completed).toBe(true);
 
     navigationMode.goToStep(1);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
     expect(wizardState.getStepAtIndex(0).selected).toBe(false);
@@ -134,11 +146,11 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).selected).toBe(false);
     expect(wizardState.getStepAtIndex(2).completed).toBe(true);
     expect(wizardState.completed).toBe(true);
-  });
+  }));
 
-  it('should go to next step', () => {
+  it('should go to next step', fakeAsync(() => {
     navigationMode.goToNextStep();
-
+    tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
@@ -149,12 +161,14 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).selected).toBe(false);
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
-  });
+  }));
 
-  it('should go to previous step', () => {
+  it('should go to previous step', fakeAsync(() => {
     expect(wizardState.getStepAtIndex(0).completed).toBe(false);
 
     navigationMode.goToStep(1);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
     expect(wizardState.getStepAtIndex(0).selected).toBe(false);
@@ -166,6 +180,8 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     navigationMode.goToPreviousStep();
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
@@ -175,12 +191,14 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).selected).toBe(false);
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
-  });
+  }));
 
-  it('should stay at the current step', () => {
+  it('should stay at the current step', fakeAsync(() => {
     expect(wizardState.getStepAtIndex(0).completed).toBe(false);
 
     navigationMode.goToPreviousStep();
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
@@ -192,6 +210,8 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     navigationMode.goToStep(-1);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
@@ -203,6 +223,8 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     navigationMode.goToStep(0);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
@@ -212,11 +234,16 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).selected).toBe(false);
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
-  });
+  }));
 
-  it('should reset the wizard correctly', () => {
+  it('should reset the wizard correctly', fakeAsync(() => {
     navigationMode.goToNextStep();
+    tick();
+    wizardTestFixture.detectChanges();
+
     navigationMode.goToNextStep();
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
     expect(wizardState.getStepAtIndex(0).selected).toBe(false);
@@ -261,5 +288,5 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).selected).toBe(true);
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
-  });
+  }));
 });

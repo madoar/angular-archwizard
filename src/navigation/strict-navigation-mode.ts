@@ -31,19 +31,34 @@ export class StrictNavigationMode extends NavigationMode {
    * @param {number} destinationIndex The index of the destination wizard step
    * @returns {boolean} True if the destination wizard step can be entered, false otherwise
    */
-  canGoToStep(destinationIndex: number): boolean {
+  canGoToStep(destinationIndex: number): Promise<boolean> {
     const hasStep = this.wizardState.hasStep(destinationIndex);
 
     const movingDirection = this.wizardState.getMovingDirection(destinationIndex);
 
-    const canExitCurrentStep = () => this.wizardState.currentStep.canExitStep(movingDirection);
-    const canEnterDestinationStep = () => this.wizardState.getStepAtIndex(destinationIndex).canEnterStep(movingDirection);
+    const canExitCurrentStep = (previous: boolean) => {
+      return previous ? this.wizardState.currentStep.canExitStep(movingDirection) : Promise.resolve(false);
+    };
 
-    const allPreviousStepsComplete = this.wizardState.wizardSteps
-      .filter((step, index) => index < destinationIndex && index !== this.wizardState.currentStepIndex)
-      .every(step => step.completed || step.optional);
+    const canEnterDestinationStep = (previous: boolean) => {
+      return previous ? this.wizardState.getStepAtIndex(destinationIndex).canEnterStep(movingDirection) : Promise.resolve(false);
+    };
 
-    return hasStep && canExitCurrentStep() && canEnterDestinationStep() && allPreviousStepsComplete;
+    const allPreviousStepsComplete = (previous: boolean) => {
+      if (previous) {
+        return Promise.resolve(this.wizardState.wizardSteps
+          .filter((step, index) => index < destinationIndex && index !== this.wizardState.currentStepIndex)
+          .every(step => step.completed || step.optional)
+        );
+      } else {
+        return Promise.resolve(false);
+      }
+    };
+
+    return Promise.resolve(hasStep)
+      .then(canExitCurrentStep)
+      .then(canEnterDestinationStep)
+      .then(allPreviousStepsComplete);
   }
 
   /**
@@ -64,39 +79,41 @@ export class StrictNavigationMode extends NavigationMode {
    * @param {EventEmitter<void>} postFinalize An event emitter, to be called after the step has been transitioned
    */
   goToStep(destinationIndex: number, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
-    const movingDirection: MovingDirection = this.wizardState.getMovingDirection(destinationIndex);
+    this.canGoToStep(destinationIndex).then(navigationAllowed => {
+      if (navigationAllowed) {
+        const movingDirection: MovingDirection = this.wizardState.getMovingDirection(destinationIndex);
 
-    if (this.canGoToStep(destinationIndex)) {
-      /* istanbul ignore if */
-      if (preFinalize) {
-        preFinalize.emit();
+        /* istanbul ignore if */
+        if (preFinalize) {
+          preFinalize.emit();
+        }
+
+        // leave current step
+        this.wizardState.currentStep.completed = true;
+        this.wizardState.currentStep.exit(movingDirection);
+        this.wizardState.currentStep.selected = false;
+
+        // set all steps after the destination step to incomplete
+        this.wizardState.wizardSteps
+          .filter((step, index) => this.wizardState.currentStepIndex > destinationIndex && index > destinationIndex)
+          .forEach(step => step.completed = false);
+
+        this.wizardState.currentStepIndex = destinationIndex;
+
+        // go to next step
+        this.wizardState.currentStep.enter(movingDirection);
+        this.wizardState.currentStep.selected = true;
+
+        /* istanbul ignore if */
+        if (postFinalize) {
+          postFinalize.emit();
+        }
+      } else {
+        // if the current step can't be left, reenter the current step
+        this.wizardState.currentStep.exit(MovingDirection.Stay);
+        this.wizardState.currentStep.enter(MovingDirection.Stay);
       }
-
-      // leave current step
-      this.wizardState.currentStep.completed = true;
-      this.wizardState.currentStep.exit(movingDirection);
-      this.wizardState.currentStep.selected = false;
-
-      // set all steps after the destination step to incomplete
-      this.wizardState.wizardSteps
-        .filter((step, index) => this.wizardState.currentStepIndex > destinationIndex && index > destinationIndex)
-        .forEach(step => step.completed = false);
-
-      this.wizardState.currentStepIndex = destinationIndex;
-
-      // go to next step
-      this.wizardState.currentStep.enter(movingDirection);
-      this.wizardState.currentStep.selected = true;
-
-      /* istanbul ignore if */
-      if (postFinalize) {
-        postFinalize.emit();
-      }
-    } else {
-      // if the current step can't be left, reenter the current step
-      this.wizardState.currentStep.exit(MovingDirection.Stay);
-      this.wizardState.currentStep.enter(MovingDirection.Stay);
-    }
+    });
   }
 
   isNavigable(destinationIndex: number): boolean {

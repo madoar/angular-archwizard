@@ -1,6 +1,5 @@
-import {OptionalStepDirective} from './optional-step.directive';
 import {Component} from '@angular/core';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {WizardModule} from '../wizard.module';
 import {WizardState} from '../navigation/wizard-state.model';
@@ -58,8 +57,10 @@ describe('SelectedStepDirective', () => {
     expect(wizardState.currentStepIndex).toBe(1);
   });
 
-  it('should reset correctly', () => {
+  it('should reset correctly', fakeAsync(() => {
     navigationMode.goToStep(0);
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
 
@@ -67,5 +68,5 @@ describe('SelectedStepDirective', () => {
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
-  });
+  }));
 });
