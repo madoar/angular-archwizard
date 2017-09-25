@@ -86,7 +86,7 @@ describe('WizardStep', () => {
     expect({title: 'Test stepTitle'} instanceof WizardStep).toBe(false);
   });
 
-  it('should evaluate canEnter  correctly', fakeAsync(() => {
+  it('should evaluate canEnter with boolean values correctly', fakeAsync(() => {
     wizardTest.secondStep.canEnterStep(MovingDirection.Backwards).then(result => expect(result).toBe(true));
     wizardTest.secondStep.canEnterStep(MovingDirection.Forwards).then(result => expect(result).toBe(true));
 
@@ -103,7 +103,9 @@ describe('WizardStep', () => {
 
     wizardTest.secondStep.canEnterStep(MovingDirection.Backwards).then(result => expect(result).toBe(false));
     wizardTest.secondStep.canEnterStep(MovingDirection.Forwards).then(result => expect(result).toBe(false));
+  }));
 
+  it('should evaluate canEnter with functions returning a boolean value correctly', fakeAsync(() => {
     wizardTest.canEnter = (direction) => direction === MovingDirection.Forwards;
     tick();
     wizardTestFixture.detectChanges();
@@ -117,7 +119,9 @@ describe('WizardStep', () => {
 
     wizardTest.secondStep.canEnterStep(MovingDirection.Backwards).then(result => expect(result).toBe(true));
     wizardTest.secondStep.canEnterStep(MovingDirection.Forwards).then(result => expect(result).toBe(false));
+  }));
 
+  it('should evaluate canEnter with functions returning a promise correctly', fakeAsync(() => {
     wizardTest.canEnter = (direction) => Promise.resolve(direction === MovingDirection.Forwards);
     tick();
     wizardTestFixture.detectChanges();
@@ -131,7 +135,9 @@ describe('WizardStep', () => {
 
     wizardTest.secondStep.canEnterStep(MovingDirection.Backwards).then(result => expect(result).toBe(true));
     wizardTest.secondStep.canEnterStep(MovingDirection.Forwards).then(result => expect(result).toBe(false));
+  }));
 
+  it('should evaluate canEnter throwing an error correctly', fakeAsync(() => {
     wizardTest.canEnter = 'malformed input';
     tick();
     wizardTestFixture.detectChanges();
@@ -155,7 +161,7 @@ describe('WizardStep', () => {
       .catch(error => expect(error).toEqual(new Error(`malformed input`)));
   }));
 
-  it('should evaluate canExit correctly', fakeAsync(() => {
+  it('should evaluate canExit with boolean values correctly', fakeAsync(() => {
     wizardTest.secondStep.canExitStep(MovingDirection.Backwards).then(result => expect(result).toBe(true));
     wizardTest.secondStep.canExitStep(MovingDirection.Forwards).then(result => expect(result).toBe(true));
 
@@ -172,7 +178,9 @@ describe('WizardStep', () => {
 
     wizardTest.secondStep.canExitStep(MovingDirection.Backwards).then(result => expect(result).toBe(false));
     wizardTest.secondStep.canExitStep(MovingDirection.Forwards).then(result => expect(result).toBe(false));
+  }));
 
+  it('should evaluate canExit with functions returning a boolean value correctly', fakeAsync(() => {
     wizardTest.canExit = (direction) => direction === MovingDirection.Forwards;
     tick();
     wizardTestFixture.detectChanges();
@@ -186,7 +194,9 @@ describe('WizardStep', () => {
 
     wizardTest.secondStep.canExitStep(MovingDirection.Backwards).then(result => expect(result).toBe(true));
     wizardTest.secondStep.canExitStep(MovingDirection.Forwards).then(result => expect(result).toBe(false));
+  }));
 
+  it('should evaluate canExit with functions returning a promise correctly', fakeAsync(() => {
     wizardTest.canExit = (direction) => Promise.resolve(direction === MovingDirection.Forwards);
     tick();
     wizardTestFixture.detectChanges();
@@ -200,7 +210,9 @@ describe('WizardStep', () => {
 
     wizardTest.secondStep.canExitStep(MovingDirection.Backwards).then(result => expect(result).toBe(true));
     wizardTest.secondStep.canExitStep(MovingDirection.Forwards).then(result => expect(result).toBe(false));
+  }));
 
+  it('should evaluate canExit throwing an error correctly', fakeAsync(() => {
     wizardTest.canExit = 'malformed input';
     tick();
     wizardTestFixture.detectChanges();
