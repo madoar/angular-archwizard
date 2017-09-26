@@ -2,7 +2,10 @@
  * Created by marc on 20.05.17.
  */
 
-import {Component, ContentChild, EventEmitter, forwardRef, HostBinding, Inject, Input, Output} from '@angular/core';
+import {
+  Component, ContentChild, EventEmitter, forwardRef, HostBinding, Inject, Input, Output,
+  ViewEncapsulation
+} from '@angular/core';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardComponent} from './wizard.component';
 import {WizardStep} from '../util/wizard-step.interface';
@@ -52,7 +55,8 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.inferface';
   providers: [
     { provide: WizardStep, useExisting: forwardRef(() => WizardCompletionStepComponent) },
     { provide: WizardCompletionStep, useExisting: forwardRef(() => WizardCompletionStepComponent) }
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class WizardCompletionStepComponent extends WizardCompletionStep {
   /**

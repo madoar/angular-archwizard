@@ -1,4 +1,7 @@
-import {Component, ContentChild, EventEmitter, forwardRef, HostBinding, Input, Output} from '@angular/core';
+import {
+  Component, ContentChild, EventEmitter, forwardRef, HostBinding, Input, Output,
+  ViewEncapsulation
+} from '@angular/core';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
@@ -57,7 +60,8 @@ import {WizardStepTitleDirective} from '../directives/wizard-step-title.directiv
   styleUrls: ['wizard-step.component.css'],
   providers: [
     { provide: WizardStep, useExisting: forwardRef(() => WizardStepComponent) }
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class WizardStepComponent extends WizardStep {
   /**
