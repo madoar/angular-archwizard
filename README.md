@@ -8,7 +8,7 @@
 [![Test Coverage](https://codeclimate.com/github/madoar/ng2-archwizard/badges/coverage.svg)](https://codeclimate.com/github/madoar/ng2-archwizard/coverage)
 [![NPM Version](https://img.shields.io/npm/v/ng2-archwizard.svg)](https://www.npmjs.com/package/ng2-archwizard)
 
-This project contains a functional wizard component for [Angular 2 and 4](https://angular.io/).
+This project contains a functional module with a wizard component and some supportive components and directives for [Angular](https://angular.io/).
 
 ## Build
 
@@ -20,12 +20,12 @@ Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github
 
 ## Installation
 
-`ng2-archwizard` is available as an NPM package. To install ng2-archwizard in your project directory run:
+`ng2-archwizard` is available as an NPM package. To install `ng2-archwizard` in your project directory run:
 ```
 $ npm install --save ng2-archwizard
 ```
 
-Afterwards you can import ng2-archwizard in your angular 2 project by adding the `WizardModule` to your Module declaration as followed:
+Afterwards you can import `ng2-archwizard` in your angular project by adding the `WizardModule` to your Module declaration as followed:
 ```typescript
 import { WizardModule } from 'ng2-archwizard';
 
@@ -38,7 +38,7 @@ export class Module { }
 ```
 
 ## How to use the wizard
-To use the this wizard component in an angular 2 project simply add a wizard component to the html template of your component, like this:
+To use this wizard component in an angular project simply add a `wizard` component to the html template of your component:
 
 ```html
 <wizard>
@@ -61,14 +61,12 @@ To use the this wizard component in an angular 2 project simply add a wizard com
 ``` 
 
 ### \<wizard\>
-The `<wizard></wizard>` environment is the environment, in which you define your wizard.
-This environment must contain all steps, that make up your wizard.
-It's possible to pass the following parameters to a wizard environment:
-
-`ng2-archwizard` enables you to choose the location and the layout of the navigation bar inside your wizard.
+The `<wizard>` environment is the environment, in which you define the steps belonging to your wizard.
+In addition to the contained wizard steps, `ng2-archwizard` enables you to define the location and the layout of the navigation bar inside your wizard.
+To set the location, the layout of the navigation bar and many other settings, you can pass the following parameters to the `wizard` component:
 
 #### \[navBarLocation\]
-The location of the navigation bar inside the wizard can be specified with the `navBarLocation` input value.
+The location of the navigation bar, contained inside the wizard, can be specified through the `navBarLocation` input value.
 This value can be either `top`, `bottom`, `left` or `right`, where the values specify the position at which the navigation bar will be shown.
 In addition `top` and `bottom` will lead to a horizontal navigation bar, when `left` and `right` lead to a vertical navigation bar at the
 left or right side.
@@ -124,12 +122,12 @@ Possible `<wizard>` parameters:
 | [disableNavigationBar] | `boolean`                                                                                             | false         |
 
 ### \<wizard-step\>
-The `<wizard-step></wizard-step>` environment is the wizard step environment. 
-Every step that belongs to your wizard must be defined inside its own `<wizard-step></wizard-step>` environment.
+`ng2-archwizard` contains two ways to define a wizard step. 
+One of these two ways is by using the `<wizard-step>` component. 
 
 #### \[stepTitle\]
-A wizard step must contain a title, which is shown in the navigation bar of the wizard. 
-The step title can be set by adding a `stepTitle` attribute to the step definition. 
+A wizard step needs to contain a title, which is shown in the navigation bar of the wizard. 
+To set the title of a step, add the `stepTitle` input attribute, with the choosen step title, to the definition of your wizard step. 
 
 #### \[navigationSymbol\]
 Sometimes it's useful to add a symbol in the center of the circle in the navigation bar, that belongs to the step.
@@ -210,13 +208,12 @@ Possible `<wizard-step>` parameters:
 
 ### \<wizard-completion-step\>
 In addition to the "normal" step component `<wizard-step>` it's also possible to define an optional `<wizard-completion-step>`.
-This wizard completion step is, if defined, always appended at the end of your wizard as its last step.
-It is meant as a step, which signalises the user that he successfully completed the wizard.
-When the wizard completion step has been entered by the user all wizard steps, including the optional steps, are marked as completed.
-In addition the user gets prevented from leaving the wizard completion step to another step after it has been entered. 
+The `wizard-completion-step` is meant as the final wizard step, which signalises the user, that he or she successfully completed the wizard.
+When a `wizard-completion-step` has been entered by the user, all wizard steps, including the optional steps belonging to the wizard, are marked as completed.
+In addition the user is prevented from leaving the `wizard-completion-step` to another step, once it has been entered. 
 
 The given parameters for the wizard completion step are identical to the normal wizard step.
-The only difference is, that it it isn't possible to pass a `(stepExit)` and `[canExit]` parameter to the wizard completion step, 
+The only difference is, that it it isn't possible to pass a `(stepExit)` and `[canExit]` parameter to the `wizard-completion-step`, 
 because it can't be exited.
 
 #### Parameter overview
@@ -231,8 +228,8 @@ Possible `<wizard-completion-step>` parameters:
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 
 ### \[enableBackLinks\]
-In some cases it may be required that the user is able to leave an entered `wizard-completion-step`.
-If this is the case you can enable this by adding the directive `[enableBackLinks]` to the `wizard-completion-step`.
+In some cases it may be required that the user is allowed to leave an entered `wizard-completion-step`.
+In such a case you can enable this by adding the directive `[enableBackLinks]` to the `wizard-completion-step`.
 
 ```html
 <wizard-completion-step enableBackLinks>
