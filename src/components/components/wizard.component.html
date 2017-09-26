@@ -1,6 +1,7 @@
-<wizard-navigation-bar
-  *ngIf="navBarLocation == 'top' || navBarLocation == 'left'"
-  [ngClass]="{
+<div class="ng2-archwizard">
+  <wizard-navigation-bar
+    *ngIf="navBarLocation == 'top' || navBarLocation == 'left'"
+    [ngClass]="{
     vertical: navBarLocation == 'left',
     horizontal: navBarLocation == 'top',
     small: navBarLayout == 'small',
@@ -9,19 +10,19 @@
     'large-empty': navBarLayout == 'large-empty',
     'large-empty-symbols': navBarLayout == 'large-empty-symbols'
   }">
-</wizard-navigation-bar>
+  </wizard-navigation-bar>
 
-<div [ngClass]="{
+  <div [ngClass]="{
   'wizard-steps': true,
   vertical: navBarLocation == 'left' || navBarLocation == 'right',
   horizontal: navBarLocation == 'top' || navBarLocation == 'bottom'
 }">
-  <ng-content></ng-content>
-</div>
+    <ng-content></ng-content>
+  </div>
 
-<wizard-navigation-bar
-  *ngIf="navBarLocation == 'bottom' || navBarLocation == 'right'"
-  [ngClass]="{
+  <wizard-navigation-bar
+    *ngIf="navBarLocation == 'bottom' || navBarLocation == 'right'"
+    [ngClass]="{
     vertical: navBarLocation == 'right',
     horizontal: navBarLocation == 'bottom',
     small: navBarLayout == 'small',
@@ -30,4 +31,5 @@
     'large-empty': navBarLayout == 'large-empty',
     'large-empty-symbols': navBarLayout == 'large-empty-symbols'
   }">
-</wizard-navigation-bar>
+  </wizard-navigation-bar>
+</div>
