@@ -18,7 +18,6 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
   selector: '[reset], [resetWizard]'
 })
 export class ResetWizardDirective {
-
   /**
    * An [[EventEmitter]] containing some tasks to be done, directly before the wizard is being reset
    */

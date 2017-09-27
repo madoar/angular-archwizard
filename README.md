@@ -60,6 +60,8 @@ To use this wizard component in an angular project simply add a `wizard` compone
 </wizard>
 ``` 
 
+## Components
+
 ### \<wizard\>
 The `<wizard>` environment is the environment, in which you define the steps belonging to your wizard.
 In addition to the contained wizard steps, `ng2-archwizard` enables you to define the location and the layout of the navigation bar inside your wizard.
@@ -227,6 +229,8 @@ Possible `<wizard-completion-step>` parameters:
 | [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 
+## Directives
+
 ### \[enableBackLinks\]
 In some cases it may be required that the user is allowed to leave an entered `wizard-completion-step`.
 In such a case you can enable this by adding the directive `[enableBackLinks]` to the `wizard-completion-step`.
@@ -238,7 +242,7 @@ In such a case you can enable this by adding the directive `[enableBackLinks]` t
 ```
 
 #### Parameter overview
-Possible `[enableBackLinks]` parameters:
+Possible `enableBackLinks` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
@@ -372,7 +376,7 @@ Possible parameters:
 
 ### \[wizardStep\]
 In some cases it may be a good idea to move a wizard step to a custom component.
-This can be done by defining adding the `[wizardStep]` directive to the component, that contains the wizard step.
+This can be done by defining adding the `wizardStep` directive to the component, that contains the wizard step.
 
 ```html
 <wizard>
@@ -387,7 +391,7 @@ This can be done by defining adding the `[wizardStep]` directive to the componen
 ```
 
 #### Parameter overview
-Possible `[wizardStep]` parameters:
+Possible `wizardStep` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
@@ -416,7 +420,7 @@ that contains the wizard completion step.
 ```
 
 #### Parameter overview
-Possible `[wizardCompletionStep]` parameters:
+Possible `wizardCompletionStep` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
@@ -425,6 +429,22 @@ Possible `[wizardCompletionStep]` parameters:
 | [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
 | [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
+
+### \[resetWizard\]
+Sometimes it's also required to reset the wizard to its initial state.
+In such a case you can use the `resetWizard` directive.
+This directive can be added to a button or a link for example.
+When clicking on this element, the wizard will automatically reset to its `defaultStepIndex`. 
+
+In addition it's possible to define an `EventEmitter`, that is called when the wizard is being reset.
+This `EventEmitter` can be bound to the `(finalize)` input of the `resetWizard` directive.
+  
+#### Parameter overview
+Possible `resetWizard` parameters:
+
+| Parameter name                | Possible Values                                                                                      | Default Value |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
+| (finalize)                    | `function(): void`                                                                                   | null          |
 
 ### Accessing the wizard component instance
 Sometimes it's required to access the wizard component directly. 
