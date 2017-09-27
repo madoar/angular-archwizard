@@ -1,8 +1,8 @@
 {
   "name": "ng2-archwizard",
-  "version": "1.8.0-develop",
+  "version": "2.0.0",
   "license": "MIT",
-  "description": "An angular 2 module containing a wizard component and its supporting components and directives",
+  "description": "An angular 2+ module containing a wizard component and its supporting components and directives",
   "homepage": "https://github.com/madoar/ng2-archwizard",
   "author": {
     "name": "Marc Arndt",
@@ -104,6 +104,6 @@
   },
   "files": [
     "dist",
-    "index.ts"
+    "index.js"
   ]
 }
