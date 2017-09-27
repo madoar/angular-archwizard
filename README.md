@@ -467,4 +467,4 @@ Both instances, the wizard state and the navigation mode, can also be obtained f
 ## Example
 You can find an basic example project using `ng2-archwizard` [here](https://madoar.github.io/ng2-archwizard-demo). 
 The sources for the example can be found in the [ng2-archwizard-demo](https://github.com/madoar/ng2-archwizard-demo) repository.
-It illustrates how the wizard looks like and how the different settings can change its layout.
+It illustrates how the wizard looks like and how the different settings can change its layout and behavior.
