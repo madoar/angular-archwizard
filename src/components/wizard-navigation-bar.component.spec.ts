@@ -3,7 +3,7 @@ import {Component, ViewChild} from '@angular/core';
 import {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
 import {WizardComponent} from './wizard.component';
 import {By} from '@angular/platform-browser';
-import {WizardModule} from '../wizard.module';
+import {ArchwizardModule} from '../archwizard.module';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 
@@ -32,7 +32,7 @@ describe('WizardNavigationBarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
-      imports: [WizardModule]
+      imports: [ArchwizardModule]
     }).compileComponents();
   }));
 

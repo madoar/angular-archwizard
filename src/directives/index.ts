@@ -1,6 +1,3 @@
-/**
- * Created by marc on 29.12.16.
- */
 export {EnableBackLinksDirective} from './enable-back-links.directive';
 export {GoToStepDirective} from './go-to-step.directive';
 export {NextStepDirective} from './next-step.directive';
