@@ -59,9 +59,9 @@ import {ResetWizardDirective} from './directives/reset-wizard.directive';
     ResetWizardDirective
   ]
 })
-export class WizardModule {
+export class ArchwizardModule {
   /* istanbul ignore next */
   static forRoot(): ModuleWithProviders {
-    return {ngModule: WizardModule, providers: []};
+    return {ngModule: ArchwizardModule, providers: []};
   }
 }

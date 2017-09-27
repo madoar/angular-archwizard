@@ -3,7 +3,7 @@
  */
 import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {WizardModule} from '../wizard.module';
+import {ArchwizardModule} from '../archwizard.module';
 import {WizardStep} from './wizard-step.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
@@ -64,7 +64,7 @@ describe('WizardStep', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
-      imports: [WizardModule]
+      imports: [ArchwizardModule]
     }).compileComponents();
   }));
 

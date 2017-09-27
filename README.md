@@ -25,13 +25,13 @@ Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github
 $ npm install --save ng2-archwizard
 ```
 
-Afterwards you can import `ng2-archwizard` in your angular project by adding the `WizardModule` to your Module declaration as followed:
+Afterwards you can import `ng2-archwizard` in your angular project by adding the `ArchwizardModule` to your Module declaration as followed:
 ```typescript
 import { WizardModule } from 'ng2-archwizard';
 
 @NgModule({
   imports: [
-    WizardModule
+    ArchwizardModule
   ],
 })
 export class Module { }

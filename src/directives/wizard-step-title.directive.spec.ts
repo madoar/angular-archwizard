@@ -6,7 +6,7 @@ import {TestBed, async, ComponentFixture} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 
 import {WizardComponent} from '../components/wizard.component';
-import {WizardModule} from '../wizard.module';
+import {ArchwizardModule} from '../archwizard.module';
 
 
 @Component({
@@ -40,7 +40,7 @@ describe('PreviousStepDirective', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
-      imports: [WizardModule]
+      imports: [ArchwizardModule]
     }).compileComponents();
   }));
 

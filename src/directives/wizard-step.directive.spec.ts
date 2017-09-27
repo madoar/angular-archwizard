@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Component, forwardRef, Host, ViewChild} from '@angular/core';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {By} from '@angular/platform-browser';
-import {WizardModule} from '../wizard.module';
+import {ArchwizardModule} from '../archwizard.module';
 import {WizardStepDirective} from './wizard-step.directive';
 import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
@@ -61,7 +61,7 @@ describe('WizardStepDirective', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent, WizardStepTestComponent],
-      imports: [WizardModule]
+      imports: [ArchwizardModule]
     }).compileComponents();
   }));
 

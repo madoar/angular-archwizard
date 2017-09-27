@@ -1,7 +1,7 @@
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {Component, ViewChild} from '@angular/core';
 import {By} from '@angular/platform-browser';
-import {WizardModule} from '../wizard.module';
+import {ArchwizardModule} from '../archwizard.module';
 import {WizardState} from './wizard-state.model';
 import {WizardComponent} from '../components/wizard.component';
 import {NavigationMode} from './navigation-mode.interface';
@@ -32,7 +32,7 @@ describe('FreeNavigationMode', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
-      imports: [WizardModule]
+      imports: [ArchwizardModule]
     }).compileComponents();
   }));
 
