@@ -1,10 +1,4 @@
-/**
- * Created by marc on 29.12.16.
- */
-
-export {WizardModule} from './wizard.module';
-export * from './components';
-export * from './directives';
-export * from './navigation';
-export * from './util';
-
+export {WizardComponent} from './wizard.component';
+export {WizardCompletionStepComponent} from './wizard-completion-step.component';
+export {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
+export {WizardStepComponent} from './wizard-step.component';
