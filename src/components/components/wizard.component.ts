@@ -46,7 +46,7 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
   templateUrl: 'wizard.component.html',
   styleUrls: ['wizard.component.less'],
   providers: [WizardState],
-  encapsulation: ViewEncapsulation.None
+  host: {'class': 'ng2-archwizard'}
 })
 export class WizardComponent implements AfterContentInit {
   /**
