@@ -42,16 +42,6 @@ module.exports = function() {
   }
 
   /**
-   * Entry
-   * Reference: http://webpack.github.io/docs/configuration.html#entry
-   */
-  config.entry = {
-    'polyfills': './src/polyfills.ts',
-    'vendor': './src/vendor.ts',
-    'app': './src/index.ts' // our angular app
-  };
-
-  /**
    * Resolve
    * Reference: http://webpack.github.io/docs/configuration.html#resolve
    */
@@ -100,14 +90,6 @@ module.exports = function() {
         test: /\.less$/,
         exclude: root('src', 'style'),
         loader: ['to-string-loader', 'css-loader', 'less-loader']
-      },
-
-
-      // all scss required in src/app files will be merged in js files
-      {
-        test: /\.(scss|sass)$/,
-        exclude: root('src', 'style'),
-        loader: ['to-string-loader', 'css-loader', 'sass-loader']
       },
 
       // support for .html as raw text
@@ -168,14 +150,6 @@ module.exports = function() {
         tslint: {
           emitErrors: false,
           failOnHint: false
-        },
-        /**
-         * Sass
-         * Reference: https://github.com/jtangelder/sass-loader
-         * Transforms .scss files to .css
-         */
-        sassLoader: {
-          //includePaths: [path.resolve(__dirname, "node_modules/foundation-sites/scss")]
         }
       }
     })
