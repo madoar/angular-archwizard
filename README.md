@@ -106,7 +106,7 @@ for each step of your wizard, in the navigation bar, if such a symbol has been d
 #### \[defaultStepIndex\]
 Per default the wizard always starts with the first wizard step, after initialisation. The same applies for a reset, where the wizard normally resets to the first step.
 Sometimes this needs to be changed. If another default wizard step needs to be used, you can set it, by using the `[defaultStepIndex]` input of the wizard component.
-For example, to start the wizard in the second step, `defaultStepIndex="2"` can to be set.
+For example, to start the wizard in the second step, `defaultStepIndex="2"` needs to be set.
 
 #### \[disableNavigationBar\]
 Sometimes it may be necessary to disable navigation via the navigation bar.
@@ -172,7 +172,7 @@ It then returns true, when the step change should succeed and false otherwise.
 If you have an additional check or validation you need to perform to decide, if the step can be exited (both to the next step and to the previous step),
 you can either pass a boolean or a function, taking a `MovingDirection` enum and returning a boolean or a `Promise<boolean>`, to the `[canExit]` attribute of the wizard step.
 This boolean, or function, is taken into account, when an operation has been performed, which leads to a transition of the current step.
-If `[canExit]` has been bound to a boolean, it needs to be true to leave the step either in both a forwards and backwards direction.
+If `[canExit]` has been bound to a boolean, it needs to be true to leave the step in either direction (foreward AND backward).
 If only exiting in one direction should be covered, you can pass a function, taking a `MovingDirection` and returning a boolean, to `[canExit]`.
 This function will then be called whenever an operation has been performed, that leads to a change of the current step.
 
@@ -185,9 +185,9 @@ If you need to call a function to do some initialisation work before entering a 
 
 This leads to the calling of the `enterSecondStep` function when the wizard moves to this step.
 When the first step of the wizard contains a `stepEnter` function, it not only gets called 
-when the used moves back from a later step to the first step, but also after the wizard is initialized.
+when the user moves back from a later step to the first step, but also after the wizard is initialized.
 The event emitter will call the given function with a parameter that contains the `MovingDirection` of the user. 
-If the user went backwards, like from the third step to the second or first step, then `MovingDirection.Backwards` will be passed to the function. 
+If the user went backwards, for example from the third step to the second or first step, then `MovingDirection.Backwards` will be passed to the function. 
 If the user went forwards `MovingDirection.Forwards` will be passed to the function.
 
 #### \(stepExit\)
@@ -252,7 +252,7 @@ Possible `enableBackLinks` parameters:
 ### \[wizardStepTitle\]
 Sometimes it's not enough to define a title with the `stepTitle` attribute in `<wizard-step>` and `<wizard-completion-step>`.
 One example for such a case is, if the title should be written in another font.
-Another example would be if it's desired that the title should be choosen depending on the available width of your screen or window.
+Another example would be if it's desired that the title should be chosen depending on the available width of your screen or window.
 In such cases you may want to specify the html for the title of a wizard step yourself.
 This can be achieved by using the `[wizardStepTitle]` directive inside a wizard step on a `ng-template` component.
 
@@ -362,7 +362,7 @@ This listener will automatically change the currently selected wizard step to th
 ```
 
 #### \(finalize\)
-Like both the `goToStep` and `nextStep` directives the `previousStep` directives too provides a `preFinalize`, `postFinalize` and `finalize` output, which are called every time
+Like both the `goToStep` and `nextStep` directives the `previousStep` directives provides a `preFinalize`, `postFinalize` and `finalize` output, which are called every time
 the current step is successfully exited, by clicking on the element containing the `previousStep` directive.
 
 #### Parameter overview
