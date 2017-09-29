@@ -27,7 +27,7 @@ $ npm install --save ng2-archwizard
 
 Afterwards you can import `ng2-archwizard` in your angular project by adding the `ArchwizardModule` to your Module declaration as followed:
 ```typescript
-import { WizardModule } from 'ng2-archwizard';
+import { ArchwizardModule } from 'ng2-archwizard';
 
 @NgModule({
   imports: [
