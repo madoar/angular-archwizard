@@ -269,15 +269,13 @@ Be aware, that you can only use `[wizardStepTitle]` together with Angular, becau
 
 ### \[optionalStep\]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
-by adding the `optionalStep` directive to the step you want to declare as optional. 
-To add the `optionalStep` directive to a wizard step, you can either add `optional` or `optionalStep` to the step definition.
+by adding the `optionalStep` directive to the step you want to declare as optional.
 
 ### \[selectedStep\]
 In some cases it may be a better choice to set the default wizard step not via a static number.
 Another way to set the default wizard step is by using the `selectedStep` directive.
 When attaching the `selectedStep` directive to an arbitrary wizard step, it will be marked as the default wizard step,
 which is shown directly after the wizard startup.
-To add the `selectedStep` directive to a wizard step, you can either add `selected` or `selectedStep` to the step definition. 
 
 ### \[goToStep\]
 `ng2-archwizard` has three directives, that allow moving between steps.
