@@ -462,6 +462,22 @@ Through the `WizardState` you can access the navigation mode of your wizard,
 which allows you to navigate the wizard programmatically.
 Both instances, the wizard state and the navigation mode, can also be obtained from the injected `WizardComponent`.
 
+
+### Custom CSS
+Sometimes you like to use your own custom CSS. This is quite easy to do. Different ways are possible. Either use a wrapper around the wizard:
+```html
+<div class="my-custom-css-wrapper">
+  <wizard></wizard>
+</div>
+```
+
+Or add your css wrapper class directly into the wizard:
+```html
+<wizard class="my-custom-css-wrapper"></wizard>
+```
+
+In addition, the wizard has it's own css wrapper class `ng2-archwizard` which you can target too.
+
 ## Example
 You can find an basic example project using `ng2-archwizard` [here](https://madoar.github.io/ng2-archwizard-demo). 
 The sources for the example can be found in the [ng2-archwizard-demo](https://github.com/madoar/ng2-archwizard-demo) repository.
