@@ -13,7 +13,7 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
       <wizard-step stepTitle='Steptitle 1'>
         Step 1
       </wizard-step>
-      <wizard-step stepTitle='Steptitle 2' optional>
+      <wizard-step stepTitle='Steptitle 2' optionalStep>
         Step 2
       </wizard-step>
       <wizard-step stepTitle='Steptitle 3'>

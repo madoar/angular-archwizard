@@ -4,6 +4,7 @@ import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {SelectedStepDirective} from './selected-step.directive';
 
 @Component({
   selector: 'test-wizard',
@@ -12,7 +13,7 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
       <wizard-step stepTitle='Steptitle 1'>
         Step 1
       </wizard-step>
-      <wizard-step stepTitle='Steptitle 2' selected>
+      <wizard-step stepTitle='Steptitle 2' selectedStep>
         Step 2
       </wizard-step>
       <wizard-step stepTitle='Steptitle 3'>
@@ -48,8 +49,8 @@ describe('SelectedStepDirective', () => {
   });
 
   it('should create an instance', () => {
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step[selected]'))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-step[selected]')).length).toBe(1);
+    expect(wizardTestFixture.debugElement.query(By.directive(SelectedStepDirective))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.queryAll(By.directive(SelectedStepDirective)).length).toBe(1);
   });
 
   it('should set optional correctly', () => {
@@ -57,7 +58,7 @@ describe('SelectedStepDirective', () => {
     expect(wizardState.currentStepIndex).toBe(1);
   });
 
-  it('should reset correctly', fakeAsync(() => {
+  it('should reset correctly to the default selected step', fakeAsync(() => {
     navigationMode.goToStep(0);
     tick();
     wizardTestFixture.detectChanges();

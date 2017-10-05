@@ -15,7 +15,7 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[reset], [resetWizard]'
+  selector: '[resetWizard]'
 })
 export class ResetWizardDirective {
   /**

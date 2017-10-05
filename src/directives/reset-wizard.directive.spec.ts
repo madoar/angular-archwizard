@@ -18,7 +18,6 @@ import {ResetWizardDirective} from './reset-wizard.directive';
         Step 2
         <button type="button" resetWizard>Reset (normal)</button>
         <button type="button" resetWizard (finalize)='cleanup()'>Reset (cleanup)</button>
-        <button type="button" reset (finalize)='cleanup()'>Reset (cleanup short)</button>
       </wizard-step>
     </wizard>
   `
@@ -56,10 +55,10 @@ describe('ResetWizardDirective', () => {
 
   it('should create an instance', () => {
     expect(wizardTestFixture.debugElement.query(By.directive(ResetWizardDirective))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective)).length).toBe(3);
+    expect(wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective)).length).toBe(2);
   });
 
-  it('should reset the wizard correctly 1', fakeAsync(() => {
+  it('should reset the wizard correctly without finalize input', fakeAsync(() => {
     let resetButtons = wizardTestFixture.debugElement
       .queryAll(By.directive(ResetWizardDirective));
 
@@ -84,7 +83,7 @@ describe('ResetWizardDirective', () => {
     expect(wizardTest.eventLog).toEqual([]);
   }));
 
-  it('should reset the wizard correctly 2', fakeAsync(() => {
+  it('should reset the wizard correctly with finalize input', fakeAsync(() => {
     let resetButtons = wizardTestFixture.debugElement
       .queryAll(By.directive(ResetWizardDirective));
 
@@ -99,31 +98,6 @@ describe('ResetWizardDirective', () => {
     expect(wizardTest.eventLog).toEqual([]);
 
     resetButtons[1].nativeElement.click();
-    tick();
-    wizardTestFixture.detectChanges();
-
-    expect(wizardState.getStepAtIndex(0).selected).toBe(true);
-    expect(wizardState.getStepAtIndex(0).completed).toBe(false);
-    expect(wizardState.getStepAtIndex(1).selected).toBe(false);
-    expect(wizardState.getStepAtIndex(1).completed).toBe(false);
-    expect(wizardTest.eventLog).toEqual(['Cleanup done!']);
-  }));
-
-  it('should reset the wizard correctly 3', fakeAsync(() => {
-    let resetButtons = wizardTestFixture.debugElement
-      .queryAll(By.directive(ResetWizardDirective));
-
-    navigationMode.goToStep(1);
-    tick();
-    wizardTestFixture.detectChanges();
-
-    expect(wizardState.getStepAtIndex(0).selected).toBe(false);
-    expect(wizardState.getStepAtIndex(0).completed).toBe(true);
-    expect(wizardState.getStepAtIndex(1).selected).toBe(true);
-    expect(wizardState.getStepAtIndex(1).completed).toBe(false);
-    expect(wizardTest.eventLog).toEqual([]);
-
-    resetButtons[2].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
