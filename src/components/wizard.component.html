@@ -1,4 +1,5 @@
 <wizard-navigation-bar
+  [direction]="navBarDirection"
   *ngIf="navBarLocation == 'top' || navBarLocation == 'left'"
   [ngClass]="{
     vertical: navBarLocation == 'left',
@@ -20,6 +21,7 @@
 </div>
 
 <wizard-navigation-bar
+  [direction]="navBarDirection"
   *ngIf="navBarLocation == 'bottom' || navBarLocation == 'right'"
   [ngClass]="{
     vertical: navBarLocation == 'right',

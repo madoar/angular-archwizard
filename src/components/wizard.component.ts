@@ -70,7 +70,17 @@ export class WizardComponent implements AfterContentInit {
   public navBarLayout = 'small';
 
   /**
-   * The navigation mode used for transitioning between different steps
+   * The direction in which the steps inside the navigation bar should be shown.
+   * The direction can be either `left-to-right` or `right-to-left`
+   *
+   * @type {string}
+   */
+  @Input()
+  public navBarDirection = 'left-to-right';
+
+  /**
+   * The navigation mode used for transitioning between different steps.
+   * The navigation mode can be either `strict`, `semi-strict` or `free`
    *
    * @type {string}
    */
@@ -126,6 +136,7 @@ export class WizardComponent implements AfterContentInit {
 
   /**
    * Constructor
+   * @param {WizardState} model The model for this wizard component
    */
   constructor(public model: WizardState) {
   }
