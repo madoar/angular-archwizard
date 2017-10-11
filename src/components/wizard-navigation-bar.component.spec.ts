@@ -521,4 +521,16 @@ describe('WizardNavigationBarComponent', () => {
     expect(navigationLinks[1].nativeElement.innerText).toBe('STEPTITLE 2');
     expect(navigationLinks[2].nativeElement.innerText).toBe('STEPTITLE 3');
   });
+
+  it('should show the correct reversed step titles', () => {
+    wizardTest.wizard.navBarDirection = 'right-to-left';
+    wizardTestFixture.detectChanges();
+
+    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('wizard-navigation-bar ul li a'));
+
+    expect(navigationLinks.length).toBe(3);
+    expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 3');
+    expect(navigationLinks[1].nativeElement.innerText).toBe('STEPTITLE 2');
+    expect(navigationLinks[2].nativeElement.innerText).toBe('STEPTITLE 1');
+  });
 });

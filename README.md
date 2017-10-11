@@ -83,6 +83,11 @@ The first three layouts are showing circles with or without a background, for ea
 The second two layouts `large-filled-symbols` and `large-empty-symbols` optionally add a symbol in the center of the circle, 
 for each step of your wizard, in the navigation bar, if such a symbol has been defined for the step.
 
+#### \[navBarDirection\]
+Normally the steps in the navigation bar are layed out from left to right or from top to bottom.
+In some cases, like with languages that are written from right to left, it may be required to change this direction to layout the steps from right to left.
+To layout the steps from right to left you can pass `right-to-left` to the `navBarDirection` input of the wizard component.
+
 #### \[navigationMode\]
 `ng2-archwizard` supports three different navigation modes:
 - **strict** navigation mode: 
@@ -119,6 +124,7 @@ Possible `<wizard>` parameters:
 | ---------------------- | ----------------------------------------------------------------------------------------------------- | ------------- |
 | [navBarLocation]       | `top` \| `bottom` \| `left` \| `right`                                                                | top           |
 | [navBarLayout]         | `small` \| `large-filled` \| `large-empty` \| `large-filled-symbols` \| `large-empty-symbols`         | small         |
+| [navBarDirection]      | `left-to-right` \| `right-to-left`                                                                    | left-to-right |
 | [navigationMode]       | `strict` \| `semi-strict` \| `free`                                                                   | strict        |
 | [defaultStepIndex]     | `number`                                                                                              | 0             |
 | [disableNavigationBar] | `boolean`                                                                                             | false         |

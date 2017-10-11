@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
@@ -23,6 +23,13 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 })
 export class WizardNavigationBarComponent {
   /**
+   * The direction in which the wizard steps should be shown in the navigation bar.
+   * This value can be either `left-to-right` or `right-to-left`
+   */
+  @Input()
+  public direction = 'left-to-right';
+
+  /**
    * The navigation mode
    *
    * @returns {NavigationMode}
@@ -45,7 +52,13 @@ export class WizardNavigationBarComponent {
    * @returns {Array<WizardStep>} An array containing all [[WizardStep]]s
    */
   get wizardSteps(): Array<WizardStep> {
-    return this.wizardState.wizardSteps;
+    switch (this.direction) {
+      case 'right-to-left':
+        return this.wizardState.wizardSteps.reverse();
+      case 'left-to-right':
+      default:
+        return this.wizardState.wizardSteps;
+    }
   }
 
   /**
