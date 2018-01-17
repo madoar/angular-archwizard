@@ -71,7 +71,7 @@ export class NextStepDirective {
    * Listener method for `click` events on the component with this directive.
    * After this method is called the wizard will try to transition to the next step
    */
-  @HostListener('click', ['$event']) onClick(): void {
+  @HostListener('click', ['$event']) onClick(event: Event): void {
     this.navigationMode.goToNextStep(this.preFinalize, this.postFinalize);
   }
 }
