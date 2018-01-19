@@ -1,16 +1,15 @@
-sudo: false
+sudo: required
 dist: trusty
 
 language: node_js
 
 node_js:
+  - "8"
   - "7"
   - "6"
-  - "4"
-
-before_install: if [[ `npm -v` != 3* || `npm -v` != 4* ]]; then npm i -g npm@3; fi
 
 addons:
+  chrome: stable
   code_climate:
     repo_token: f2449b17c6849d69b6bb7f184314db0572565dfb6c1d09f3a41d085348448c62
 

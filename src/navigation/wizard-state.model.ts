@@ -114,10 +114,10 @@ export class WizardState {
    * Initializes the wizard state with the given array of wizard steps.
    * This process contains a reset of the wizard
    *
-   * @param {QueryList<WizardStep>} wizardSteps The wizard steps
-   * @param {string} navigationMode The name of the navigation mode to be set
-   * @param {string} defaultStepIndex The default step index, to be used during the initialisation
-   * @param {boolean} disableNavigationBar True, if the navigation bar should be disabled, i.e. not be used for navigating
+   * @param wizardSteps The wizard steps
+   * @param navigationMode The name of the navigation mode to be set
+   * @param defaultStepIndex The default step index, to be used during the initialisation
+   * @param disableNavigationBar True, if the navigation bar should be disabled, i.e. not be used for navigating
    */
   initialize(wizardSteps: QueryList<WizardStep>, navigationMode: string, defaultStepIndex: number, disableNavigationBar: boolean): void {
     this._wizardSteps = wizardSteps;
@@ -132,7 +132,7 @@ export class WizardState {
    * Checks if a given index `stepIndex` is inside the range of possible wizard steps inside this wizard
    *
    * @param stepIndex The to be checked index of a step inside this wizard
-   * @returns {boolean} True if the given `stepIndex` is contained inside this wizard, false otherwise
+   * @returns True if the given `stepIndex` is contained inside this wizard, false otherwise
    */
   hasStep(stepIndex: number): boolean {
     return this.wizardSteps.length > 0 && 0 <= stepIndex && stepIndex < this.wizardSteps.length;
@@ -141,7 +141,7 @@ export class WizardState {
   /**
    * Checks if this wizard has a previous step, compared to the current step
    *
-   * @returns {boolean} True if this wizard has a previous step before the current step
+   * @returns True if this wizard has a previous step before the current step
    */
   hasPreviousStep(): boolean {
     return this.hasStep(this.currentStepIndex - 1);
@@ -150,7 +150,7 @@ export class WizardState {
   /**
    * Checks if this wizard has a next step, compared to the current step
    *
-   * @returns {boolean} True if this wizard has a next step after the current step
+   * @returns True if this wizard has a next step after the current step
    */
   hasNextStep(): boolean {
     return this.hasStep(this.currentStepIndex + 1);
@@ -159,7 +159,7 @@ export class WizardState {
   /**
    * Checks if this wizard is currently inside its last step
    *
-   * @returns {boolean} True if the wizard is currently inside its last step
+   * @returns True if the wizard is currently inside its last step
    */
   isLastStep(): boolean {
     return this.wizardSteps.length > 0 && this.currentStepIndex === this.wizardSteps.length - 1;
@@ -170,7 +170,7 @@ export class WizardState {
    * If no [[WizardStep]] exists at the given index an Error is thrown
    *
    * @param stepIndex The given index
-   * @returns {undefined|WizardStep} The found [[WizardStep]] at the given index `stepIndex`
+   * @returns The found [[WizardStep]] at the given index `stepIndex`
    * @throws An `Error` is thrown, if the given index `stepIndex` doesn't exist
    */
   getStepAtIndex(stepIndex: number): WizardStep {
@@ -186,7 +186,7 @@ export class WizardState {
    * If the given [[WizardStep]] is not contained inside this wizard, `-1` is returned
    *
    * @param step The given [[WizardStep]]
-   * @returns {number} The found index of `step` or `-1` if the step is not included in the wizard
+   * @returns The found index of `step` or `-1` if the step is not included in the wizard
    */
   getIndexOfStep(step: WizardStep): number {
     return this.wizardSteps.indexOf(step);
@@ -196,7 +196,7 @@ export class WizardState {
    * Calculates the correct [[MovingDirection]] value for a given `destinationStep` compared to the `currentStepIndex`.
    *
    * @param destinationStep The given destination step
-   * @returns {MovingDirection} The calculated [[MovingDirection]]
+   * @returns The calculated [[MovingDirection]]
    */
   getMovingDirection(destinationStep: number): MovingDirection {
     let movingDirection: MovingDirection;

@@ -30,8 +30,6 @@ export class EnableBackLinksDirective implements OnInit {
   /**
    * This EventEmitter is called when the step is exited.
    * The bound method can be used to do cleanup work.
-   *
-   * @type {EventEmitter<MovingDirection>}
    */
   @Output()
   public stepExit = new EventEmitter<MovingDirection>();

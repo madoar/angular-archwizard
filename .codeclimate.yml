@@ -1,0 +1,12 @@
+config/
+db/
+dist/
+features/
+**/node_modules/
+script/
+**/spec/
+**/test/
+**/tests/
+**/vendor/
+**/*.d.ts
+**/*.spec.ts

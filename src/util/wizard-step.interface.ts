@@ -87,8 +87,6 @@ export abstract class WizardStep {
   /**
    * Returns if this wizard step should be visible to the user.
    * If the step should be visible to the user false is returned, otherwise true
-   *
-   * @returns {boolean}
    */
   @HostBinding('hidden')
   public get hidden(): boolean {
@@ -101,11 +99,10 @@ export abstract class WizardStep {
    *
    * @param condition A condition variable, deciding if the step can be transitioned
    * @param direction The direction in which this step should be transitioned
-   * @returns {Promise<boolean>} A [[Promise]] containing `true`, if this step can transitioned in the given direction
+   * @returns A [[Promise]] containing `true`, if this step can transitioned in the given direction
    * @throws An `Error` is thrown if `condition` is neither a function nor a boolean
    */
-  private static canTransitionStep(condition:
-                                     ((direction: MovingDirection) => boolean) |
+  private static canTransitionStep(condition: ((direction: MovingDirection) => boolean) |
                                      ((direction: MovingDirection) => Promise<boolean>) |
                                      boolean,
                                    direction: MovingDirection): Promise<boolean> {
@@ -142,7 +139,7 @@ export abstract class WizardStep {
    * nor a function.
    *
    * @param direction The direction in which this step should be entered
-   * @returns {Promise<boolean>} A [[Promise]] containing `true`, if the step can be entered in the given direction, false otherwise
+   * @returns A [[Promise]] containing `true`, if the step can be entered in the given direction, false otherwise
    * @throws An `Error` is thrown if `anEnter` is neither a function nor a boolean
    */
   public canEnterStep(direction: MovingDirection): Promise<boolean> {
@@ -155,7 +152,7 @@ export abstract class WizardStep {
    * nor a function.
    *
    * @param direction The direction in which this step should be left
-   * @returns {Promise<boolean>} A [[Promise]] containing `true`, if the step can be exited in the given direction, false otherwise
+   * @returns A [[Promise]] containing `true`, if the step can be exited in the given direction, false otherwise
    * @throws An `Error` is thrown if `canExit` is neither a function nor a boolean
    */
   public canExitStep(direction: MovingDirection): Promise<boolean> {

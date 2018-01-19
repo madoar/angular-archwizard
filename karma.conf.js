@@ -1,12 +1,10 @@
-var path = require('path');
+// Karma configuration for Unit testing
 
-var webpackConfig = require('./webpack.config');
-
-var ENV = process.env.npm_lifecycle_event;
-var isTestWatch = ENV === 'test-watch';
+const path = require('path');
 
 module.exports = function (config) {
-  var _config = {
+
+  const configuration = {
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -15,9 +13,22 @@ module.exports = function (config) {
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
+    plugins: [
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-webpack'),
+      require('karma-sourcemap-loader'),
+      require('karma-spec-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require("istanbul-instrumenter-loader")
+    ],
+
     // list of files / patterns to load in the browser
     files: [
-      {pattern: './karma-shim.js', watched: false}
+      {
+        pattern: './karma-shim.js',
+        watched: false
+      }
     ],
 
     // list of files to exclude
@@ -26,59 +37,116 @@ module.exports = function (config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      './karma-shim.js': ['coverage', 'webpack', 'sourcemap']
+      './karma-shim.js': ['webpack', 'sourcemap']
     },
 
-    webpack: webpackConfig,
-
-    coverageReporter: {
-      type: 'in-memory'
-    },
-
-    remapCoverageReporter: {
-      'text-summary': null,
-      json: './coverage/coverage.json',
-      html: './coverage/html',
-      lcovonly: './coverage/lcov.info'
-    },
-
-    webpackMiddleware: {
-      // webpack-dev-middleware configuration
-      // i. e.
-      stats: 'errors-only'
+    // webpack
+    webpack: {
+      resolve: {
+        extensions: ['.ts', '.js']
+      },
+      module: {
+        rules: [
+          {
+            test: /\.ts/,
+            loaders: ['ts-loader', 'angular2-template-loader'],
+            exclude: /node_modules/
+          },
+          {
+            test: /\.(ts|js)$/,
+            loaders: ['angular-router-loader'],
+            exclude: /node_modules/
+          },
+          {
+            enforce: 'post',
+            test: /\.ts/,
+            use: [
+              {
+                loader: 'istanbul-instrumenter-loader',
+                options: {esModules: true}
+              }
+            ],
+            exclude: [/\.spec.ts/, /node_modules/]
+          },
+          {
+            test: /\.html$/,
+            loader: 'raw-loader'
+          },
+          {
+            test: /\.less$/,
+            loaders: ['to-string-loader', 'css-loader', 'less-loader']
+          },
+          {
+            test: /\.css$/,
+            loaders: ['to-string-loader', 'css-loader']
+          },
+          {
+            test: /\.json$/,
+            loader: 'json-loader'
+          },
+          {
+            test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            loader: 'file-loader?name=fonts/[name].[hash].[ext]?'
+          },
+        ],
+        exprContextCritical: false
+      },
+      performance: {hints: false}
     },
 
     webpackServer: {
-      noInfo: true // please don't spam the console when running in karma!
+      noInfo: true
     },
 
     // test results reporter to use
-    // possible values: 'dots', 'progress', 'mocha'
+    // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ["mocha", "coverage", "remap-coverage"],
+    reporters: ['spec', 'coverage-istanbul'],
+
+    coverageIstanbulReporter: {
+      reports: ['html', 'lcovonly'],
+      dir: path.join(__dirname, 'coverage'),
+      fixWebpackSourcePaths: true,
+      // Most reporters accept additional config options. You can pass these through the `report-config` option
+      'report-config': {
+
+        // all options available at: https://github.com/istanbuljs/istanbuljs/blob/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-reports/lib/html/index.js#L135-L137
+        html: {
+          // outputs the report in ./coverage/html
+          subdir: 'html'
+        }
+
+      }
+    },
+
 
     // web server port
     port: 9876,
 
+
     // enable / disable colors in the output (reporters and logs)
     colors: true,
+
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
+
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
+
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: isTestWatch ? ['Chrome'] : ['PhantomJS'],
+    browsers: ['ChromeHeadless'],
+
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
     singleRun: true
+
   };
 
-  config.set(_config);
-
+  config.set(configuration);
 };

@@ -54,8 +54,6 @@ export class WizardComponent implements AfterContentInit {
   /**
    * The location of the navigation bar inside the wizard.
    * This location can be either top, bottom, left or right
-   *
-   * @type {string}
    */
   @Input()
   public navBarLocation = 'top';
@@ -63,8 +61,6 @@ export class WizardComponent implements AfterContentInit {
   /**
    * The layout of the navigation bar inside the wizard.
    * The layout can be either small, large-filled, large-empty or large-symbols
-   *
-   * @type {string}
    */
   @Input()
   public navBarLayout = 'small';
@@ -72,8 +68,6 @@ export class WizardComponent implements AfterContentInit {
   /**
    * The direction in which the steps inside the navigation bar should be shown.
    * The direction can be either `left-to-right` or `right-to-left`
-   *
-   * @type {string}
    */
   @Input()
   public navBarDirection = 'left-to-right';
@@ -81,24 +75,18 @@ export class WizardComponent implements AfterContentInit {
   /**
    * The navigation mode used for transitioning between different steps.
    * The navigation mode can be either `strict`, `semi-strict` or `free`
-   *
-   * @type {string}
    */
   @Input()
   public navigationMode = 'strict';
 
   /**
    * The initially selected step, represented by its index
-   *
-   * @type {number}
    */
   @Input()
   public defaultStepIndex = 0;
 
   /**
    * True, if the navigation bar shouldn't be used for navigating
-   *
-   * @type {boolean}
    */
   @Input()
   public disableNavigationBar = false;
@@ -107,7 +95,7 @@ export class WizardComponent implements AfterContentInit {
    * Returns true if this wizard uses a horizontal orientation.
    * The wizard uses a horizontal orientation, iff the navigation bar is shown at the top or bottom of this wizard
    *
-   * @returns {boolean} True if this wizard uses a horizontal orientation
+   * @returns True if this wizard uses a horizontal orientation
    */
   @HostBinding('class.horizontal')
   public get horizontalOrientation(): boolean {
@@ -118,7 +106,7 @@ export class WizardComponent implements AfterContentInit {
    * Returns true if this wizard uses a vertical orientation.
    * The wizard uses a vertical orientation, iff the navigation bar is shown at the left or right of this wizard
    *
-   * @returns {boolean} True if this wizard uses a vertical orientation
+   * @returns True if this wizard uses a vertical orientation
    */
   @HostBinding('class.vertical')
   public get verticalOrientation(): boolean {
@@ -127,8 +115,6 @@ export class WizardComponent implements AfterContentInit {
 
   /**
    * The navigation mode for this wizard
-   *
-   * @returns {NavigationMode}
    */
   public get navigation(): NavigationMode {
     return this.model.navigationMode;
@@ -136,7 +122,7 @@ export class WizardComponent implements AfterContentInit {
 
   /**
    * Constructor
-   * @param {WizardState} model The model for this wizard component
+   * @param model The model for this wizard component
    */
   constructor(public model: WizardState) {
   }
