@@ -8,8 +8,6 @@ node_js:
   - "7"
   - "6"
 
-before_install: if [[ `npm -v` != 3* || `npm -v` != 4* ]]; then npm i -g npm@3; fi
-
 addons:
   chrome: stable
   code_climate:
