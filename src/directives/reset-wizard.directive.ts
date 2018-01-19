@@ -26,8 +26,6 @@ export class ResetWizardDirective {
 
   /**
    * The navigation mode
-   *
-   * @returns {NavigationMode}
    */
   private get navigationMode(): NavigationMode {
     return this.wizardState.navigationMode;

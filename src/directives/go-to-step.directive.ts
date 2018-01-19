@@ -41,16 +41,12 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 export class GoToStepDirective {
   /**
    * This [[EventEmitter]] is called directly before the current step is exited during a transition through a component with this directive.
-   *
-   * @type {EventEmitter}
    */
   @Output()
   public preFinalize: EventEmitter<void> = new EventEmitter();
 
   /**
    * This [[EventEmitter]] is called directly after the current step is exited during a transition through a component with this directive.
-   *
-   * @type {EventEmitter}
    */
   @Output()
   public postFinalize: EventEmitter<void> = new EventEmitter();
@@ -58,7 +54,7 @@ export class GoToStepDirective {
   /**
    * A convenience name for `preFinalize`
    *
-   * @param {EventEmitter<void>} emitter The [[EventEmitter]] to be set
+   * @param emitter The [[EventEmitter]] to be set
    */
   @Output()
   public set finalize(emitter: EventEmitter<void>) {
@@ -84,8 +80,6 @@ export class GoToStepDirective {
 
   /**
    * The navigation mode
-   *
-   * @returns {NavigationMode}
    */
   private get navigationMode(): NavigationMode {
     return this.wizardState.navigationMode;
@@ -102,7 +96,7 @@ export class GoToStepDirective {
   /**
    * Returns the destination step of this directive as an absolute step index inside the wizard
    *
-   * @returns {number} The index of the destination step
+   * @returns The index of the destination step
    * @throws If `goToStep` is of an unknown type an `Error` is thrown
    */
   get destinationStep(): number {

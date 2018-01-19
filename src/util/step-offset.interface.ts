@@ -14,10 +14,10 @@ export interface StepOffset {
 }
 
 /**
- * Checks wether the given `value` implements the interface [[StepOffset]].
+ * Checks whether the given `value` implements the interface [[StepOffset]].
  *
  * @param value The value to be checked
- * @returns {boolean} True if the given value implements [[StepOffset]] and false otherwise
+ * @returns True if the given value implements [[StepOffset]] and false otherwise
  */
 export function isStepOffset(value: any): value is StepOffset {
   return value.hasOwnProperty('stepOffset');

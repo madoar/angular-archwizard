@@ -14,8 +14,8 @@ export abstract class NavigationMode {
   /**
    * Checks, whether a wizard step, as defined by the given destination index, can be transitioned to.
    *
-   * @param {number} destinationIndex The index of the destination step
-   * @returns {Promise<boolean>} A [[Promise]] containing `true`, if the destination step can be transitioned to and false otherwise
+   * @param destinationIndex The index of the destination step
+   * @returns A [[Promise]] containing `true`, if the destination step can be transitioned to and false otherwise
    */
   abstract canGoToStep(destinationIndex: number): Promise<boolean>;
 
@@ -23,17 +23,17 @@ export abstract class NavigationMode {
    * Tries to transition to the wizard step, as denoted by the given destination index.
    * If this is not possible, the current wizard step should be exited and then reentered with `MovingDirection.Stay`
    *
-   * @param {number} destinationIndex The index of the destination step
-   * @param {EventEmitter<void>} preFinalize An event emitter, to be called before the step has been transitioned
-   * @param {EventEmitter<void>} postFinalize An event emitter, to be called after the step has been transitioned
+   * @param destinationIndex The index of the destination step
+   * @param preFinalize An event emitter, to be called before the step has been transitioned
+   * @param postFinalize An event emitter, to be called after the step has been transitioned
    */
   abstract goToStep(destinationIndex: number, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void;
 
   /**
    * Checks, whether the wizard step, located at the given index, is can be navigated to
    *
-   * @param {number} destinationIndex The index of the destination step
-   * @returns {boolean} True if the step can be navigated to, false otherwise
+   * @param destinationIndex The index of the destination step
+   * @returns True if the step can be navigated to, false otherwise
    */
   abstract isNavigable(destinationIndex: number): boolean;
 

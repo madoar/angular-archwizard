@@ -15,7 +15,7 @@ export class StrictNavigationMode extends NavigationMode {
   /**
    * Constructor
    *
-   * @param {WizardState} wizardState The state of the wizard, that is configured with this navigation mode
+   * @param wizardState The state of the wizard, that is configured with this navigation mode
    */
   constructor(wizardState: WizardState) {
     super(wizardState);
@@ -28,8 +28,8 @@ export class StrictNavigationMode extends NavigationMode {
    * - the current step can be exited in the direction of the destination step
    * - all previous steps to the destination step have been completed or are optional
    *
-   * @param {number} destinationIndex The index of the destination wizard step
-   * @returns {boolean} True if the destination wizard step can be entered, false otherwise
+   * @param destinationIndex The index of the destination wizard step
+   * @returns True if the destination wizard step can be entered, false otherwise
    */
   canGoToStep(destinationIndex: number): Promise<boolean> {
     const hasStep = this.wizardState.hasStep(destinationIndex);
@@ -74,9 +74,9 @@ export class StrictNavigationMode extends NavigationMode {
    * When the destination step couldn't be entered, the following actions are done:
    * - the current step is exited and entered in the direction `MovingDirection.Stay`
    *
-   * @param {number} destinationIndex The index of the destination wizard step, which should be entered
-   * @param {EventEmitter<void>} preFinalize An event emitter, to be called before the step has been transitioned
-   * @param {EventEmitter<void>} postFinalize An event emitter, to be called after the step has been transitioned
+   * @param destinationIndex The index of the destination wizard step, which should be entered
+   * @param preFinalize An event emitter, to be called before the step has been transitioned
+   * @param postFinalize An event emitter, to be called after the step has been transitioned
    */
   goToStep(destinationIndex: number, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
     this.canGoToStep(destinationIndex).then(navigationAllowed => {
