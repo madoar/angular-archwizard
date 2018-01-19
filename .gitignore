@@ -2,7 +2,7 @@
 
 # compiled output
 /dist
-/tmp
+/.ng_pkg_build
 
 # dependencies
 /node_modules
