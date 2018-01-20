@@ -121,7 +121,7 @@ export class GoToStepDirective {
    * Listener method for `click` events on the component with this directive.
    * After this method is called the wizard will try to transition to the `destinationStep`
    */
-  @HostListener('click', ['$event']) onClick(): void {
+  @HostListener('click', ['$event']) onClick(event: Event): void {
     this.navigationMode.goToStep(this.destinationStep, this.preFinalize, this.postFinalize);
   }
 }
