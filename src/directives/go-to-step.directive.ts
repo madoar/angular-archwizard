@@ -10,7 +10,7 @@ import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 /**
- * The `goToStep` directive can be used to navigate to a given step.
+ * The `awGoToStep` directive can be used to navigate to a given step.
  * This step can be defined in one of multiple formats
  *
  * ### Syntax
@@ -18,25 +18,25 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
  * With absolute step index:
  *
  * ```html
- * <button [goToStep]="absolute step index" (finalize)="finalize method">...</button>
+ * <button [awGoToStep]="absolute step index" (finalize)="finalize method">...</button>
  * ```
  *
  * With a wizard step object:
  *
  * ```html
- * <button [goToStep]="wizard step object" (finalize)="finalize method">...</button>
+ * <button [awGoToStep]="wizard step object" (finalize)="finalize method">...</button>
  * ```
  *
  * With an offset to the defining step
  *
  * ```html
- * <button [goToStep]="{ stepOffset: offset }" (finalize)="finalize method">...</button>
+ * <button [awGoToStep]="{ stepOffset: offset }" (finalize)="finalize method">...</button>
  * ```
  *
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[goToStep]'
+  selector: '[awGoToStep]'
 })
 export class GoToStepDirective {
   /**
@@ -75,8 +75,9 @@ export class GoToStepDirective {
    * a [[StepOffset]] between the current step and the `wizardStep`, in which this directive has been used,
    * or a step index as a number or string
    */
-  @Input()
-  public goToStep: WizardStep | StepOffset | number | string;
+  // tslint:disable-next-line:no-input-rename
+  @Input('awGoToStep')
+  public targetStep: WizardStep | StepOffset | number | string;
 
   /**
    * The navigation mode
@@ -97,19 +98,19 @@ export class GoToStepDirective {
    * Returns the destination step of this directive as an absolute step index inside the wizard
    *
    * @returns The index of the destination step
-   * @throws If `goToStep` is of an unknown type an `Error` is thrown
+   * @throws If `targetStep` is of an unknown type an `Error` is thrown
    */
   get destinationStep(): number {
     let destinationStep: number;
 
-    if (isNumber(this.goToStep)) {
-      destinationStep = this.goToStep as number;
-    } else if (isString(this.goToStep)) {
-      destinationStep = parseInt(this.goToStep as string, 10);
-    } else if (isStepOffset(this.goToStep) && this.wizardStep !== null) {
-      destinationStep = this.wizardState.getIndexOfStep(this.wizardStep) + this.goToStep.stepOffset;
-    } else if (this.goToStep instanceof WizardStep) {
-      destinationStep = this.wizardState.getIndexOfStep(this.goToStep);
+    if (isNumber(this.targetStep)) {
+      destinationStep = this.targetStep as number;
+    } else if (isString(this.targetStep)) {
+      destinationStep = parseInt(this.targetStep as string, 10);
+    } else if (isStepOffset(this.targetStep) && this.wizardStep !== null) {
+      destinationStep = this.wizardState.getIndexOfStep(this.wizardStep) + this.targetStep.stepOffset;
+    } else if (this.targetStep instanceof WizardStep) {
+      destinationStep = this.wizardState.getIndexOfStep(this.targetStep);
     } else {
       throw new Error(`Input 'goToStep' is neither a WizardStep, StepOffset, number or string`);
     }

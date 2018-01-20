@@ -3,19 +3,19 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 
 /**
- * The `previousStep` directive can be used to navigate to the previous step.
+ * The `awPreviousStep` directive can be used to navigate to the previous step.
  * Compared to the [[NextStepDirective]] it's important to note, that this directive doesn't contain a `finalize` output method.
  *
  * ### Syntax
  *
  * ```html
- * <button previousStep>...</button>
+ * <button awPreviousStep>...</button>
  * ```
  *
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[previousStep]'
+  selector: '[awPreviousStep]'
 })
 export class PreviousStepDirective {
   /**

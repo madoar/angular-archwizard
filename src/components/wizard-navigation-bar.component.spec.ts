@@ -8,13 +8,13 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 
 @Component({
-  selector: 'test-wizard',
+  selector: 'aw-test-wizard',
   template: `
-    <wizard>
-      <wizard-step stepTitle='Steptitle 1'>Step 1</wizard-step>
-      <wizard-step stepTitle='Steptitle 2' optionalStep>Step 2</wizard-step>
-      <wizard-step stepTitle='Steptitle 3'>Step 3</wizard-step>
-    </wizard>
+    <aw-wizard>
+      <aw-wizard-step stepTitle='Steptitle 1'>Step 1</aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2' awOptionalStep>Step 2</aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 3'>Step 3</aw-wizard-step>
+    </aw-wizard>
   `
 })
 class WizardTestComponent {
@@ -41,22 +41,22 @@ describe('WizardNavigationBarComponent', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
+    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
     navigationMode = wizardState.navigationMode;
   });
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'))).toBeTruthy();
   });
 
   it('should create only one navigation bar', () => {
     expect(wizardTest).toBeTruthy();
-    expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-navigation-bar')).length).toBe(1);
+    expect(wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar')).length).toBe(1);
   });
 
   it('should show the initial step correctly', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     const allLi = navBar.queryAll(By.css('li'));
 
@@ -89,7 +89,7 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should show the second step correctly', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to second step
     navigationMode.goToNextStep();
@@ -128,7 +128,7 @@ describe('WizardNavigationBarComponent', () => {
   }));
 
   it('should show the third step correctly', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to second step
     navigationMode.goToNextStep();
@@ -173,7 +173,7 @@ describe('WizardNavigationBarComponent', () => {
   }));
 
   it('should show the third step correctly, after jump from first to third step', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to third step and jump over the optional second step
     navigationMode.goToStep(2);
@@ -213,7 +213,7 @@ describe('WizardNavigationBarComponent', () => {
   }));
 
   it('should show the first step correctly, after going back from the second step to the first step', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to second step
     navigationMode.goToNextStep();
@@ -257,7 +257,7 @@ describe('WizardNavigationBarComponent', () => {
 
   it('should show the first step correctly, after first jumping from the first to the third step ' +
     'and then back from the third step to the first step', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step
     navigationMode.goToStep(2);
@@ -301,7 +301,7 @@ describe('WizardNavigationBarComponent', () => {
 
   it('should show the second step correctly, after first jumping from the first to the third step ' +
     'and then back from the third step to the second step', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step
     navigationMode.goToStep(2);
@@ -345,7 +345,7 @@ describe('WizardNavigationBarComponent', () => {
   }));
 
   it('should disable navigation through the navigation bar correctly', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     wizardState.disableNavigationBar = true;
 
@@ -457,14 +457,14 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should use the \"small\" layout when no navigation bar layout is specified', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
   });
 
   it('should use the \"small\" layout when it is specified', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     wizardTest.wizard.navBarLayout = 'small';
     wizardTestFixture.detectChanges();
@@ -474,7 +474,7 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should use the \"large-filled\" layout when it is specified', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     wizardTest.wizard.navBarLayout = 'large-filled';
     wizardTestFixture.detectChanges();
@@ -484,7 +484,7 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should use the \"large-empty\" layout when it is specified', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     wizardTest.wizard.navBarLayout = 'large-empty';
     wizardTestFixture.detectChanges();
@@ -494,7 +494,7 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should use the \"large-filled-symbols\" layout when it is specified', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     wizardTest.wizard.navBarLayout = 'large-filled-symbols';
     wizardTestFixture.detectChanges();
@@ -504,7 +504,7 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should use the \"large-empty-symbols\" layout when it is specified', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'));
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     wizardTest.wizard.navBarLayout = 'large-empty-symbols';
     wizardTestFixture.detectChanges();
@@ -514,7 +514,7 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should show the correct step titles', () => {
-    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('wizard-navigation-bar ul li a'));
+    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
     expect(navigationLinks.length).toBe(3);
     expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 1');
@@ -526,7 +526,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarDirection = 'right-to-left';
     wizardTestFixture.detectChanges();
 
-    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('wizard-navigation-bar ul li a'));
+    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
     expect(navigationLinks.length).toBe(3);
     expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 3');

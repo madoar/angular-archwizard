@@ -2,20 +2,20 @@ import {Directive, Host, OnInit} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 
 /**
- * The `selectedStep` directive can be used on a [[WizardStep]] to set it as selected after the wizard initialisation or a reset.
+ * The `awSelectedStep` directive can be used on a [[WizardStep]] to set it as selected after the wizard initialisation or a reset.
  *
  * ### Syntax
  *
  * ```html
- * <wizard-step stepTitle="Step title" selected>
+ * <aw-wizard-step stepTitle="Step title" awSelectedStep>
  *     ...
- * </wizard-step>
+ * </aw-wizard-step>
  * ```
  *
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[selectedStep]'
+  selector: '[awSelectedStep]'
 })
 export class SelectedStepDirective implements OnInit {
   /**

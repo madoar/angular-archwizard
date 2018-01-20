@@ -11,14 +11,14 @@ import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 @Component({
-  selector: 'test-wizard',
+  selector: 'aw-test-wizard',
   template: `
-    <wizard>
-      <wizard-step stepTitle='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">Step 1</wizard-step>
-      <wizard-step stepTitle='Steptitle 2' [canExit]="isValid"
-                   optionalStep (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">Step 2</wizard-step>
-      <wizard-completion-step stepTitle='Completion steptitle 3' (stepEnter)="enterInto($event, 3)">Step 3</wizard-completion-step>
-    </wizard>
+    <aw-wizard>
+      <aw-wizard-step stepTitle='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">Step 1</aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2' [canExit]="isValid"
+                   awOptionalStep (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">Step 2</aw-wizard-step>
+      <aw-wizard-completion-step stepTitle='Completion steptitle 3' (stepEnter)="enterInto($event, 3)">Step 3</aw-wizard-completion-step>
+    </aw-wizard>
   `
 })
 class WizardTestComponent {
@@ -53,13 +53,13 @@ describe('WizardCompletionStepComponent', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
+    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
     navigationMode = wizardState.navigationMode;
   });
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
-    expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-step')).length).toBe(2);
-    expect(wizardTestFixture.debugElement.queryAll(By.css('wizard-completion-step')).length).toBe(1);
+    expect(wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-step')).length).toBe(2);
+    expect(wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-completion-step')).length).toBe(1);
   });
 });

@@ -7,19 +7,19 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {SelectedStepDirective} from './selected-step.directive';
 
 @Component({
-  selector: 'test-wizard',
+  selector: 'aw-test-wizard',
   template: `
-    <wizard navigationMode="free">
-      <wizard-step stepTitle='Steptitle 1'>
+    <aw-wizard navigationMode="free">
+      <aw-wizard-step stepTitle='Steptitle 1'>
         Step 1
-      </wizard-step>
-      <wizard-step stepTitle='Steptitle 2' selectedStep>
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2' awSelectedStep>
         Step 2
-      </wizard-step>
-      <wizard-step stepTitle='Steptitle 3'>
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 3'>
         Step 3
-      </wizard-step>
-    </wizard>
+      </aw-wizard-step>
+    </aw-wizard>
   `
 })
 class WizardTestComponent {
@@ -44,7 +44,7 @@ describe('SelectedStepDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
+    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
     navigationMode = wizardState.navigationMode;
   });
 

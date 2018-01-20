@@ -8,19 +8,19 @@ import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 @Component({
-  selector: 'test-wizard',
+  selector: 'aw-test-wizard',
   template: `
-    <wizard>
-      <div wizardStep stepTitle='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
+    <aw-wizard>
+      <div awWizardStep stepTitle='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
         Step 1
       </div>
-      <test-wizard-step wizardStep stepTitle='Steptitle 2' optionalStep>
+      <aw-test-wizard-step awWizardStep stepTitle='Steptitle 2' awOptionalStep>
         Step 2
-      </test-wizard-step>
-      <div wizardStep stepTitle='Steptitle 3' (stepEnter)="enterInto($event, 3)" (stepExit)="exitFrom($event, 3)">
+      </aw-test-wizard-step>
+      <div awWizardStep stepTitle='Steptitle 3' (stepEnter)="enterInto($event, 3)" (stepExit)="exitFrom($event, 3)">
         Step 3
       </div>
-    </wizard>
+    </aw-wizard>
   `
 })
 class WizardTestComponent {
@@ -39,7 +39,7 @@ class WizardTestComponent {
 }
 
 @Component({
-  selector: 'test-wizard-step',
+  selector: 'aw-test-wizard-step',
   template: `
     Step 2
   `
@@ -70,7 +70,7 @@ describe('WizardStepDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
+    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
     navigationMode = wizardState.navigationMode;
   });
 

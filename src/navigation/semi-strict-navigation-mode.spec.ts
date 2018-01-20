@@ -8,13 +8,13 @@ import {NavigationMode} from './navigation-mode.interface';
 import {SemiStrictNavigationMode} from './semi-strict-navigation-mode';
 
 @Component({
-  selector: 'test-wizard',
+  selector: 'aw-test-wizard',
   template: `
-    <wizard navigationMode="semi-strict">
-      <wizard-step stepTitle='Steptitle 1'>Step 1</wizard-step>
-      <wizard-step stepTitle='Steptitle 2'>Step 2</wizard-step>
-      <wizard-completion-step enableBackLinks stepTitle='Completion Steptitle'>Step 3</wizard-completion-step>
-    </wizard>
+    <aw-wizard navigationMode="semi-strict">
+      <aw-wizard-step stepTitle='Steptitle 1'>Step 1</aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2'>Step 2</aw-wizard-step>
+      <aw-wizard-completion-step awEnableBackLinks stepTitle='Completion Steptitle'>Step 3</aw-wizard-completion-step>
+    </aw-wizard>
   `
 })
 class WizardTestComponent {
@@ -41,13 +41,13 @@ describe('SemiStrictNavigationMode', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
+    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
     navigationMode = wizardState.navigationMode;
   });
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
-    expect(wizardTestFixture.debugElement.query(By.css('wizard'))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css('aw-wizard'))).toBeTruthy();
     expect(navigationMode instanceof SemiStrictNavigationMode).toBe(true,
       'Navigation mode is not an instance of SemiStrictNavigationMode');
   });

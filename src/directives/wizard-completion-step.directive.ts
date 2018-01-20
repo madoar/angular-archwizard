@@ -3,7 +3,7 @@ import {WizardStep} from '../util/wizard-step.interface';
 import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 
 /**
- * The `wizardCompletionStep` directive can be used to define a completion/success step at the end of your wizard
+ * The `awWizardCompletionStep` directive can be used to define a completion/success step at the end of your wizard
  * After a [[WizardCompletionStep]] has been entered, it has the characteristic that the user is blocked from
  * leaving it again to a previous step.
  * In addition entering a [[WizardCompletionStep]] automatically sets the `wizard` amd all steps inside the `wizard`
@@ -12,7 +12,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  * ### Syntax
  *
  * ```html
- * <div wizardCompletionStep [stepTitle]="title of the wizard step" [navigationSymbol]="navigation symbol"
+ * <div awWizardCompletionStep [stepTitle]="title of the wizard step" [navigationSymbol]="navigation symbol"
  *    [navigationSymbolFontFamily]="navigation symbol font family"
  *    (stepEnter)="event emitter to be called when the wizard step is entered"
  *    (stepExit)="event emitter to be called when the wizard step is exited">
@@ -23,7 +23,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  * ### Example
  *
  * ```html
- * <div wizardCompletionStep stepTitle="Step 1" navigationSymbol="1">
+ * <div awWizardCompletionStep stepTitle="Step 1" navigationSymbol="1">
  *    ...
  * </div>
  * ```
@@ -31,7 +31,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  * With a navigation symbol from the `font-awesome` font:
  *
  * ```html
- * <div wizardCompletionStep stepTitle="Step 1" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ * <div awWizardCompletionStep stepTitle="Step 1" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
  *    ...
  * </div>
  * ```
@@ -39,7 +39,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[wizardCompletionStep]',
+  selector: '[awWizardCompletionStep]',
   providers: [
     { provide: WizardStep, useExisting: forwardRef(() => WizardCompletionStepDirective) },
     { provide: WizardCompletionStep, useExisting: forwardRef(() => WizardCompletionStepDirective) }

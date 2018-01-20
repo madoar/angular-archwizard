@@ -4,15 +4,15 @@ import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 /**
- * The `wizard` component defines the root component of a wizard.
- * Through the setting of input parameters for the `wizard` component it's possible to change the location and size
+ * The `aw-wizard` component defines the root component of a wizard.
+ * Through the setting of input parameters for the `aw-wizard` component it's possible to change the location and size
  * of its navigation bar.
  *
  * ### Syntax
  * ```html
- * <wizard [navBarLocation]="location of navigation bar" [navBarLayout]="layout of navigation bar">
+ * <aw-wizard [navBarLocation]="location of navigation bar" [navBarLayout]="layout of navigation bar">
  *     ...
- * </wizard>
+ * </aw-wizard>
  * ```
  *
  * ### Example
@@ -20,26 +20,26 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
  * Without completion step:
  *
  * ```html
- * <wizard navBarLocation="top" navBarLayout="small">
- *     <wizard-step>...</wizard-step>
- *     <wizard-step>...</wizard-step>
- * </wizard>
+ * <aw-wizard navBarLocation="top" navBarLayout="small">
+ *     <aw-wizard-step>...</aw-wizard-step>
+ *     <aw-wizard-step>...</aw-wizard-step>
+ * </aw-wizard>
  * ```
  *
  * With completion step:
  *
  * ```html
- * <wizard navBarLocation="top" navBarLayout="small">
- *     <wizard-step>...</wizard-step>
- *     <wizard-step>...</wizard-step>
- *     <wizard-completion-step>...</wizard-completion-step>
- * </wizard>
+ * <aw-wizard navBarLocation="top" navBarLayout="small">
+ *     <aw-wizard-step>...</aw-wizard-step>
+ *     <aw-wizard-step>...</aw-wizard-step>
+ *     <aw-wizard-completion-step>...</aw-wizard-completion-step>
+ * </aw-wizard>
  * ```
  *
  * @author Marc Arndt
  */
 @Component({
-  selector: 'wizard',
+  selector: 'aw-wizard',
   templateUrl: 'wizard.component.html',
   styleUrls: ['wizard.component.less'],
   providers: [WizardState]

@@ -3,18 +3,18 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 
 /**
- * The `nextStep` directive can be used to navigate to the next step.
+ * The `awNextStep` directive can be used to navigate to the next step.
  *
  * ### Syntax
  *
  * ```html
- * <button nextStep (finalize)="finalize method">...</button>
+ * <button awNextStep (finalize)="finalize method">...</button>
  * ```
  *
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[nextStep]'
+  selector: '[awNextStep]'
 })
 export class NextStepDirective {
   /**

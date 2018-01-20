@@ -10,22 +10,22 @@ import {ArchwizardModule} from '../archwizard.module';
 
 
 @Component({
-  selector: 'test-wizard',
+  selector: 'aw-test-wizard',
   template: `
-    <wizard>
-      <wizard-step stepTitle='Not visible title'>
-        <ng-template stepTitle>
+    <aw-wizard>
+      <aw-wizard-step stepTitle='Not visible title'>
+        <ng-template awStepTitle>
           Steptitle 1
         </ng-template>
         Step 1
-      </wizard-step>
-      <wizard-completion-step stepTitle='Other not visible title'>
-        <ng-template wizardStepTitle>
+      </aw-wizard-step>
+      <aw-wizard-completion-step stepTitle='Other not visible title'>
+        <ng-template awWizardStepTitle>
           Steptitle 2
         </ng-template>
         Step 2
-      </wizard-completion-step>
-    </wizard>
+      </aw-wizard-completion-step>
+    </aw-wizard>
   `
 })
 class WizardTestComponent {
@@ -33,7 +33,7 @@ class WizardTestComponent {
   public wizard: WizardComponent;
 }
 
-describe('PreviousStepDirective', () => {
+describe('WizardStepTitleDirective', () => {
   let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
@@ -52,7 +52,7 @@ describe('PreviousStepDirective', () => {
   });
 
   it('should create an instance', () => {
-    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('wizard-navigation-bar ul li a'));
+    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
     expect(navigationLinks.length).toBe(2);
     expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 1');

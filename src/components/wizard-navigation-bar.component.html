@@ -13,7 +13,7 @@
         navigable: isNavigable(step)
   }">
     <div>
-      <a [goToStep]="step">
+      <a [awGoToStep]="step">
         <ng-container *ngIf="step.stepTitleTemplate" [ngTemplateOutlet]="step.stepTitleTemplate.templateRef"></ng-container>
         <ng-container *ngIf="!step.stepTitleTemplate">{{step.stepTitle}}</ng-container>
       </a>

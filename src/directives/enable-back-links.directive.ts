@@ -3,28 +3,28 @@ import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 
 /**
- * The `enableBackLinks` directive can be used to allow the user to leave a [[WizardCompletionStep]] after is has been entered.
+ * The `awEnableBackLinks` directive can be used to allow the user to leave a [[WizardCompletionStep]] after is has been entered.
  *
  * ### Syntax
  *
  * ```html
- * <wizard-completion-step enableBackLinks (stepExit)="exit function">
+ * <aw-wizard-completion-step awEnableBackLinks (stepExit)="exit function">
  *     ...
- * </wizard-completion-step>
+ * </aw-wizard-completion-step>
  * ```
  *
  * ### Example
  *
  * ```html
- * <wizard-completion-step stepTitle="Final step" enableBackLinks>
+ * <aw-wizard-completion-step stepTitle="Final step" awEnableBackLinks>
  *     ...
- * </wizard-completion-step>
+ * </aw-wizard-completion-step>
  * ```
  *
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[enableBackLinks]'
+  selector: '[awEnableBackLinks]'
 })
 export class EnableBackLinksDirective implements OnInit {
   /**
