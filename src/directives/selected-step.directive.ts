@@ -20,9 +20,11 @@ import {WizardStep} from '../util/wizard-step.interface';
 export class SelectedStepDirective implements OnInit {
   /**
    * Constructor
+   *
    * @param wizardStep The wizard step, which should be selected by default
    */
-  constructor(@Host() private wizardStep: WizardStep) { }
+  constructor(@Host() private wizardStep: WizardStep) {
+  }
 
   /**
    * Initialization work

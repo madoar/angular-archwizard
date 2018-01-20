@@ -19,16 +19,12 @@ import {WizardState} from '../navigation/wizard-state.model';
 export class NextStepDirective {
   /**
    * This [[EventEmitter]] is called directly before the current step is exited during a transition through a component with this directive.
-   *
-   * @type {EventEmitter}
    */
   @Output()
   public preFinalize: EventEmitter<void> = new EventEmitter();
 
   /**
    * This [[EventEmitter]] is called directly after the current step is exited during a transition through a component with this directive.
-   *
-   * @type {EventEmitter}
    */
   @Output()
   public postFinalize: EventEmitter<void> = new EventEmitter();
@@ -36,7 +32,7 @@ export class NextStepDirective {
   /**
    * A convenience name for `preFinalize`
    *
-   * @param {EventEmitter<void>} emitter The [[EventEmitter]] to be set
+   * @param emitter The [[EventEmitter]] to be set
    */
   @Output()
   public set finalize(emitter: EventEmitter<void>) {
@@ -53,8 +49,6 @@ export class NextStepDirective {
 
   /**
    * The navigation mode
-   *
-   * @returns {NavigationMode}
    */
   private get navigationMode(): NavigationMode {
     return this.wizardState.navigationMode;
