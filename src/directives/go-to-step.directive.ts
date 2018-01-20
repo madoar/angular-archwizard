@@ -112,7 +112,7 @@ export class GoToStepDirective {
     } else if (this.targetStep instanceof WizardStep) {
       destinationStep = this.wizardState.getIndexOfStep(this.targetStep);
     } else {
-      throw new Error(`Input 'goToStep' is neither a WizardStep, StepOffset, number or string`);
+      throw new Error(`Input 'targetStep' is neither a WizardStep, StepOffset, number or string`);
     }
 
     return destinationStep;

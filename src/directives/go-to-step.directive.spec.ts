@@ -195,16 +195,16 @@ describe('GoToStepDirective', () => {
     expect(wizardTest.eventLog).toEqual(['finalize 1', 'finalize 3']);
   }));
 
-  it('should throw an error when using an invalid destinationStep value', fakeAsync(() => {
+  it('should throw an error when using an invalid targetStep value', fakeAsync(() => {
     const invalidGoToAttribute = wizardTestFixture.debugElement
       .query(By.css('aw-wizard-step[stepTitle="Steptitle 2"]'))
       .queryAll(By.directive(GoToStepDirective))[1].injector.get(GoToStepDirective) as GoToStepDirective;
 
     expect(() => invalidGoToAttribute.destinationStep)
-      .toThrow(new Error(`Input 'goToStep' is neither a WizardStep, StepOffset, number or string`));
+      .toThrow(new Error(`Input 'targetStep' is neither a WizardStep, StepOffset, number or string`));
   }));
 
-  it('should return correct destination step for correct destinationStep values', fakeAsync(() => {
+  it('should return correct destination step for correct targetStep values', fakeAsync(() => {
     const firstGoToAttribute = wizardTestFixture.debugElement
       .query(By.css('aw-wizard-navigation-bar'))
       .queryAll(By.directive(GoToStepDirective))[0].injector.get(GoToStepDirective) as GoToStepDirective;
