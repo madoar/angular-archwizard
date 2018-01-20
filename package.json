@@ -37,7 +37,8 @@
     "test": "karma start",
     "test-watch": "karma start --no-single-run --auto-watch",
     "build": "ng-packagr -p ng-package.json",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json --disableCoverage"
   },
   "devDependencies": {
     "@angular/common": "^5.2.1",
@@ -48,6 +49,7 @@
     "@angular/platform-browser": "^5.2.1",
     "@angular/platform-browser-dynamic": "^5.2.1",
     "@angular/router": "^5.2.1",
+    "@compodoc/compodoc": "^1.0.5",
     "@ngtools/webpack": "^1.2.9",
     "@types/jasmine": "^2.5.42",
     "@types/node": "^9.3.0",
