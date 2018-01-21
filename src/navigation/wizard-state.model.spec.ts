@@ -6,13 +6,13 @@ import {ArchwizardModule} from '../archwizard.module';
 import {WizardState} from './wizard-state.model';
 
 @Component({
-  selector: 'test-wizard',
+  selector: 'aw-test-wizard',
   template: `
-    <wizard>
-      <wizard-step stepTitle='Steptitle 1'>Step 1</wizard-step>
-      <wizard-step stepTitle='Steptitle 2'>Step 2</wizard-step>
-      <wizard-step stepTitle='Steptitle 3'>Step 3</wizard-step>
-    </wizard>
+    <aw-wizard>
+      <aw-wizard-step stepTitle='Steptitle 1'>Step 1</aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2'>Step 2</aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 3'>Step 3</aw-wizard-step>
+    </aw-wizard>
   `
 })
 class WizardTestComponent {
@@ -55,14 +55,14 @@ describe('WizardState', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
+    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
   });
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
     expect(wizardState).toBeTruthy();
 
-    expect(wizardTestFixture.debugElement.query(By.css('wizard'))).toBeTruthy();
+    expect(wizardTestFixture.debugElement.query(By.css('aw-wizard'))).toBeTruthy();
   });
 
   it('should have steps', () => {

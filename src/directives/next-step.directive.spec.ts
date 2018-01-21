@@ -7,19 +7,19 @@ import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 @Component({
-  selector: 'test-wizard',
+  selector: 'aw-test-wizard',
   template: `
-    <wizard>
-      <wizard-step stepTitle='Steptitle 1'>
+    <aw-wizard>
+      <aw-wizard-step stepTitle='Steptitle 1'>
         Step 1
-        <button type="button" nextStep (finalize)="finalizeStep(1)">Go to second step</button>
-        <button type="button" nextStep (postFinalize)="finalizeStep(1)">Go to second step</button>
-      </wizard-step>
-      <wizard-step stepTitle='Steptitle 2'>
+        <button type="button" awNextStep (finalize)="finalizeStep(1)">Go to second step</button>
+        <button type="button" awNextStep (postFinalize)="finalizeStep(1)">Go to second step</button>
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2'>
         Step 2
-        <button type="button" nextStep (postFinalize)="finalizeStep(2)">Go to first step</button>
-      </wizard-step>
-    </wizard>
+        <button type="button" awNextStep (postFinalize)="finalizeStep(2)">Go to first step</button>
+      </aw-wizard-step>
+    </aw-wizard>
   `
 })
 class WizardTestComponent {
@@ -49,24 +49,24 @@ describe('NextStepDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
+    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
     navigationMode = wizardState.navigationMode;
   });
 
   it('should create an instance', () => {
     expect(wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 1"] > button[nextStep]'))).toBeTruthy();
+      By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button[awNextStep]'))).toBeTruthy();
     expect(wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 2"] > button[nextStep]'))).toBeTruthy();
+      By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awNextStep]'))).toBeTruthy();
     expect(wizardTestFixture.debugElement.queryAll(
       By.directive(NextStepDirective)).length).toBe(3);
   });
 
   it('should move correctly to the next step', fakeAsync(() => {
     const firstStepButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 1"] > button[nextStep]')).nativeElement;
+      By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button[awNextStep]')).nativeElement;
     const secondStepButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 2"] > button[nextStep]')).nativeElement;
+      By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awNextStep]')).nativeElement;
 
     expect(wizardState.currentStepIndex).toBe(0);
 
@@ -87,7 +87,7 @@ describe('NextStepDirective', () => {
 
   it('should call finalize correctly when going the next step', fakeAsync(() => {
     const firstStepButtons = wizardTestFixture.debugElement.queryAll(
-      By.css('wizard-step[stepTitle="Steptitle 1"] > button[nextStep]'));
+      By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button[awNextStep]'));
 
     expect(wizardTest.eventLog).toEqual([]);
 
@@ -101,7 +101,7 @@ describe('NextStepDirective', () => {
 
   it('should call postFinalize correctly when going the next step', fakeAsync(() => {
     const firstStepButtons = wizardTestFixture.debugElement.queryAll(
-      By.css('wizard-step[stepTitle="Steptitle 1"] > button[nextStep]'));
+      By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button[awNextStep]'));
 
     expect(wizardTest.eventLog).toEqual([]);
 
@@ -115,7 +115,7 @@ describe('NextStepDirective', () => {
 
   it('shouldn\'t call finalize when going to an nonexistent step', fakeAsync(() => {
     const secondStepButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 2"] > button[nextStep]')).nativeElement;
+      By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awNextStep]')).nativeElement;
 
     navigationMode.goToStep(1);
     tick();

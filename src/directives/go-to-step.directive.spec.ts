@@ -10,25 +10,25 @@ import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 @Component({
-  selector: 'test-wizard',
+  selector: 'aw-test-wizard',
   template: `
-    <wizard>
-      <wizard-step stepTitle='Steptitle 1' [canExit]="canExit">
+    <aw-wizard>
+      <aw-wizard-step stepTitle='Steptitle 1' [canExit]="canExit">
         Step 1
-        <button type="button" goToStep="0" (preFinalize)="finalizeStep(1)">Stay at this step</button>
-        <button type="button" [goToStep]="goToSecondStep" (preFinalize)="finalizeStep(1)">Go to second step</button>
-        <button type="button" [goToStep]="{stepOffset: 2}" (preFinalize)="finalizeStep(1)">Go to third step</button>
-      </wizard-step>
-      <wizard-step stepTitle='Steptitle 2' optionalStep>
+        <button type="button" awGoToStep="0" (preFinalize)="finalizeStep(1)">Stay at this step</button>
+        <button type="button" [awGoToStep]="goToSecondStep" (preFinalize)="finalizeStep(1)">Go to second step</button>
+        <button type="button" [awGoToStep]="{stepOffset: 2}" (preFinalize)="finalizeStep(1)">Go to third step</button>
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2' awOptionalStep>
         Step 2
-        <button type="button" [goToStep]="'2'" (finalize)="finalizeStep(2)">Go to third step</button>
-        <button type="button" [goToStep]="{incorrectKey: 3}" (finalize)="finalizeStep(2)">Invalid Button</button>
-      </wizard-step>
-      <wizard-step stepTitle='Steptitle 3'>
+        <button type="button" [awGoToStep]="'2'" (finalize)="finalizeStep(2)">Go to third step</button>
+        <button type="button" [awGoToStep]="{incorrectKey: 3}" (finalize)="finalizeStep(2)">Invalid Button</button>
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 3'>
         Step 3
-        <button type="button" [goToStep]="{stepOffset: -2}" (postFinalize)="finalizeStep(3)">Go to first step</button>
-      </wizard-step>
-    </wizard>
+        <button type="button" [awGoToStep]="{stepOffset: -2}" (postFinalize)="finalizeStep(3)">Go to first step</button>
+      </aw-wizard-step>
+    </aw-wizard>
   `
 })
 class WizardTestComponent {
@@ -62,18 +62,18 @@ describe('GoToStepDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
+    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
     navigationMode = wizardState.navigationMode;
   });
 
   it('should create an instance', () => {
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-navigation-bar'))
+    expect(wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'))
       .queryAll(By.directive(GoToStepDirective)).length).toBe(3);
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step[stepTitle="Steptitle 1"]'))
+    expect(wizardTestFixture.debugElement.query(By.css('aw-wizard-step[stepTitle="Steptitle 1"]'))
       .queryAll(By.directive(GoToStepDirective)).length).toBe(3);
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step[stepTitle="Steptitle 2"]'))
+    expect(wizardTestFixture.debugElement.query(By.css('aw-wizard-step[stepTitle="Steptitle 2"]'))
       .queryAll(By.directive(GoToStepDirective)).length).toBe(2);
-    expect(wizardTestFixture.debugElement.query(By.css('wizard-step[stepTitle="Steptitle 3"]'))
+    expect(wizardTestFixture.debugElement.query(By.css('aw-wizard-step[stepTitle="Steptitle 3"]'))
       .queryAll(By.directive(GoToStepDirective)).length).toBe(1);
 
     expect(wizardTestFixture.debugElement.queryAll(By.directive(GoToStepDirective)).length).toBe(9);
@@ -81,9 +81,9 @@ describe('GoToStepDirective', () => {
 
   it('should move to step correctly', fakeAsync(() => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 1"] > button:nth-child(2)')).nativeElement;
+      By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button:nth-child(2)')).nativeElement;
     const secondStepGoToButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 2"] > button')).nativeElement;
+      By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button')).nativeElement;
 
     const wizardSteps = wizardState.wizardSteps;
 
@@ -115,9 +115,9 @@ describe('GoToStepDirective', () => {
 
   it('should jump over an optional step correctly', fakeAsync(() => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 1"] > button:nth-child(3)')).nativeElement;
+      By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button:nth-child(3)')).nativeElement;
     const thirdStepGoToButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 3"] > button')).nativeElement;
+      By.css('aw-wizard-step[stepTitle="Steptitle 3"] > button')).nativeElement;
 
     const wizardSteps = wizardState.wizardSteps;
 
@@ -149,7 +149,7 @@ describe('GoToStepDirective', () => {
 
   it('should stay at current step correctly', fakeAsync(() => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 1"] > button:nth-child(1)')).nativeElement;
+      By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button:nth-child(1)')).nativeElement;
 
     const wizardSteps = wizardState.wizardSteps;
 
@@ -171,9 +171,9 @@ describe('GoToStepDirective', () => {
 
   it('should finalize step correctly', fakeAsync(() => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 1"] > button:nth-child(3)')).nativeElement;
+      By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button:nth-child(3)')).nativeElement;
     const thirdStepGoToButton = wizardTestFixture.debugElement.query(
-      By.css('wizard-step[stepTitle="Steptitle 3"] > button')).nativeElement;
+      By.css('aw-wizard-step[stepTitle="Steptitle 3"] > button')).nativeElement;
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardTest.eventLog).toEqual([]);
@@ -195,30 +195,30 @@ describe('GoToStepDirective', () => {
     expect(wizardTest.eventLog).toEqual(['finalize 1', 'finalize 3']);
   }));
 
-  it('should throw an error when using an invalid goToStep value', fakeAsync(() => {
+  it('should throw an error when using an invalid targetStep value', fakeAsync(() => {
     const invalidGoToAttribute = wizardTestFixture.debugElement
-      .query(By.css('wizard-step[stepTitle="Steptitle 2"]'))
+      .query(By.css('aw-wizard-step[stepTitle="Steptitle 2"]'))
       .queryAll(By.directive(GoToStepDirective))[1].injector.get(GoToStepDirective) as GoToStepDirective;
 
     expect(() => invalidGoToAttribute.destinationStep)
-      .toThrow(new Error(`Input 'goToStep' is neither a WizardStep, StepOffset, number or string`));
+      .toThrow(new Error(`Input 'targetStep' is neither a WizardStep, StepOffset, number or string`));
   }));
 
-  it('should return correct destination step for correct goToStep values', fakeAsync(() => {
+  it('should return correct destination step for correct targetStep values', fakeAsync(() => {
     const firstGoToAttribute = wizardTestFixture.debugElement
-      .query(By.css('wizard-navigation-bar'))
+      .query(By.css('aw-wizard-navigation-bar'))
       .queryAll(By.directive(GoToStepDirective))[0].injector.get(GoToStepDirective) as GoToStepDirective;
 
     const secondGoToAttribute = wizardTestFixture.debugElement
-      .query(By.css('wizard-step[stepTitle="Steptitle 1"]'))
+      .query(By.css('aw-wizard-step[stepTitle="Steptitle 1"]'))
       .queryAll(By.directive(GoToStepDirective))[1].injector.get(GoToStepDirective) as GoToStepDirective;
 
     const thirdGoToAttribute = wizardTestFixture.debugElement
-      .query(By.css('wizard-step[stepTitle="Steptitle 2"]'))
+      .query(By.css('aw-wizard-step[stepTitle="Steptitle 2"]'))
       .queryAll(By.directive(GoToStepDirective))[0].injector.get(GoToStepDirective) as GoToStepDirective;
 
     const fourthGoToAttribute = wizardTestFixture.debugElement
-      .query(By.css('wizard-step[stepTitle="Steptitle 3"]'))
+      .query(By.css('aw-wizard-step[stepTitle="Steptitle 3"]'))
       .queryAll(By.directive(GoToStepDirective))[0].injector.get(GoToStepDirective) as GoToStepDirective;
 
     expect(firstGoToAttribute.destinationStep).toBe(0);
@@ -234,7 +234,7 @@ describe('GoToStepDirective', () => {
     wizardTestFixture.detectChanges();
 
     const secondGoToAttribute = wizardTestFixture.debugElement
-      .query(By.css('wizard-navigation-bar'))
+      .query(By.css('aw-wizard-navigation-bar'))
       .queryAll(By.directive(GoToStepDirective))[1].nativeElement;
 
     secondGoToAttribute.click();

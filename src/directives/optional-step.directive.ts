@@ -2,29 +2,29 @@ import {Directive, Host, OnInit} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 
 /**
- * The `optionalStep` directive can be used to define an optional `wizard-step`.
- * An optional `wizard-step` is a [[WizardStep]] that doesn't need to be completed to transition to later wizard steps.
+ * The `awOptionalStep` directive can be used to define an optional `wizard-step`.
+ * An optional wizard step is a [[WizardStep]] that doesn't need to be completed to transition to later wizard steps.
  *
  * ### Syntax
  *
  * ```html
- * <wizard-step optionalStep>
+ * <aw-wizard-step awOptionalStep>
  *     ...
- * </wizard-step>
+ * </aw-wizard-step>
  * ```
  *
  * ### Example
  *
  * ```html
- * <wizard-step stepTitle="Second step" optionalStep>
+ * <aw-wizard-step stepTitle="Second step" awOptionalStep>
  *     ...
- * </wizard-step>
+ * </aw-wizard-step>
  * ```
  *
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[optionalStep]'
+  selector: '[awOptionalStep]'
 })
 export class OptionalStepDirective implements OnInit {
   /**

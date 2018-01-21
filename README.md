@@ -38,34 +38,34 @@ export class Module { }
 ```
 
 ## How to use the wizard
-To use this wizard component in an angular project simply add a `wizard` component to the html template of your component:
+To use this wizard component in an angular project simply add a `aw-wizard` component to the html template of your component:
 
 ```html
-<wizard>
-  <wizard-step stepTitle="Title of step 1">
+<aw-wizard>
+  <aw-wizard-step stepTitle="Title of step 1">
     Content of Step 1
-    <button type="button" nextStep>Next Step</button>
-    <button type="button" goToStep="2">Go directly to third Step</button>
-  </wizard-step>
-  <wizard-step stepTitle="Title of step 2" optionalStep>
+    <button type="button" awNextStep>Next Step</button>
+    <button type="button" awGoToStep="2">Go directly to third Step</button>
+  </aw-wizard-step>
+  <aw-wizard-step stepTitle="Title of step 2" awOptionalStep>
     Content of Step 2
-    <button type="button" previousStep>Go to previous step</button>
-    <button type="button" nextStep>Go to next step</button>
-  </wizard-step>
-  <wizard-step stepTitle="Title of step 3">
+    <button type="button" awPreviousStep>Go to previous step</button>
+    <button type="button" awNextStep>Go to next step</button>
+  </aw-wizard-step>
+  <aw-wizard-step stepTitle="Title of step 3">
     Content of Step 3
-    <button type="button" previousStep>Previous Step</button>
+    <button type="button" awPreviousStep>Previous Step</button>
     <button type="button" (click)="finishFunction()">Finish</button>
-  </wizard-step>
-</wizard>
+  </aw-wizard-step>
+</aw-wizard>
 ``` 
 
 ## Components
 
-### \<wizard\>
-The `<wizard>` environment is the environment, in which you define the steps belonging to your wizard.
+### \<aw-wizard\>
+The `<aw-wizard>` environment is the environment, in which you define the steps belonging to your wizard.
 In addition to the contained wizard steps, `ng2-archwizard` enables you to define the location and the layout of the navigation bar inside your wizard.
-To set the location, the layout of the navigation bar and many other settings, you can pass the following parameters to the `wizard` component:
+To set the location, the layout of the navigation bar and many other settings, you can pass the following parameters to the `aw-wizard` component:
 
 #### \[navBarLocation\]
 The location of the navigation bar, contained inside the wizard, can be specified through the `navBarLocation` input value.
@@ -118,7 +118,7 @@ Sometimes it may be necessary to disable navigation via the navigation bar.
 In such a case you can disable navigation via the navigation bar by setting the input `disableNavigationBar` of the wizard component to `true`.
 
 #### Parameter overview
-Possible `<wizard>` parameters:
+Possible `<aw-wizard>` parameters:
 
 | Parameter name         | Possible Values                                                                                       | Default Value |
 | ---------------------- | ----------------------------------------------------------------------------------------------------- | ------------- |
@@ -129,9 +129,9 @@ Possible `<wizard>` parameters:
 | [defaultStepIndex]     | `number`                                                                                              | 0             |
 | [disableNavigationBar] | `boolean`                                                                                             | false         |
 
-### \<wizard-step\>
+### \<aw-wizard-step\>
 `ng2-archwizard` contains two ways to define a wizard step. 
-One of these two ways is by using the `<wizard-step>` component. 
+One of these two ways is by using the `<aw-wizard-step>` component. 
 
 #### \[stepTitle\]
 A wizard step needs to contain a title, which is shown in the navigation bar of the wizard. 
@@ -146,7 +146,7 @@ Be aware, that not all layouts display the symbols. Only the layouts `large-fill
 If you want to add a `2` to the circle in the navigation bar belonging to the second step you can do it like this:
 
 ```html
-<wizard-step stepTitle="Second Step" navigationSymbol="2"></wizard-step>
+<aw-wizard-step stepTitle="Second Step" navigationSymbol="2"></aw-wizard-step>
 ```
 
 In addition to normal symbols it's also possible to use an icon from a font as a symbol.
@@ -163,7 +163,7 @@ For example, if you want to show the icon with the unicode `\f2dd` of [FontAweso
 you need to set the `navigationSymbol` input attribute of the step to `&#xf2dd;` and the `navigationSymbolFontFamily` to `FontAwesome`:
 
 ```html
-<wizard-step stepTitle="Second Step" navigationSymbol="&#xf2dd;" navigationSymbolFontFamily="FontAwesome"></wizard-step>
+<aw-wizard-step stepTitle="Second Step" navigationSymbol="&#xf2dd;" navigationSymbolFontFamily="FontAwesome"></aw-wizard-step>
 ```
 
 #### \[canEnter\]
@@ -186,7 +186,7 @@ This function will then be called whenever an operation has been performed, that
 If you need to call a function to do some initialisation work before entering a wizard step you can add a `stepEnter` attribute to the wizard step environment like this:
 
 ```html
-<wizard-step stepTitle="Second Step" (stepEnter)="enterSecondStep($event)"></wizard-step>
+<aw-wizard-step stepTitle="Second Step" (stepEnter)="enterSecondStep($event)"></aw-wizard-step>
 ```
 
 This leads to the calling of the `enterSecondStep` function when the wizard moves to this step.
@@ -198,11 +198,11 @@ If the user went forwards `MovingDirection.Forwards` will be passed to the funct
 
 #### \(stepExit\)
 Similar to `stepEnter` you can add a `stepExit` attribute to the wizard step environment, if you want to call a function every time a wizard step is exited 
-either by pressing on a component with a `nextStep` or `previousStep` directive, or by a click on the navigation bar. 
+either by pressing on a component with an `awNextStep` or `awPreviousStep` directive, or by a click on the navigation bar. 
 `stepExit`, like `stepEnter` can call the given function with an argument of type `MovingDirection` that signalises in which direction the step was exited.
 
 #### Parameter overview
-Possible `<wizard-step>` parameters:
+Possible `<aw-wizard-step>` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
@@ -214,18 +214,18 @@ Possible `<wizard-step>` parameters:
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 | (stepExit)                    | `function(MovingDirection): void`                                                                    | null          |
 
-### \<wizard-completion-step\>
-In addition to the "normal" step component `<wizard-step>` it's also possible to define an optional `<wizard-completion-step>`.
-The `wizard-completion-step` is meant as the final wizard step, which signalises the user, that he or she successfully completed the wizard.
-When a `wizard-completion-step` has been entered by the user, all wizard steps, including the optional steps belonging to the wizard, are marked as completed.
-In addition the user is prevented from leaving the `wizard-completion-step` to another step, once it has been entered. 
+### \<aw-wizard-completion-step\>
+In addition to the "normal" step component `<aw-wizard-step>` it's also possible to define an optional `<aw-wizard-completion-step>`.
+The `aw-wizard-completion-step` is meant as the final wizard step, which signalises the user, that he or she successfully completed the wizard.
+When an `aw-wizard-completion-step` has been entered by the user, all wizard steps, including the optional steps belonging to the wizard, are marked as completed.
+In addition the user is prevented from leaving the `aw-wizard-completion-step` to another step, once it has been entered. 
 
 The given parameters for the wizard completion step are identical to the normal wizard step.
-The only difference is, that it it isn't possible to pass a `(stepExit)` and `[canExit]` parameter to the `wizard-completion-step`, 
+The only difference is, that it it isn't possible to pass a `(stepExit)` and `[canExit]` parameter to the `aw-wizard-completion-step`, 
 because it can't be exited.
 
 #### Parameter overview
-Possible `<wizard-completion-step>` parameters:
+Possible `<aw-wizard-completion-step>` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
@@ -237,61 +237,61 @@ Possible `<wizard-completion-step>` parameters:
 
 ## Directives
 
-### \[enableBackLinks\]
-In some cases it may be required that the user is allowed to leave an entered `wizard-completion-step`.
-In such a case you can enable this by adding the directive `[enableBackLinks]` to the `wizard-completion-step`.
+### \[awEnableBackLinks\]
+In some cases it may be required that the user is allowed to leave an entered `aw-wizard-completion-step`.
+In such a case you can enable this by adding the directive `[awEnableBackLinks]` to the `aw-wizard-completion-step`.
 
 ```html
-<wizard-completion-step enableBackLinks>
+<aw-wizard-completion-step awEnableBackLinks>
   Final wizard step
-</wizard-completion-step>
+</aw-wizard-completion-step>
 ```
 
 #### Parameter overview
-Possible `enableBackLinks` parameters:
+Possible `awEnableBackLinks` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
 | (stepExit)                    | `function(MovingDirection): void`                                                                    | null          |
 
 
-### \[wizardStepTitle\]
-Sometimes it's not enough to define a title with the `stepTitle` attribute in `<wizard-step>` and `<wizard-completion-step>`.
+### \[awWizardStepTitle\]
+Sometimes it's not enough to define a title with the `stepTitle` attribute in `<aw-wizard-step>` and `<aw-wizard-completion-step>`.
 One example for such a case is, if the title should be written in another font.
 Another example would be if it's desired that the title should be chosen depending on the available width of your screen or window.
 In such cases you may want to specify the html for the title of a wizard step yourself.
-This can be achieved by using the `[wizardStepTitle]` directive inside a wizard step on a `ng-template` component.
+This can be achieved by using the `[awWizardStepTitle]` directive inside a wizard step on a `ng-template` component.
 
 ```html
-<wizard-step (stepEnter)="enterStep($event)">
-  <ng-template wizardStepTitle>
+<aw-wizard-step (stepEnter)="enterStep($event)">
+  <ng-template awWizardStepTitle>
     <span class="hidden-sm-down">Delivery address</span>
     <span class="hidden-md-up">Address</span>
   </ng-template>
-</wizard-step>
+</aw-wizard-step>
 ```
 
-Be aware, that you can only use `[wizardStepTitle]` together with Angular, because `ng-template` was introduced in Angular 4.
+Be aware, that you can only use `[awWizardStepTitle]` together with Angular, because `ng-template` was introduced in Angular 4.
 
-### \[optionalStep\]
+### \[awOptionalStep\]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
-by adding the `optionalStep` directive to the step you want to declare as optional.
+by adding the `awOptionalStep` directive to the step you want to declare as optional.
 
-### \[selectedStep\]
+### \[awSelectedStep\]
 In some cases it may be a better choice to set the default wizard step not via a static number.
-Another way to set the default wizard step is by using the `selectedStep` directive.
-When attaching the `selectedStep` directive to an arbitrary wizard step, it will be marked as the default wizard step,
+Another way to set the default wizard step is by using the `awSelectedStep` directive.
+When attaching the `awSelectedStep` directive to an arbitrary wizard step, it will be marked as the default wizard step,
 which is shown directly after the wizard startup.
 
-### \[goToStep\]
+### \[awGoToStep\]
 `ng2-archwizard` has three directives, that allow moving between steps.
-These directives are the `previousStep`, `nextStep` and `goToStep` directives.
-The `goToStep` directive needs to receive an argument, that tells the wizard to which step it should change, 
-when the element with the `goToStep` directive has been clicked.
+These directives are the `awPreviousStep`, `asNextStep` and `awGoToStep` directives.
+The `awGoToStep` directive needs to receive an argument, that tells the wizard to which step it should change, 
+when the element with the `awGoToStep` directive has been clicked.
 This argument has to be the zero-based index of the destination step:
 
 ```html
-<button goToStep="2" (finalize)="finalizeStep()">Go directly to the third Step</button>
+<button awGoToStep="2" (finalize)="finalizeStep()">Go directly to the third Step</button>
 ```
 
 In the previous example the button moves the user automatically to the third step, after the user pressed onto it.
@@ -300,20 +300,20 @@ which will set the current as completed and makes it possible to jump over steps
 
 Alternatively to an absolute step index, it's also possible to set the destination wizard step as an offset to the source step:
 ```html
-<button [goToStep]="{stepOffset: 1}" (finalize)="finalizeStep()">Go to the third Step</button>
+<button [awGoToStep]="{stepOffset: 1}" (finalize)="finalizeStep()">Go to the third Step</button>
 ```
 In this example a click on the "Go to the third Step" button will move the user to the next step compared to the step the button belongs to.
 If the button is for example part of the second step, a click on it will move the user to the third step.
-When using offsets it's important to use `[]` around the `goToStep` directive to tell angular that the argument is to be interpreted as javascript.
+When using offsets it's important to use `[]` around the `awGoToStep` directive to tell angular that the argument is to be interpreted as javascript.
 
 In addition to a static value you can also pass a local variable from your component typescript class, 
 that contains to which step a click on the element should change the current step of the wizard. 
 This can be useful if your step transitions depend on some application dependent logic, that changes depending on the user input.
-Here again it's important to use `[]` around the `goToStep` directive to tell angular that the argument is to be interpreted as javascript.  
+Here again it's important to use `[]` around the `awGoToStep` directive to tell angular that the argument is to be interpreted as javascript.  
 
 #### \(preFinalize\)
 Sometimes it's required to bind an event emitter to a specific element, which can perform a step transition. 
-Such an event emitter can be bound to the `(preFinalize)` output of the element, which contains the `goToStep` directive.
+Such an event emitter can be bound to the `(preFinalize)` output of the element, which contains the `awGoToStep` directive.
 This event emitter is then called, directly before the wizard transitions to the given step.
 
 #### \(postFinalize\)
@@ -334,16 +334,16 @@ Possible parameters:
 | (postFinalize)    | `function(): void`                                                | null          |
 | (finalize)        | `function(): void`                                                | null          |
 
-### \[nextStep\]
-By adding a `nextStep` directive to a button or a link inside a step, you automatically add a `onClick` listener to the button or link, that leads to the next step.
+### \[awNextStep\]
+By adding a `awNextStep` directive to a button or a link inside a step, you automatically add a `onClick` listener to the button or link, that leads to the next step.
 This listener will automatically change the currently selected wizard step to the next wizard step after a click on the component.
 
 ```html
-<button (finalize)="finalizeStep()" nextStep>Next Step</button>
+<button (finalize)="finalizeStep()" awNextStep>Next Step</button>
 ```
 
 #### \(finalize\)
-Like the `goToStep` directive the `nextStep` directive provides a `preFinalize`, `postFinalize` and `finalize` output, which are called every time
+Like the `awGoToStep` directive the `awNextStep` directive provides a `preFinalize`, `postFinalize` and `finalize` output, which are called every time
 the current step is successfully exited, by clicking on the element containing the `nextStep` directive.
 
 In the given code snipped above, a click on the button with the text `Next Step`, leads to a call of the `finalize` functions every time, the button has been pressed.
@@ -357,17 +357,17 @@ Possible parameters:
 | (postFinalize)    | `function(): void`                                                | null          |
 | (finalize)        | `function(): void`                                                | null          |
 
-### \[previousStep\]
-By adding a `previousStep` directive to a button or a link, you automatically add a `onClick` listener to the button or link, that changes your wizard to the previous step.
+### \[awPreviousStep\]
+By adding a `awPreviousStep` directive to a button or a link, you automatically add a `onClick` listener to the button or link, that changes your wizard to the previous step.
 This listener will automatically change the currently selected wizard step to the previous wizard step after a click on the component.
 
 ```html
-<button (finalize)="finalizeStep()" previousStep>Previous Step</button>
+<button (finalize)="finalizeStep()" awPreviousStep>Previous Step</button>
 ```
 
 #### \(finalize\)
-Like both the `goToStep` and `nextStep` directives the `previousStep` directives provides a `preFinalize`, `postFinalize` and `finalize` output, which are called every time
-the current step is successfully exited, by clicking on the element containing the `previousStep` directive.
+Like both the `awGoToStep` and `awNextStep` directives the `awPreviousStep` directives provides a `preFinalize`, `postFinalize` and `finalize` output, which are called every time
+the current step is successfully exited, by clicking on the element containing the `awPreviousStep` directive.
 
 #### Parameter overview
 Possible parameters:
@@ -378,24 +378,24 @@ Possible parameters:
 | (postFinalize)    | `function(): void`                                                | null          |
 | (finalize)        | `function(): void`                                                | null          |
 
-### \[wizardStep\]
+### \[awWizardStep\]
 In some cases it may be a good idea to move a wizard step to a custom component.
-This can be done by defining adding the `wizardStep` directive to the component, that contains the wizard step.
+This can be done by defining adding the `awWizardStep` directive to the component, that contains the wizard step.
 
 ```html
-<wizard>
-  <wizard-step stepTitle="Steptitle 1">
+<aw-wizard>
+  <aw-wizard-step stepTitle="Steptitle 1">
     Step 1
-  </wizard-step>
-  <custom-step wizardStep stepTitle="Steptitle 2"></custom-step>
-  <wizard-step stepTitle="Steptitle 3">
+  </aw-wizard-step>
+  <custom-step awWizardStep stepTitle="Steptitle 2"></custom-step>
+  <aw-wizard-step stepTitle="Steptitle 3">
     Step 3
-  </wizard-step>
-</wizard>
+  </aw-wizard-step>
+</aw-wizard>
 ```
 
 #### Parameter overview
-Possible `wizardStep` parameters:
+Possible `awWizardStep` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
@@ -407,20 +407,20 @@ Possible `wizardStep` parameters:
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 | (stepExit)                    | `function(MovingDirection): void`                                                                    | null          |
 
-### \[wizardCompletionStep\]
+### \[awWizardCompletionStep\]
 In addition to the possibility of defining a normal wizard step in a custom component, 
 it is also possible to define a wizard completion step in a custom component.
-To define a wizard completion step in a custom component you need to add the `[wizardCompletionStep]` directive to the custom component, 
+To define a wizard completion step in a custom component you need to add the `[awWizardCompletionStep]` directive to the custom component, 
 that contains the wizard completion step.
 
 ```html
-<wizard>
-  <wizard-step stepTitle="Steptitle 1">
+<aw-wizard>
+  <aw-wizard-step stepTitle="Steptitle 1">
     Step 1
-  </wizard-step>
-  <custom-step wizardCompletionStep stepTitle="Completion steptitle">
+  </aw-wizard-step>
+  <custom-step awWizardCompletionStep stepTitle="Completion steptitle">
   </custom-step>
-</wizard>
+</aw-wizard>
 ```
 
 #### Parameter overview
@@ -434,17 +434,17 @@ Possible `wizardCompletionStep` parameters:
 | [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 
-### \[resetWizard\]
+### \[awResetWizard\]
 Sometimes it's also required to reset the wizard to its initial state.
-In such a case you can use the `resetWizard` directive.
+In such a case you can use the `awResetWizard` directive.
 This directive can be added to a button or a link for example.
 When clicking on this element, the wizard will automatically reset to its `defaultStepIndex`. 
 
 In addition it's possible to define an `EventEmitter`, that is called when the wizard is being reset.
-This `EventEmitter` can be bound to the `(finalize)` input of the `resetWizard` directive.
+This `EventEmitter` can be bound to the `(finalize)` input of the `awResetWizard` directive.
   
 #### Parameter overview
-Possible `resetWizard` parameters:
+Possible `awResetWizard` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
@@ -458,13 +458,13 @@ In such a case you can get the instance of the used wizard component in your own
 public wizard: WizardComponent;
 ```
 
-In case you've created your own wizard step component with the `wizardStep` directive,
+In case you've created your own wizard step component with the `awWizardStep` directive,
 you can inject the state of your wizard in your own component:
 ```typescript
 constructor(private wizardState: WizardState)
 ```
 
-Through the `WizardState` you can access the navigation mode of your wizard, 
+Through the `WizardState` object you can access the navigation mode of your wizard, 
 which allows you to navigate the wizard programmatically.
 Both instances, the wizard state and the navigation mode, can also be obtained from the injected `WizardComponent`.
 

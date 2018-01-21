@@ -8,18 +8,18 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {ResetWizardDirective} from './reset-wizard.directive';
 
 @Component({
-  selector: 'test-wizard',
+  selector: 'aw-test-wizard',
   template: `
-    <wizard>
-      <wizard-step stepTitle='Steptitle 1'>
+    <aw-wizard>
+      <aw-wizard-step stepTitle='Steptitle 1'>
         Step 1
-      </wizard-step>
-      <wizard-step stepTitle='Steptitle 2'>
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2'>
         Step 2
-        <button type="button" resetWizard>Reset (normal)</button>
-        <button type="button" resetWizard (finalize)='cleanup()'>Reset (cleanup)</button>
-      </wizard-step>
-    </wizard>
+        <button type="button" awResetWizard>Reset (normal)</button>
+        <button type="button" awResetWizard (finalize)='cleanup()'>Reset (cleanup)</button>
+      </aw-wizard-step>
+    </aw-wizard>
   `
 })
 class WizardTestComponent {
@@ -49,7 +49,7 @@ describe('ResetWizardDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('wizard')).injector.get(WizardState);
+    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
     navigationMode = wizardState.navigationMode;
   });
 

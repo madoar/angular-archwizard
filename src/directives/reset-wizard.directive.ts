@@ -3,19 +3,19 @@ import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 /**
- * The `resetWizard` directive can be used to reset the wizard to its initial state.
+ * The `awResetWizard` directive can be used to reset the wizard to its initial state.
  * This directive accepts an output, which can be used to specify some custom cleanup work during the reset process.
  *
  * ### Syntax
  *
  * ```html
- * <button resetWizard (finalize)="custom reset task">...</button>
+ * <button awResetWizard (finalize)="custom reset task">...</button>
  * ```
  *
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[resetWizard]'
+  selector: '[awResetWizard]'
 })
 export class ResetWizardDirective {
   /**

@@ -4,20 +4,20 @@ import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 
 /**
- * The `wizard-navigation-bar` component contains the navigation bar inside a [[WizardComponent]].
+ * The `aw-wizard-navigation-bar` component contains the navigation bar inside a [[WizardComponent]].
  * To correctly display the navigation bar, it's required to set the right css classes for the navigation bar,
  * otherwise it will look like a normal `ul` component.
  *
  * ### Syntax
  *
  * ```html
- * <wizard-navigation-bar></wizard-navigation-bar>
+ * <aw-wizard-navigation-bar></aw-wizard-navigation-bar>
  * ```
  *
  * @author Marc Arndt
  */
 @Component({
-  selector: 'wizard-navigation-bar',
+  selector: 'aw-wizard-navigation-bar',
   templateUrl: 'wizard-navigation-bar.component.html',
   styleUrls: ['wizard-navigation-bar.component.horizontal.less', 'wizard-navigation-bar.component.vertical.less']
 })
