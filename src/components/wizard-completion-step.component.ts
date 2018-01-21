@@ -2,7 +2,7 @@
  * Created by marc on 20.05.17.
  */
 
-import {Component, forwardRef} from '@angular/core';
+import {Component, forwardRef, ViewEncapsulation} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 
@@ -46,9 +46,10 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
   selector: 'aw-wizard-completion-step',
   templateUrl: 'wizard-completion-step.component.html',
   styleUrls: ['wizard-completion-step.component.css'],
+  encapsulation: ViewEncapsulation.None,
   providers: [
-    { provide: WizardStep, useExisting: forwardRef(() => WizardCompletionStepComponent) },
-    { provide: WizardCompletionStep, useExisting: forwardRef(() => WizardCompletionStepComponent) }
+    {provide: WizardStep, useExisting: forwardRef(() => WizardCompletionStepComponent)},
+    {provide: WizardCompletionStep, useExisting: forwardRef(() => WizardCompletionStepComponent)}
   ]
 })
 export class WizardCompletionStepComponent extends WizardCompletionStep {

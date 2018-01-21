@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ContentChildren, HostBinding, Input, QueryList} from '@angular/core';
+import {AfterContentInit, Component, ContentChildren, HostBinding, Input, QueryList, ViewEncapsulation} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
@@ -42,6 +42,7 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
   selector: 'aw-wizard',
   templateUrl: 'wizard.component.html',
   styleUrls: ['wizard.component.less'],
+  encapsulation: ViewEncapsulation.None,
   providers: [WizardState]
 })
 export class WizardComponent implements AfterContentInit {
@@ -118,7 +119,7 @@ export class WizardComponent implements AfterContentInit {
    */
   public get navigation(): NavigationMode {
     return this.model.navigationMode;
-}
+  }
 
   /**
    * Constructor
