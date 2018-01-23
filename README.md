@@ -485,6 +485,8 @@ Different ways are possible:
     <wizard class="my-custom-css-wrapper"></wizard>
     ```
 
+When overriding css properties already defined in the existing navigation bar layouts, it is required to use `!important`. 
+In addition it is required to add `encapsulation: ViewEncapsulation.None` to the component, that defines the wizard and overrides its layout. 
 For additional information about how to write your own navigation bar please take a look at the existing navigation bar layouts, which can be found at
 https://github.com/madoar/ng2-archwizard/blob/master/src/components/wizard-navigation-bar.component.horizontal.less and 
 https://github.com/madoar/ng2-archwizard/blob/master/src/components/wizard-navigation-bar.component.vertical.less.
