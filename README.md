@@ -468,6 +468,29 @@ Through the `WizardState` object you can access the navigation mode of your wiza
 which allows you to navigate the wizard programmatically.
 Both instances, the wizard state and the navigation mode, can also be obtained from the injected `WizardComponent`.
 
+### Customizing the wizard stylesheets
+Sometimes you like to use your own custom CSS for some parts of the wizard like its navigation bar. 
+This is quite easy to do. 
+Different ways are possible:
+ 
+1. Either use a wrapper around the wizard:
+    ```html
+    <div class="my-custom-css-wrapper">
+      <aw-wizard></aw-wizard>
+    </div>
+    ```
+
+2. Or add your css wrapper class directly to the wizard element:
+    ```html
+    <aw-wizard class="my-custom-css-wrapper"></aw-wizard>
+    ```
+
+When overriding css properties already defined in the existing navigation bar layouts, it is required to use `!important`. 
+In addition it is required to add `encapsulation: ViewEncapsulation.None` to the component, that defines the wizard and overrides its layout. 
+For additional information about how to write your own navigation bar please take a look at the existing navigation bar layouts, which can be found at
+https://github.com/madoar/ng2-archwizard/blob/master/src/components/wizard-navigation-bar.component.horizontal.less and 
+https://github.com/madoar/ng2-archwizard/blob/master/src/components/wizard-navigation-bar.component.vertical.less.
+
 ## Example
 You can find an basic example project using `ng2-archwizard` [here](https://madoar.github.io/ng2-archwizard-demo). 
 The sources for the example can be found in the [ng2-archwizard-demo](https://github.com/madoar/ng2-archwizard-demo) repository.

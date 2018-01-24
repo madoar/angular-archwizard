@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
@@ -19,7 +19,8 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 @Component({
   selector: 'aw-wizard-navigation-bar',
   templateUrl: 'wizard-navigation-bar.component.html',
-  styleUrls: ['wizard-navigation-bar.component.horizontal.less', 'wizard-navigation-bar.component.vertical.less']
+  styleUrls: ['wizard-navigation-bar.component.horizontal.less', 'wizard-navigation-bar.component.vertical.less'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class WizardNavigationBarComponent {
   /**
