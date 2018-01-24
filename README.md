@@ -476,13 +476,13 @@ Different ways are possible:
 1. Either use a wrapper around the wizard:
     ```html
     <div class="my-custom-css-wrapper">
-      <wizard></wizard>
+      <aw-wizard></aw-wizard>
     </div>
     ```
 
 2. Or add your css wrapper class directly to the wizard element:
     ```html
-    <wizard class="my-custom-css-wrapper"></wizard>
+    <aw-wizard class="my-custom-css-wrapper"></aw-wizard>
     ```
 
 When overriding css properties already defined in the existing navigation bar layouts, it is required to use `!important`. 
