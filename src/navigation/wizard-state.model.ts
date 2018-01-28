@@ -1,4 +1,4 @@
-import {Injectable, QueryList} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {NavigationMode} from './navigation-mode.interface';
@@ -17,11 +17,6 @@ import {navigationModeFactory} from './navigation-mode.provider';
 @Injectable()
 export class WizardState {
   /**
-   * The internal [[QueryList]] with all [[WizardStep]] objects belonging to the wizard model
-   */
-  private _wizardSteps: QueryList<WizardStep>;
-
-  /**
    * The initial step index, as taken from the [[WizardComponent]]
    */
   private _defaultStepIndex = 0;
@@ -29,14 +24,7 @@ export class WizardState {
   /**
    * An array representation of all wizard steps belonging to this model
    */
-  public get wizardSteps(): Array<WizardStep> {
-    /* istanbul ignore else */
-    if (this._wizardSteps) {
-      return this._wizardSteps.toArray();
-    } else {
-      return [];
-    }
-  }
+  public wizardSteps: Array<WizardStep> = [];
 
   /**
    * Sets the initial default step.
@@ -111,21 +99,26 @@ export class WizardState {
   }
 
   /**
-   * Initializes the wizard state with the given array of wizard steps.
-   * This process contains a reset of the wizard
+   * Updates the navigation mode to the navigation mode with the given name
    *
-   * @param wizardSteps The wizard steps
-   * @param navigationMode The name of the navigation mode to be set
-   * @param defaultStepIndex The default step index, to be used during the initialisation
-   * @param disableNavigationBar True, if the navigation bar should be disabled, i.e. not be used for navigating
+   * @param updatedNavigationMode The name of the new navigation mode
    */
-  initialize(wizardSteps: QueryList<WizardStep>, navigationMode: string, defaultStepIndex: number, disableNavigationBar: boolean): void {
-    this._wizardSteps = wizardSteps;
-    this._defaultStepIndex = defaultStepIndex;
-    this.disableNavigationBar = disableNavigationBar;
+  updateNavigationMode(updatedNavigationMode: string): void {
+    this.navigationMode = navigationModeFactory(updatedNavigationMode, this);
+  }
 
-    this.navigationMode = navigationModeFactory(navigationMode, this);
-    this.navigationMode.reset();
+  /**
+   * Updates the wizard steps to the new array
+   *
+   * @param updatedWizardSteps The updated wizard steps
+   */
+  updateWizardSteps(updatedWizardSteps: Array<WizardStep>): void {
+    // the wizard is currently not in the initialization phase
+    if (this.wizardSteps.length > 0 && this.currentStepIndex > -1) {
+      this.currentStepIndex = updatedWizardSteps.indexOf(this.wizardSteps[this.currentStepIndex]);
+    }
+
+    this.wizardSteps = updatedWizardSteps;
   }
 
   /**

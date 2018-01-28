@@ -1,4 +1,14 @@
-import {AfterContentInit, Component, ContentChildren, HostBinding, Input, QueryList, ViewEncapsulation} from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ContentChildren,
+  HostBinding,
+  Input,
+  OnChanges,
+  QueryList,
+  SimpleChanges,
+  ViewEncapsulation
+} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
@@ -45,7 +55,7 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
   encapsulation: ViewEncapsulation.None,
   providers: [WizardState]
 })
-export class WizardComponent implements AfterContentInit {
+export class WizardComponent implements OnChanges, AfterContentInit {
   /**
    * A QueryList containing all [[WizardStep]]s inside this wizard
    */
@@ -123,15 +133,55 @@ export class WizardComponent implements AfterContentInit {
 
   /**
    * Constructor
+   *
    * @param model The model for this wizard component
    */
   constructor(public model: WizardState) {
   }
 
   /**
+   * Updates the model after certain input values have changed
+   *
+   * @param changes The detected changes
+   */
+  ngOnChanges(changes: SimpleChanges) {
+    for (const propName of Object.keys(changes)) {
+      let change = changes[propName];
+
+      if (!change.firstChange) {
+        switch (propName) {
+          case 'defaultStepIndex':
+            this.model.defaultStepIndex = parseInt(change.currentValue, 10);
+            break;
+          case 'disableNavigationBar':
+            this.model.disableNavigationBar = change.currentValue;
+            break;
+          case 'navigationMode':
+            this.model.updateNavigationMode(change.currentValue);
+            break;
+          /* istanbul ignore next */
+          default:
+        }
+      }
+    }
+  }
+
+  /**
    * Initialization work
    */
   ngAfterContentInit(): void {
-    this.model.initialize(this.wizardSteps, this.navigationMode, this.defaultStepIndex, this.disableNavigationBar);
+    // add a subscriber to the wizard steps QueryList to listen to changes in the DOM
+    this.wizardSteps.changes.subscribe(changedWizardSteps => {
+      this.model.updateWizardSteps(changedWizardSteps.toArray());
+    });
+
+    // initialize the model
+    this.model.disableNavigationBar = this.disableNavigationBar;
+    this.model.defaultStepIndex = this.defaultStepIndex;
+    this.model.updateWizardSteps(this.wizardSteps.toArray());
+    this.model.updateNavigationMode(this.navigationMode);
+
+    // finally reset the whole wizard state
+    this.navigation.reset();
   }
 }
