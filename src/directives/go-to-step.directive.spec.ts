@@ -15,13 +15,13 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
     <aw-wizard>
       <aw-wizard-step stepTitle='Steptitle 1' [canExit]="canExit">
         Step 1
-        <button type="button" awGoToStep="0" (preFinalize)="finalizeStep(1)">Stay at this step</button>
-        <button type="button" [awGoToStep]="goToSecondStep" (preFinalize)="finalizeStep(1)">Go to second step</button>
+        <button type="button" [awGoToStep]="{stepIndex: 0}" (preFinalize)="finalizeStep(1)">Stay at this step</button>
+        <button type="button" [awGoToStep]="{stepIndex: goToSecondStep}" (preFinalize)="finalizeStep(1)">Go to second step</button>
         <button type="button" [awGoToStep]="{stepOffset: 2}" (preFinalize)="finalizeStep(1)">Go to third step</button>
       </aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 2' awOptionalStep>
         Step 2
-        <button type="button" [awGoToStep]="'2'" (finalize)="finalizeStep(2)">Go to third step</button>
+        <button type="button" [awGoToStep]="{stepIndex: 2}" (finalize)="finalizeStep(2)">Go to third step</button>
         <button type="button" [awGoToStep]="{incorrectKey: 3}" (finalize)="finalizeStep(2)">Invalid Button</button>
       </aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 3'>
@@ -201,7 +201,7 @@ describe('GoToStepDirective', () => {
       .queryAll(By.directive(GoToStepDirective))[1].injector.get(GoToStepDirective) as GoToStepDirective;
 
     expect(() => invalidGoToAttribute.destinationStep)
-      .toThrow(new Error(`Input 'targetStep' is neither a WizardStep, StepOffset, number or string`));
+      .toThrow(new Error(`Input 'targetStep' is neither a WizardStep, StepOffset, StepIndex or StepId`));
   }));
 
   it('should return correct destination step for correct targetStep values', fakeAsync(() => {

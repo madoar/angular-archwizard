@@ -175,7 +175,18 @@ export class WizardState {
   }
 
   /**
-   * Find the index of the given [[WizardStep]] `step`.
+   * Finds the index of the step with the given `stepId`.
+   * If no step with the given `stepId` exists, `-1` is returned
+   *
+   * @param stepId The given step id
+   * @returns The found index of a step with the given step id, or `-1` if no step with the given id is included in the wizard
+   */
+  getIndexOfStepWithId(stepId: string): number {
+    return this.wizardSteps.findIndex(step => step.stepId === stepId);
+  }
+
+  /**
+   * Finds the index of the given [[WizardStep]] `step`.
    * If the given [[WizardStep]] is not contained inside this wizard, `-1` is returned
    *
    * @param step The given [[WizardStep]]

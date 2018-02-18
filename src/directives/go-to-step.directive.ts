@@ -4,10 +4,11 @@
 
 import {Directive, EventEmitter, HostListener, Input, Optional, Output} from '@angular/core';
 import {isStepOffset, StepOffset} from '../util/step-offset.interface';
-import {isNumber, isString} from 'util';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {isStepId, StepId} from '../util/step-id.interface';
+import {isStepIndex, StepIndex} from '../util/step-index.interface';
 
 /**
  * The `awGoToStep` directive can be used to navigate to a given step.
@@ -18,7 +19,7 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
  * With absolute step index:
  *
  * ```html
- * <button [awGoToStep]="absolute step index" (finalize)="finalize method">...</button>
+ * <button [awGoToStep]="{ stepIndex: absolute step index }" (finalize)="finalize method">...</button>
  * ```
  *
  * With a wizard step object:
@@ -75,9 +76,9 @@ export class GoToStepDirective {
    * a [[StepOffset]] between the current step and the `wizardStep`, in which this directive has been used,
    * or a step index as a number or string
    */
-  // tslint:disable-next-line:no-input-rename
+    // tslint:disable-next-line:no-input-rename
   @Input('awGoToStep')
-  public targetStep: WizardStep | StepOffset | number | string;
+  public targetStep: WizardStep | StepOffset | StepIndex | StepId;
 
   /**
    * The navigation mode
@@ -92,7 +93,8 @@ export class GoToStepDirective {
    * @param wizardState The wizard state
    * @param wizardStep The wizard step, which contains this [[GoToStepDirective]]
    */
-  constructor(private wizardState: WizardState, @Optional() private wizardStep: WizardStep) { }
+  constructor(private wizardState: WizardState, @Optional() private wizardStep: WizardStep) {
+  }
 
   /**
    * Returns the destination step of this directive as an absolute step index inside the wizard
@@ -103,16 +105,16 @@ export class GoToStepDirective {
   get destinationStep(): number {
     let destinationStep: number;
 
-    if (isNumber(this.targetStep)) {
-      destinationStep = this.targetStep as number;
-    } else if (isString(this.targetStep)) {
-      destinationStep = parseInt(this.targetStep as string, 10);
+    if (isStepIndex(this.targetStep)) {
+      destinationStep = this.targetStep.stepIndex;
+    } else if (isStepId(this.targetStep)) {
+      destinationStep = this.wizardState.getIndexOfStepWithId(this.targetStep.stepId);
     } else if (isStepOffset(this.targetStep) && this.wizardStep !== null) {
       destinationStep = this.wizardState.getIndexOfStep(this.wizardStep) + this.targetStep.stepOffset;
     } else if (this.targetStep instanceof WizardStep) {
       destinationStep = this.wizardState.getIndexOfStep(this.targetStep);
     } else {
-      throw new Error(`Input 'targetStep' is neither a WizardStep, StepOffset, number or string`);
+      throw new Error(`Input 'targetStep' is neither a WizardStep, StepOffset, StepIndex or StepId`);
     }
 
     return destinationStep;
@@ -122,7 +124,8 @@ export class GoToStepDirective {
    * Listener method for `click` events on the component with this directive.
    * After this method is called the wizard will try to transition to the `destinationStep`
    */
-  @HostListener('click', ['$event']) onClick(event: Event): void {
+  @HostListener('click', ['$event'])
+  onClick(event: Event): void {
     this.navigationMode.goToStep(this.destinationStep, this.preFinalize, this.postFinalize);
   }
 }
