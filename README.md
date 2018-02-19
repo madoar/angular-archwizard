@@ -133,6 +133,10 @@ Possible `<aw-wizard>` parameters:
 `ng2-archwizard` contains two ways to define a wizard step. 
 One of these two ways is by using the `<aw-wizard-step>` component. 
 
+#### \[stepId\]
+A wizard step can have its own unique id.
+This id can then be used to navigate to the step.
+
 #### \[stepTitle\]
 A wizard step needs to contain a title, which is shown in the navigation bar of the wizard. 
 To set the title of a step, add the `stepTitle` input attribute, with the choosen step title, to the definition of your wizard step. 
@@ -206,6 +210,7 @@ Possible `<aw-wizard-step>` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
+| [stepId]                      | `string`                                                                                             | null          |
 | [stepTitle]                   | `string`                                                                                             | null          |
 | [navigationSymbol]            | `string`                                                                                             | ''            |
 | [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
@@ -229,6 +234,7 @@ Possible `<aw-wizard-completion-step>` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
+| [stepId]                      | `string`                                                                                             | null          |
 | [stepTitle]                   | `string`                                                                                             | null          |
 | [navigationSymbol]            | `string`                                                                                             | ''            |
 | [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
@@ -284,27 +290,48 @@ When attaching the `awSelectedStep` directive to an arbitrary wizard step, it wi
 which is shown directly after the wizard startup.
 
 ### \[awGoToStep\]
-`ng2-archwizard` has three directives, that allow moving between steps.
+`ng2-archwizard` has three directives, which allow moving between steps.
 These directives are the `awPreviousStep`, `asNextStep` and `awGoToStep` directives.
-The `awGoToStep` directive needs to receive an argument, that tells the wizard to which step it should change, 
+
+The `awGoToStep` directive needs to receive an input, which tells the wizard, to which step it should navigate, 
 when the element with the `awGoToStep` directive has been clicked.
-This argument has to be the zero-based index of the destination step:
 
-```html
-<button awGoToStep="2" (finalize)="finalizeStep()">Go directly to the third Step</button>
-```
+This input accepts different arguments:
 
-In the previous example the button moves the user automatically to the third step, after the user pressed onto it.
-This makes it possible to directly jump to all already completed steps and to the first not completed optional or default (not optional) next step, 
-which will set the current as completed and makes it possible to jump over steps defined as optional steps.
+- a destination **step index**:
+   One possible argument for the input is a destination step index.
+   A destination step index is always zero-based, i.e. the index of the first step inside the wizard
+   is always zero.
+   
+   To pass a destination step index to an `awGoToStep` directive, 
+   you need to pass the following json object to the directive:
 
-Alternatively to an absolute step index, it's also possible to set the destination wizard step as an offset to the source step:
-```html
-<button [awGoToStep]="{stepOffset: 1}" (finalize)="finalizeStep()">Go to the third Step</button>
-```
-In this example a click on the "Go to the third Step" button will move the user to the next step compared to the step the button belongs to.
-If the button is for example part of the second step, a click on it will move the user to the third step.
-When using offsets it's important to use `[]` around the `awGoToStep` directive to tell angular that the argument is to be interpreted as javascript.
+   ```html
+   <button awGoToStep="{ stepIndex: 2 }" (finalize)="finalizeStep()">Go directly to the third Step</button>
+   ```
+- a destination **step id**:
+   Another possible argument for the input is a the unique step id of the destination step.
+   This step id can be set for all wizard steps through their input `[stepId]`.
+   
+   To pass a unique destination step id to an `awGoToStep` directive, 
+   you need to pass the following json object to the directive:
+
+   ```html
+   <button awGoToStep="{ stepId: 'unique id of the third step' }" (finalize)="finalizeStep()">Go directly to the third Step</button>
+   ```
+- a **step offset** between the current step and the destination step:
+   Alternatively to an absolute step index or an unique step id, 
+   it's also possible to set the destination wizard step as an offset to the source step:
+   
+   ```html
+   <button [awGoToStep]="{ stepOffset: 1 }" (finalize)="finalizeStep()">Go to the third Step</button>
+   ```
+   
+In all above examples a click on the "Go to the third Step" button will move 
+the user to the next step (the third step) compared to the step the button belongs to (the second step).
+If the button is part of the second step, a click on it will move the user to the third step.
+
+In all above cases it's important to use `[]` around the `awGoToStep` directive to tell angular that the argument is to be interpreted as javascript.
 
 In addition to a static value you can also pass a local variable from your component typescript class, 
 that contains to which step a click on the element should change the current step of the wizard. 
@@ -329,7 +356,7 @@ Possible parameters:
 
 | Parameter name    | Possible Values                                                   | Default Value |
 | ----------------- | ----------------------------------------------------------------- | ------------- |
-| [goToStep]        | `WizardStep | StepOffset | number | string`                       | null          |
+| [goToStep]        | `WizardStep | StepOffset | StepIndex | StepId`                    | null          |
 | (preFinalize)     | `function(): void`                                                | null          |
 | (postFinalize)    | `function(): void`                                                | null          |
 | (finalize)        | `function(): void`                                                | null          |
@@ -399,6 +426,7 @@ Possible `awWizardStep` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
+| [stepId]                      | `string`                                                                                             | null          |
 | [stepTitle]                   | `string`                                                                                             | null          |
 | [navigationSymbol]            | `string`                                                                                             | ''            |
 | [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
@@ -424,10 +452,11 @@ that contains the wizard completion step.
 ```
 
 #### Parameter overview
-Possible `wizardCompletionStep` parameters:
+Possible `awWizardCompletionStep` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
+| [stepId]                      | `string`                                                                                             | null          |
 | [stepTitle]                   | `string`                                                                                             | null          |
 | [navigationSymbol]            | `string`                                                                                             | ''            |
 | [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
