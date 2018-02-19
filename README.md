@@ -45,7 +45,7 @@ To use this wizard component in an angular project simply add a `aw-wizard` comp
   <aw-wizard-step stepTitle="Title of step 1">
     Content of Step 1
     <button type="button" awNextStep>Next Step</button>
-    <button type="button" awGoToStep="2">Go directly to third Step</button>
+    <button type="button" [awGoToStep]="{stepIndex: 2}">Go directly to third Step</button>
   </aw-wizard-step>
   <aw-wizard-step stepTitle="Title of step 2" awOptionalStep>
     Content of Step 2
@@ -111,11 +111,16 @@ To layout the steps from right to left you can pass `right-to-left` to the `navB
 #### \[defaultStepIndex\]
 Per default the wizard always starts with the first wizard step, after initialisation. The same applies for a reset, where the wizard normally resets to the first step.
 Sometimes this needs to be changed. If another default wizard step needs to be used, you can set it, by using the `[defaultStepIndex]` input of the wizard component.
-For example, to start the wizard in the second step, `defaultStepIndex="2"` needs to be set.
+For example, to start the wizard in the second step, `[defaultStepIndex]="2"` needs to be set.
+
+Please be aware, that angular will interpret the given input value as a string if it's not enclosed by `[]`!
 
 #### \[disableNavigationBar\]
 Sometimes it may be necessary to disable navigation via the navigation bar.
-In such a case you can disable navigation via the navigation bar by setting the input `disableNavigationBar` of the wizard component to `true`.
+In such a case you can disable navigation via the navigation bar by setting the input `[disableNavigationBar]` of the wizard component to `true`.
+
+After disabling the navigation bar, the user can't use the navigation bar anymore to navigate between steps.
+Disabling the navigation bar doesn't restrict the use of elements (buttons or links) with an `awNextStep`, `awPreviousStep` or `awGoToStep` directive.
 
 #### Parameter overview
 Possible `<aw-wizard>` parameters:
@@ -307,7 +312,7 @@ This input accepts different arguments:
    you need to pass the following json object to the directive:
 
    ```html
-   <button awGoToStep="{ stepIndex: 2 }" (finalize)="finalizeStep()">Go directly to the third Step</button>
+   <button [awGoToStep]="{ stepIndex: 2 }" (finalize)="finalizeStep()">Go directly to the third Step</button>
    ```
 - a destination **step id**:
    Another possible argument for the input is a the unique step id of the destination step.
@@ -317,7 +322,7 @@ This input accepts different arguments:
    you need to pass the following json object to the directive:
 
    ```html
-   <button awGoToStep="{ stepId: 'unique id of the third step' }" (finalize)="finalizeStep()">Go directly to the third Step</button>
+   <button [awGoToStep]="{ stepId: 'unique id of the third step' }" (finalize)="finalizeStep()">Go directly to the third Step</button>
    ```
 - a **step offset** between the current step and the destination step:
    Alternatively to an absolute step index or an unique step id, 
@@ -487,15 +492,8 @@ In such a case you can get the instance of the used wizard component in your own
 public wizard: WizardComponent;
 ```
 
-In case you've created your own wizard step component with the `awWizardStep` directive,
-you can inject the state of your wizard in your own component:
-```typescript
-constructor(private wizardState: WizardState)
-```
-
-Through the `WizardState` object you can access the navigation mode of your wizard, 
-which allows you to navigate the wizard programmatically.
-Both instances, the wizard state and the navigation mode, can also be obtained from the injected `WizardComponent`.
+After obtaining a `WizardComponent` object you can then obtain the wizard state via `wizard.model` and 
+the navigation mode via `wizard.navigation`.
 
 ### Customizing the wizard stylesheets
 Sometimes you like to use your own custom CSS for some parts of the wizard like its navigation bar. 
