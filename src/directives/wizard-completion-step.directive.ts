@@ -6,14 +6,14 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  * The `awWizardCompletionStep` directive can be used to define a completion/success step at the end of your wizard
  * After a [[WizardCompletionStep]] has been entered, it has the characteristic that the user is blocked from
  * leaving it again to a previous step.
- * In addition entering a [[WizardCompletionStep]] automatically sets the `wizard` amd all steps inside the `wizard`
+ * In addition entering a [[WizardCompletionStep]] automatically sets the `wizard`, and all steps inside the `wizard`,
  * as completed.
  *
  * ### Syntax
  *
  * ```html
- * <div awWizardCompletionStep [stepTitle]="title of the wizard step" [navigationSymbol]="navigation symbol"
- *    [navigationSymbolFontFamily]="navigation symbol font family"
+ * <div awWizardCompletionStep [stepTitle]="title of the wizard step"
+ *    [navigationSymbol]="{ symbol: 'navigation symbol', fontFamily: 'font-family' }"
  *    (stepEnter)="event emitter to be called when the wizard step is entered"
  *    (stepExit)="event emitter to be called when the wizard step is exited">
  *    ...
@@ -23,7 +23,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  * ### Example
  *
  * ```html
- * <div awWizardCompletionStep stepTitle="Step 1" navigationSymbol="1">
+ * <div awWizardCompletionStep stepTitle="Step 1" [navigationSymbol]="{ symbol: '1' }">
  *    ...
  * </div>
  * ```
@@ -31,7 +31,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  * With a navigation symbol from the `font-awesome` font:
  *
  * ```html
- * <div awWizardCompletionStep stepTitle="Step 1" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ * <div awWizardCompletionStep stepTitle="Step 1" [navigationSymbol]="{ symbol: '&#xf1ba;', fontFamily: 'FontAwesome' }">
  *    ...
  * </div>
  * ```

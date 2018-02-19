@@ -9,7 +9,7 @@ import {WizardStep} from '../util/wizard-step.interface';
  * With `stepTitle` input:
  *
  * ```html
- * <div awWizardStep [stepTitle]="step title" [navigationSymbol]="symbol" [navigationSymbolFontFamily]="font-family"
+ * <div awWizardStep [stepTitle]="step title" [navigationSymbol]="{ symbol: 'symbol', fontFamily: 'font-family' }"
  *    [canExit]="deciding function" (stepEnter)="enter function" (stepExit)="exit function">
  *    ...
  * </div>
@@ -18,7 +18,7 @@ import {WizardStep} from '../util/wizard-step.interface';
  * With `awWizardStepTitle` directive:
  *
  * ```html
- * <div awWizardStep [navigationSymbol]="symbol" [navigationSymbolFontFamily]="font-family"
+ * <div awWizardStep [navigationSymbol]="{ symbol: 'symbol', fontFamily: 'font-family' }"
  *    [canExit]="deciding function" (stepEnter)="enter function" (stepExit)="exit function">
  *    <ng-template awWizardStepTitle>
  *        step title
@@ -32,7 +32,7 @@ import {WizardStep} from '../util/wizard-step.interface';
  * With `stepTitle` input:
  *
  * ```html
- * <div awWizardStep stepTitle="Address information" navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ * <div awWizardStep stepTitle="Address information" [navigationSymbol]="{ symbol: '&#xf1ba;', fontFamily: 'FontAwesome' }">
  *    ...
  * </div>
  * ```
@@ -40,7 +40,7 @@ import {WizardStep} from '../util/wizard-step.interface';
  * With `awWizardStepTitle` directive:
  *
  * ```html
- * <div awWizardStep navigationSymbol="&#xf1ba;" navigationSymbolFontFamily="FontAwesome">
+ * <div awWizardStep [navigationSymbol]="{ symbol: '&#xf1ba;', fontFamily: 'FontAwesome' }">
  *    <ng-template awWizardStepTitle>
  *        Address information
  *    </ng-template>

@@ -147,15 +147,16 @@ A wizard step needs to contain a title, which is shown in the navigation bar of 
 To set the title of a step, add the `stepTitle` input attribute, with the choosen step title, to the definition of your wizard step. 
 
 #### \[navigationSymbol\]
-Sometimes it's useful to add a symbol in the center of the circle in the navigation bar, that belongs to the step.
-`ng2-archwizard` supports this through the `navigationSymbol` input attribute of the wizard step.
+Sometimes it's useful to add a symbol in the center of the circle in the navigation bar, which belongs to the step.
+`ng2-archwizard` supports this through the `[navigationSymbol]` input attribute of the wizard step.
 
-Be aware, that not all layouts display the symbols. Only the layouts `large-filled-symbols` and `large-empty-symbols` display the symbols.
+Be aware, that not all layouts display the symbols. 
+Only the layouts `large-filled-symbols` and `large-empty-symbols` display the symbols!
 
-If you want to add a `2` to the circle in the navigation bar belonging to the second step you can do it like this:
+If you want to add a `2` to the circle in the navigation bar belonging to the second step, you can do it like this:
 
 ```html
-<aw-wizard-step stepTitle="Second Step" navigationSymbol="2"></aw-wizard-step>
+<aw-wizard-step stepTitle="Second Step" [navigationSymbol]="{ symbol: '2' }"></aw-wizard-step>
 ```
 
 In addition to normal symbols it's also possible to use an icon from a font as a symbol.
@@ -164,15 +165,12 @@ Afterwards you can use the unicode in the [numeric character reference](https://
 format as the symbol for the step.
 In addition you need to specify the font family, to which the icon belongs, otherwise the symbol can't be displayed correctly.
 
-#### \[navigationSymbolFontFamily\]
-To specify the font family of the used symbol inside the center of the circle in the navigation bar, that belongs to a step, you need to set the 
-`navigationSymbolFontFamily` input attribute of the step.
-
-For example, if you want to show the icon with the unicode `\f2dd` of [FontAwesome](http://fontawesome.io/) inside a step circle in the navigation bar, then 
-you need to set the `navigationSymbol` input attribute of the step to `&#xf2dd;` and the `navigationSymbolFontFamily` to `FontAwesome`:
+The font family of the used symbol can be specified via the `fontFamily` field of the given `[navigationSymbol]` json input object.
+For example, if you want to show the icon with the unicode `\f2dd` of [FontAwesome](http://fontawesome.io/) inside a step circle in the navigation bar, then
+you can do this via the following `[navigationSymbol]` input attribute:
 
 ```html
-<aw-wizard-step stepTitle="Second Step" navigationSymbol="&#xf2dd;" navigationSymbolFontFamily="FontAwesome"></aw-wizard-step>
+<aw-wizard-step stepTitle="Second Step" [navigationSymbol]="{ symbol: '&#xf2dd;' fontFamily: 'FontAwesome' }"></aw-wizard-step>
 ```
 
 #### \[canEnter\]
@@ -218,7 +216,6 @@ Possible `<aw-wizard-step>` parameters:
 | [stepId]                      | `string`                                                                                             | null          |
 | [stepTitle]                   | `string`                                                                                             | null          |
 | [navigationSymbol]            | `string`                                                                                             | ''            |
-| [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
 | [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | [canExit]                     | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
@@ -242,7 +239,6 @@ Possible `<aw-wizard-completion-step>` parameters:
 | [stepId]                      | `string`                                                                                             | null          |
 | [stepTitle]                   | `string`                                                                                             | null          |
 | [navigationSymbol]            | `string`                                                                                             | ''            |
-| [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
 | [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 
@@ -434,7 +430,6 @@ Possible `awWizardStep` parameters:
 | [stepId]                      | `string`                                                                                             | null          |
 | [stepTitle]                   | `string`                                                                                             | null          |
 | [navigationSymbol]            | `string`                                                                                             | ''            |
-| [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
 | [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | [canExit]                     | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
@@ -464,7 +459,6 @@ Possible `awWizardCompletionStep` parameters:
 | [stepId]                      | `string`                                                                                             | null          |
 | [stepTitle]                   | `string`                                                                                             | null          |
 | [navigationSymbol]            | `string`                                                                                             | ''            |
-| [navigationSymbolFontFamily]  | `string`                                                                                             | null          |
 | [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
 
