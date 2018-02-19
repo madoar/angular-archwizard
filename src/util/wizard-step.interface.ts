@@ -18,6 +18,12 @@ export abstract class WizardStep {
   public stepTitleTemplate: WizardStepTitleDirective;
 
   /**
+   * A step id, unique to the step
+   */
+  @Input()
+  public stepId: string;
+
+  /**
    * A step title property, which contains the visible header title of the step.
    * This title is only shown inside the navigation bar, if `stepTitleTemplate` is not defined or null.
    */
