@@ -22,13 +22,19 @@ import {isStepIndex, StepIndex} from '../util/step-index.interface';
  * <button [awGoToStep]="{ stepIndex: absolute step index }" (finalize)="finalize method">...</button>
  * ```
  *
+ * With unique step id:
+ *
+ * ```html
+ * <button [awGoToStep]="{ stepId: 'step id of destination step' }" (finalize)="finalize method">...</button>
+ * ```
+ *
  * With a wizard step object:
  *
  * ```html
  * <button [awGoToStep]="wizard step object" (finalize)="finalize method">...</button>
  * ```
  *
- * With an offset to the defining step
+ * With an offset to the defining step:
  *
  * ```html
  * <button [awGoToStep]="{ stepOffset: offset }" (finalize)="finalize method">...</button>
