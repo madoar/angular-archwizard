@@ -2,6 +2,7 @@ import {MovingDirection} from './moving-direction.enum';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 import {ContentChild, EventEmitter, HostBinding, Input, Output} from '@angular/core';
 import {isBoolean} from 'util';
+import {NavigationSymbol} from './navigation-symbol.interface';
 
 /**
  * Basic functionality every type of wizard step needs to provide
@@ -32,17 +33,9 @@ export abstract class WizardStep {
 
   /**
    * A symbol property, which contains an optional symbol for the step inside the navigation bar.
-   * If no navigation symbol is specified, an empty string should be used
    */
   @Input()
-  public navigationSymbol = '';
-
-  /**
-   * The font family belonging to the `navigationSymbol`.
-   * If no font family is specified, null should be used
-   */
-  @Input()
-  public navigationSymbolFontFamily: string;
+  public navigationSymbol: NavigationSymbol = { symbol: '' };
 
   /**
    * A boolean describing if the wizard step has been completed
