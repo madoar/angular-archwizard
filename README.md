@@ -211,15 +211,15 @@ either by pressing on a component with an `awNextStep` or `awPreviousStep` direc
 #### Parameter overview
 Possible `<aw-wizard-step>` parameters:
 
-| Parameter name                | Possible Values                                                                                      | Default Value |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| [stepId]                      | `string`                                                                                             | null          |
-| [stepTitle]                   | `string`                                                                                             | null          |
-| [navigationSymbol]            | `string`                                                                                             | ''            |
-| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
-| [canExit]                     | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
-| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
-| (stepExit)                    | `function(MovingDirection): void`                                                                    | null          |
+| Parameter name                | Possible Values                                                                                      | Default Value  |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
+| [stepId]                      | `string`                                                                                             | null           |
+| [stepTitle]                   | `string`                                                                                             | null           |
+| [navigationSymbol]            | `{symbol: string, fontFamily?: string}`                                                              | `{symbol: ''}` |
+| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true           |
+| [canExit]                     | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true           |
+| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null           |
+| (stepExit)                    | `function(MovingDirection): void`                                                                    | null           |
 
 ### \<aw-wizard-completion-step\>
 In addition to the "normal" step component `<aw-wizard-step>` it's also possible to define an optional `<aw-wizard-completion-step>`.
@@ -234,13 +234,13 @@ because it can't be exited.
 #### Parameter overview
 Possible `<aw-wizard-completion-step>` parameters:
 
-| Parameter name                | Possible Values                                                                                      | Default Value |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| [stepId]                      | `string`                                                                                             | null          |
-| [stepTitle]                   | `string`                                                                                             | null          |
-| [navigationSymbol]            | `string`                                                                                             | ''            |
-| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
-| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
+| Parameter name                | Possible Values                                                                                      | Default Value  |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
+| [stepId]                      | `string`                                                                                             | null           |
+| [stepTitle]                   | `string`                                                                                             | null           |
+| [navigationSymbol]            | `{symbol: string, fontFamily?: string}`                                                              | `{symbol: ''}` |
+| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true           |
+| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null           |
 
 ## Directives
 
@@ -425,15 +425,15 @@ This can be done by defining adding the `awWizardStep` directive to the componen
 #### Parameter overview
 Possible `awWizardStep` parameters:
 
-| Parameter name                | Possible Values                                                                                      | Default Value |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| [stepId]                      | `string`                                                                                             | null          |
-| [stepTitle]                   | `string`                                                                                             | null          |
-| [navigationSymbol]            | `string`                                                                                             | ''            |
-| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
-| [canExit]                     | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
-| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
-| (stepExit)                    | `function(MovingDirection): void`                                                                    | null          |
+| Parameter name                | Possible Values                                                                                      | Default Value  |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
+| [stepId]                      | `string`                                                                                             | null           |
+| [stepTitle]                   | `string`                                                                                             | null           |
+| [navigationSymbol]            | `{symbol: string, fontFamily?: string}`                                                              | `{symbol: ''}` |
+| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true           |
+| [canExit]                     | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true           |
+| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null           |
+| (stepExit)                    | `function(MovingDirection): void`                                                                    | null           |
 
 ### \[awWizardCompletionStep\]
 In addition to the possibility of defining a normal wizard step in a custom component, 
@@ -454,13 +454,13 @@ that contains the wizard completion step.
 #### Parameter overview
 Possible `awWizardCompletionStep` parameters:
 
-| Parameter name                | Possible Values                                                                                      | Default Value |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| [stepId]                      | `string`                                                                                             | null          |
-| [stepTitle]                   | `string`                                                                                             | null          |
-| [navigationSymbol]            | `string`                                                                                             | ''            |
-| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true          |
-| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null          |
+| Parameter name                | Possible Values                                                                                      | Default Value  |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
+| [stepId]                      | `string`                                                                                             | null           |
+| [stepTitle]                   | `string`                                                                                             | null           |
+| [navigationSymbol]            | `{symbol: string, fontFamily?: string}`                                                              | `{symbol: ''}` |
+| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true           |
+| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null           |
 
 ### \[awResetWizard\]
 Sometimes it's also required to reset the wizard to its initial state.
@@ -486,8 +486,8 @@ In such a case you can get the instance of the used wizard component in your own
 public wizard: WizardComponent;
 ```
 
-After obtaining a `WizardComponent` object you can then obtain the wizard state via `wizard.model` and 
-the navigation mode via `wizard.navigation`.
+After obtaining a `WizardComponent` object, you can then obtain the `WizardState` instance of the wizard via `wizard.model` and 
+the `NavigationMode` instance via `wizard.navigation`.
 
 ### Customizing the wizard stylesheets
 Sometimes you like to use your own custom CSS for some parts of the wizard like its navigation bar. 
