@@ -36,8 +36,7 @@
     "pretest": "npm run lint",
     "test": "karma start",
     "test-watch": "karma start --no-single-run --auto-watch",
-    "build": "ng-packagr -p ng-package.json",
-    "prepublish": "npm run build"
+    "build": "ng-packagr -p ng-package.json"
   },
   "devDependencies": {
     "@angular/common": "^5.2.1",
