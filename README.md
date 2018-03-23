@@ -20,7 +20,7 @@ Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github
 
 ## Installation
 
-`angular-archwizard` is available as an NPM package. To install `angular-archwizard` in your project directory run:
+`angular-archwizard` is available as a NPM package. To install `angular-archwizard` in your project directory run:
 ```
 $ npm install --save angular-archwizard
 ```
