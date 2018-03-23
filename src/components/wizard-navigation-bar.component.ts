@@ -53,7 +53,7 @@ export class WizardNavigationBarComponent {
   get wizardSteps(): Array<WizardStep> {
     switch (this.direction) {
       case 'right-to-left':
-        return this.wizardState.wizardSteps.reverse();
+        return this.wizardState.wizardSteps.slice().reverse();
       case 'left-to-right':
       default:
         return this.wizardState.wizardSteps;
