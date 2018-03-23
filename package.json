@@ -1,19 +1,19 @@
 {
-  "name": "ng2-archwizard",
+  "name": "angular-archwizard",
   "version": "3.0.0-develop",
   "license": "MIT",
   "description": "An angular 2+ module containing a wizard component and its supporting components and directives",
-  "homepage": "https://github.com/madoar/ng2-archwizard",
+  "homepage": "https://github.com/madoar/angular-archwizard",
   "author": {
     "name": "Marc Arndt",
     "email": "marc.arndt@masimi.de"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/madoar/ng2-archwizard"
+    "url": "https://github.com/madoar/angular-archwizard"
   },
   "bugs": {
-    "url": "https://github.com/madoar/ng2-archwizard/issues"
+    "url": "https://github.com/madoar/angular-archwizard/issues"
   },
   "keywords": [
     "angular",

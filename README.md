@@ -1,12 +1,12 @@
-# Overview ng2-archwizard
+# Overview angular-archwizard (previously known as ng2-archwizard)
 
-[![Build Status](https://travis-ci.org/madoar/ng2-archwizard.svg?branch=master)](https://travis-ci.org/madoar/ng2-archwizard)
-[![Dependency Status](https://david-dm.org/madoar/ng2-archwizard.svg)](https://david-dm.org/madoar/ng2-archwizard)
-[![Dev-Dependency Status](https://david-dm.org/madoar/ng2-archwizard/dev-status.svg)](https://david-dm.org/madoar/ng2-archwizard?type=dev)
-[![Dependency Licence Status](https://dependencyci.com/github/madoar/ng2-archwizard/badge)](https://dependencyci.com/github/madoar/ng2-archwizard)
-[![Code Climate](https://codeclimate.com/github/madoar/ng2-archwizard/badges/gpa.svg)](https://codeclimate.com/github/madoar/ng2-archwizard)
-[![Test Coverage](https://codeclimate.com/github/madoar/ng2-archwizard/badges/coverage.svg)](https://codeclimate.com/github/madoar/ng2-archwizard/coverage)
-[![NPM Version](https://img.shields.io/npm/v/ng2-archwizard.svg)](https://www.npmjs.com/package/ng2-archwizard)
+[![Build Status](https://travis-ci.org/madoar/angular-archwizard.svg?branch=master)](https://travis-ci.org/madoar/angular-archwizard)
+[![Dependency Status](https://david-dm.org/madoar/angular-archwizard.svg)](https://david-dm.org/madoar/angular-archwizard)
+[![Dev-Dependency Status](https://david-dm.org/madoar/angular-archwizard/dev-status.svg)](https://david-dm.org/madoar/angular-archwizard?type=dev)
+[![Dependency Licence Status](https://dependencyci.com/github/madoar/angular-archwizard/badge)](https://dependencyci.com/github/madoar/angular-archwizard)
+[![Code Climate](https://codeclimate.com/github/madoar/angular-archwizard/badges/gpa.svg)](https://codeclimate.com/github/madoar/angular-archwizard)
+[![Test Coverage](https://codeclimate.com/github/madoar/angular-archwizard/badges/coverage.svg)](https://codeclimate.com/github/madoar/angular-archwizard/coverage)
+[![NPM Version](https://img.shields.io/npm/v/angular-archwizard.svg)](https://www.npmjs.com/package/angular-archwizard)
 
 This project contains a functional module with a wizard component and some supportive components and directives for [Angular](https://angular.io/).
 
@@ -20,14 +20,14 @@ Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github
 
 ## Installation
 
-`ng2-archwizard` is available as an NPM package. To install `ng2-archwizard` in your project directory run:
+`angular-archwizard` is available as an NPM package. To install `angular-archwizard` in your project directory run:
 ```
-$ npm install --save ng2-archwizard
+$ npm install --save angular-archwizard
 ```
 
-Afterwards you can import `ng2-archwizard` in your angular project by adding the `ArchwizardModule` to your Module declaration as followed:
+Afterwards you can import `angular-archwizard` in your angular project by adding the `ArchwizardModule` to your Module declaration as followed:
 ```typescript
-import { ArchwizardModule } from 'ng2-archwizard';
+import { ArchwizardModule } from 'angular-archwizard';
 
 @NgModule({
   imports: [
@@ -64,7 +64,7 @@ To use this wizard component in an angular project simply add a `aw-wizard` comp
 
 ### \<aw-wizard\>
 The `<aw-wizard>` environment is the environment, in which you define the steps belonging to your wizard.
-In addition to the contained wizard steps, `ng2-archwizard` enables you to define the location and the layout of the navigation bar inside your wizard.
+In addition to the contained wizard steps, `angular-archwizard` enables you to define the location and the layout of the navigation bar inside your wizard.
 To set the location, the layout of the navigation bar and many other settings, you can pass the following parameters to the `aw-wizard` component:
 
 #### \[navBarLocation\]
@@ -89,7 +89,7 @@ In some cases, like with languages that are written from right to left, it may b
 To layout the steps from right to left you can pass `right-to-left` to the `navBarDirection` input of the wizard component.
 
 #### \[navigationMode\]
-`ng2-archwizard` supports three different navigation modes:
+`angular-archwizard` supports three different navigation modes:
 - **strict** navigation mode: 
    The first navigation mode is strict navigation. 
    This mode describes the status quo, i.e. the current navigation behavior of the wizard. 
@@ -135,7 +135,7 @@ Possible `<aw-wizard>` parameters:
 | [disableNavigationBar] | `boolean`                                                                                             | false         |
 
 ### \<aw-wizard-step\>
-`ng2-archwizard` contains two ways to define a wizard step. 
+`angular-archwizard` contains two ways to define a wizard step. 
 One of these two ways is by using the `<aw-wizard-step>` component. 
 
 #### \[stepId\]
@@ -148,7 +148,7 @@ To set the title of a step, add the `stepTitle` input attribute, with the choose
 
 #### \[navigationSymbol\]
 Sometimes it's useful to add a symbol in the center of the circle in the navigation bar, which belongs to the step.
-`ng2-archwizard` supports this through the `[navigationSymbol]` input attribute of the wizard step.
+`angular-archwizard` supports this through the `[navigationSymbol]` input attribute of the wizard step.
 
 Be aware, that not all layouts display the symbols. 
 Only the layouts `large-filled-symbols` and `large-empty-symbols` display the symbols!
@@ -291,7 +291,7 @@ When attaching the `awSelectedStep` directive to an arbitrary wizard step, it wi
 which is shown directly after the wizard startup.
 
 ### \[awGoToStep\]
-`ng2-archwizard` has three directives, which allow moving between steps.
+`angular-archwizard` has three directives, which allow moving between steps.
 These directives are the `awPreviousStep`, `asNextStep` and `awGoToStep` directives.
 
 The `awGoToStep` directive needs to receive an input, which tells the wizard, to which step it should navigate, 
@@ -509,8 +509,8 @@ Different ways are possible:
 When overriding css properties already defined in the existing navigation bar layouts, it is required to use `!important`. 
 In addition it is required to add `encapsulation: ViewEncapsulation.None` to the component, that defines the wizard and overrides its layout. 
 For additional information about how to write your own navigation bar please take a look at the existing navigation bar layouts, which can be found at
-https://github.com/madoar/ng2-archwizard/blob/master/src/components/wizard-navigation-bar.component.horizontal.less and 
-https://github.com/madoar/ng2-archwizard/blob/master/src/components/wizard-navigation-bar.component.vertical.less.
+https://github.com/madoar/angular-archwizard/blob/master/src/components/wizard-navigation-bar.component.horizontal.less and 
+https://github.com/madoar/angular-archwizard/blob/master/src/components/wizard-navigation-bar.component.vertical.less.
 
 ### Working with dynamically inserted and removed steps
 In some cases it may be required to remove or insert one or multiple steps after the wizard initialization, 
@@ -536,6 +536,6 @@ Please be also sure to not remove the step, the wizard is currently displaying, 
 invalid state, which may lead to strange and unexpected behavior.
 
 ## Example
-You can find an basic example project using `ng2-archwizard` [here](https://madoar.github.io/ng2-archwizard-demo). 
-The sources for the example can be found in the [ng2-archwizard-demo](https://github.com/madoar/ng2-archwizard-demo) repository.
+You can find an basic example project using `angular-archwizard` [here](https://madoar.github.io/angular-archwizard-demo). 
+The sources for the example can be found in the [angular-archwizard-demo](https://github.com/madoar/angular-archwizard-demo) repository.
 It illustrates how the wizard looks like and how the different settings can change its layout and behavior.

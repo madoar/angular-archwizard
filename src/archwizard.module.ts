@@ -18,7 +18,7 @@ import {SelectedStepDirective} from './directives/selected-step.directive';
 import {ResetWizardDirective} from './directives/reset-wizard.directive';
 
 /**
- * The module defining all the content inside `ng2-archwizard`
+ * The module defining all the content inside `angular-archwizard`
  *
  * @author Marc Arndt
  */
