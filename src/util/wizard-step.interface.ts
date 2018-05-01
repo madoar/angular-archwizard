@@ -1,8 +1,14 @@
-import {MovingDirection} from './moving-direction.enum';
-import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
-import {ContentChild, EventEmitter, HostBinding, Input, Output} from '@angular/core';
-import {isBoolean} from 'util';
-import {NavigationSymbol} from './navigation-symbol.interface';
+import { MovingDirection } from './moving-direction.enum';
+import { WizardStepTitleDirective } from '../directives/wizard-step-title.directive';
+import {
+  ContentChild,
+  EventEmitter,
+  HostBinding,
+  Input,
+  Output
+} from '@angular/core';
+import { isBoolean } from 'util';
+import { NavigationSymbol } from './navigation-symbol.interface';
 
 /**
  * Basic functionality every type of wizard step needs to provide
@@ -21,21 +27,18 @@ export abstract class WizardStep {
   /**
    * A step id, unique to the step
    */
-  @Input()
-  public stepId: string;
+  @Input() public stepId: string;
 
   /**
    * A step title property, which contains the visible header title of the step.
    * This title is only shown inside the navigation bar, if `stepTitleTemplate` is not defined or null.
    */
-  @Input()
-  public stepTitle: string;
+  @Input() public stepTitle: string;
 
   /**
    * A symbol property, which contains an optional symbol for the step inside the navigation bar.
    */
-  @Input()
-  public navigationSymbol: NavigationSymbol = { symbol: '' };
+  @Input() public navigationSymbol: NavigationSymbol = { symbol: '' };
 
   /**
    * A boolean describing if the wizard step has been completed
@@ -61,33 +64,43 @@ export abstract class WizardStep {
    * A function or boolean deciding, if this step can be entered
    */
   @Input()
-  public canEnter: ((direction: MovingDirection) => boolean) | ((direction: MovingDirection) => Promise<boolean>) | boolean = true;
+  public canEnter:
+    | ((direction: MovingDirection) => boolean)
+    | ((direction: MovingDirection) => Promise<boolean>)
+    | boolean = true;
 
   /**
    * A function or boolean deciding, if this step can be exited
    */
   @Input()
-  public canExit: ((direction: MovingDirection) => boolean) | ((direction: MovingDirection) => Promise<boolean>) | boolean = true;
+  public canExit:
+    | ((direction: MovingDirection) => boolean)
+    | ((direction: MovingDirection) => Promise<boolean>)
+    | boolean = true;
 
   /**
    * This [[EventEmitter]] is called when the step is entered.
    * The bound method should be used to do initialization work.
    */
   @Output()
-  public stepEnter: EventEmitter<MovingDirection> = new EventEmitter<MovingDirection>();
+  public stepEnter: EventEmitter<MovingDirection> = new EventEmitter<
+    MovingDirection
+  >();
 
   /**
    * This [[EventEmitter]] is called when the step is exited.
    * The bound method can be used to do cleanup work.
    */
   @Output()
-  public stepExit: EventEmitter<MovingDirection> = new EventEmitter<MovingDirection>();
+  public stepExit: EventEmitter<MovingDirection> = new EventEmitter<
+    MovingDirection
+  >();
 
   /**
    * Returns if this wizard step should be visible to the user.
    * If the step should be visible to the user false is returned, otherwise true
    */
-  @HostBinding('hidden')
+  @HostBinding('class.hidden')
   public get hidden(): boolean {
     return !this.selected;
   }
@@ -101,16 +114,23 @@ export abstract class WizardStep {
    * @returns A [[Promise]] containing `true`, if this step can transitioned in the given direction
    * @throws An `Error` is thrown if `condition` is neither a function nor a boolean
    */
-  private static canTransitionStep(condition: ((direction: MovingDirection) => boolean) |
-                                     ((direction: MovingDirection) => Promise<boolean>) |
-                                     boolean,
-                                   direction: MovingDirection): Promise<boolean> {
+  private static canTransitionStep(
+    condition:
+      | ((direction: MovingDirection) => boolean)
+      | ((direction: MovingDirection) => Promise<boolean>)
+      | boolean,
+    direction: MovingDirection
+  ): Promise<boolean> {
     if (isBoolean(condition)) {
       return Promise.resolve(condition as boolean);
     } else if (condition instanceof Function) {
       return Promise.resolve(condition(direction));
     } else {
-      return Promise.reject(new Error(`Input value '${condition}' is neither a boolean nor a function`));
+      return Promise.reject(
+        new Error(
+          `Input value '${condition}' is neither a boolean nor a function`
+        )
+      );
     }
   }
 
