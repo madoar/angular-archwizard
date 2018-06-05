@@ -116,7 +116,7 @@ export class WizardNavigationBarComponent {
    * @returns True if the step can be marked as optional
    */
   public isOptional(wizardStep: WizardStep): boolean {
-    return wizardStep.optional && !wizardStep.completed && !wizardStep.selected && !this.wizardState.completed
+    return wizardStep.optional;
   }
 
   /**
