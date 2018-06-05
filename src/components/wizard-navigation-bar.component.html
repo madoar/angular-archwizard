@@ -10,12 +10,25 @@
         done: isDone(step),
         editing: isEditing(step),
         optional: isOptional(step),
-        navigable: isNavigable(step)
+        navigable: isNavigable(step),
+        completion: isCompletionStep(step)
   }">
     <div>
       <a [awGoToStep]="step">
         <ng-container *ngIf="step.stepTitleTemplate" [ngTemplateOutlet]="step.stepTitleTemplate.templateRef"></ng-container>
-        <ng-container *ngIf="!step.stepTitleTemplate">{{step.stepTitle}}</ng-container>
+        <ng-container *ngIf="!step.stepTitleTemplate">
+          {{step.stepTitle}}
+          <div style="margin-top: 15px; font-weight: 300;">{{ (isDefault(step))  ? 'default'  : '' }}</div>
+          <div style="font-weight: 300;">{{ (isCurrent(step))  ? 'current'  : '' }}</div>
+          <div style="font-weight: 300; text-decoration: underline;">{{ (isDone(step))     ? 'done'     : '' }}</div>
+          <div style="font-weight: 300;">{{ (isEditing(step))  ? 'editing'  : '' }}</div>
+          <div style="font-weight: 300;">{{ (isOptional(step)) ? 'optional' : '' }}</div>
+          <div style="font-weight: 300;">{{ (isNavigable(step))? 'navigable': '' }}</div>
+          <div style="margin-top: 15px; font-weight: 300; text-transform: lowercase;">{{ (isCompletionStep(step)) ? 'completion step' : '' }}</div>
+          <div style="font-weight: 300; text-transform: lowercase;">{{ (step.completed) ? 'completed' : '' }}</div>
+          <div style="font-weight: 300; text-transform: lowercase;">{{ (step.selected)  ? 'selected' : '' }}</div>
+          <div style="font-weight: 300; text-transform: lowercase;">{{ (step.optional)  ? 'optional' : '' }}</div>
+        </ng-container>
       </a>
     </div>
   </li>
