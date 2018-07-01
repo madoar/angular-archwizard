@@ -120,12 +120,12 @@ aw-wizard-navigation-bar.horizontal {
           .line(@small-dot-width, @small-dot-height, @wz-color-default);
         }
 
-        & div a:before {
+        div a:before {
           .state-circle(@small-dot-width, @small-dot-height, 0);
           .state-circle-with-background(@wz-color-default);
         }
 
-        & div a:hover:before {
+        div a:hover:before {
           .state-circle-hover(@small-dot-width, @small-dot-height, 0);
           .state-circle-with-background-hover(@wz-color-default);
         }
@@ -155,12 +155,12 @@ aw-wizard-navigation-bar.horizontal {
           .line(@big-dot-width, @big-dot-height, @wz-color-default);
         }
 
-        & div a:before {
+        div a:before {
           .state-circle(@big-dot-width, @big-dot-height, 0);
           .state-circle-with-background(@wz-color-default);
         }
 
-        & div a:hover:before {
+        div a:hover:before {
           .state-circle-hover(@big-dot-width, @big-dot-height, 0);
           .state-circle-with-background-hover(@wz-color-default);
         }
@@ -190,12 +190,12 @@ aw-wizard-navigation-bar.horizontal {
           .line(@big-dot-width, @big-dot-height, @wz-color-default);
         }
 
-        & div a:before {
+        div a:before {
           .state-circle(@big-dot-width, @big-dot-height, @dot-border-width);
           .state-circle-with-border(@dot-border-width, @wz-color-default);
         }
 
-        & div a:hover:before {
+        div a:hover:before {
           .state-circle-hover(@big-dot-width, @big-dot-height, @dot-border-width);
           .state-circle-with-border-hover(@dot-border-width, @wz-color-default);
         }
@@ -225,16 +225,16 @@ aw-wizard-navigation-bar.horizontal {
           .line(@big-dot-width, @big-dot-height, @wz-color-default);
         }
 
-        & div a:before {
+        div a:before {
           .state-circle(@big-dot-width, @big-dot-height, 0);
           .state-circle-with-background-and-content(@wz-color-default);
-        }
-
-        & div a:hover:before {
-          .state-circle-hover(@big-dot-width, @big-dot-height, 0);
-          .state-circle-with-background-and-content-hover(@wz-color-default);
 
           content: attr(step-symbol);
+        }
+
+        div a:hover:before {
+          .state-circle-hover(@big-dot-width, @big-dot-height, 0);
+          .state-circle-with-background-and-content-hover(@wz-color-default);
         }
       }
 
@@ -262,16 +262,16 @@ aw-wizard-navigation-bar.horizontal {
           .line(@big-dot-width, @big-dot-height, @wz-color-default);
         }
 
-        & div a:before {
+        div a:before {
           .state-circle(@big-dot-width, @big-dot-height, @dot-border-width);
           .state-circle-with-border-and-content(@dot-border-width, @wz-color-default);
-        }
-
-        & div a:hover:before {
-          .state-circle-hover(@big-dot-width, @big-dot-height, @dot-border-width);
-          .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-default);
 
           content: attr(step-symbol);
+        }
+
+        div a:hover:before {
+          .state-circle-hover(@big-dot-width, @big-dot-height, @dot-border-width);
+          .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-default);
         }
       }
 
