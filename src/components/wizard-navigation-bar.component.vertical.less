@@ -62,9 +62,20 @@ aw-wizard-navigation-bar.vertical {
     border-radius: 100%;
   }
 
+  .state-circle-hover(@dot-width, @dot-height, @dot-border-width) {
+  }
+
   .state-circle-with-border(@dot-border-width, @circle-color) {
     border-width: @dot-border-width;
     border-style: solid;
+    border-color: @circle-color;
+  }
+
+  .state-circle-with-border-hover(@dot-border-width, @circle-color) {
+    border-color: darken(@circle-color, 10%);
+  }
+
+  .state-circle-with-border-nohover(@dot-border-width, @circle-color) {
     border-color: @circle-color;
   }
 
@@ -73,13 +84,39 @@ aw-wizard-navigation-bar.vertical {
     color: @circle-color;
   }
 
+  .state-circle-with-border-and-content-hover(@dot-border-width, @circle-color) {
+    .state-circle-with-border-hover(@dot-border-width, @circle-color);
+    color: darken(@circle-color, 20%);
+  }
+
+  .state-circle-with-border-and-content-nohover(@dot-border-width, @circle-color) {
+    .state-circle-with-border-nohover(@dot-border-width, @circle-color);
+    color: @circle-color;
+  }
+
   .state-circle-with-background(@circle-color) {
+    background-color: @circle-color;
+  }
+
+  .state-circle-with-background-hover(@circle-color) {
+    background-color: darken(@circle-color, 5%);
+  }
+
+  .state-circle-with-background-nohover(@circle-color) {
     background-color: @circle-color;
   }
 
   .state-circle-with-background-and-content(@circle-color) {
     .state-circle-with-background(@circle-color);
     color: black;
+  }
+
+  .state-circle-with-background-and-content-hover(@circle-color) {
+    .state-circle-with-background-hover(@circle-color);
+  }
+
+  .state-circle-with-background-and-content-nohover(@circle-color) {
+    .state-circle-with-background-nohover(@circle-color);
   }
 
   &.small {
@@ -91,7 +128,7 @@ aw-wizard-navigation-bar.vertical {
           .line(@small-dot-width, @small-dot-height, @wz-color-default);
         }
 
-        &:after {
+        & div a:before {
           .state-circle(@small-dot-width, @small-dot-height, 0);
           .state-circle-with-background(@wz-color-default);
         }
@@ -101,26 +138,18 @@ aw-wizard-navigation-bar.vertical {
         }
       }
 
+      li.current div a:before { .state-circle-with-background(@wz-color-current); }
+      li.done div a:before { .state-circle-with-background(@wz-color-done); }
+      li.optional div a:before { .state-circle-with-background(@wz-color-optional); }
+      li.editing div a:before { .state-circle-with-background(@wz-color-editing); }
+
+      li.current div a:hover:before { .state-circle-with-background-hover(@wz-color-current); }
+      li.done div a:hover:before { .state-circle-with-background-hover(@wz-color-done); }
+      li.optional div a:hover:before { .state-circle-with-background-hover(@wz-color-optional); }
+      li.editing div a:hover:before { .state-circle-with-background-hover(@wz-color-editing); }
+
       // default steps shouldn't change when hovered, because they aren't clickable
-      li.default a:hover {
-        color: @wz-color-current;
-      }
-
-      li.current:after {
-        .state-circle-with-background(@wz-color-current);
-      }
-
-      li.done:after {
-        .state-circle-with-background(@wz-color-done);
-      }
-
-      li.optional:after {
-        .state-circle-with-background(@wz-color-optional);
-      }
-
-      li.editing:after {
-        .state-circle-with-background(@wz-color-editing);
-      }
+      li.default div a:before { .state-circle-with-background-nohover(@wz-color-current); }
     }
   }
 
@@ -133,7 +162,7 @@ aw-wizard-navigation-bar.vertical {
           .line(@big-dot-width, @big-dot-height, @wz-color-default);
         }
 
-        &:after {
+        & div a:before {
           .state-circle(@big-dot-width, @big-dot-height, 0);
           .state-circle-with-background(@wz-color-default);
         }
@@ -143,26 +172,18 @@ aw-wizard-navigation-bar.vertical {
         }
       }
 
+      li.current div a:before { .state-circle-with-background(@wz-color-current); }
+      li.done div a:before { .state-circle-with-background(@wz-color-done); }
+      li.optional div a:before { .state-circle-with-background(@wz-color-optional); }
+      li.editing div a:before { .state-circle-with-background(@wz-color-editing); }
+
+      li.current div a:hover:before { .state-circle-with-background-hover(@wz-color-current); }
+      li.done div a:hover:before { .state-circle-with-background-hover(@wz-color-done); }
+      li.optional div a:hover:before { .state-circle-with-background-hover(@wz-color-optional); }
+      li.editing div a:hover:before { .state-circle-with-background-hover(@wz-color-editing); }
+
       // default steps shouldn't change when hovered, because they aren't clickable
-      li.default a:hover {
-        color: @wz-color-current;
-      }
-
-      li.current:after {
-        .state-circle-with-background(@wz-color-current);
-      }
-
-      li.done:after {
-        .state-circle-with-background(@wz-color-done);
-      }
-
-      li.optional:after {
-        .state-circle-with-background(@wz-color-optional);
-      }
-
-      li.editing:after {
-        .state-circle-with-background(@wz-color-editing);
-      }
+      li.default div a:before { .state-circle-with-background-nohover(@wz-color-current); }
     }
   }
 
@@ -175,7 +196,7 @@ aw-wizard-navigation-bar.vertical {
           .line(@big-dot-width, @big-dot-height, @wz-color-default);
         }
 
-        &:after {
+        & div a:before {
           .state-circle(@big-dot-width, @big-dot-height, @dot-border-width);
           .state-circle-with-border(@dot-border-width, @wz-color-default);
         }
@@ -185,26 +206,18 @@ aw-wizard-navigation-bar.vertical {
         }
       }
 
+      li.current div a:before { .state-circle-with-border(@dot-border-width, @wz-color-current); }
+      li.done div a:before { .state-circle-with-border(@dot-border-width, @wz-color-done); }
+      li.optional div a:before { .state-circle-with-border(@dot-border-width, @wz-color-optional); }
+      li.editing div a:before { .state-circle-with-border(@dot-border-width, @wz-color-editing); }
+
+      li.current div a:hover:before { .state-circle-with-border-hover(@dot-border-width, @wz-color-current); }
+      li.done div a:hover:before { .state-circle-with-border-hover(@dot-border-width, @wz-color-done); }
+      li.optional div a:hover:before { .state-circle-with-border-hover(@dot-border-width, @wz-color-optional); }
+      li.editing div a:hover:before { .state-circle-with-border-hover(@dot-border-width, @wz-color-editing); }
+
       // default steps shouldn't change when hovered, because they aren't clickable
-      li.default a:hover {
-        color: @wz-color-current;
-      }
-
-      li.current:after {
-        .state-circle-with-border(@dot-border-width, @wz-color-current);
-      }
-
-      li.done:after {
-        .state-circle-with-border(@dot-border-width, @wz-color-done);
-      }
-
-      li.optional:after {
-        .state-circle-with-border(@dot-border-width, @wz-color-optional);
-      }
-
-      li.editing:after {
-        .state-circle-with-border(@dot-border-width, @wz-color-editing);
-      }
+      li.default div a:before { .state-circle-with-border-nohover(@dot-border-width, @wz-color-current); }
     }
   }
 
@@ -217,7 +230,7 @@ aw-wizard-navigation-bar.vertical {
           .line(@big-dot-width, @big-dot-height, @wz-color-default);
         }
 
-        &:after {
+        & div a:before {
           .state-circle(@big-dot-width, @big-dot-height, 0);
           .state-circle-with-background-and-content(@wz-color-default);
 
@@ -229,26 +242,18 @@ aw-wizard-navigation-bar.vertical {
         }
       }
 
+      li.current div a:before { .state-circle-with-background-and-content(@wz-color-current); }
+      li.done div a:before { .state-circle-with-background-and-content(@wz-color-done); }
+      li.optional div a:before { .state-circle-with-background-and-content(@wz-color-optional); }
+      li.editing div a:before { .state-circle-with-background-and-content(@wz-color-editing); }
+
+      li.current div a:hover:before { .state-circle-with-background-and-content-hover(@wz-color-current); }
+      li.done div a:hover:before { .state-circle-with-background-and-content-hover(@wz-color-done); }
+      li.optional div a:hover:before { .state-circle-with-background-and-content-hover(@wz-color-optional); }
+      li.editing div a:hover:before { .state-circle-with-background-and-content-hover(@wz-color-editing); }
+
       // default steps shouldn't change when hovered, because they aren't clickable
-      li.default a:hover {
-        color: @wz-color-current;
-      }
-
-      li.current:after {
-        .state-circle-with-background-and-content(@wz-color-current);
-      }
-
-      li.done:after {
-        .state-circle-with-background-and-content(@wz-color-done);
-      }
-
-      li.optional:after {
-        .state-circle-with-background-and-content(@wz-color-optional);
-      }
-
-      li.editing:after {
-        .state-circle-with-background-and-content(@wz-color-editing);
-      }
+      li.default div a:before { .state-circle-with-background-and-content-nohover(@wz-color-current); }
     }
   }
 
@@ -261,7 +266,7 @@ aw-wizard-navigation-bar.vertical {
           .line(@big-dot-width, @big-dot-height, @wz-color-default);
         }
 
-        &:after {
+        & div a:before {
           .state-circle(@big-dot-width, @big-dot-height, @dot-border-width);
           .state-circle-with-border-and-content(@dot-border-width, @wz-color-default);
 
@@ -273,26 +278,18 @@ aw-wizard-navigation-bar.vertical {
         }
       }
 
+      li.current div a:before { .state-circle-with-border-and-content(@dot-border-width, @wz-color-current); }
+      li.done div a:before { .state-circle-with-border-and-content(@dot-border-width, @wz-color-done); }
+      li.optional div a:before { .state-circle-with-border-and-content(@dot-border-width, @wz-color-optional); }
+      li.editing div a:before { .state-circle-with-border-and-content(@dot-border-width, @wz-color-editing); }
+
+      li.current div a:hover:before { .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-current); }
+      li.done div a:hover:before { .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-done); }
+      li.optional div a:hover:before { .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-optional); }
+      li.editing div a:hover:before { .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-editing); }
+
       // default steps shouldn't change when hovered, because they aren't clickable
-      li.default a:hover {
-        color: @wz-color-current;
-      }
-
-      li.current:after {
-        .state-circle-with-border-and-content(@dot-border-width, @wz-color-current);
-      }
-
-      li.done:after {
-        .state-circle-with-border-and-content(@dot-border-width, @wz-color-done);
-      }
-
-      li.optional:after {
-        .state-circle-with-border-and-content(@dot-border-width, @wz-color-optional);
-      }
-
-      li.editing:after {
-        .state-circle-with-border-and-content(@dot-border-width, @wz-color-editing);
-      }
+      li.default div a:before { .state-circle-with-border-and-content-nohover(@dot-border-width, @wz-color-current); }
     }
   }
 
@@ -342,6 +339,11 @@ aw-wizard-navigation-bar.vertical {
           }
         }
       }
+    }
+
+    // default steps shouldn't change when hovered, because they aren't clickable
+    li.default div a:hover {
+      color: @wz-color-current;
     }
 
     li.navigable {
