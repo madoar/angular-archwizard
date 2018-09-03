@@ -13,7 +13,11 @@
         <ng-container *ngIf="step.stepTitleTemplate" [ngTemplateOutlet]="step.stepTitleTemplate.templateRef"></ng-container>
         <ng-container *ngIf="!step.stepTitleTemplate">{{step.stepTitle}}</ng-container>
       </div>
-      <div class="step-indicator" [ngStyle]="{ 'font-family': step.navigationSymbol.fontFamily }">{{step.navigationSymbol.symbol}}</div>
+      <div *ngIf="step.stepSymbolTemplate" class="step-indicator">
+        <ng-container [ngTemplateOutlet]="step.stepSymbolTemplate.templateRef"></ng-container>
+      </div>
+      <div *ngIf="!step.stepSymbolTemplate" class="step-indicator"
+        [ngStyle]="{ 'font-family': step.navigationSymbol.fontFamily }">{{step.navigationSymbol.symbol}}</div>
     </a>
   </li>
 </ul>
