@@ -220,10 +220,6 @@ aw-wizard-navigation-bar.horizontal {
         .step-indicator {
           .state-circle(@big-dot-width, @big-dot-height, 0);
           .state-circle-with-background-and-content(@wz-color-default);
-
-          &:before {
-            content: attr(step-symbol);
-          }
         }
 
         a:hover .step-indicator {
@@ -259,10 +255,6 @@ aw-wizard-navigation-bar.horizontal {
         .step-indicator {
           .state-circle(@big-dot-width, @big-dot-height, @dot-border-width);
           .state-circle-with-border-and-content(@dot-border-width, @wz-color-default);
-
-          &:before {
-            content: attr(step-symbol);
-          }
         }
 
         a:hover .step-indicator {
