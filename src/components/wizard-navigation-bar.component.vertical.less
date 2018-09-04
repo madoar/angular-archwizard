@@ -61,10 +61,8 @@ aw-wizard-navigation-bar.vertical {
     border-radius: 100%;
   }
 
-  .state-circle-hover(@dot-width, @dot-height, @dot-border-width) {
-  }
-  .state-circle-nohover(@dot-width, @dot-height, @dot-border-width) {
-  }
+  .state-circle-hover(@dot-width, @dot-height, @dot-border-width) { }
+  .state-circle-nohover(@dot-width, @dot-height, @dot-border-width) { }
 
   .state-circle-with-border(@dot-border-width, @circle-color) {
     border-width: @dot-border-width;
@@ -136,18 +134,36 @@ aw-wizard-navigation-bar.vertical {
         }
       }
 
-      li.current .step-indicator { .state-circle-with-background(@wz-color-current); }
-      li.done .step-indicator { .state-circle-with-background(@wz-color-done); }
-      li.optional .step-indicator { .state-circle-with-background(@wz-color-optional); }
-      li.editing .step-indicator { .state-circle-with-background(@wz-color-editing); }
+      li.current .step-indicator {
+        .state-circle-with-background(@wz-color-current);
+      }
+      li.done .step-indicator {
+        .state-circle-with-background(@wz-color-done);
+      }
+      li.optional .step-indicator {
+        .state-circle-with-background(@wz-color-optional);
+      }
+      li.editing .step-indicator {
+        .state-circle-with-background(@wz-color-editing);
+      }
 
-      li.current a:hover .step-indicator { .state-circle-with-background-hover(@wz-color-current); }
-      li.done a:hover .step-indicator { .state-circle-with-background-hover(@wz-color-done); }
-      li.optional a:hover .step-indicator { .state-circle-with-background-hover(@wz-color-optional); }
-      li.editing a:hover .step-indicator { .state-circle-with-background-hover(@wz-color-editing); }
+      li.current a:hover .step-indicator {
+        .state-circle-with-background-hover(@wz-color-current);
+      }
+      li.done a:hover .step-indicator {
+        .state-circle-with-background-hover(@wz-color-done);
+      }
+      li.optional a:hover .step-indicator {
+        .state-circle-with-background-hover(@wz-color-optional);
+      }
+      li.editing a:hover .step-indicator {
+        .state-circle-with-background-hover(@wz-color-editing);
+      }
 
       // default steps shouldn't change when hovered, because they aren't clickable
-      li.default a:hover .step-indicator { .state-circle-with-background-nohover(@wz-color-current); }
+      li.default a:hover .step-indicator {
+        .state-circle-with-background-nohover(@wz-color-current);
+      }
     }
   }
 
@@ -175,18 +191,36 @@ aw-wizard-navigation-bar.vertical {
         }
       }
 
-      li.current .step-indicator { .state-circle-with-background(@wz-color-current); }
-      li.done .step-indicator { .state-circle-with-background(@wz-color-done); }
-      li.optional .step-indicator { .state-circle-with-background(@wz-color-optional); }
-      li.editing .step-indicator { .state-circle-with-background(@wz-color-editing); }
+      li.current .step-indicator {
+        .state-circle-with-background(@wz-color-current);
+      }
+      li.done .step-indicator {
+        .state-circle-with-background(@wz-color-done);
+      }
+      li.optional .step-indicator {
+        .state-circle-with-background(@wz-color-optional);
+      }
+      li.editing .step-indicator {
+        .state-circle-with-background(@wz-color-editing);
+      }
 
-      li.current a:hover .step-indicator { .state-circle-with-background-hover(@wz-color-current); }
-      li.done a:hover .step-indicator { .state-circle-with-background-hover(@wz-color-done); }
-      li.optional a:hover .step-indicator { .state-circle-with-background-hover(@wz-color-optional); }
-      li.editing a:hover .step-indicator { .state-circle-with-background-hover(@wz-color-editing); }
+      li.current a:hover .step-indicator {
+        .state-circle-with-background-hover(@wz-color-current);
+      }
+      li.done a:hover .step-indicator {
+        .state-circle-with-background-hover(@wz-color-done);
+      }
+      li.optional a:hover .step-indicator {
+        .state-circle-with-background-hover(@wz-color-optional);
+      }
+      li.editing a:hover .step-indicator {
+        .state-circle-with-background-hover(@wz-color-editing);
+      }
 
       // default steps shouldn't change when hovered, because they aren't clickable
-      li.default a:hover .step-indicator { .state-circle-with-background-nohover(@wz-color-current); }
+      li.default a:hover .step-indicator {
+        .state-circle-with-background-nohover(@wz-color-current);
+      }
     }
   }
 
@@ -214,18 +248,36 @@ aw-wizard-navigation-bar.vertical {
         }
       }
 
-      li.current .step-indicator { .state-circle-with-border(@dot-border-width, @wz-color-current); }
-      li.done .step-indicator { .state-circle-with-border(@dot-border-width, @wz-color-done); }
-      li.optional .step-indicator { .state-circle-with-border(@dot-border-width, @wz-color-optional); }
-      li.editing .step-indicator { .state-circle-with-border(@dot-border-width, @wz-color-editing); }
+      li.current .step-indicator {
+        .state-circle-with-border(@dot-border-width, @wz-color-current);
+      }
+      li.done .step-indicator {
+        .state-circle-with-border(@dot-border-width, @wz-color-done);
+      }
+      li.optional .step-indicator {
+        .state-circle-with-border(@dot-border-width, @wz-color-optional);
+      }
+      li.editing .step-indicator {
+        .state-circle-with-border(@dot-border-width, @wz-color-editing);
+      }
 
-      li.current a:hover .step-indicator { .state-circle-with-border-hover(@dot-border-width, @wz-color-current); }
-      li.done a:hover .step-indicator { .state-circle-with-border-hover(@dot-border-width, @wz-color-done); }
-      li.optional a:hover .step-indicator { .state-circle-with-border-hover(@dot-border-width, @wz-color-optional); }
-      li.editing a:hover .step-indicator { .state-circle-with-border-hover(@dot-border-width, @wz-color-editing); }
+      li.current a:hover .step-indicator {
+        .state-circle-with-border-hover(@dot-border-width, @wz-color-current);
+      }
+      li.done a:hover .step-indicator {
+        .state-circle-with-border-hover(@dot-border-width, @wz-color-done);
+      }
+      li.optional a:hover .step-indicator {
+        .state-circle-with-border-hover(@dot-border-width, @wz-color-optional);
+      }
+      li.editing a:hover .step-indicator {
+        .state-circle-with-border-hover(@dot-border-width, @wz-color-editing);
+      }
 
       // default steps shouldn't change when hovered, because they aren't clickable
-      li.default a:hover .step-indicator { .state-circle-with-border-nohover(@dot-border-width, @wz-color-current); }
+      li.default a:hover .step-indicator {
+        .state-circle-with-border-nohover(@dot-border-width, @wz-color-current);
+      }
     }
   }
 
@@ -253,18 +305,36 @@ aw-wizard-navigation-bar.vertical {
         }
       }
 
-      li.current .step-indicator { .state-circle-with-background-and-content(@wz-color-current); }
-      li.done .step-indicator { .state-circle-with-background-and-content(@wz-color-done); }
-      li.optional .step-indicator { .state-circle-with-background-and-content(@wz-color-optional); }
-      li.editing .step-indicator { .state-circle-with-background-and-content(@wz-color-editing); }
+      li.current .step-indicator {
+        .state-circle-with-background-and-content(@wz-color-current);
+      }
+      li.done .step-indicator {
+        .state-circle-with-background-and-content(@wz-color-done);
+      }
+      li.optional .step-indicator {
+        .state-circle-with-background-and-content(@wz-color-optional);
+      }
+      li.editing .step-indicator {
+        .state-circle-with-background-and-content(@wz-color-editing);
+      }
 
-      li.current a:hover .step-indicator { .state-circle-with-background-and-content-hover(@wz-color-current); }
-      li.done a:hover .step-indicator { .state-circle-with-background-and-content-hover(@wz-color-done); }
-      li.optional a:hover .step-indicator { .state-circle-with-background-and-content-hover(@wz-color-optional); }
-      li.editing a:hover .step-indicator { .state-circle-with-background-and-content-hover(@wz-color-editing); }
+      li.current a:hover .step-indicator {
+        .state-circle-with-background-and-content-hover(@wz-color-current);
+      }
+      li.done a:hover .step-indicator {
+        .state-circle-with-background-and-content-hover(@wz-color-done);
+      }
+      li.optional a:hover .step-indicator {
+        .state-circle-with-background-and-content-hover(@wz-color-optional);
+      }
+      li.editing a:hover .step-indicator {
+        .state-circle-with-background-and-content-hover(@wz-color-editing);
+      }
 
       // default steps shouldn't change when hovered, because they aren't clickable
-      li.default a:hover .step-indicator { .state-circle-with-background-and-content-nohover(@wz-color-current); }
+      li.default a:hover .step-indicator {
+        .state-circle-with-background-and-content-nohover(@wz-color-current);
+      }
     }
   }
 
@@ -292,18 +362,36 @@ aw-wizard-navigation-bar.vertical {
         }
       }
 
-      li.current .step-indicator { .state-circle-with-border-and-content(@dot-border-width, @wz-color-current); }
-      li.done .step-indicator { .state-circle-with-border-and-content(@dot-border-width, @wz-color-done); }
-      li.optional .step-indicator { .state-circle-with-border-and-content(@dot-border-width, @wz-color-optional); }
-      li.editing .step-indicator { .state-circle-with-border-and-content(@dot-border-width, @wz-color-editing); }
+      li.current .step-indicator {
+        .state-circle-with-border-and-content(@dot-border-width, @wz-color-current);
+      }
+      li.done .step-indicator {
+        .state-circle-with-border-and-content(@dot-border-width, @wz-color-done);
+      }
+      li.optional .step-indicator {
+        .state-circle-with-border-and-content(@dot-border-width, @wz-color-optional);
+      }
+      li.editing .step-indicator {
+        .state-circle-with-border-and-content(@dot-border-width, @wz-color-editing);
+      }
 
-      li.current a:hover .step-indicator { .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-current); }
-      li.done a:hover .step-indicator { .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-done); }
-      li.optional a:hover .step-indicator { .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-optional); }
-      li.editing a:hover .step-indicator { .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-editing); }
+      li.current a:hover .step-indicator {
+        .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-current);
+      }
+      li.done a:hover .step-indicator {
+        .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-done);
+      }
+      li.optional a:hover .step-indicator {
+        .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-optional);
+      }
+      li.editing a:hover .step-indicator {
+        .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-editing);
+      }
 
       // default steps shouldn't change when hovered, because they aren't clickable
-      li.default a:hover .step-indicator { .state-circle-with-border-and-content-nohover(@dot-border-width, @wz-color-current); }
+      li.default a:hover .step-indicator {
+        .state-circle-with-border-and-content-nohover(@dot-border-width, @wz-color-current);
+      }
     }
   }
 
@@ -333,18 +421,18 @@ aw-wizard-navigation-bar.vertical {
 
       a {
         cursor: pointer;
-      }
 
-      .label {
-        margin-left: @text-margin-left;
-        color: @wz-color-current;
-        line-height: @text-height;
-        font-size: @text-height;
-        text-decoration: none;
-        text-transform: uppercase;
-        text-align: left;
-        font-weight: bold;
-        transition: 0.25s;
+        .label {
+          margin-left: @text-margin-left;
+          color: @wz-color-current;
+          line-height: @text-height;
+          font-size: @text-height;
+          text-decoration: none;
+          text-transform: uppercase;
+          text-align: left;
+          font-weight: bold;
+          transition: 0.25s;
+        }
       }
     }
 
@@ -353,11 +441,8 @@ aw-wizard-navigation-bar.vertical {
     }
 
     // default steps shouldn't change when hovered, because they aren't clickable
-    li.default {
-
-      a {
-        cursor: auto;
-      }
+    li.default a {
+      cursor: auto;
 
       .label {
         color: @wz-color-current;
