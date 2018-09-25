@@ -278,7 +278,7 @@ This can be achieved by using the `[awWizardStepTitle]` directive inside a wizar
 </aw-wizard-step>
 ```
 
-Be aware, that you can only use `[awWizardStepTitle]` together with Angular, because `ng-template` was introduced in Angular 4.
+Be aware, that you can only use `[awWizardStepTitle]` together with Angular 4 or later, because `ng-template` was introduced in Angular 4.
 
 ### \[awOptionalStep\]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
