@@ -10,6 +10,7 @@ import {NextStepDirective} from './directives/next-step.directive';
 import {PreviousStepDirective} from './directives/previous-step.directive';
 import {OptionalStepDirective} from './directives/optional-step.directive';
 import {GoToStepDirective} from './directives/go-to-step.directive';
+import {WizardStepSymbolDirective} from './directives/wizard-step-symbol.directive';
 import {WizardStepTitleDirective} from './directives/wizard-step-title.directive';
 import {EnableBackLinksDirective} from './directives/enable-back-links.directive';
 import {WizardStepDirective} from './directives/wizard-step.directive';
@@ -32,6 +33,7 @@ import {ResetWizardDirective} from './directives/reset-wizard.directive';
     NextStepDirective,
     PreviousStepDirective,
     OptionalStepDirective,
+    WizardStepSymbolDirective,
     WizardStepTitleDirective,
     EnableBackLinksDirective,
     WizardStepDirective,
@@ -51,6 +53,7 @@ import {ResetWizardDirective} from './directives/reset-wizard.directive';
     NextStepDirective,
     PreviousStepDirective,
     OptionalStepDirective,
+    WizardStepSymbolDirective,
     WizardStepTitleDirective,
     EnableBackLinksDirective,
     WizardStepDirective,
