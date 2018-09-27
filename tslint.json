@@ -131,13 +131,13 @@
   "directive-selector": [
     true,
     "attribute",
-    "lib",
+    "aw",
     "camelCase"
   ],
   "component-selector": [
     true,
     "element",
-    "lib",
+    "aw",
     "kebab-case"
   ]
 }
