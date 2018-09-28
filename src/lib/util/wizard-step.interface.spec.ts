@@ -9,8 +9,7 @@ import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {By} from '@angular/platform-browser';
 import {MovingDirection} from './moving-direction.enum';
-import {Observable} from 'rxjs/Observable';
-import {_throw} from 'rxjs/observable/throw';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'aw-test-wizard',
