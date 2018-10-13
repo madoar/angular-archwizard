@@ -1,7 +1,6 @@
 import {MovingDirection} from './moving-direction.enum';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 import {ContentChild, EventEmitter, HostBinding, Input, Output} from '@angular/core';
-import {isBoolean} from 'util';
 import {NavigationSymbol} from './navigation-symbol.interface';
 import {WizardStepSymbolDirective} from '../directives/wizard-step-symbol.directive';
 
@@ -114,7 +113,7 @@ export abstract class WizardStep {
                                      ((direction: MovingDirection) => Promise<boolean>) |
                                      boolean,
                                    direction: MovingDirection): Promise<boolean> {
-    if (isBoolean(condition)) {
+    if (typeof(condition) === typeof(true)) {
       return Promise.resolve(condition as boolean);
     } else if (condition instanceof Function) {
       return Promise.resolve(condition(direction));
