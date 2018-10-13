@@ -8,7 +8,7 @@
 [![Test Coverage](https://codeclimate.com/github/madoar/angular-archwizard/badges/coverage.svg)](https://codeclimate.com/github/madoar/angular-archwizard/coverage)
 [![NPM Version](https://img.shields.io/npm/v/angular-archwizard.svg)](https://www.npmjs.com/package/angular-archwizard)
 
-This project contains a functional module with a wizard component and some supportive components and directives for [Angular](https://angular.io/).
+This project contains a functional module with a wizard component and some supportive components and directives for [Angular](https://angular.io/) version 5 or later.
 
 ## Build
 
@@ -228,7 +228,7 @@ When an `aw-wizard-completion-step` has been entered by the user, all wizard ste
 In addition the user is prevented from leaving the `aw-wizard-completion-step` to another step, once it has been entered. 
 
 The given parameters for the wizard completion step are identical to the normal wizard step.
-The only difference is, that it it isn't possible to pass a `(stepExit)` and `[canExit]` parameter to the `aw-wizard-completion-step`, 
+The only difference is, that it isn't possible to pass a `(stepExit)` and `[canExit]` parameter to the `aw-wizard-completion-step`, 
 because it can't be exited.
 
 #### Parameter overview
@@ -278,8 +278,6 @@ This can be achieved by using the `[awWizardStepTitle]` directive inside a wizar
 </aw-wizard-step>
 ```
 
-Be aware, that you can only use `[awWizardStepTitle]` together with Angular 4 or later, because `ng-template` was introduced in Angular 4.
-
 ### \[awWizardStepSymbol\]
 In addition to the step title, the navigation symbol/step symbol can also be set via a directive.
 This is required, if the navigation step symbol is not a simple character or a symbol, but something more complex, like a html component.
@@ -292,8 +290,6 @@ In such a case, the the navigation symbol can be specified using the `[awWizardS
   </ng-template>
 </aw-wizard-step>
 ```
-
-Be aware, that you can only use `[awWizardStepSymbol]` together with Angular 4 or later, because `ng-template` was introduced in Angular 4.
 
 ### \[awOptionalStep\]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
