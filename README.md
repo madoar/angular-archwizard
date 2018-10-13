@@ -280,6 +280,21 @@ This can be achieved by using the `[awWizardStepTitle]` directive inside a wizar
 
 Be aware, that you can only use `[awWizardStepTitle]` together with Angular 4 or later, because `ng-template` was introduced in Angular 4.
 
+### \[awWizardStepSymbol\]
+In addition to the step title, the navigation symbol/step symbol can also be set via a directive.
+This is required, if the navigation step symbol is not a simple character or a symbol, but something more complex, like a html component.
+In such a case, the the navigation symbol can be specified using the `[awWizardStepSymbol]` directive, inside a wizard step on a `ng-template` component.
+
+```html
+<aw-wizard-step (stepEnter)="enterStep($event)">
+  <ng-template awWizardStepSymbol>
+    <i class="far fa-file"></i>
+  </ng-template>
+</aw-wizard-step>
+```
+
+Be aware, that you can only use `[awWizardStepSymbol]` together with Angular 4 or later, because `ng-template` was introduced in Angular 4.
+
 ### \[awOptionalStep\]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
 by adding the `awOptionalStep` directive to the step you want to declare as optional.
