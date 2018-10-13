@@ -170,7 +170,7 @@ For example, if you want to show the icon with the unicode `\f2dd` of [FontAweso
 you can do this via the following `[navigationSymbol]` input attribute:
 
 ```html
-<aw-wizard-step stepTitle="Second Step" [navigationSymbol]="{ symbol: '&#xf2dd;' fontFamily: 'FontAwesome' }"></aw-wizard-step>
+<aw-wizard-step stepTitle="Second Step" [navigationSymbol]="{ symbol: '&#xf2dd;', fontFamily: 'FontAwesome' }"></aw-wizard-step>
 ```
 
 #### \[canEnter\]
