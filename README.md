@@ -18,6 +18,10 @@ Run `npm run build` to build the project. The build artifacts will be stored in 
 
 Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
+## Compatibility
+
+Latest `angular-archwizard` is compatible with Angular 5+.
+
 ## Installation
 
 `angular-archwizard` is available as a NPM package. To install `angular-archwizard` in your project directory run:
@@ -58,7 +62,7 @@ To use this wizard component in an angular project simply add a `aw-wizard` comp
     <button type="button" (click)="finishFunction()">Finish</button>
   </aw-wizard-step>
 </aw-wizard>
-``` 
+```
 
 ## Components
 
@@ -79,8 +83,8 @@ Another option that can be changed is the design or layout of the navigation bar
 Currently five different navigation bar layouts exist.
 These are `small`, `large-filled`, `large-empty`, `large-filled-symbols` and `large-empty-symbols`.
 
-The first three layouts are showing circles with or without a background, for each step of your wizard, in the navigation bar. 
-The second two layouts `large-filled-symbols` and `large-empty-symbols` optionally add a symbol in the center of the circle, 
+The first three layouts are showing circles with or without a background, for each step of your wizard, in the navigation bar.
+The second two layouts `large-filled-symbols` and `large-empty-symbols` optionally add a symbol in the center of the circle,
 for each step of your wizard, in the navigation bar, if such a symbol has been defined for the step.
 
 #### \[navBarDirection\]
@@ -90,22 +94,22 @@ To layout the steps from right to left you can pass `right-to-left` to the `navB
 
 #### \[navigationMode\]
 `angular-archwizard` supports three different navigation modes:
-- **strict** navigation mode: 
-   The first navigation mode is strict navigation. 
-   This mode describes the status quo, i.e. the current navigation behavior of the wizard. 
-   Currently you can only navigate through the wizard steps in a linear fashion, 
-   where you can only enter the next step if all previous steps have been completed and the exit condition of your current step have been fulfilled. 
-   In this mode it is not possible to jump between different steps, i.e. move to step 3 from step 1, then go to step 2 to finally go to step 4. 
-   The only exception to this rule are optional steps, which a user can skip. 
+- **strict** navigation mode:
+   The first navigation mode is strict navigation.
+   This mode describes the status quo, i.e. the current navigation behavior of the wizard.
+   Currently you can only navigate through the wizard steps in a linear fashion,
+   where you can only enter the next step if all previous steps have been completed and the exit condition of your current step have been fulfilled.
+   In this mode it is not possible to jump between different steps, i.e. move to step 3 from step 1, then go to step 2 to finally go to step 4.
+   The only exception to this rule are optional steps, which a user can skip.
    Therefore you are required to do the steps in the order `1 -> 2 -> 3 -> 4`.
 - **semi-strict** navigation mode:
-   The second navigation mode is semi-strict navigation. 
-   This mode lets the user navigate between the steps in any order he likes. 
-   This means that in this navigation mode a user could complete the steps in the order `1 -> 3 -> 2 -> 4`, if the exit conditions have been fulfilled. 
-   This mode has only one restriction, where the user can enter the completion step after he has completed all previous steps. 
+   The second navigation mode is semi-strict navigation.
+   This mode lets the user navigate between the steps in any order he likes.
+   This means that in this navigation mode a user could complete the steps in the order `1 -> 3 -> 2 -> 4`, if the exit conditions have been fulfilled.
+   This mode has only one restriction, where the user can enter the completion step after he has completed all previous steps.
    Again optional steps are skipable in this mode.
 - **free** navigation mode:
-   The third navigation mode is free navigation. 
+   The third navigation mode is free navigation.
    This mode let's the user navigate freely between the different steps, including the completion step, in any order he desires.
 
 #### \[defaultStepIndex\]
@@ -135,22 +139,22 @@ Possible `<aw-wizard>` parameters:
 | [disableNavigationBar] | `boolean`                                                                                             | false         |
 
 ### \<aw-wizard-step\>
-`angular-archwizard` contains two ways to define a wizard step. 
-One of these two ways is by using the `<aw-wizard-step>` component. 
+`angular-archwizard` contains two ways to define a wizard step.
+One of these two ways is by using the `<aw-wizard-step>` component.
 
 #### \[stepId\]
 A wizard step can have its own unique id.
 This id can then be used to navigate to the step.
 
 #### \[stepTitle\]
-A wizard step needs to contain a title, which is shown in the navigation bar of the wizard. 
-To set the title of a step, add the `stepTitle` input attribute, with the choosen step title, to the definition of your wizard step. 
+A wizard step needs to contain a title, which is shown in the navigation bar of the wizard.
+To set the title of a step, add the `stepTitle` input attribute, with the choosen step title, to the definition of your wizard step.
 
 #### \[navigationSymbol\]
 Sometimes it's useful to add a symbol in the center of the circle in the navigation bar, which belongs to the step.
 `angular-archwizard` supports this through the `[navigationSymbol]` input attribute of the wizard step.
 
-Be aware, that not all layouts display the symbols. 
+Be aware, that not all layouts display the symbols.
 Only the layouts `large-filled-symbols` and `large-empty-symbols` display the symbols!
 
 If you want to add a `2` to the circle in the navigation bar belonging to the second step, you can do it like this:
@@ -161,7 +165,7 @@ If you want to add a `2` to the circle in the navigation bar belonging to the se
 
 In addition to normal symbols it's also possible to use an icon from a font as a symbol.
 To use an icon from a font you need to first search for the unicode belonging to the icon you want to insert.
-Afterwards you can use the unicode in the [numeric character reference](https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references) 
+Afterwards you can use the unicode in the [numeric character reference](https://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references)
 format as the symbol for the step.
 In addition you need to specify the font family, to which the icon belongs, otherwise the symbol can't be displayed correctly.
 
@@ -176,7 +180,7 @@ you can do this via the following `[navigationSymbol]` input attribute:
 #### \[canEnter\]
 Sometimes it's required to only allow the user to enter a specific step if a certain validation method returns true.
 In such a case you can use the `[canEnter]` input of the targeted wizard step.
-This input can be either a boolean, which directly tells the wizard if the targeted step can be entered, 
+This input can be either a boolean, which directly tells the wizard if the targeted step can be entered,
 or a lambda function, taking a `MovingDirection` and returning a `boolean` or a `Promise<boolean>`.
 This function will then be called, with the direction in which the targeted step will be entered, whenever an operation has been performed, that leads to a change of the current step.
 It then returns true, when the step change should succeed and false otherwise.
@@ -197,15 +201,15 @@ If you need to call a function to do some initialisation work before entering a 
 ```
 
 This leads to the calling of the `enterSecondStep` function when the wizard moves to this step.
-When the first step of the wizard contains a `stepEnter` function, it not only gets called 
+When the first step of the wizard contains a `stepEnter` function, it not only gets called
 when the user moves back from a later step to the first step, but also after the wizard is initialized.
-The event emitter will call the given function with a parameter that contains the `MovingDirection` of the user. 
-If the user went backwards, for example from the third step to the second or first step, then `MovingDirection.Backwards` will be passed to the function. 
+The event emitter will call the given function with a parameter that contains the `MovingDirection` of the user.
+If the user went backwards, for example from the third step to the second or first step, then `MovingDirection.Backwards` will be passed to the function.
 If the user went forwards `MovingDirection.Forwards` will be passed to the function.
 
 #### \(stepExit\)
-Similar to `stepEnter` you can add a `stepExit` attribute to the wizard step environment, if you want to call a function every time a wizard step is exited 
-either by pressing on a component with an `awNextStep` or `awPreviousStep` directive, or by a click on the navigation bar. 
+Similar to `stepEnter` you can add a `stepExit` attribute to the wizard step environment, if you want to call a function every time a wizard step is exited
+either by pressing on a component with an `awNextStep` or `awPreviousStep` directive, or by a click on the navigation bar.
 `stepExit`, like `stepEnter` can call the given function with an argument of type `MovingDirection` that signalises in which direction the step was exited.
 
 #### Parameter overview
@@ -225,11 +229,10 @@ Possible `<aw-wizard-step>` parameters:
 In addition to the "normal" step component `<aw-wizard-step>` it's also possible to define an optional `<aw-wizard-completion-step>`.
 The `aw-wizard-completion-step` is meant as the final wizard step, which signalises the user, that he or she successfully completed the wizard.
 When an `aw-wizard-completion-step` has been entered by the user, all wizard steps, including the optional steps belonging to the wizard, are marked as completed.
-In addition the user is prevented from leaving the `aw-wizard-completion-step` to another step, once it has been entered. 
+In addition the user is prevented from leaving the `aw-wizard-completion-step` to another step, once it has been entered.
 
 The given parameters for the wizard completion step are identical to the normal wizard step.
-The only difference is, that it isn't possible to pass a `(stepExit)` and `[canExit]` parameter to the `aw-wizard-completion-step`, 
-because it can't be exited.
+The only difference is, that it isn't possible to pass a `(stepExit)` and `[canExit]` parameter to the `aw-wizard-completion-step`, because it can't be exited.
 
 #### Parameter overview
 Possible `<aw-wizard-completion-step>` parameters:
@@ -292,7 +295,7 @@ In such a case, the the navigation symbol can be specified using the `[awWizardS
 ```
 
 ### \[awOptionalStep\]
-If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step 
+If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step
 by adding the `awOptionalStep` directive to the step you want to declare as optional.
 
 ### \[awSelectedStep\]
@@ -305,7 +308,7 @@ which is shown directly after the wizard startup.
 `angular-archwizard` has three directives, which allow moving between steps.
 These directives are the `awPreviousStep`, `asNextStep` and `awGoToStep` directives.
 
-The `awGoToStep` directive needs to receive an input, which tells the wizard, to which step it should navigate, 
+The `awGoToStep` directive needs to receive an input, which tells the wizard, to which step it should navigate,
 when the element with the `awGoToStep` directive has been clicked.
 
 This input accepts different arguments:
@@ -314,8 +317,8 @@ This input accepts different arguments:
    One possible argument for the input is a destination step index.
    A destination step index is always zero-based, i.e. the index of the first step inside the wizard
    is always zero.
-   
-   To pass a destination step index to an `awGoToStep` directive, 
+
+   To pass a destination step index to an `awGoToStep` directive,
    you need to pass the following json object to the directive:
 
    ```html
@@ -324,44 +327,44 @@ This input accepts different arguments:
 - a destination **step id**:
    Another possible argument for the input is a the unique step id of the destination step.
    This step id can be set for all wizard steps through their input `[stepId]`.
-   
-   To pass a unique destination step id to an `awGoToStep` directive, 
+
+   To pass a unique destination step id to an `awGoToStep` directive,
    you need to pass the following json object to the directive:
 
    ```html
    <button [awGoToStep]="{ stepId: 'unique id of the third step' }" (finalize)="finalizeStep()">Go directly to the third Step</button>
    ```
 - a **step offset** between the current step and the destination step:
-   Alternatively to an absolute step index or an unique step id, 
+   Alternatively to an absolute step index or an unique step id,
    it's also possible to set the destination wizard step as an offset to the source step:
-   
+
    ```html
    <button [awGoToStep]="{ stepOffset: 1 }" (finalize)="finalizeStep()">Go to the third Step</button>
    ```
-   
-In all above examples a click on the "Go to the third Step" button will move 
+
+In all above examples a click on the "Go to the third Step" button will move
 the user to the next step (the third step) compared to the step the button belongs to (the second step).
 If the button is part of the second step, a click on it will move the user to the third step.
 
 In all above cases it's important to use `[]` around the `awGoToStep` directive to tell angular that the argument is to be interpreted as javascript.
 
-In addition to a static value you can also pass a local variable from your component typescript class, 
-that contains to which step a click on the element should change the current step of the wizard. 
+In addition to a static value you can also pass a local variable from your component typescript class,
+that contains to which step a click on the element should change the current step of the wizard.
 This can be useful if your step transitions depend on some application dependent logic, that changes depending on the user input.
-Here again it's important to use `[]` around the `awGoToStep` directive to tell angular that the argument is to be interpreted as javascript.  
+Here again it's important to use `[]` around the `awGoToStep` directive to tell angular that the argument is to be interpreted as javascript.
 
 #### \(preFinalize\)
-Sometimes it's required to bind an event emitter to a specific element, which can perform a step transition. 
+Sometimes it's required to bind an event emitter to a specific element, which can perform a step transition.
 Such an event emitter can be bound to the `(preFinalize)` output of the element, which contains the `awGoToStep` directive.
 This event emitter is then called, directly before the wizard transitions to the given step.
 
 #### \(postFinalize\)
-Alternatively you can also bind an event emitter to `(postFinalize)`, 
+Alternatively you can also bind an event emitter to `(postFinalize)`,
 which is executed directly after the wizard transitions to the given step.
 
 #### \(finalize\)
-In case you don't really care when the finalization event emitter is called, you can also bind it simply to `(finalize)`. 
-`finalize` is a synonym for `preFinalize`. 
+In case you don't really care when the finalization event emitter is called, you can also bind it simply to `(finalize)`.
+`finalize` is a synonym for `preFinalize`.
 
 #### Parameter overview
 Possible parameters:
@@ -447,9 +450,9 @@ Possible `awWizardStep` parameters:
 | (stepExit)                    | `function(MovingDirection): void`                                                                    | null           |
 
 ### \[awWizardCompletionStep\]
-In addition to the possibility of defining a normal wizard step in a custom component, 
+In addition to the possibility of defining a normal wizard step in a custom component,
 it is also possible to define a wizard completion step in a custom component.
-To define a wizard completion step in a custom component you need to add the `[awWizardCompletionStep]` directive to the custom component, 
+To define a wizard completion step in a custom component you need to add the `[awWizardCompletionStep]` directive to the custom component,
 that contains the wizard completion step.
 
 ```html
@@ -477,11 +480,11 @@ Possible `awWizardCompletionStep` parameters:
 Sometimes it's also required to reset the wizard to its initial state.
 In such a case you can use the `awResetWizard` directive.
 This directive can be added to a button or a link for example.
-When clicking on this element, the wizard will automatically reset to its `defaultStepIndex`. 
+When clicking on this element, the wizard will automatically reset to its `defaultStepIndex`.
 
 In addition it's possible to define an `EventEmitter`, that is called when the wizard is being reset.
 This `EventEmitter` can be bound to the `(finalize)` input of the `awResetWizard` directive.
-  
+
 #### Parameter overview
 Possible `awResetWizard` parameters:
 
@@ -490,21 +493,21 @@ Possible `awResetWizard` parameters:
 | (finalize)                    | `function(): void`                                                                                   | null          |
 
 ### Accessing the wizard component instance
-Sometimes it's required to access the wizard component directly. 
+Sometimes it's required to access the wizard component directly.
 In such a case you can get the instance of the used wizard component in your own component via:
 ```typescript
 @ViewChild(WizardComponent)
 public wizard: WizardComponent;
 ```
 
-After obtaining a `WizardComponent` object, you can then obtain the `WizardState` instance of the wizard via `wizard.model` and 
+After obtaining a `WizardComponent` object, you can then obtain the `WizardState` instance of the wizard via `wizard.model` and
 the `NavigationMode` instance via `wizard.navigation`.
 
 ### Customizing the wizard stylesheets
-Sometimes you like to use your own custom CSS for some parts of the wizard like its navigation bar. 
-This is quite easy to do. 
+Sometimes you like to use your own custom CSS for some parts of the wizard like its navigation bar.
+This is quite easy to do.
 Different ways are possible:
- 
+
 1. Either use a wrapper around the wizard:
     ```html
     <div class="my-custom-css-wrapper">
@@ -517,14 +520,14 @@ Different ways are possible:
     <aw-wizard class="my-custom-css-wrapper"></aw-wizard>
     ```
 
-When overriding css properties already defined in the existing navigation bar layouts, it is required to use `!important`. 
-In addition it is required to add `encapsulation: ViewEncapsulation.None` to the component, that defines the wizard and overrides its layout. 
+When overriding css properties already defined in the existing navigation bar layouts, it is required to use `!important`.
+In addition it is required to add `encapsulation: ViewEncapsulation.None` to the component, that defines the wizard and overrides its layout.
 For additional information about how to write your own navigation bar please take a look at the existing navigation bar layouts, which can be found at
-https://github.com/madoar/angular-archwizard/blob/master/src/components/wizard-navigation-bar.component.horizontal.less and 
+https://github.com/madoar/angular-archwizard/blob/master/src/components/wizard-navigation-bar.component.horizontal.less and
 https://github.com/madoar/angular-archwizard/blob/master/src/components/wizard-navigation-bar.component.vertical.less.
 
 ### Working with dynamically inserted and removed steps
-In some cases it may be required to remove or insert one or multiple steps after the wizard initialization, 
+In some cases it may be required to remove or insert one or multiple steps after the wizard initialization,
 for example after a user does some interaction with the wizard, it may be required to add or remove a later step.
 In such situations the wizard supports the removal and insertion of steps in the DOM.
 
@@ -540,13 +543,13 @@ ngAfterViewInit(): void {
 }
 ```
 
-If an earlier step, compared to the current step, has been removed or inserted, 
+If an earlier step, compared to the current step, has been removed or inserted,
 the wizard will adjust the index of the current step to make the changed state valid again.
 
-Please be also sure to not remove the step, the wizard is currently displaying, because otherwise the wizard will be inside an 
+Please be also sure to not remove the step, the wizard is currently displaying, because otherwise the wizard will be inside an
 invalid state, which may lead to strange and unexpected behavior.
 
 ## Example
-You can find an basic example project using `angular-archwizard` [here](https://madoar.github.io/angular-archwizard-demo). 
+You can find an basic example project using `angular-archwizard` [here](https://madoar.github.io/angular-archwizard-demo).
 The sources for the example can be found in the [angular-archwizard-demo](https://github.com/madoar/angular-archwizard-demo) repository.
 It illustrates how the wizard looks like and how the different settings can change its layout and behavior.
