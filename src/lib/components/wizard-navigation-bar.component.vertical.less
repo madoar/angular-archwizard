@@ -129,7 +129,7 @@ aw-wizard-navigation-bar.vertical {
           .state-circle-with-background-hover(@wz-color-default);
         }
 
-        div {
+        a {
           min-height: @small-dot-height;
         }
       }
@@ -186,7 +186,7 @@ aw-wizard-navigation-bar.vertical {
           .state-circle-with-background-hover(@wz-color-default);
         }
 
-        div {
+        a {
           min-height: @big-dot-height;
         }
       }
@@ -243,7 +243,7 @@ aw-wizard-navigation-bar.vertical {
           .state-circle-with-border-hover(@dot-border-width, @wz-color-default);
         }
 
-        div {
+        a {
           min-height: @big-dot-height + 2 * @dot-border-width;
         }
       }
@@ -300,7 +300,7 @@ aw-wizard-navigation-bar.vertical {
           .state-circle-with-background-and-content-hover(@wz-color-default);
         }
 
-        div {
+        a {
           min-height: @big-dot-height;
         }
       }
@@ -357,7 +357,7 @@ aw-wizard-navigation-bar.vertical {
           .state-circle-with-border-and-content-hover(@dot-border-width, @wz-color-default);
         }
 
-        div {
+        a {
           min-height: @big-dot-height + 2 * @dot-border-width;
         }
       }
@@ -420,6 +420,11 @@ aw-wizard-navigation-bar.vertical {
       }
 
       a {
+        // center labels vertically
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
         cursor: pointer;
 
         .label {
