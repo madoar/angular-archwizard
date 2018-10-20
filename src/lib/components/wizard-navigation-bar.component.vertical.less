@@ -119,43 +119,37 @@ extra distance between the bottom of the dots and the baseline texts
 
     .step-indicator {
       .state-circle(@width, @height, @border);
+      .state-default(@wz-color-default);
+    }
+    &.current .step-indicator {
+      .state-default(@wz-color-current);
+    }
+    &.done .step-indicator {
+      .state-default(@wz-color-done);
+    }
+    &.optional .step-indicator {
+      .state-default(@wz-color-optional);
+    }
+    &.editing .step-indicator {
+      .state-default(@wz-color-editing);
     }
 
     a:hover .step-indicator {
       .state-circle-hover(@width, @height, @border);
+      .state-hover(@wz-color-default);
     }
-  }
-
-  li .step-indicator {
-    .state-default(@wz-color-default);
-  }
-  li.current .step-indicator {
-    .state-default(@wz-color-current);
-  }
-  li.done .step-indicator {
-    .state-default(@wz-color-done);
-  }
-  li.optional .step-indicator {
-    .state-default(@wz-color-optional);
-  }
-  li.editing .step-indicator {
-    .state-default(@wz-color-editing);
-  }
-
-  li a:hover .step-indicator {
-    .state-hover(@wz-color-default);
-  }
-  li.current a:hover .step-indicator {
-    .state-hover(@wz-color-current);
-  }
-  li.done a:hover .step-indicator {
-    .state-hover(@wz-color-done);
-  }
-  li.optional a:hover .step-indicator {
-    .state-hover(@wz-color-optional);
-  }
-  li.editing a:hover .step-indicator {
-    .state-hover(@wz-color-editing);
+    &.current a:hover .step-indicator {
+      .state-hover(@wz-color-current);
+    }
+    &.done a:hover .step-indicator {
+      .state-hover(@wz-color-done);
+    }
+    &.optional a:hover .step-indicator {
+      .state-hover(@wz-color-optional);
+    }
+    &.editing a:hover .step-indicator {
+      .state-hover(@wz-color-editing);
+    }
   }
 
   // default steps shouldn't change when hovered, because they aren't clickable
