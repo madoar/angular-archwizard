@@ -105,7 +105,25 @@ extra distance between the bottom of the dots and the baseline texts
 }
 
 
-.define-state(@width: @big-dot-height, @height: @big-dot-height, @border: @dot-border-width) {
+// Helper mixin to define a step indicator stype like 'small', 'large-filled-symbols' etc.
+//
+// Arguments:
+//   @width  - step indicator width
+//   @height - step indicator height
+//   @border - step indicator border
+//
+// In addition to the abovementioned explicit arguments, the `.define-style` mixin uses
+// another three helper mixins, which you have to define before including `.define-style`:
+//
+//   .state-default(@color) { /* default styles to apply to .step-indicator */ }
+//   .state-hover(@color)   { /* styles to apply on hover */ }
+//   .state-nohover(@color) { /* styles to cancel out hover styles from the .state-hover mixin */ }
+//
+// Each mixin is given the base color for one of possible indicator states (default, current, done etc.).
+// In addition to @color argument, in every helper mixin you can use @width, @height, @border variables
+// passed through the `.define-style` mixin.
+//
+.define-style(@width: @big-dot-height, @height: @big-dot-height, @border: @dot-border-width) {
   padding: (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2 + @dot-baseline-distance + @height);
 
   li {
@@ -169,35 +187,35 @@ aw-wizard-navigation-bar.vertical {
     .state-default(@color) { .state-circle-with-background(@color); }
     .state-hover(@color) { .state-circle-with-background-hover(@color); }
     .state-nohover(@color) { .state-circle-with-background-nohover(@color); }
-    .define-state(@width: @small-dot-width, @height: @small-dot-height, @border: 0);
+    .define-style(@width: @small-dot-width, @height: @small-dot-height, @border: 0);
   }
 
   &.large-filled ul.steps-indicator {
     .state-default(@color) { .state-circle-with-background(@color); }
     .state-hover(@color) { .state-circle-with-background-hover(@color); }
     .state-nohover(@color) { .state-circle-with-background-nohover(@color); }
-    .define-state(@border: 0);
+    .define-style(@border: 0);
   }
 
   &.large-empty ul.steps-indicator {
     .state-default(@color) { .state-circle-with-border(@color); }
     .state-hover(@color) { .state-circle-with-border-hover(@color); }
     .state-nohover(@color) { .state-circle-with-border-nohover(@color); }
-    .define-state();
+    .define-style();
   }
 
   &.large-filled-symbols ul.steps-indicator {
     .state-default(@color) { .state-circle-with-background-and-content(@color); }
     .state-hover(@color) { .state-circle-with-background-and-content-hover(@color); }
     .state-nohover(@color) { .state-circle-with-background-and-content-nohover(@color); }
-    .define-state();
+    .define-style();
   }
 
   &.large-empty-symbols ul.steps-indicator {
     .state-default(@color) { .state-circle-with-border-and-content(@color); }
     .state-hover(@color) { .state-circle-with-border-and-content-hover(@color); }
     .state-nohover(@color) { .state-circle-with-border-and-content-nohover(@color); }
-    .define-state();
+    .define-style();
   }
 
   ul.steps-indicator {
