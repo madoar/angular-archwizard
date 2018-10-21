@@ -33,9 +33,8 @@ export class SemiStrictNavigationMode extends NavigationMode {
     super.checkReset();
 
     // the default step is a completion step and the wizard contains more than one step
-    const defaultCompletionStep = this.wizardState.getStepAtIndex(this.wizardState.defaultStepIndex) instanceof WizardCompletionStep &&
-      this.wizardState.wizardSteps.length !== 1;
-    if (defaultCompletionStep) {
+    const defaultCompletionStep = this.wizardState.getStepAtIndex(this.wizardState.defaultStepIndex) instanceof WizardCompletionStep;
+    if (defaultCompletionStep && this.wizardState.wizardSteps.length !== 1) {
       throw new Error(`The default step index ${this.wizardState.defaultStepIndex} references a completion step`);
     }
   }
