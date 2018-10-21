@@ -170,6 +170,9 @@ export abstract class NavigationMode {
 
   /**
    * Tries to transition the wizard to the previous step from the `currentStep`
+   *
+   * @param preFinalize An event emitter, to be called before the step has been transitioned
+   * @param postFinalize An event emitter, to be called after the step has been transitioned
    */
   public goToPreviousStep(preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
     this.goToStep(this.wizardState.currentStepIndex - 1, preFinalize, postFinalize);
@@ -177,6 +180,9 @@ export abstract class NavigationMode {
 
   /**
    * Tries to transition the wizard to the next step from the `currentStep`
+   *
+   * @param preFinalize An event emitter, to be called before the step has been transitioned
+   * @param postFinalize An event emitter, to be called after the step has been transitioned
    */
   public goToNextStep(preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
     this.goToStep(this.wizardState.currentStepIndex + 1, preFinalize, postFinalize);
