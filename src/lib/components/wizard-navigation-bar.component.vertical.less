@@ -59,7 +59,7 @@ extra distance between the bottom of the dots and the baseline texts
 .state-circle-nohover(@dot-width, @dot-height, @dot-border-width) { }
 
 .state-circle-with-border(@color) {
-  border-width: @border;
+  border-width: @border-width;
   border-style: solid;
   border-color: @color;
 }
@@ -110,7 +110,7 @@ extra distance between the bottom of the dots and the baseline texts
 // Arguments:
 //   @width  - step indicator width
 //   @height - step indicator height
-//   @border - step indicator border
+//   @border-width - step indicator border width
 //
 // In addition to the abovementioned explicit arguments, the `.define-style` mixin uses
 // another three helper mixins, which you have to define before including `.define-style`:
@@ -120,10 +120,10 @@ extra distance between the bottom of the dots and the baseline texts
 //   .state-nohover(@color) { /* styles to cancel out hover styles from the .state-hover mixin */ }
 //
 // Each mixin is given the base color for one of possible indicator states (default, current, done etc.).
-// In addition to @color argument, in every helper mixin you can use @width, @height, @border variables
+// In addition to @color argument, in every helper mixin you can use @width, @height, @border-width variables
 // passed through the `.define-style` mixin.
 //
-.define-style(@width: @big-dot-height, @height: @big-dot-height, @border: @dot-border-width) {
+.define-style(@width: @big-dot-height, @height: @big-dot-height, @border-width: @dot-border-width) {
   padding: (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2) (@distance-between-steps / 2 + @dot-baseline-distance + @height);
 
   li {
@@ -136,7 +136,7 @@ extra distance between the bottom of the dots and the baseline texts
     }
 
     .step-indicator {
-      .state-circle(@width, @height, @border);
+      .state-circle(@width, @height, @border-width);
       .state-default(@wz-color-default);
     }
     &.current .step-indicator {
@@ -153,7 +153,7 @@ extra distance between the bottom of the dots and the baseline texts
     }
 
     a:hover .step-indicator {
-      .state-circle-hover(@width, @height, @border);
+      .state-circle-hover(@width, @height, @border-width);
       .state-hover(@wz-color-default);
     }
     &.current a:hover .step-indicator {
@@ -187,14 +187,14 @@ aw-wizard-navigation-bar.vertical {
     .state-default(@color) { .state-circle-with-background(@color); }
     .state-hover(@color) { .state-circle-with-background-hover(@color); }
     .state-nohover(@color) { .state-circle-with-background-nohover(@color); }
-    .define-style(@width: @small-dot-width, @height: @small-dot-height, @border: 0);
+    .define-style(@width: @small-dot-width, @height: @small-dot-height, @border-width: 0);
   }
 
   &.large-filled ul.steps-indicator {
     .state-default(@color) { .state-circle-with-background(@color); }
     .state-hover(@color) { .state-circle-with-background-hover(@color); }
     .state-nohover(@color) { .state-circle-with-background-nohover(@color); }
-    .define-style(@border: 0);
+    .define-style(@border-width: 0);
   }
 
   &.large-empty ul.steps-indicator {
