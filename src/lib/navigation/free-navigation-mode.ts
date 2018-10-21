@@ -8,7 +8,7 @@ import {NavigationMode} from './navigation-mode.interface';
  */
 export class FreeNavigationMode extends NavigationMode {
 
-  isNavigable(destinationIndex: number): boolean {
+  public isNavigable(destinationIndex: number): boolean {
     return true;
   }
 }
