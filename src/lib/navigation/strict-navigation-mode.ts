@@ -1,4 +1,4 @@
-import {NavigationMode} from './navigation-mode.interface';
+import {BaseNavigationMode} from './base-navigation-mode.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardState} from './wizard-state.model';
 import {EventEmitter} from '@angular/core';
@@ -11,7 +11,7 @@ import {EventEmitter} from '@angular/core';
  *
  * @author Marc Arndt
  */
-export class StrictNavigationMode extends NavigationMode {
+export class StrictNavigationMode extends BaseNavigationMode {
   /**
    * Constructor
    *
