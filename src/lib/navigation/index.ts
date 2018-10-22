@@ -1,6 +1,7 @@
 export {BaseNavigationMode} from './base-navigation-mode.interface';
 export {FreeNavigationMode} from './free-navigation-mode';
 export {NavigationMode} from './navigation-mode.interface';
+export {NavigationModeInput} from './navigation-mode.provider';
 export * from './navigation-mode.provider';
 export {SemiStrictNavigationMode} from './semi-strict-navigation-mode';
 export {StrictNavigationMode} from './strict-navigation-mode';

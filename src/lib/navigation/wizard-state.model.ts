@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {NavigationMode} from './navigation-mode.interface';
-import {navigationModeFactory} from './navigation-mode.provider';
+import {createNavigationModeByName} from './navigation-mode.provider';
 
 /**
  * The internal model/state of a wizard.
@@ -99,12 +99,16 @@ export class WizardState {
   }
 
   /**
-   * Updates the navigation mode to the navigation mode with the given name
+   * Updates the navigation mode
    *
-   * @param updatedNavigationMode The name of the new navigation mode
+   * @param navigationMode The name of a built-in navigation mode to use or an already constructed `NavigationMode` instance
    */
-  updateNavigationMode(updatedNavigationMode: string): void {
-    this.navigationMode = navigationModeFactory(updatedNavigationMode, this);
+  updateNavigationMode(navigationMode: string|NavigationMode): void {
+    if (typeof navigationMode === 'string') {
+      this.navigationMode = createNavigationModeByName(this, navigationMode);
+    } else {
+      this.navigationMode = navigationMode;
+    }
   }
 
   /**

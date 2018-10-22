@@ -4,7 +4,7 @@ import {MovingDirection} from '../util/moving-direction.enum';
 import {NavigationMode} from './navigation-mode.interface';
 
 /**
- * Base impelementation of NavigationMode
+ * Base implementation of [[NavigationMode]]
  *
  * @author Marc Arndt
  */

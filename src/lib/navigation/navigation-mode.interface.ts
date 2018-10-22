@@ -4,7 +4,7 @@ import {EventEmitter} from '@angular/core';
  * An interface containing the basic functionality, which must be provided by a navigation mode.
  * A navigation mode manages the navigation between different wizard steps, this contains the validation, if a step transition can be done
  *
- * For base implementation see BaseNavigationMode.
+ * For base implementation see [[BaseNavigationMode]].
  *
  * @author Marc Arndt
  */

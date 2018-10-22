@@ -12,6 +12,7 @@ import {
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
+import { navigationModeFactory, NavigationModeInput } from '../navigation/navigation-mode.provider';
 
 /**
  * The `aw-wizard` component defines the root component of a wizard.
@@ -88,7 +89,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    * The navigation mode can be either `strict`, `semi-strict` or `free`
    */
   @Input()
-  public navigationMode = 'strict';
+  public navigationMode: NavigationModeInput = 'strict';
 
   /**
    * The initially selected step, represented by its index
@@ -146,7 +147,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    */
   ngOnChanges(changes: SimpleChanges) {
     for (const propName of Object.keys(changes)) {
-      let change = changes[propName];
+      const change = changes[propName];
 
       if (!change.firstChange) {
         switch (propName) {
@@ -157,7 +158,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
             this.model.disableNavigationBar = change.currentValue;
             break;
           case 'navigationMode':
-            this.model.updateNavigationMode(change.currentValue);
+            this.updateNavigationMode(change.currentValue);
             break;
           /* istanbul ignore next */
           default:
@@ -179,9 +180,13 @@ export class WizardComponent implements OnChanges, AfterContentInit {
     this.model.disableNavigationBar = this.disableNavigationBar;
     this.model.defaultStepIndex = this.defaultStepIndex;
     this.model.updateWizardSteps(this.wizardSteps.toArray());
-    this.model.updateNavigationMode(this.navigationMode);
+    this.updateNavigationMode(this.navigationMode);
 
     // finally reset the whole wizard state
     this.navigation.reset();
+  }
+
+  protected updateNavigationMode(navigationModeInput: NavigationModeInput) {
+    this.model.updateNavigationMode(navigationModeFactory(this, navigationModeInput));
   }
 }
