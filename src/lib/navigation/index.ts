@@ -1,3 +1,4 @@
+export {BaseNavigationMode} from './base-navigation-mode.interface';
 export {FreeNavigationMode} from './free-navigation-mode';
 export {NavigationMode} from './navigation-mode.interface';
 export * from './navigation-mode.provider';

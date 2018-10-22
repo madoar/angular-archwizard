@@ -1,4 +1,4 @@
-import {NavigationMode} from './navigation-mode.interface';
+import {BaseNavigationMode} from './base-navigation-mode.interface';
 
 /**
  * A [[NavigationMode]], which allows the user to navigate without any limitations,
@@ -6,7 +6,7 @@ import {NavigationMode} from './navigation-mode.interface';
  *
  * @author Marc Arndt
  */
-export class FreeNavigationMode extends NavigationMode {
+export class FreeNavigationMode extends BaseNavigationMode {
 
   public isNavigable(destinationIndex: number): boolean {
     return true;

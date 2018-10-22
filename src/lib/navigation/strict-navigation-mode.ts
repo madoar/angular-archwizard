@@ -1,4 +1,4 @@
-import {NavigationMode} from './navigation-mode.interface';
+import {BaseNavigationMode} from './base-navigation-mode.interface';
 
 /**
  * A [[NavigationMode]], which allows the user to navigate with strict limitations.
@@ -7,7 +7,7 @@ import {NavigationMode} from './navigation-mode.interface';
  *
  * @author Marc Arndt
  */
-export class StrictNavigationMode extends NavigationMode {
+export class StrictNavigationMode extends BaseNavigationMode {
 
   /**
    * @inheritDoc

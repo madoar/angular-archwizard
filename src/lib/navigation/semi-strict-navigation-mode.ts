@@ -1,4 +1,4 @@
-import {NavigationMode} from './navigation-mode.interface';
+import {BaseNavigationMode} from './base-navigation-mode.interface';
 import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 
 /**
@@ -9,7 +9,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  *
  * @author Marc Arndt
  */
-export class SemiStrictNavigationMode extends NavigationMode {
+export class SemiStrictNavigationMode extends BaseNavigationMode {
 
   /**
    * @inheritDoc
