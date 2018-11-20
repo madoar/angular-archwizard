@@ -184,4 +184,12 @@ export class WizardComponent implements OnChanges, AfterContentInit {
     // finally reset the whole wizard state
     this.navigation.reset();
   }
+  
+ /**
+  * Reset manually the wizard
+  */
+  reset(): void {
+    // finally reset the whole wizard state
+    this.navigation.reset();
+  }
 }
