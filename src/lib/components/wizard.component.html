@@ -1,15 +1,7 @@
 <aw-wizard-navigation-bar
   [direction]="navBarDirection"
   *ngIf="navBarLocation == 'top' || navBarLocation == 'left'"
-  [ngClass]="{
-    vertical: navBarLocation == 'left',
-    horizontal: navBarLocation == 'top',
-    small: navBarLayout == 'small',
-    'large-filled': navBarLayout == 'large-filled',
-    'large-filled-symbols': navBarLayout == 'large-filled-symbols',
-    'large-empty': navBarLayout == 'large-empty',
-    'large-empty-symbols': navBarLayout == 'large-empty-symbols'
-  }">
+  [ngClass]="navigationClass">
 </aw-wizard-navigation-bar>
 
 <div [ngClass]="{
@@ -23,13 +15,5 @@
 <aw-wizard-navigation-bar
   [direction]="navBarDirection"
   *ngIf="navBarLocation == 'bottom' || navBarLocation == 'right'"
-  [ngClass]="{
-    vertical: navBarLocation == 'right',
-    horizontal: navBarLocation == 'bottom',
-    small: navBarLayout == 'small',
-    'large-filled': navBarLayout == 'large-filled',
-    'large-filled-symbols': navBarLayout == 'large-filled-symbols',
-    'large-empty': navBarLayout == 'large-empty',
-    'large-empty-symbols': navBarLayout == 'large-empty-symbols'
-  }">
+  [ngClass]="navigationClass">
 </aw-wizard-navigation-bar>

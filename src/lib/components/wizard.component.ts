@@ -9,9 +9,13 @@ import {
   SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
-import {WizardStep} from '../util/wizard-step.interface';
-import {WizardState} from '../navigation/wizard-state.model';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardStep} from '../util';
+import {WizardState} from '../navigation';
+import {NavigationMode} from '../navigation';
+import {NavBarLocationTypes} from '../util/nav-bar-location-types.enum';
+import {NavBarLayoutTypes} from '../util/nav-bar-layout-types.enum';
+import {NavBarDirectionTypes} from '../util/nav-bar-direction-types.enum';
+import {NavigationModeTypes} from '../util/navigation-mode-types.enum';
 
 /**
  * The `aw-wizard` component defines the root component of a wizard.
@@ -65,30 +69,86 @@ export class WizardComponent implements OnChanges, AfterContentInit {
   /**
    * The location of the navigation bar inside the wizard.
    * This location can be either top, bottom, left or right
+   *
+   * @see NavBarLocationTypes
    */
+  private _navBarLocation: NavBarLocationTypes = NavBarLocationTypes.TOP;
+
   @Input()
-  public navBarLocation = 'top';
+  /**
+   * The location of the navigation bar inside the wizard.
+   * This location can be either top, bottom, left or right
+   *
+   * @see NavBarLocationTypes
+   */
+  public get navBarLocation(): NavBarLocationTypes {
+    return this._navBarLocation;
+  }
+
+  /**
+   * The location of the navigation bar inside the wizard.
+   * This location can be either top, bottom, left or right
+   *
+   * @see NavBarLocationTypes
+   */
+  public set navBarLocation(navBarLocation: NavBarLocationTypes) {
+    delete this.navigationClass[this.navBarLocationClasses[this._navBarLocation]];
+
+    this._navBarLocation = navBarLocation;
+
+    this.navigationClass[this.navBarLocationClasses[navBarLocation]] = !!this.navBarLocationClasses[navBarLocation];
+  }
 
   /**
    * The layout of the navigation bar inside the wizard.
-   * The layout can be either small, large-filled, large-empty or large-symbols
+   * The layout can be either small, large-filled, large-empty, large-symbols, large-filled-symbols or large-empty-symbols
+   *
+   * @see NavBarLayoutTypes
    */
+  private _navBarLayout: NavBarLayoutTypes = NavBarLayoutTypes.SMALL;
+
   @Input()
-  public navBarLayout = 'small';
+  /**
+   * The layout of the navigation bar inside the wizard.
+   * The layout can be either small, large-filled, large-empty, large-symbols, large-filled-symbols or large-empty-symbols
+   *
+   * @see NavBarLayoutTypes
+   */
+  get navBarLayout(): NavBarLayoutTypes {
+    return this._navBarLayout;
+  }
+
+  /**
+   * The layout of the navigation bar inside the wizard.
+   * The layout can be either small, large-filled, large-empty, large-symbols, large-filled-symbols or large-empty-symbols
+   *
+   * @see NavBarLayoutTypes
+   */
+  set navBarLayout(value: NavBarLayoutTypes) {
+    delete this.navigationClass[this._navBarLayout];
+
+    this._navBarLayout = value;
+
+    this.navigationClass[this._navBarLayout] = !!this._navBarLayout;
+  }
 
   /**
    * The direction in which the steps inside the navigation bar should be shown.
    * The direction can be either `left-to-right` or `right-to-left`
+   *
+   * @see NavBarDirectionTypes
    */
   @Input()
-  public navBarDirection = 'left-to-right';
+  public navBarDirection: NavBarDirectionTypes = NavBarDirectionTypes.LTR;
 
   /**
    * The navigation mode used for transitioning between different steps.
    * The navigation mode can be either `strict`, `semi-strict` or `free`
+   *
+   * @see NavigationModeTypes
    */
   @Input()
-  public navigationMode = 'strict';
+  public navigationMode: NavigationModeTypes = NavigationModeTypes.STRICT;
 
   /**
    * The initially selected step, represented by its index
@@ -101,6 +161,41 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    */
   @Input()
   public disableNavigationBar = false;
+
+  /**
+   * Navigation custom class
+   */
+  private _navigationCustomClass: string;
+
+  /**
+   * Navigation custom class
+   */
+  @Input()
+  get navigationCustomClass(): string {
+    return this._navigationCustomClass;
+  }
+
+  /**
+   * Navigation custom class
+   */
+  set navigationCustomClass(customClass: string) {
+    delete this._navigationClass[this._navigationCustomClass];
+
+    this._navigationCustomClass = customClass;
+
+    if (customClass) {
+      this._navigationClass[this._navigationCustomClass] = true;
+    }
+  }
+
+  /**
+   * Navigation class
+   */
+  private _navigationClass: any = {};
+
+  public get navigationClass() {
+    return this._navigationClass;
+  }
 
   /**
    * Returns true if this wizard uses a horizontal orientation.
@@ -132,11 +227,24 @@ export class WizardComponent implements OnChanges, AfterContentInit {
   }
 
   /**
+   * NavBarLocation classes by there value
+   */
+  private navBarLocationClasses = {
+    left: 'vertical',
+    top: 'horizontal',
+    right: 'vertical',
+    bottom: 'horizontal'
+  };
+
+  /**
    * Constructor
    *
    * @param model The model for this wizard component
    */
   constructor(public model: WizardState) {
+    // set the nav-bar layout and location so it will change the navigation class
+    this.navBarLocation = NavBarLocationTypes.TOP;
+    this.navBarLayout = NavBarLayoutTypes.SMALL;
   }
 
   /**
@@ -146,7 +254,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    */
   ngOnChanges(changes: SimpleChanges) {
     for (const propName of Object.keys(changes)) {
-      let change = changes[propName];
+      const change = changes[propName];
 
       if (!change.firstChange) {
         switch (propName) {

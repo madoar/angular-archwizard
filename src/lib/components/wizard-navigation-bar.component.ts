@@ -1,7 +1,7 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {WizardStep} from '../util/wizard-step.interface';
-import {WizardState} from '../navigation/wizard-state.model';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardStep} from '../util';
+import {NavigationMode, WizardState} from '../navigation';
+import {NavBarDirectionTypes} from '../util/nav-bar-direction-types.enum';
 
 /**
  * The `aw-wizard-navigation-bar` component contains the navigation bar inside a [[WizardComponent]].
@@ -24,11 +24,16 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
 })
 export class WizardNavigationBarComponent {
   /**
+   * Workaround for this error - ng: Identifier 'Object' is not defined
+   */
+  public Object = Object;
+
+  /**
    * The direction in which the wizard steps should be shown in the navigation bar.
    * This value can be either `left-to-right` or `right-to-left`
    */
   @Input()
-  public direction = 'left-to-right';
+  public direction: NavBarDirectionTypes = NavBarDirectionTypes.LTR;
 
   /**
    * The navigation mode
@@ -51,13 +56,9 @@ export class WizardNavigationBarComponent {
    * @returns An array containing all [[WizardStep]]s
    */
   get wizardSteps(): Array<WizardStep> {
-    switch (this.direction) {
-      case 'right-to-left':
-        return this.wizardState.wizardSteps.slice().reverse();
-      case 'left-to-right':
-      default:
-        return this.wizardState.wizardSteps;
-    }
+    return (this.direction === NavBarDirectionTypes.RTL)
+      ? this.wizardState.wizardSteps.slice().reverse()
+      : this.wizardState.wizardSteps;
   }
 
   /**
@@ -116,7 +117,17 @@ export class WizardNavigationBarComponent {
    * @returns True if the step can be marked as optional
    */
   public isOptional(wizardStep: WizardStep): boolean {
-    return wizardStep.optional && !wizardStep.completed && !wizardStep.selected && !this.wizardState.completed
+    return wizardStep.optional && !wizardStep.completed && !wizardStep.selected && !this.wizardState.completed;
+  }
+
+  /**
+   * Checks, whether a [[WizardStep]] can be marked as `disabled` in the navigation bar
+   *
+   * @param wizardStep The wizard step to be checked
+   * @returns True if the step can be marked as disabled
+   */
+  public isDisabled(wizardStep: WizardStep): boolean {
+    return wizardStep.disabled;
   }
 
   /**
@@ -131,6 +142,26 @@ export class WizardNavigationBarComponent {
    */
   public isNavigable(wizardStep: WizardStep): boolean {
     return !wizardStep.selected && !this.wizardState.disableNavigationBar &&
-      this.navigationMode.isNavigable(this.wizardState.getIndexOfStep(wizardStep));
+           this.navigationMode.isNavigable(this.wizardState.getIndexOfStep(wizardStep));
+  }
+
+  /**
+   * Get StepClass
+   * @param step step to get his class to
+   * @return the classes of the step
+   */
+  getStepClass(step): any {
+    const stepClass = {
+      default: this.isDefault(step),
+      current: this.isCurrent(step),
+      done: this.isDone(step),
+      editing: this.isEditing(step),
+      optional: this.isOptional(step),
+      navigable: this.isNavigable(step),
+      disabled: this.isDisabled(step)
+    };
+    stepClass[step.customNavBarClass] = !!step.customNavBarClass;
+
+    return stepClass;
   }
 }

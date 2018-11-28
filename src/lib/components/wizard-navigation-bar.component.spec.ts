@@ -6,14 +6,16 @@ import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
+import {NavBarLayoutTypes} from '../util/nav-bar-layout-types.enum';
+import {NavBarDirectionTypes} from '../util/nav-bar-direction-types.enum';
 
 @Component({
   selector: 'aw-test-wizard',
   template: `
     <aw-wizard>
-      <aw-wizard-step stepTitle='Steptitle 1'>Step 1</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 2' awOptionalStep>Step 2</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 3'>Step 3</aw-wizard-step>
+      <aw-wizard-step stepTitle='STEPTITLE 1'>Step 1</aw-wizard-step>
+      <aw-wizard-step stepTitle='STEPTITLE 2' awOptionalStep>Step 2</aw-wizard-step>
+      <aw-wizard-step stepTitle='STEPTITLE 3'>Step 3</aw-wizard-step>
     </aw-wizard>
   `
 })
@@ -459,62 +461,56 @@ describe('WizardNavigationBarComponent', () => {
   it('should use the \"small\" layout when no navigation bar layout is specified', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
+    expect(navBar.classes).toEqual({'small': true, horizontal: true});
   });
 
   it('should use the \"small\" layout when it is specified', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
-    wizardTest.wizard.navBarLayout = 'small';
+    wizardTest.wizard.navBarLayout = NavBarLayoutTypes.SMALL;
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
+    expect(navBar.classes).toEqual({ 'small': true, horizontal: true});
   });
 
   it('should use the \"large-filled\" layout when it is specified', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
-    wizardTest.wizard.navBarLayout = 'large-filled';
+    wizardTest.wizard.navBarLayout = NavBarLayoutTypes.LARGE_FILLED;
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': true, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
+    expect(navBar.classes).toEqual({ 'horizontal': true, 'large-filled': true, small: false });
   });
 
   it('should use the \"large-empty\" layout when it is specified', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
-    wizardTest.wizard.navBarLayout = 'large-empty';
+    wizardTest.wizard.navBarLayout = NavBarLayoutTypes.LARGE_EMPTY;
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': true, 'large-empty-symbols': false });
+    expect(navBar.classes).toEqual({ 'horizontal': true, 'large-empty': true, small: false});
   });
 
   it('should use the \"large-filled-symbols\" layout when it is specified', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
-    wizardTest.wizard.navBarLayout = 'large-filled-symbols';
+    wizardTest.wizard.navBarLayout = NavBarLayoutTypes.LARGE_FILLED_SYMBOLS;
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': false, 'large-filled-symbols': true, 'large-empty': false, 'large-empty-symbols': false });
+    expect(navBar.classes).toEqual({ 'horizontal': true, 'large-filled-symbols': true, small: false });
   });
 
   it('should use the \"large-empty-symbols\" layout when it is specified', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
-    wizardTest.wizard.navBarLayout = 'large-empty-symbols';
+    wizardTest.wizard.navBarLayout = NavBarLayoutTypes.LARGE_EMPTY_SYMBOLS;
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': true });
+    expect(navBar.classes).toEqual({ 'horizontal': true, 'large-empty-symbols': true, small: false });
   });
 
   it('should show the correct step titles', () => {
-    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
+    const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
     expect(navigationLinks.length).toBe(3);
     expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 1');
@@ -523,10 +519,10 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should show the correct reversed step titles', () => {
-    wizardTest.wizard.navBarDirection = 'right-to-left';
+    wizardTest.wizard.navBarDirection = NavBarDirectionTypes.RTL;
     wizardTestFixture.detectChanges();
 
-    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
+    const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
     expect(navigationLinks.length).toBe(3);
     expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 3');

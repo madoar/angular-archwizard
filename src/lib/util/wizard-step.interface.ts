@@ -46,6 +46,12 @@ export abstract class WizardStep {
   public navigationSymbol: NavigationSymbol = { symbol: '' };
 
   /**
+   * Custom CSS class for the step in the NavBar
+   */
+  @Input()
+  public customNavBarClass: string;
+
+  /**
    * A boolean describing if the wizard step has been completed
    */
   public completed = false;
@@ -64,6 +70,11 @@ export abstract class WizardStep {
    * A boolean describing if the wizard step is an optional step
    */
   public optional = false;
+
+  /**
+   * A boolean describing if the wizard step is an disabled step
+   */
+  public disabled = false;
 
   /**
    * A function or boolean deciding, if this step can be entered
