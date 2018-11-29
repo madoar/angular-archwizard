@@ -4,10 +4,12 @@ import {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
 import {WizardComponent} from './wizard.component';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardState} from '../navigation/wizard-state.model';
+import {NavigationMode, WizardState} from '../navigation';
 import {NavBarLayoutTypes} from '../util/nav-bar-layout-types.enum';
 import {NavBarDirectionTypes} from '../util/nav-bar-direction-types.enum';
+import {Observable} from 'rxjs';
+import {WizardStep} from '../util';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -93,6 +95,13 @@ describe('WizardNavigationBarComponent', () => {
   it('should show the second step correctly', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
+    // Step changed observable
+    const stepChangedObs: Observable<WizardStep> = wizardState.stepChangedObs;
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 2');
+    });
+
     // go to second step
     navigationMode.goToNextStep();
     tick();
@@ -131,6 +140,13 @@ describe('WizardNavigationBarComponent', () => {
 
   it('should show the third step correctly', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+
+    // Step changed observable
+    const stepChangedObs: Observable<WizardStep> = wizardState.stepChangedObs;
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 2');
+    });
 
     // go to second step
     navigationMode.goToNextStep();
@@ -177,6 +193,13 @@ describe('WizardNavigationBarComponent', () => {
   it('should show the third step correctly, after jump from first to third step', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
+    // Step changed observable
+    const stepChangedObs: Observable<WizardStep> = wizardState.stepChangedObs;
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 3');
+    });
+
     // go to third step and jump over the optional second step
     navigationMode.goToStep(2);
     tick();
@@ -217,10 +240,22 @@ describe('WizardNavigationBarComponent', () => {
   it('should show the first step correctly, after going back from the second step to the first step', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
+    // Step changed observable
+    const stepChangedObs: Observable<WizardStep> = wizardState.stepChangedObs;
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 2');
+    });
+
     // go to second step
     navigationMode.goToNextStep();
     tick();
     wizardTestFixture.detectChanges();
+
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 1');
+    });
 
     // go back to first step
     navigationMode.goToPreviousStep();
@@ -258,13 +293,24 @@ describe('WizardNavigationBarComponent', () => {
   }));
 
   it('should show the first step correctly, after first jumping from the first to the third step ' +
-    'and then back from the third step to the first step', fakeAsync(() => {
+     'and then back from the third step to the first step', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+
+    // Step changed observable
+    const stepChangedObs: Observable<WizardStep> = wizardState.stepChangedObs;
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 3');
+    });
 
     // go to third step, by jumping over the optional step
     navigationMode.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 1');
+    });
 
     // go back to first step
     navigationMode.goToStep(0);
@@ -302,13 +348,24 @@ describe('WizardNavigationBarComponent', () => {
   }));
 
   it('should show the second step correctly, after first jumping from the first to the third step ' +
-    'and then back from the third step to the second step', fakeAsync(() => {
+     'and then back from the third step to the second step', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+
+    // Step changed observable
+    const stepChangedObs: Observable<WizardStep> = wizardState.stepChangedObs;
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 3');
+    });
 
     // go to third step, by jumping over the optional step
     navigationMode.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 2');
+    });
 
     // go back to second step
     navigationMode.goToPreviousStep();
@@ -351,6 +408,13 @@ describe('WizardNavigationBarComponent', () => {
 
     wizardState.disableNavigationBar = true;
 
+    // Step changed observable
+    const stepChangedObs: Observable<WizardStep> = wizardState.stepChangedObs;
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 3');
+    });
+
     // go to third step and jump over the optional second step
     navigationMode.goToStep(2);
     tick();
@@ -391,12 +455,23 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(wizardState.currentStepIndex).toBe(0);
 
+    // Step changed observable
+    const stepChangedObs: Observable<WizardStep> = wizardState.stepChangedObs;
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 2');
+    });
+
     // go to the second step
     navigationMode.goToNextStep();
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 1');
+    });
 
     // go back to the first step
     goToFirstStepLink.click();
@@ -411,12 +486,24 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(wizardState.currentStepIndex).toBe(0);
 
-    // go to the second step
+
+    // Step changed observable
+    const stepChangedObs: Observable<WizardStep> = wizardState.stepChangedObs;
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 3');
+    });
+
+    // go to the third step
     navigationMode.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 1');
+    });
 
     // go back to the first step
     goToFirstStepLink.click();
@@ -431,14 +518,25 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(wizardState.currentStepIndex).toBe(0);
 
-    // go to the second step
+    // Step changed observable
+    const stepChangedObs: Observable<WizardStep> = wizardState.stepChangedObs;
+
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 3');
+    });
+
+    // go to the third step
     navigationMode.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
 
-    // go back to the first step
+    stepChangedObs.pipe(first()).subscribe((currentStep: WizardStep) => {
+      expect(currentStep.stepTitle).toEqual('STEPTITLE 2');
+    });
+
+    // go back to the second step
     goToSecondStepLink.click();
     tick();
     wizardTestFixture.detectChanges();
@@ -470,7 +568,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = NavBarLayoutTypes.SMALL;
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'small': true, horizontal: true});
+    expect(navBar.classes).toEqual({'small': true, horizontal: true});
   });
 
   it('should use the \"large-filled\" layout when it is specified', () => {
@@ -479,7 +577,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = NavBarLayoutTypes.LARGE_FILLED;
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'large-filled': true, small: false });
+    expect(navBar.classes).toEqual({'horizontal': true, 'large-filled': true, small: false});
   });
 
   it('should use the \"large-empty\" layout when it is specified', () => {
@@ -488,7 +586,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = NavBarLayoutTypes.LARGE_EMPTY;
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'large-empty': true, small: false});
+    expect(navBar.classes).toEqual({'horizontal': true, 'large-empty': true, small: false});
   });
 
   it('should use the \"large-filled-symbols\" layout when it is specified', () => {
@@ -497,7 +595,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = NavBarLayoutTypes.LARGE_FILLED_SYMBOLS;
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'large-filled-symbols': true, small: false });
+    expect(navBar.classes).toEqual({'horizontal': true, 'large-filled-symbols': true, small: false});
   });
 
   it('should use the \"large-empty-symbols\" layout when it is specified', () => {
@@ -506,7 +604,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = NavBarLayoutTypes.LARGE_EMPTY_SYMBOLS;
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'large-empty-symbols': true, small: false });
+    expect(navBar.classes).toEqual({'horizontal': true, 'large-empty-symbols': true, small: false});
   });
 
   it('should show the correct step titles', () => {

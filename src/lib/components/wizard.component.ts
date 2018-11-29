@@ -2,16 +2,17 @@ import {
   AfterContentInit,
   Component,
   ContentChildren,
+  EventEmitter,
   HostBinding,
   Input,
   OnChanges,
+  Output,
   QueryList,
   SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
 import {WizardStep} from '../util';
-import {WizardState} from '../navigation';
-import {NavigationMode} from '../navigation';
+import {NavigationMode, WizardState} from '../navigation';
 import {NavBarLocationTypes} from '../util/nav-bar-location-types.enum';
 import {NavBarLayoutTypes} from '../util/nav-bar-layout-types.enum';
 import {NavBarDirectionTypes} from '../util/nav-bar-direction-types.enum';
@@ -65,6 +66,12 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    */
   @ContentChildren(WizardStep)
   public wizardSteps: QueryList<WizardStep>;
+
+  /**
+   * Step Changed event that fired with the new current step
+   */
+  @Output()
+  stepChanged: EventEmitter<WizardStep> = new EventEmitter<WizardStep>();
 
   /**
    * The location of the navigation bar inside the wizard.
@@ -205,7 +212,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    */
   @HostBinding('class.horizontal')
   public get horizontalOrientation(): boolean {
-    return this.navBarLocation === 'top' || this.navBarLocation === 'bottom';
+    return this.navBarLocation === NavBarLocationTypes.TOP || this.navBarLocation === NavBarLocationTypes.BOTTOM;
   }
 
   /**
@@ -216,7 +223,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    */
   @HostBinding('class.vertical')
   public get verticalOrientation(): boolean {
-    return this.navBarLocation === 'left' || this.navBarLocation === 'right';
+    return this.navBarLocation === NavBarLocationTypes.LEFT || this.navBarLocation === NavBarLocationTypes.RIGHT;
   }
 
   /**
@@ -291,5 +298,13 @@ export class WizardComponent implements OnChanges, AfterContentInit {
 
     // finally reset the whole wizard state
     this.navigation.reset();
+  }
+
+  /**
+   * Step Changed event handler
+   * @param currentStep The Current Step
+   */
+  _stepChanged(currentStep: WizardStep) {
+    this.stepChanged.emit(currentStep);
   }
 }

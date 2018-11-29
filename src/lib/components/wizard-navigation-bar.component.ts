@@ -1,4 +1,4 @@
-import {Component, Input, ViewEncapsulation} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {WizardStep} from '../util';
 import {NavigationMode, WizardState} from '../navigation';
 import {NavBarDirectionTypes} from '../util/nav-bar-direction-types.enum';
@@ -22,18 +22,19 @@ import {NavBarDirectionTypes} from '../util/nav-bar-direction-types.enum';
   styleUrls: ['wizard-navigation-bar.component.horizontal.less', 'wizard-navigation-bar.component.vertical.less'],
   encapsulation: ViewEncapsulation.None,
 })
-export class WizardNavigationBarComponent {
-  /**
-   * Workaround for this error - ng: Identifier 'Object' is not defined
-   */
-  public Object = Object;
-
+export class WizardNavigationBarComponent implements OnInit {
   /**
    * The direction in which the wizard steps should be shown in the navigation bar.
    * This value can be either `left-to-right` or `right-to-left`
    */
   @Input()
   public direction: NavBarDirectionTypes = NavBarDirectionTypes.LTR;
+
+  /**
+   * Step Changed event that fired with the new current step
+   */
+  @Output()
+  stepChanged: EventEmitter<WizardStep> = new EventEmitter<WizardStep>();
 
   /**
    * The navigation mode
@@ -48,6 +49,16 @@ export class WizardNavigationBarComponent {
    * @param wizardState The state the wizard currently resides in
    */
   constructor(public wizardState: WizardState) {
+  }
+
+  ngOnInit() {
+    if (!this.navigationMode) {
+      throw Error('no navigation mode founded');
+    }
+
+    this.wizardState.stepChangedObs.subscribe((currentStep: WizardStep) => {
+      this.stepChanged.emit(currentStep);
+    });
   }
 
   /**

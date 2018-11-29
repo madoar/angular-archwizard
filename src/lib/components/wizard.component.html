@@ -1,7 +1,8 @@
 <aw-wizard-navigation-bar
   [direction]="navBarDirection"
   *ngIf="navBarLocation == 'top' || navBarLocation == 'left'"
-  [ngClass]="navigationClass">
+  [ngClass]="navigationClass"
+  (stepChanged)="_stepChanged($event)">
 </aw-wizard-navigation-bar>
 
 <div [ngClass]="{
@@ -15,5 +16,6 @@
 <aw-wizard-navigation-bar
   [direction]="navBarDirection"
   *ngIf="navBarLocation == 'bottom' || navBarLocation == 'right'"
-  [ngClass]="navigationClass">
+  [ngClass]="navigationClass"
+  (stepChanged)="_stepChanged($event)">
 </aw-wizard-navigation-bar>

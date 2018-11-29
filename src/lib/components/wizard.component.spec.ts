@@ -11,7 +11,7 @@ import {NavBarLocationTypes} from '../util/nav-bar-location-types.enum';
   template: `
     <aw-wizard [navigationMode]="navigationMode" [disableNavigationBar]="disableNavigationBar" [defaultStepIndex]="defaultStepIndex">
       <aw-wizard-step stepTitle='Steptitle 1' *ngIf="showStep1">Step 1</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 2' customNavBarClass="class">Step 2</aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2'>Step 2</aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 3' *ngIf="showStep3">Step 3</aw-wizard-step>
     </aw-wizard>
   `

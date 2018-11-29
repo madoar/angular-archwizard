@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {WizardStep} from '../util/wizard-step.interface';
-import {MovingDirection} from '../util/moving-direction.enum';
+import {MovingDirection, WizardStep} from '../util';
 import {NavigationMode} from './navigation-mode.interface';
 import {navigationModeFactory} from './navigation-mode.provider';
+import {Observable, Subject} from 'rxjs';
 
 /**
  * The internal model/state of a wizard.
@@ -50,13 +50,37 @@ export class WizardState {
     } else {
       return this._defaultStepIndex;
     }
-  };
+  }
 
   /**
    * The index of the currently visible and selected step inside the wizardSteps QueryList.
    * If this wizard contains no steps, currentStepIndex is -1
    */
-  public currentStepIndex = -1;
+  private _currentStepIndex = -1;
+
+  /**
+   * The index of the currently visible and selected step inside the wizardSteps QueryList.
+   * If this wizard contains no steps, currentStepIndex is -1
+   */
+  public get currentStepIndex(): number {
+    return this._currentStepIndex;
+  }
+
+  /**
+   * The index of the currently visible and selected step inside the wizardSteps QueryList.
+   * If this wizard contains no steps, currentStepIndex is -1
+   */
+  public set currentStepIndex(index: number) {
+    if (index === this._currentStepIndex) {
+      return;
+    }
+
+    this._currentStepIndex = index;
+
+    if (this._currentStepIndex >= 0) {
+      this.stepChanged.next(this.wizardSteps[this._currentStepIndex]);
+    }
+  }
 
   /**
    * The navigation mode used to navigate inside the wizard
@@ -90,6 +114,15 @@ export class WizardState {
    */
   public get completed(): boolean {
     return this.wizardSteps.every(step => step.completed || step.optional);
+  }
+
+  /**
+   * Step Changed Subject for notify and update when step changed
+   */
+  private stepChanged: Subject<WizardStep> = new Subject<WizardStep>();
+
+  public get stepChangedObs(): Observable<WizardStep> {
+    return this.stepChanged.asObservable();
   }
 
   /**
