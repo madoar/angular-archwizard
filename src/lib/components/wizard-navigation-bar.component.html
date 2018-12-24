@@ -1,11 +1,10 @@
 <ul class="steps-indicator steps-{{numberOfWizardSteps}}">
   <li *ngFor="let step of wizardSteps"
       [ngClass]="{
-        default: isDefault(step),
         current: isCurrent(step),
         done: isDone(step),
-        editing: isEditing(step),
         optional: isOptional(step),
+        completed: isCompleted(step),
         navigable: isNavigable(step)
   }">
     <a [awGoToStep]="step">

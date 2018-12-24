@@ -73,50 +73,40 @@ export class WizardNavigationBarComponent {
    * Checks, whether a [[WizardStep]] can be marked as `current` in the navigation bar
    *
    * @param wizardStep The wizard step to be checked
-   * @returns True if the step can be marked as current
+   * @returns True if the step can be marked as `current`
    */
   public isCurrent(wizardStep: WizardStep): boolean {
-    return wizardStep.selected && !wizardStep.completed && !this.wizardState.completed;
+    return wizardStep.selected;
   }
 
   /**
    * Checks, whether a [[WizardStep]] can be marked as `done` in the navigation bar
    *
    * @param wizardStep The wizard step to be checked
-   * @returns True if the step can be marked as done
+   * @returns True if the step can be marked as `done`
    */
   public isDone(wizardStep: WizardStep): boolean {
-    return (wizardStep.completed && !wizardStep.selected) || this.wizardState.completed;
-  }
-
-  /**
-   * Checks, whether a [[WizardStep]] can be marked as `default` in the navigation bar
-   *
-   * @param wizardStep The wizard step to be checked
-   * @returns True if the step can be marked as default
-   */
-  public isDefault(wizardStep: WizardStep): boolean {
-    return !wizardStep.optional && !wizardStep.completed && !wizardStep.selected && !this.wizardState.completed;
-  }
-
-  /**
-   * Checks, whether a [[WizardStep]] can be marked as `editing` in the navigation bar
-   *
-   * @param wizardStep The wizard step to be checked
-   * @returns True if the step can be marked as editing
-   */
-  public isEditing(wizardStep: WizardStep): boolean {
-    return wizardStep.selected && wizardStep.completed && !this.wizardState.completed;
+    return wizardStep.completed;
   }
 
   /**
    * Checks, whether a [[WizardStep]] can be marked as `optional` in the navigation bar
    *
    * @param wizardStep The wizard step to be checked
-   * @returns True if the step can be marked as optional
+   * @returns True if the step can be marked as `optional`
    */
   public isOptional(wizardStep: WizardStep): boolean {
-    return wizardStep.optional && !wizardStep.completed && !wizardStep.selected && !this.wizardState.completed
+    return wizardStep.optional;
+  }
+
+  /**
+   * Checks, whether a [[WizardStep]] can be marked as `completed` in the navigation bar
+   *
+   * @param wizardStep The wizard step to be checked
+   * @returns True if the step can be marked as `completed`
+   */
+  public isCompleted(wizardStep: WizardStep): boolean {
+    return this.wizardState.completed;
   }
 
   /**
