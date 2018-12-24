@@ -13,6 +13,7 @@ import {WizardState} from '../navigation/wizard-state.model';
       <aw-wizard-step stepTitle='Steptitle 1'>Step 1</aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 2' awOptionalStep>Step 2</aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 3'>Step 3</aw-wizard-step>
+      <aw-wizard-completion-step stepTitle='Steptitle 4'>Step 4</aw-wizard-completion-step>
     </aw-wizard>
   `
 })
@@ -313,6 +314,25 @@ describe('WizardNavigationBarComponent', () => {
     expect(navigableLi[0]).toBe(allLi[0]);
   }));
 
+  it('should mark all steps completed after visiting the completion step', fakeAsync(() => {
+    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+
+    // go to third step, by jumping over the optional step
+    navigationMode.goToStep(2);
+    tick();
+    wizardTestFixture.detectChanges();
+
+    // go to the completion step
+    navigationMode.goToNextStep();
+    tick();
+    wizardTestFixture.detectChanges();
+
+    const allLi = navBar.queryAll(By.css('li'));
+    const completedLi = navBar.queryAll(By.css('li.completed'));
+
+    expect(completedLi.length).toBe(allLi.length);
+  }));
+
   it('should disable navigation through the navigation bar correctly', fakeAsync(() => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
@@ -479,23 +499,25 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should show the correct step titles', () => {
-    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
+    const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
-    expect(navigationLinks.length).toBe(3);
+    expect(navigationLinks.length).toBe(4);
     expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 1');
     expect(navigationLinks[1].nativeElement.innerText).toBe('STEPTITLE 2');
     expect(navigationLinks[2].nativeElement.innerText).toBe('STEPTITLE 3');
+    expect(navigationLinks[3].nativeElement.innerText).toBe('STEPTITLE 4');
   });
 
   it('should show the correct reversed step titles', () => {
     wizardTest.wizard.navBarDirection = 'right-to-left';
     wizardTestFixture.detectChanges();
 
-    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
+    const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
-    expect(navigationLinks.length).toBe(3);
-    expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 3');
-    expect(navigationLinks[1].nativeElement.innerText).toBe('STEPTITLE 2');
-    expect(navigationLinks[2].nativeElement.innerText).toBe('STEPTITLE 1');
+    expect(navigationLinks.length).toBe(4);
+    expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 4');
+    expect(navigationLinks[1].nativeElement.innerText).toBe('STEPTITLE 3');
+    expect(navigationLinks[2].nativeElement.innerText).toBe('STEPTITLE 2');
+    expect(navigationLinks[3].nativeElement.innerText).toBe('STEPTITLE 1');
   });
 });
