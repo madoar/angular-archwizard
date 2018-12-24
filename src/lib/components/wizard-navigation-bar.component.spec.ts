@@ -1,6 +1,5 @@
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {Component, ViewChild} from '@angular/core';
-import {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
 import {WizardComponent} from './wizard.component';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
@@ -62,28 +61,21 @@ describe('WizardNavigationBarComponent', () => {
 
     const currentLi = navBar.queryAll(By.css('li.current'));
     const doneLi = navBar.queryAll(By.css('li.done'));
-    const editingLi = navBar.queryAll(By.css('li.editing'));
+    const completedLi = navBar.queryAll(By.css('li.completed'));
     const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const defaultLi = navBar.queryAll(By.css('li.default'));
     const navigableLi = navBar.queryAll(By.css('li.navigable'));
 
     // the first step is the current step
     expect(currentLi.length).toBe(1);
     expect(currentLi[0]).toBe(allLi[0]);
 
-    // no step is currently marked as done
+    // no step is currently marked as done or completed
     expect(doneLi.length).toBe(0);
-
-    // no step is marked as editing
-    expect(editingLi.length).toBe(0);
+    expect(completedLi.length).toBe(0);
 
     // only the second step is marked as optional
     expect(optionalLi.length).toBe(1);
     expect(optionalLi[0]).toBe(allLi[1]);
-
-    // the second and third step is marked as default (neither done or current)
-    expect(defaultLi.length).toBe(1);
-    expect(defaultLi[0]).toBe(allLi[2]);
 
     expect(navigableLi.length).toBe(0);
   });
@@ -100,9 +92,8 @@ describe('WizardNavigationBarComponent', () => {
 
     const currentLi = navBar.queryAll(By.css('li.current'));
     const doneLi = navBar.queryAll(By.css('li.done'));
-    const editingLi = navBar.queryAll(By.css('li.editing'));
+    const completedLi = navBar.queryAll(By.css('li.completed'));
     const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const defaultLi = navBar.queryAll(By.css('li.default'));
     const navigableLi = navBar.queryAll(By.css('li.navigable'));
 
     // the second step is the current step
@@ -113,15 +104,12 @@ describe('WizardNavigationBarComponent', () => {
     expect(doneLi.length).toBe(1);
     expect(doneLi[0]).toBe(allLi[0]);
 
-    // no step is marked as editing
-    expect(editingLi.length).toBe(0);
+    // no step is marked as completed
+    expect(completedLi.length).toBe(0);
 
-    // no step is marked as optional, because the optional step is the current step
-    expect(optionalLi.length).toBe(0);
-
-    // only the third step is marked as default (neither done or current)
-    expect(defaultLi.length).toBe(1);
-    expect(defaultLi[0]).toBe(allLi[2]);
+    // the second step should still be marked as optional, even when it is selected
+    expect(optionalLi.length).toBe(1);
+    expect(optionalLi[0]).toBe(allLi[1]);
 
     expect(navigableLi.length).toBe(1);
     expect(navigableLi[0]).toBe(allLi[0]);
@@ -144,9 +132,8 @@ describe('WizardNavigationBarComponent', () => {
 
     const currentLi = navBar.queryAll(By.css('li.current'));
     const doneLi = navBar.queryAll(By.css('li.done'));
-    const editingLi = navBar.queryAll(By.css('li.editing'));
+    const completedLi = navBar.queryAll(By.css('li.completed'));
     const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const defaultLi = navBar.queryAll(By.css('li.default'));
     const navigableLi = navBar.queryAll(By.css('li.navigable'));
 
     // the third step is the current step
@@ -158,16 +145,14 @@ describe('WizardNavigationBarComponent', () => {
     expect(doneLi[0]).toBe(allLi[0]);
     expect(doneLi[1]).toBe(allLi[1]);
 
-    // no step is marked as editing
-    expect(editingLi.length).toBe(0);
+    // no step is marked as completed
+    expect(completedLi.length).toBe(0);
 
-    // no step is marked as optional, because the optional step is a "done" step
-    expect(optionalLi.length).toBe(0);
+    // the second step should still be marked as optional, even when it is also marked as "done"
+    expect(optionalLi.length).toBe(1);
+    expect(optionalLi[0]).toBe(allLi[1]);
 
-    // no step is marked as default (neither done, current or optional)
-    expect(defaultLi.length).toBe(0);
-
-    expect(doneLi.length).toBe(2);
+    expect(navigableLi.length).toBe(2);
     expect(navigableLi[0]).toBe(allLi[0]);
     expect(navigableLi[1]).toBe(allLi[1]);
   }));
@@ -184,9 +169,8 @@ describe('WizardNavigationBarComponent', () => {
 
     const currentLi = navBar.queryAll(By.css('li.current'));
     const doneLi = navBar.queryAll(By.css('li.done'));
-    const editingLi = navBar.queryAll(By.css('li.editing'));
+    const completedLi = navBar.queryAll(By.css('li.completed'));
     const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const defaultLi = navBar.queryAll(By.css('li.default'));
     const navigableLi = navBar.queryAll(By.css('li.navigable'));
 
     // the third step is the current step
@@ -197,15 +181,12 @@ describe('WizardNavigationBarComponent', () => {
     expect(doneLi.length).toBe(1);
     expect(doneLi[0]).toBe(allLi[0]);
 
-    // no step is marked as editing
-    expect(editingLi.length).toBe(0);
+    // no step is marked as completed
+    expect(completedLi.length).toBe(0);
 
-    // the second step is marked as optional, because we jumped over it
+    // the second step is still marked as optional
     expect(optionalLi.length).toBe(1);
     expect(optionalLi[0]).toBe(allLi[1]);
-
-    // the second step is marked as default (neither done nor current)
-    expect(defaultLi.length).toBe(0);
 
     expect(navigableLi.length).toBe(2);
     expect(navigableLi[0]).toBe(allLi[0]);
@@ -229,28 +210,24 @@ describe('WizardNavigationBarComponent', () => {
 
     const currentLi = navBar.queryAll(By.css('li.current'));
     const doneLi = navBar.queryAll(By.css('li.done'));
-    const editingLi = navBar.queryAll(By.css('li.editing'));
+    const completedLi = navBar.queryAll(By.css('li.completed'));
     const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const defaultLi = navBar.queryAll(By.css('li.default'));
     const navigableLi = navBar.queryAll(By.css('li.navigable'));
 
-    // no step is the current step
-    expect(currentLi.length).toBe(0);
+    // the first step is the current step
+    expect(currentLi.length).toBe(1);
+    expect(currentLi[0]).toBe(allLi[0]);
 
-    // no step should be marked as done
-    expect(doneLi.length).toBe(0);
+    // the first step should still be marked as "done"
+    expect(doneLi.length).toBe(1);
+    expect(doneLi[0]).toBe(allLi[0]);
 
-    // the first step is marked as editing
-    expect(editingLi.length).toBe(1);
-    expect(editingLi[0]).toBe(allLi[0]);
+    // no step is marked as completed
+    expect(completedLi.length).toBe(0);
 
     // the second step is marked as optional
     expect(optionalLi.length).toBe(1);
     expect(optionalLi[0]).toBe(allLi[1]);
-
-    // the second and third step is marked as default (neither done or current)
-    expect(defaultLi.length).toBe(1);
-    expect(defaultLi[0]).toBe(allLi[2]);
 
     expect(navigableLi.length).toBe(0);
   }));
@@ -273,28 +250,24 @@ describe('WizardNavigationBarComponent', () => {
 
     const currentLi = navBar.queryAll(By.css('li.current'));
     const doneLi = navBar.queryAll(By.css('li.done'));
-    const editingLi = navBar.queryAll(By.css('li.editing'));
+    const completedLi = navBar.queryAll(By.css('li.completed'));
     const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const defaultLi = navBar.queryAll(By.css('li.default'));
     const navigableLi = navBar.queryAll(By.css('li.navigable'));
 
-    // no step is the current step
-    expect(currentLi.length).toBe(0);
+    // the first step is the current step
+    expect(currentLi.length).toBe(1);
+    expect(currentLi[0]).toBe(allLi[0]);
 
-    // no step should be marked as done
-    expect(doneLi.length).toBe(0);
+    // the first step should still be marked as "done"
+    expect(doneLi.length).toBe(1);
+    expect(doneLi[0]).toBe(allLi[0]);
 
-    // the first step is marked as editing
-    expect(editingLi.length).toBe(1);
-    expect(editingLi[0]).toBe(allLi[0]);
+    // no step is marked as completed
+    expect(completedLi.length).toBe(0);
 
     // the second step is marked as optional
     expect(optionalLi.length).toBe(1);
     expect(optionalLi[0]).toBe(allLi[1]);
-
-    // the second and third step is marked as default (neither done or current)
-    expect(defaultLi.length).toBe(1);
-    expect(defaultLi[0]).toBe(allLi[2]);
 
     expect(navigableLi.length).toBe(0);
   }));
@@ -317,9 +290,8 @@ describe('WizardNavigationBarComponent', () => {
 
     const currentLi = navBar.queryAll(By.css('li.current'));
     const doneLi = navBar.queryAll(By.css('li.done'));
-    const editingLi = navBar.queryAll(By.css('li.editing'));
+    const completedLi = navBar.queryAll(By.css('li.completed'));
     const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const defaultLi = navBar.queryAll(By.css('li.default'));
     const navigableLi = navBar.queryAll(By.css('li.navigable'));
 
     // the second step is the current step
@@ -330,15 +302,12 @@ describe('WizardNavigationBarComponent', () => {
     expect(doneLi.length).toBe(1);
     expect(doneLi[0]).toBe(allLi[0]);
 
-    // no step is marked as editing
-    expect(editingLi.length).toBe(0);
+    // no step is marked as completed
+    expect(completedLi.length).toBe(0);
 
-    // no step is marked as optional, because the optional step is the current step
-    expect(optionalLi.length).toBe(0);
-
-    // the third step is marked as default (neither done or current)
-    expect(defaultLi.length).toBe(1);
-    expect(defaultLi[0]).toBe(allLi[2]);
+    // the second step should still be marked as optional, even when it is selected
+    expect(optionalLi.length).toBe(1);
+    expect(optionalLi[0]).toBe(allLi[1]);
 
     expect(navigableLi.length).toBe(1);
     expect(navigableLi[0]).toBe(allLi[0]);
@@ -358,9 +327,8 @@ describe('WizardNavigationBarComponent', () => {
 
     const currentLi = navBar.queryAll(By.css('li.current'));
     const doneLi = navBar.queryAll(By.css('li.done'));
-    const editingLi = navBar.queryAll(By.css('li.editing'));
+    const completedLi = navBar.queryAll(By.css('li.completed'));
     const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const defaultLi = navBar.queryAll(By.css('li.default'));
     const navigableLi = navBar.queryAll(By.css('li.navigable'));
 
     // the third step is the current step
@@ -371,15 +339,12 @@ describe('WizardNavigationBarComponent', () => {
     expect(doneLi.length).toBe(1);
     expect(doneLi[0]).toBe(allLi[0]);
 
-    // no step is marked as editing
-    expect(editingLi.length).toBe(0);
+    // no step is marked as completed
+    expect(completedLi.length).toBe(0);
 
-    // the second step is marked as optional, because we jumped over it
+    // the second step is marked as optional
     expect(optionalLi.length).toBe(1);
     expect(optionalLi[0]).toBe(allLi[1]);
-
-    // the second step is marked as default (neither done nor current)
-    expect(defaultLi.length).toBe(0);
 
     expect(navigableLi.length).toBe(0);
   }));
@@ -451,9 +416,9 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(wizardState.currentStepIndex).toBe(0);
     // links contain a class that is not clickable (contains "pointer-events: none;")
-    expect(goToFirstStepLink.classes.hasOwnProperty('current')).toBeTruthy('First step label is clickable');
-    expect(goToSecondStepLink.classes.hasOwnProperty('default')).toBeTruthy('Second step label is clickable');
-    expect(goToThirdStepLink.classes.hasOwnProperty('default')).toBeTruthy('Third step label is clickable');
+    expect(goToFirstStepLink.classes['navigable']).toBeFalsy('First step label is clickable');
+    expect(goToSecondStepLink.classes['navigable']).toBeFalsy('Second step label is clickable');
+    expect(goToThirdStepLink.classes['navigable']).toBeFalsy('Third step label is clickable');
   });
 
   it('should use the \"small\" layout when no navigation bar layout is specified', () => {
