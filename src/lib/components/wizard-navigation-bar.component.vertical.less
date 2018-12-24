@@ -142,7 +142,7 @@
     &.optional .step-indicator {
       .state-default(@wz-color-optional);
     }
-    &.editing .step-indicator {
+    &.current.done .step-indicator {
       .state-default(@wz-color-editing);
     }
 
@@ -159,7 +159,7 @@
     &.optional a:hover .step-indicator {
       .state-hover(@wz-color-optional);
     }
-    &.editing a:hover .step-indicator {
+    &.current.done a:hover .step-indicator {
       .state-hover(@wz-color-editing);
     }
   }
