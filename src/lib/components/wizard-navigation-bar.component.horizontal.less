@@ -114,13 +114,15 @@
     &.optional .step-indicator {
       .state-default(@wz-color-optional);
     }
-    &.done .step-indicator {
+    &.done .step-indicator,
+    &.completed .step-indicator {
       .state-default(@wz-color-done);
     }
     &.current .step-indicator {
       .state-default(@wz-color-current);
     }
-    &.current.done .step-indicator {
+    &.current.done .step-indicator,
+    &.current.completed .step-indicator {
       .state-default(@wz-color-editing);
     }
 
@@ -131,13 +133,15 @@
     &.navigable.optional a:hover .step-indicator {
       .state-hover(@wz-color-optional);
     }
-    &.navigable.done a:hover .step-indicator {
+    &.navigable.done a:hover .step-indicator,
+    &.navigable.completed a:hover .step-indicator {
       .state-hover(@wz-color-done);
     }
     &.navigable.current a:hover .step-indicator {
       .state-hover(@wz-color-current);
     }
-    &.navigable.current.done a:hover .step-indicator {
+    &.navigable.current.done a:hover .step-indicator,
+    &.navigable.current.completed a:hover .step-indicator {
       .state-hover(@wz-color-editing);
     }
   }
