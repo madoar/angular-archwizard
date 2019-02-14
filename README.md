@@ -145,6 +145,7 @@ One of these two ways is by using the `<aw-wizard-step>` component.
 #### \[stepId\]
 A wizard step can have its own unique id.
 This id can then be used to navigate to the step.
+In addition the `[stepId]` of a wizard step is used as the `id` of the `li` element for the wizard step in the navigation bar.
 
 #### \[stepTitle\]
 A wizard step needs to contain a title, which is shown in the navigation bar of the wizard.
