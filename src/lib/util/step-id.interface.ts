@@ -9,7 +9,7 @@ export interface StepId {
   /**
    * The id of the destination step
    */
-  stepId: string
+  stepId: string;
 }
 
 /**

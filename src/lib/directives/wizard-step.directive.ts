@@ -1,5 +1,5 @@
 import {Directive, forwardRef} from '@angular/core';
-import {WizardStep} from '../util/wizard-step.interface';
+import {WizardStep} from '../util';
 
 /**
  * The `awWizardStep` directive can be used to define a normal step inside a wizard.

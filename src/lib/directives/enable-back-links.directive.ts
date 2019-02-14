@@ -1,6 +1,5 @@
 import {Directive, EventEmitter, Host, OnInit, Output} from '@angular/core';
-import {MovingDirection} from '../util/moving-direction.enum';
-import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
+import {MovingDirection, WizardCompletionStep} from '../util';
 
 /**
  * The `awEnableBackLinks` directive can be used to allow the user to leave a [[WizardCompletionStep]] after is has been entered.

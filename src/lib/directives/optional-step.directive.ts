@@ -1,5 +1,5 @@
 import {Directive, Host, OnInit} from '@angular/core';
-import {WizardStep} from '../util/wizard-step.interface';
+import {WizardStep} from '../util';
 
 /**
  * The `awOptionalStep` directive can be used to define an optional `wizard-step`.

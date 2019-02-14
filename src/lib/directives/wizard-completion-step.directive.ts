@@ -1,6 +1,5 @@
 import {Directive, forwardRef} from '@angular/core';
-import {WizardStep} from '../util/wizard-step.interface';
-import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
+import {WizardCompletionStep, WizardStep} from '../util';
 
 /**
  * The `awWizardCompletionStep` directive can be used to define a completion/success step at the end of your wizard

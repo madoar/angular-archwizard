@@ -9,7 +9,7 @@ export interface StepIndex {
   /**
    * The index of the destination step
    */
-  stepIndex: number
+  stepIndex: number;
 }
 
 /**

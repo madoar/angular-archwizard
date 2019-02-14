@@ -9,9 +9,8 @@ import {
   SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
-import {WizardStep} from '../util/wizard-step.interface';
-import {WizardState} from '../navigation/wizard-state.model';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {NavigationMode, WizardState} from '../navigation';
+import {WizardStep} from '../util';
 
 /**
  * The `aw-wizard` component defines the root component of a wizard.
@@ -146,7 +145,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    */
   ngOnChanges(changes: SimpleChanges) {
     for (const propName of Object.keys(changes)) {
-      let change = changes[propName];
+      const change = changes[propName];
 
       if (!change.firstChange) {
         switch (propName) {

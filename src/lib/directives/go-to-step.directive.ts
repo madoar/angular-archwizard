@@ -3,12 +3,8 @@
  */
 
 import {Directive, EventEmitter, HostListener, Input, Optional, Output} from '@angular/core';
-import {isStepOffset, StepOffset} from '../util/step-offset.interface';
-import {WizardStep} from '../util/wizard-step.interface';
-import {WizardState} from '../navigation/wizard-state.model';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {isStepId, StepId} from '../util/step-id.interface';
-import {isStepIndex, StepIndex} from '../util/step-index.interface';
+import {isStepId, isStepIndex, isStepOffset, StepId, StepIndex, StepOffset, WizardStep} from '../util';
+import {NavigationMode, WizardState} from '../navigation';
 
 /**
  * The `awGoToStep` directive can be used to navigate to a given step.
