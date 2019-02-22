@@ -10,7 +10,7 @@ export interface StepOffset {
   /**
    * The offset to the destination step
    */
-  stepOffset: number
+  stepOffset: number;
 }
 
 /**

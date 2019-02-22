@@ -1,8 +1,7 @@
-import {MovingDirection} from './moving-direction.enum';
-import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 import {ContentChild, EventEmitter, HostBinding, Input, Output} from '@angular/core';
+import {MovingDirection} from './moving-direction.enum';
 import {NavigationSymbol} from './navigation-symbol.interface';
-import {WizardStepSymbolDirective} from '../directives/wizard-step-symbol.directive';
+import {WizardStepSymbolDirective, WizardStepTitleDirective} from '../directives';
 
 /**
  * Basic functionality every type of wizard step needs to provide

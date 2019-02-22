@@ -1,6 +1,5 @@
 import {Directive, EventEmitter, HostListener, Output} from '@angular/core';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardState} from '../navigation/wizard-state.model';
+import {NavigationMode, WizardState} from '../navigation';
 
 /**
  * The `awNextStep` directive can be used to navigate to the next step.

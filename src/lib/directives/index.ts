@@ -8,6 +8,7 @@ export {SelectedStepDirective} from './selected-step.directive';
 export {WizardCompletionStepDirective} from './wizard-completion-step.directive';
 export {WizardStepDirective} from './wizard-step.directive';
 export {WizardStepTitleDirective} from './wizard-step-title.directive';
+export {WizardStepSymbolDirective} from './wizard-step-symbol.directive';
 
 
 
