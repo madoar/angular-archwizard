@@ -1,5 +1,5 @@
 <ul class="steps-indicator steps-{{numberOfWizardSteps}}">
-  <li *ngFor="let step of wizardSteps"
+  <li [attr.id]="step.stepId" *ngFor="let step of wizardSteps"
       [ngClass]="{
         default: isDefault(step),
         current: isCurrent(step),
