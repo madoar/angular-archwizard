@@ -72,5 +72,7 @@
     "typescript": "~3.2.4",
     "zone.js": "~0.8.29"
   },
-  "peerDependencies": {}
+  "peerDependencies": {
+    "@angular/common": "5.x, 6.x, 7.x"
+  }
 }
