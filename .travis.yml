@@ -6,11 +6,6 @@ language: node_js
 addons:
   chrome: stable
 
-node_js:
-- "10"
-- "9"
-- "8"
-
 branches:
   only:
   - master
@@ -19,9 +14,17 @@ branches:
 jobs:
   include:
   - stage: Test
+    node_js:
+    - "10"
+    - "9"
+    - "8"
+    script: npm test
+  - stage: Coverage
+    node_js: "10"
     script: npm test
     after_success:
     - npm install -g codacy-coverage
     - codacy-coverage < coverage/lcov.info
   - stage: Build
+    node_js: "10"
     script: npm run build
