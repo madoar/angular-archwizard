@@ -1,11 +1,11 @@
 # Overview angular-archwizard (previously known as ng2-archwizard)
 
-[![Build Status](https://travis-ci.org/madoar/angular-archwizard.svg?branch=master)](https://travis-ci.org/madoar/angular-archwizard)
+[![Build Status](https://api.travis-ci.com/madoar/angular-archwizard.svg?branch=develop)](https://travis-ci.org/madoar/angular-archwizard)
 [![Dependency Status](https://david-dm.org/madoar/angular-archwizard.svg)](https://david-dm.org/madoar/angular-archwizard)
 [![Dev-Dependency Status](https://david-dm.org/madoar/angular-archwizard/dev-status.svg)](https://david-dm.org/madoar/angular-archwizard?type=dev)
 [![Dependency Licence Status](https://dependencyci.com/github/madoar/angular-archwizard/badge)](https://dependencyci.com/github/madoar/angular-archwizard)
-[![Code Climate](https://codeclimate.com/github/madoar/angular-archwizard/badges/gpa.svg)](https://codeclimate.com/github/madoar/angular-archwizard)
-[![Test Coverage](https://codeclimate.com/github/madoar/angular-archwizard/badges/coverage.svg)](https://codeclimate.com/github/madoar/angular-archwizard/coverage)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/039c5be36d8646dfb73972e8679e5021)](https://www.codacy.com/app/marc.arndt/angular-archwizard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=madoar/angular-archwizard&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/039c5be36d8646dfb73972e8679e5021)](https://www.codacy.com/app/marc.arndt/angular-archwizard?utm_source=github.com&utm_medium=referral&utm_content=madoar/angular-archwizard&utm_campaign=Badge_Coverage)
 [![NPM Version](https://img.shields.io/npm/v/angular-archwizard.svg)](https://www.npmjs.com/package/angular-archwizard)
 
 This project contains a functional module with a wizard component and some supportive components and directives for [Angular](https://angular.io/) version 5 or later.
