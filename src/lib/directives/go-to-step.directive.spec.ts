@@ -4,9 +4,6 @@ import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
-/**
- * Created by marc on 09.01.17.
- */
 import {GoToStepDirective} from './go-to-step.directive';
 
 @Component({

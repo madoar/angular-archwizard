@@ -1,7 +1,4 @@
 import {Component} from '@angular/core';
-/**
- * Created by marc on 20.05.17.
- */
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';

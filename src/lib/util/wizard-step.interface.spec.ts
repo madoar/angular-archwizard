@@ -1,6 +1,3 @@
-/**
- * Created by marc on 29.06.17.
- */
 import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';

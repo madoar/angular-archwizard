@@ -2,9 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-
 import {WizardComponent} from '../components/wizard.component';
-
 
 @Component({
   selector: 'aw-test-wizard',
