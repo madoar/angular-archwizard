@@ -1,7 +1,7 @@
+import {EventEmitter} from '@angular/core';
+import {MovingDirection} from '../util/moving-direction.enum';
 import {NavigationMode} from './navigation-mode.interface';
 import {WizardState} from './wizard-state.model';
-import {EventEmitter} from '@angular/core';
-import {MovingDirection} from '../util';
 
 /**
  * A [[NavigationMode]], which allows the user to navigate with strict limitations.

@@ -1,5 +1,5 @@
 import {Directive, Host, OnInit} from '@angular/core';
-import {WizardStep} from '../util';
+import {WizardStep} from '../util/wizard-step.interface';
 
 /**
  * The `awSelectedStep` directive can be used on a [[WizardStep]] to set it as selected after the wizard initialisation or a reset.

@@ -1,6 +1,3 @@
-/**
- * Created by marc on 01.06.17.
- */
 import {Directive, TemplateRef} from '@angular/core';
 
 /**
@@ -27,5 +24,6 @@ export class WizardStepTitleDirective {
    *
    * @param templateRef A reference to the content of the `ng-template` that contains this [[WizardStepTitleDirective]]
    */
-  constructor(public templateRef: TemplateRef<any>) { }
+  constructor(public templateRef: TemplateRef<any>) {
+  }
 }

@@ -1,6 +1,7 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {NavigationMode, WizardState} from '../navigation';
-import {WizardStep} from '../util';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardState} from '../navigation/wizard-state.model';
+import {WizardStep} from '../util/wizard-step.interface';
 
 /**
  * The `aw-wizard-navigation-bar` component contains the navigation bar inside a [[WizardComponent]].
@@ -30,18 +31,18 @@ export class WizardNavigationBarComponent {
   public direction = 'left-to-right';
 
   /**
-   * The navigation mode
-   */
-  public get navigationMode(): NavigationMode {
-    return this.wizardState.navigationMode;
-  }
-
-  /**
    * Constructor
    *
    * @param wizardState The state the wizard currently resides in
    */
   constructor(public wizardState: WizardState) {
+  }
+
+  /**
+   * The navigation mode
+   */
+  public get navigationMode(): NavigationMode {
+    return this.wizardState.navigationMode;
   }
 
   /**

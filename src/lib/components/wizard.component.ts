@@ -9,8 +9,9 @@ import {
   SimpleChanges,
   ViewEncapsulation
 } from '@angular/core';
-import {NavigationMode, WizardState} from '../navigation';
-import {WizardStep} from '../util';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardState} from '../navigation/wizard-state.model';
+import {WizardStep} from '../util/wizard-step.interface';
 
 /**
  * The `aw-wizard` component defines the root component of a wizard.
@@ -102,6 +103,14 @@ export class WizardComponent implements OnChanges, AfterContentInit {
   public disableNavigationBar = false;
 
   /**
+   * Constructor
+   *
+   * @param model The model for this wizard component
+   */
+  constructor(public model: WizardState) {
+  }
+
+  /**
    * Returns true if this wizard uses a horizontal orientation.
    * The wizard uses a horizontal orientation, iff the navigation bar is shown at the top or bottom of this wizard
    *
@@ -128,14 +137,6 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    */
   public get navigation(): NavigationMode {
     return this.model.navigationMode;
-  }
-
-  /**
-   * Constructor
-   *
-   * @param model The model for this wizard component
-   */
-  constructor(public model: WizardState) {
   }
 
   /**

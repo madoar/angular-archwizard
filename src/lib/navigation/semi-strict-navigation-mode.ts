@@ -1,7 +1,8 @@
 import {EventEmitter} from '@angular/core';
+import {MovingDirection} from '../util/moving-direction.enum';
+import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 import {NavigationMode} from './navigation-mode.interface';
 import {WizardState} from './wizard-state.model';
-import {MovingDirection, WizardCompletionStep} from '../util';
 
 /**
  * A [[NavigationMode]], which allows the user to navigate with some limitations.

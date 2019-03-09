@@ -1,5 +1,5 @@
 import {Component, forwardRef, ViewEncapsulation} from '@angular/core';
-import {WizardStep} from '../util';
+import {WizardStep} from '../util/wizard-step.interface';
 
 /**
  * The `aw-wizard-step` component is used to define a normal step inside a wizard.
