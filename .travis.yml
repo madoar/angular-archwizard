@@ -11,14 +11,13 @@ branches:
   - master
   - develop
 
+node_js:
+- "10"
+- "9"
+- "8"
+
 jobs:
   include:
-  - stage: Test
-    node_js:
-    - "10"
-    - "9"
-    - "8"
-    script: npm test
   - stage: Coverage
     node_js: "10"
     script: npm test
