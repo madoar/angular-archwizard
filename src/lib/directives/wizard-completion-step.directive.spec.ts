@@ -1,14 +1,14 @@
+import {Component} from '@angular/core';
 /**
  * Created by marc on 20.05.17.
  */
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component} from '@angular/core';
-import {MovingDirection} from '../util/moving-direction.enum';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardCompletionStepDirective} from './wizard-completion-step.directive';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
+import {MovingDirection} from '../util/moving-direction.enum';
+import {WizardCompletionStepDirective} from './wizard-completion-step.directive';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -17,8 +17,8 @@ import {WizardState} from '../navigation/wizard-state.model';
       <aw-wizard-step stepTitle='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
         Step 1
       </aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 2' [canExit]="isValid"
-                   awOptionalStep (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">
+      <aw-wizard-step stepTitle='Steptitle 2' [canExit]="isValid" awOptionalStep (stepEnter)="enterInto($event, 2)"
+                      (stepExit)="exitFrom($event, 2)">
         Step 2
       </aw-wizard-step>
       <div awWizardCompletionStep stepTitle='Completion steptitle 3' (stepEnter)="enterInto($event, 3)">

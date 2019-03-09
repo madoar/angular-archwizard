@@ -5,9 +5,9 @@ import {Component} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from '../navigation/wizard-state.model';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {GoToStepDirective} from '../directives/go-to-step.directive';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardState} from '../navigation/wizard-state.model';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -15,15 +15,21 @@ import {GoToStepDirective} from '../directives/go-to-step.directive';
     <aw-wizard>
       <aw-wizard-step stepId='first-step' stepTitle='Steptitle 1' [canExit]="canExit">
         Step 1
-        <button type="button" [awGoToStep]="{stepId: 'third-step'}" (preFinalize)="finalizeStep(1)">Go to third step</button>
+        <button type="button" [awGoToStep]="{stepId: 'third-step'}" (preFinalize)="finalizeStep(1)">
+          Go to third step
+        </button>
       </aw-wizard-step>
       <aw-wizard-step stepId='second-step' stepTitle='Steptitle 2' awOptionalStep>
         Step 2
-        <button type="button" [awGoToStep]="{stepId: 'second-step'}" (preFinalize)="finalizeStep(2)">Stay on second step</button>
+        <button type="button" [awGoToStep]="{stepId: 'second-step'}" (preFinalize)="finalizeStep(2)">
+          Stay on second step
+        </button>
       </aw-wizard-step>
       <aw-wizard-step stepId='third-step' stepTitle='Steptitle 3'>
         Step 3
-        <button type="button" [awGoToStep]="{stepId: 'first-step'}" (postFinalize)="finalizeStep(3)">Go to first step</button>
+        <button type="button" [awGoToStep]="{stepId: 'first-step'}" (postFinalize)="finalizeStep(3)">
+          Go to first step
+        </button>
       </aw-wizard-step>
     </aw-wizard>
   `

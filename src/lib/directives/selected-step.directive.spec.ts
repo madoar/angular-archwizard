@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardState} from '../navigation/wizard-state.model';
 import {SelectedStepDirective} from './selected-step.directive';
 
 @Component({

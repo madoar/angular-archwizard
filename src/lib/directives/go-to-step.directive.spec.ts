@@ -1,13 +1,13 @@
-/**
- * Created by marc on 09.01.17.
- */
-import {GoToStepDirective} from './go-to-step.directive';
 import {Component} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardState} from '../navigation/wizard-state.model';
+/**
+ * Created by marc on 09.01.17.
+ */
+import {GoToStepDirective} from './go-to-step.directive';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -15,18 +15,30 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
     <aw-wizard>
       <aw-wizard-step stepTitle='Steptitle 1' [canExit]="canExit">
         Step 1
-        <button type="button" [awGoToStep]="{stepIndex: 0}" (preFinalize)="finalizeStep(1)">Stay at this step</button>
-        <button type="button" [awGoToStep]="{stepIndex: goToSecondStep}" (preFinalize)="finalizeStep(1)">Go to second step</button>
-        <button type="button" [awGoToStep]="{stepOffset: 2}" (preFinalize)="finalizeStep(1)">Go to third step</button>
+        <button type="button" [awGoToStep]="{stepIndex: 0}" (preFinalize)="finalizeStep(1)">
+          Stay at this step
+        </button>
+        <button type="button" [awGoToStep]="{stepIndex: goToSecondStep}" (preFinalize)="finalizeStep(1)">
+          Go to second step
+        </button>
+        <button type="button" [awGoToStep]="{stepOffset: 2}" (preFinalize)="finalizeStep(1)">
+          Go to third step
+        </button>
       </aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 2' awOptionalStep>
         Step 2
-        <button type="button" [awGoToStep]="{stepIndex: 2}" (finalize)="finalizeStep(2)">Go to third step</button>
-        <button type="button" [awGoToStep]="{incorrectKey: 3}" (finalize)="finalizeStep(2)">Invalid Button</button>
+        <button type="button" [awGoToStep]="{stepIndex: 2}" (finalize)="finalizeStep(2)">
+          Go to third step
+        </button>
+        <button type="button" [awGoToStep]="{incorrectKey: 3}" (finalize)="finalizeStep(2)">
+          Invalid Button
+        </button>
       </aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 3'>
         Step 3
-        <button type="button" [awGoToStep]="{stepOffset: -2}" (postFinalize)="finalizeStep(3)">Go to first step</button>
+        <button type="button" [awGoToStep]="{stepOffset: -2}" (postFinalize)="finalizeStep(3)">
+          Go to first step
+        </button>
       </aw-wizard-step>
     </aw-wizard>
   `

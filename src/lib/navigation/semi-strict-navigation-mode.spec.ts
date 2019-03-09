@@ -1,19 +1,25 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {Component, ViewChild} from '@angular/core';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from './wizard-state.model';
 import {WizardComponent} from '../components/wizard.component';
 import {NavigationMode} from './navigation-mode.interface';
 import {SemiStrictNavigationMode} from './semi-strict-navigation-mode';
+import {WizardState} from './wizard-state.model';
 
 @Component({
   selector: 'aw-test-wizard',
   template: `
     <aw-wizard navigationMode="semi-strict">
-      <aw-wizard-step stepTitle='Steptitle 1'>Step 1</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 2'>Step 2</aw-wizard-step>
-      <aw-wizard-completion-step awEnableBackLinks stepTitle='Completion Steptitle'>Step 3</aw-wizard-completion-step>
+      <aw-wizard-step stepTitle='Steptitle 1'>
+        Step 1
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2'>
+        Step 2
+      </aw-wizard-step>
+      <aw-wizard-completion-step awEnableBackLinks stepTitle='Completion Steptitle'>
+        Step 3
+      </aw-wizard-completion-step>
     </aw-wizard>
   `
 })

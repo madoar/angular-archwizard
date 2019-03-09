@@ -1,10 +1,9 @@
-import {OptionalStepDirective} from './optional-step.directive';
 import {Component} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardState} from '../navigation/wizard-state.model';
 import {ResetWizardDirective} from './reset-wizard.directive';
 
 @Component({
@@ -16,8 +15,12 @@ import {ResetWizardDirective} from './reset-wizard.directive';
       </aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 2'>
         Step 2
-        <button type="button" awResetWizard>Reset (normal)</button>
-        <button type="button" awResetWizard (finalize)='cleanup()'>Reset (cleanup)</button>
+        <button type="button" awResetWizard>
+          Reset (normal)
+        </button>
+        <button type="button" awResetWizard (finalize)='cleanup()'>
+          Reset (cleanup)
+        </button>
       </aw-wizard-step>
     </aw-wizard>
   `
@@ -27,7 +30,7 @@ class WizardTestComponent {
 
   public cleanup(): void {
     this.eventLog.push('Cleanup done!');
-  };
+  }
 }
 
 describe('ResetWizardDirective', () => {
@@ -59,8 +62,7 @@ describe('ResetWizardDirective', () => {
   });
 
   it('should reset the wizard correctly without finalize input', fakeAsync(() => {
-    let resetButtons = wizardTestFixture.debugElement
-      .queryAll(By.directive(ResetWizardDirective));
+    const resetButtons = wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective));
 
     navigationMode.goToStep(1);
     tick();
@@ -84,8 +86,7 @@ describe('ResetWizardDirective', () => {
   }));
 
   it('should reset the wizard correctly with finalize input', fakeAsync(() => {
-    let resetButtons = wizardTestFixture.debugElement
-      .queryAll(By.directive(ResetWizardDirective));
+    const resetButtons = wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective));
 
     navigationMode.goToStep(1);
     tick();
