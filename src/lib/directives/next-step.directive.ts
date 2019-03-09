@@ -1,5 +1,6 @@
 import {Directive, EventEmitter, HostListener, Output} from '@angular/core';
-import {NavigationMode, WizardState} from '../navigation';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardState} from '../navigation/wizard-state.model';
 
 /**
  * The `awNextStep` directive can be used to navigate to the next step.
@@ -29,6 +30,21 @@ export class NextStepDirective {
   public postFinalize: EventEmitter<void> = new EventEmitter();
 
   /**
+   * Constructor
+   *
+   * @param wizardState The state of the wizard
+   */
+  constructor(private wizardState: WizardState) {
+  }
+
+  /**
+   * A convenience field for `preFinalize`
+   */
+  public get finalize(): EventEmitter<void> {
+    return this.preFinalize;
+  }
+
+  /**
    * A convenience name for `preFinalize`
    *
    * @param emitter The [[EventEmitter]] to be set
@@ -40,13 +56,6 @@ export class NextStepDirective {
   }
 
   /**
-   * A convenience field for `preFinalize`
-   */
-  public get finalize(): EventEmitter<void> {
-    return this.preFinalize;
-  }
-
-  /**
    * The navigation mode
    */
   private get navigationMode(): NavigationMode {
@@ -54,17 +63,11 @@ export class NextStepDirective {
   }
 
   /**
-   * Constructor
-   *
-   * @param wizardState The state of the wizard
-   */
-  constructor(private wizardState: WizardState) { }
-
-  /**
    * Listener method for `click` events on the component with this directive.
    * After this method is called the wizard will try to transition to the next step
    */
-  @HostListener('click', ['$event']) onClick(event: Event): void {
+  @HostListener('click', ['$event'])
+  public onClick(event: Event): void {
     this.navigationMode.goToNextStep(this.preFinalize, this.postFinalize);
   }
 }

@@ -1,13 +1,8 @@
-/**
- * Created by marc on 02.06.17.
- */
-import {ViewChild, Component} from '@angular/core';
-import {TestBed, async, ComponentFixture} from '@angular/core/testing';
+import {Component, ViewChild} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
-
-import {WizardComponent} from '../components/wizard.component';
 import {ArchwizardModule} from '../archwizard.module';
-
+import {WizardComponent} from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -52,7 +47,7 @@ describe('WizardStepTitleDirective', () => {
   });
 
   it('should create an instance', () => {
-    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
+    const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
     expect(navigationLinks.length).toBe(2);
     expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 1');
