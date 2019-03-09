@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
+import {MovingDirection} from '../util/moving-direction.enum';
+import {WizardStep} from '../util/wizard-step.interface';
 import {NavigationMode} from './navigation-mode.interface';
 import {navigationModeFactory} from './navigation-mode.provider';
-import {MovingDirection, WizardStep} from '../util';
 
 /**
  * The internal model/state of a wizard.
@@ -16,40 +17,9 @@ import {MovingDirection, WizardStep} from '../util';
 @Injectable()
 export class WizardState {
   /**
-   * The initial step index, as taken from the [[WizardComponent]]
-   */
-  private _defaultStepIndex = 0;
-
-  /**
    * An array representation of all wizard steps belonging to this model
    */
   public wizardSteps: Array<WizardStep> = [];
-
-  /**
-   * Sets the initial default step.
-   * Beware: This initial default is only used if no wizard step has been enhanced with the `selected` directive
-   *
-   * @param defaultStepIndex The new default wizard step index
-   */
-  public set defaultStepIndex(defaultStepIndex) {
-    this._defaultStepIndex = defaultStepIndex;
-  }
-
-  /**
-   * The initial step index.
-   * This value can be either:
-   * - the index of a wizard step with a `selected` directive, or
-   * - the default step index, set in the [[WizardComponent]]
-   */
-  public get defaultStepIndex(): number {
-    const foundDefaultStep = this.wizardSteps.find(step => step.defaultSelected);
-
-    if (foundDefaultStep) {
-      return this.getIndexOfStep(foundDefaultStep);
-    } else {
-      return this._defaultStepIndex;
-    }
-  };
 
   /**
    * The index of the currently visible and selected step inside the wizardSteps QueryList.
@@ -66,6 +36,43 @@ export class WizardState {
    * True, if the navigation bar shouldn't be used for navigating
    */
   public disableNavigationBar: boolean;
+
+  /**
+   * Constructor
+   */
+  constructor() {
+  }
+
+  /**
+   * The initial step index, as taken from the [[WizardComponent]]
+   */
+  private _defaultStepIndex = 0;
+
+  /**
+   * The initial step index.
+   * This value can be either:
+   * - the index of a wizard step with a `selected` directive, or
+   * - the default step index, set in the [[WizardComponent]]
+   */
+  public get defaultStepIndex(): number {
+    const foundDefaultStep = this.wizardSteps.find(step => step.defaultSelected);
+
+    if (foundDefaultStep) {
+      return this.getIndexOfStep(foundDefaultStep);
+    } else {
+      return this._defaultStepIndex;
+    }
+  }
+
+  /**
+   * Sets the initial default step.
+   * Beware: This initial default is only used if no wizard step has been enhanced with the `selected` directive
+   *
+   * @param defaultStepIndex The new default wizard step index
+   */
+  public set defaultStepIndex(defaultStepIndex) {
+    this._defaultStepIndex = defaultStepIndex;
+  }
 
   /**
    * The WizardStep object belonging to the currently visible and selected step.
@@ -89,12 +96,6 @@ export class WizardState {
    */
   public get completed(): boolean {
     return this.wizardSteps.every(step => step.completed || step.optional);
-  }
-
-  /**
-   * Constructor
-   */
-  constructor() {
   }
 
   /**

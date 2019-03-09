@@ -1,11 +1,11 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Component, forwardRef, Host, ViewChild} from '@angular/core';
-import {MovingDirection} from '../util/moving-direction.enum';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardStepDirective} from './wizard-step.directive';
-import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardState} from '../navigation/wizard-state.model';
+import {MovingDirection} from '../util/moving-direction.enum';
+import {WizardStepDirective} from './wizard-step.directive';
 
 @Component({
   selector: 'aw-test-wizard',

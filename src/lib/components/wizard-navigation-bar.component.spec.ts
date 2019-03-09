@@ -1,19 +1,25 @@
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {Component, DebugElement, ViewChild} from '@angular/core';
-import {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
-import {WizardComponent} from './wizard.component';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
+import {WizardNavigationBarComponent} from './wizard-navigation-bar.component';
+import {WizardComponent} from './wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
   template: `
     <aw-wizard>
-      <aw-wizard-step stepTitle='Steptitle 1' [stepId]="firstStepId">Step 1</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 2' awOptionalStep>Step 2</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 3'>Step 3</aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 1' [stepId]="firstStepId">
+        Step 1
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2' awOptionalStep>
+        Step 2
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 3'>
+        Step 3
+      </aw-wizard-step>
     </aw-wizard>
   `
 })
@@ -528,7 +534,7 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should show the correct step titles', () => {
-    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
+    const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
     expect(navigationLinks.length).toBe(3);
     expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 1');
@@ -540,7 +546,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarDirection = 'right-to-left';
     wizardTestFixture.detectChanges();
 
-    let navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
+    const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
     expect(navigationLinks.length).toBe(3);
     expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 3');

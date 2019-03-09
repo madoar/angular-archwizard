@@ -1,20 +1,26 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {Component, ViewChild} from '@angular/core';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
-import {WizardStep} from '../util/wizard-step.interface';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from './wizard-state.model';
 import {WizardComponent} from '../components/wizard.component';
+import {WizardStep} from '../util/wizard-step.interface';
 import {NavigationMode} from './navigation-mode.interface';
 import {StrictNavigationMode} from './strict-navigation-mode';
+import {WizardState} from './wizard-state.model';
 
 @Component({
   selector: 'aw-test-wizard',
   template: `
     <aw-wizard>
-      <aw-wizard-step stepTitle='Steptitle 1' awOptionalStep>Step 1</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 2'>Step 2</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 3'>Step 3</aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 1' awOptionalStep>
+        Step 1
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2'>
+        Step 2
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 3'>
+        Step 3
+      </aw-wizard-step>
     </aw-wizard>
   `
 })

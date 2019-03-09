@@ -1,15 +1,11 @@
-/**
- * Created by marc on 29.06.17.
- */
 import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {ArchwizardModule} from '../archwizard.module';
-import {WizardStep} from './wizard-step.interface';
-import {WizardState} from '../navigation/wizard-state.model';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {By} from '@angular/platform-browser';
+import {ArchwizardModule} from '../archwizard.module';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardState} from '../navigation/wizard-state.model';
 import {MovingDirection} from './moving-direction.enum';
-import {Observable} from 'rxjs';
+import {WizardStep} from './wizard-step.interface';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -19,7 +15,7 @@ import {Observable} from 'rxjs';
         Step 1
       </aw-wizard-step>
       <aw-wizard-step #secondStep stepTitle='Steptitle 2' [canExit]="canExit" [canEnter]="canEnter" awOptionalStep
-                   (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">
+                      (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">
         Step 2
       </aw-wizard-step>
       <aw-wizard-step #thirdStep stepTitle='Steptitle 3' (stepEnter)="enterInto($event, 3)" (stepExit)="exitFrom($event, 3)">
