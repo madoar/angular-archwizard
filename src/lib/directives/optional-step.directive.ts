@@ -32,7 +32,8 @@ export class OptionalStepDirective implements OnInit {
    *
    * @param wizardStep The wizard step, which contains this [[OptionalStepDirective]]
    */
-  constructor(@Host() private wizardStep: WizardStep) { }
+  constructor(@Host() private wizardStep: WizardStep) {
+  }
 
   /**
    * Initialization work

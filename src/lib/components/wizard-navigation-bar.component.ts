@@ -1,7 +1,7 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
-import {WizardStep} from '../util/wizard-step.interface';
-import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardState} from '../navigation/wizard-state.model';
+import {WizardStep} from '../util/wizard-step.interface';
 
 /**
  * The `aw-wizard-navigation-bar` component contains the navigation bar inside a [[WizardComponent]].
@@ -31,18 +31,18 @@ export class WizardNavigationBarComponent {
   public direction = 'left-to-right';
 
   /**
-   * The navigation mode
-   */
-  public get navigationMode(): NavigationMode {
-    return this.wizardState.navigationMode;
-  }
-
-  /**
    * Constructor
    *
    * @param wizardState The state the wizard currently resides in
    */
   constructor(public wizardState: WizardState) {
+  }
+
+  /**
+   * The navigation mode
+   */
+  public get navigationMode(): NavigationMode {
+    return this.wizardState.navigationMode;
   }
 
   /**
@@ -116,7 +116,7 @@ export class WizardNavigationBarComponent {
    * @returns True if the step can be marked as optional
    */
   public isOptional(wizardStep: WizardStep): boolean {
-    return wizardStep.optional && !wizardStep.completed && !wizardStep.selected && !this.wizardState.completed
+    return wizardStep.optional && !wizardStep.completed && !wizardStep.selected && !this.wizardState.completed;
   }
 
   /**

@@ -1,20 +1,26 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {AfterViewInit, ChangeDetectorRef, Component, ViewChild} from '@angular/core';
-import {WizardComponent} from './wizard.component';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from '../navigation/wizard-state.model';
+import {FreeNavigationMode} from '../navigation/free-navigation-mode';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {StrictNavigationMode} from '../navigation/strict-navigation-mode';
-import {FreeNavigationMode} from '../navigation/free-navigation-mode';
+import {WizardState} from '../navigation/wizard-state.model';
+import {WizardComponent} from './wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
   template: `
     <aw-wizard [navigationMode]="navigationMode" [disableNavigationBar]="disableNavigationBar" [defaultStepIndex]="defaultStepIndex">
-      <aw-wizard-step stepTitle='Steptitle 1' *ngIf="showStep1">Step 1</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 2'>Step 2</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 3' *ngIf="showStep3">Step 3</aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 1' *ngIf="showStep1">
+        Step 1
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2'>
+        Step 2
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 3' *ngIf="showStep3">
+        Step 3
+      </aw-wizard-step>
     </aw-wizard>
   `
 })

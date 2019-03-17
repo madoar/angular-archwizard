@@ -1,6 +1,6 @@
+import {EventEmitter} from '@angular/core';
 import {WizardStep} from './wizard-step.interface';
 import {MovingDirection} from './moving-direction.enum';
-import {EventEmitter} from '@angular/core';
 
 /**
  * Basic functionality every wizard completion step needs to provide

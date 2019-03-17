@@ -1,7 +1,7 @@
 import {FreeNavigationMode} from './free-navigation-mode';
+import {NavigationMode} from './navigation-mode.interface';
 import {SemiStrictNavigationMode} from './semi-strict-navigation-mode';
 import {StrictNavigationMode} from './strict-navigation-mode';
-import {NavigationMode} from './navigation-mode.interface';
 import {WizardComponent} from '../components/wizard.component';
 import {WizardState} from './wizard-state.model';
 

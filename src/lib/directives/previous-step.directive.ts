@@ -31,6 +31,21 @@ export class PreviousStepDirective {
   public postFinalize: EventEmitter<void> = new EventEmitter();
 
   /**
+   * Constructor
+   *
+   * @param wizardState The state of the wizard
+   */
+  constructor(private wizardState: WizardState) {
+  }
+
+  /**
+   * A convenience field for `preFinalize`
+   */
+  public get finalize(): EventEmitter<void> {
+    return this.preFinalize;
+  }
+
+  /**
    * A convenience field for `preFinalize`
    *
    * @param emitter The [[EventEmitter]] to be set
@@ -42,13 +57,6 @@ export class PreviousStepDirective {
   }
 
   /**
-   * A convenience field for `preFinalize`
-   */
-  public get finalize(): EventEmitter<void> {
-    return this.preFinalize;
-  }
-
-  /**
    * The navigation mode
    */
   private get navigationMode(): NavigationMode {
@@ -56,17 +64,11 @@ export class PreviousStepDirective {
   }
 
   /**
-   * Constructor
-   *
-   * @param wizardState The state of the wizard
-   */
-  constructor(private wizardState: WizardState) { }
-
-  /**
    * Listener method for `click` events on the component with this directive.
    * After this method is called the wizard will try to transition to the previous step
    */
-  @HostListener('click', ['$event']) onClick(event: Event): void {
+  @HostListener('click', ['$event'])
+  public onClick(event: Event): void {
     this.navigationMode.goToPreviousStep(this.preFinalize, this.postFinalize);
   }
 }

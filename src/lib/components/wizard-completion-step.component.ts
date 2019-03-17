@@ -1,10 +1,6 @@
-/**
- * Created by marc on 20.05.17.
- */
-
 import {Component, forwardRef, ViewEncapsulation} from '@angular/core';
-import {WizardStep} from '../util/wizard-step.interface';
 import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
+import {WizardStep} from '../util/wizard-step.interface';
 
 /**
  * The `aw-wizard-completion-step` component can be used to define a completion/success step at the end of your wizard

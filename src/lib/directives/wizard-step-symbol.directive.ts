@@ -21,5 +21,6 @@ export class WizardStepSymbolDirective {
    *
    * @param templateRef A reference to the content of the `ng-template` that contains this [[WizardStepSymbolDirective]]
    */
-  constructor(public templateRef: TemplateRef<any>) { }
+  constructor(public templateRef: TemplateRef<any>) {
+  }
 }

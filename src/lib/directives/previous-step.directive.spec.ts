@@ -1,10 +1,10 @@
-import {PreviousStepDirective} from './previous-step.directive';
 import {Component} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardState} from '../navigation/wizard-state.model';
+import {PreviousStepDirective} from './previous-step.directive';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -12,12 +12,18 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
     <aw-wizard>
       <aw-wizard-step stepTitle='Steptitle 1'>
         Step 1
-        <button type="button" (finalize)="finalizeStep(1)" awPreviousStep>Go to zero step</button>
+        <button type="button" (finalize)="finalizeStep(1)" awPreviousStep>
+          Go to zero step
+        </button>
       </aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 2'>
         Step 2
-        <button type="button" (finalize)="finalizeStep(2)" awPreviousStep>Go to first step</button>
-        <button type="button" (postFinalize)="finalizeStep(2)" awPreviousStep>Go to first step</button>
+        <button type="button" (finalize)="finalizeStep(2)" awPreviousStep>
+          Go to first step
+        </button>
+        <button type="button" (postFinalize)="finalizeStep(2)" awPreviousStep>
+          Go to first step
+        </button>
       </aw-wizard-step>
     </aw-wizard>
   `
