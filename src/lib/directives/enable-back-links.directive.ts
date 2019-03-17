@@ -39,7 +39,8 @@ export class EnableBackLinksDirective implements OnInit {
    *
    * @param completionStep The wizard completion step, which should be exitable
    */
-  constructor(@Host() private completionStep: WizardCompletionStep) { }
+  constructor(@Host() private completionStep: WizardCompletionStep) {
+  }
 
   /**
    * Initialization work

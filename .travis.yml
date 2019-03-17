@@ -3,20 +3,27 @@ dist: trusty
 
 language: node_js
 
-node_js:
-  - "10"
-  - "9"
-  - "8"
-
 addons:
   chrome: stable
-  code_climate:
-    repo_token: f2449b17c6849d69b6bb7f184314db0572565dfb6c1d09f3a41d085348448c62
 
-script:
-- npm test
-- npm run build
+branches:
+  only:
+  - master
+  - develop
 
-after_success:
-  - npm install -g codeclimate-test-reporter
-  - codeclimate-test-reporter < coverage/lcov.info
+node_js:
+- "10"
+- "9"
+- "8"
+
+jobs:
+  include:
+  - stage: Coverage
+    node_js: "10"
+    script: npm test
+    after_success:
+    - npm install -g codacy-coverage
+    - codacy-coverage < coverage/lcov.info
+  - stage: Build
+    node_js: "10"
+    script: npm run build

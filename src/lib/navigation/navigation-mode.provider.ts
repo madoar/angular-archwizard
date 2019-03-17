@@ -1,8 +1,7 @@
 import {FreeNavigationMode} from './free-navigation-mode';
+import {NavigationMode} from './navigation-mode.interface';
 import {SemiStrictNavigationMode} from './semi-strict-navigation-mode';
 import {StrictNavigationMode} from './strict-navigation-mode';
-
-import {NavigationMode} from './navigation-mode.interface';
 import {WizardState} from './wizard-state.model';
 
 /**
@@ -22,4 +21,4 @@ export function navigationModeFactory(navigationMode: string, wizardState: Wizar
     default:
       return new StrictNavigationMode(wizardState);
   }
-};
+}

@@ -1,6 +1,6 @@
 import {Directive, EventEmitter, HostListener, Output} from '@angular/core';
-import {WizardState} from '../navigation/wizard-state.model';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardState} from '../navigation/wizard-state.model';
 
 /**
  * The `awResetWizard` directive can be used to reset the wizard to its initial state.
@@ -25,6 +25,14 @@ export class ResetWizardDirective {
   public finalize: EventEmitter<void> = new EventEmitter();
 
   /**
+   * Constructor
+   *
+   * @param wizardState The wizard state
+   */
+  constructor(private wizardState: WizardState) {
+  }
+
+  /**
    * The navigation mode
    */
   private get navigationMode(): NavigationMode {
@@ -32,16 +40,10 @@ export class ResetWizardDirective {
   }
 
   /**
-   * Constructor
-   *
-   * @param wizardState The wizard state
-   */
-  constructor(private wizardState: WizardState) { }
-
-  /**
    * Resets the wizard
    */
-  @HostListener('click', ['$event']) onClick(event: Event): void {
+  @HostListener('click', ['$event'])
+  public onClick(event: Event): void {
     // do some optional cleanup work
     this.finalize.emit();
     // reset the wizard to its initial state

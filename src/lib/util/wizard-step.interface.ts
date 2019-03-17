@@ -1,8 +1,8 @@
-import {MovingDirection} from './moving-direction.enum';
-import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 import {ContentChild, EventEmitter, HostBinding, Input, Output} from '@angular/core';
-import {NavigationSymbol} from './navigation-symbol.interface';
 import {WizardStepSymbolDirective} from '../directives/wizard-step-symbol.directive';
+import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
+import {MovingDirection} from './moving-direction.enum';
+import {NavigationSymbol} from './navigation-symbol.interface';
 
 /**
  * Basic functionality every type of wizard step needs to provide
@@ -43,7 +43,7 @@ export abstract class WizardStep {
    * Takes effect when `stepSymbolTemplate` is not defined or null.
    */
   @Input()
-  public navigationSymbol: NavigationSymbol = { symbol: '' };
+  public navigationSymbol: NavigationSymbol = {symbol: ''};
 
   /**
    * A boolean describing if the wizard step has been completed

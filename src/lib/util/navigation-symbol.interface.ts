@@ -8,10 +8,10 @@ export interface NavigationSymbol {
   /**
    * The symbol to be used for a navigation step
    */
-  symbol: string
+  symbol: string;
 
   /**
    * The font family to be used for this navigation symbol
    */
-  fontFamily?: string
+  fontFamily?: string;
 }

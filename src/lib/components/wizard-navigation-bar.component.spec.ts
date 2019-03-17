@@ -1,25 +1,35 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {Component, ViewChild} from '@angular/core';
-import {WizardComponent} from './wizard.component';
+import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
+import {WizardComponent} from './wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
   template: `
     <aw-wizard>
-      <aw-wizard-step stepTitle='Steptitle 1'>Step 1</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 2' awOptionalStep>Step 2</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 3'>Step 3</aw-wizard-step>
-      <aw-wizard-completion-step stepTitle='Steptitle 4'>Step 4</aw-wizard-completion-step>
+      <aw-wizard-step stepTitle='Steptitle 1' [stepId]="firstStepId">
+        Step 1
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2' awOptionalStep>
+        Step 2
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 3'>
+        Step 3
+      </aw-wizard-step>
+      <aw-wizard-completion-step stepTitle='Steptitle 4'>
+        Step 4
+      </aw-wizard-completion-step>
     </aw-wizard>
   `
 })
 class WizardTestComponent {
+  public firstStepId = 'step1';
+
   @ViewChild(WizardComponent)
-  wizard: WizardComponent;
+  public wizard: WizardComponent;
 }
 
 describe('WizardNavigationBarComponent', () => {
@@ -444,8 +454,10 @@ describe('WizardNavigationBarComponent', () => {
   it('should use the \"small\" layout when no navigation bar layout is specified', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
+    expect(navBar.classes).toEqual({
+      'horizontal': true, 'vertical': false, 'small': true,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
+    });
   });
 
   it('should use the \"small\" layout when it is specified', () => {
@@ -454,8 +466,10 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = 'small';
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
+    expect(navBar.classes).toEqual({
+      'horizontal': true, 'vertical': false, 'small': true,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
+    });
   });
 
   it('should use the \"large-filled\" layout when it is specified', () => {
@@ -464,8 +478,10 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = 'large-filled';
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': true, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false });
+    expect(navBar.classes).toEqual({
+      'horizontal': true, 'vertical': false, 'small': false,
+      'large-filled': true, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
+    });
   });
 
   it('should use the \"large-empty\" layout when it is specified', () => {
@@ -474,8 +490,10 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = 'large-empty';
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': true, 'large-empty-symbols': false });
+    expect(navBar.classes).toEqual({
+      'horizontal': true, 'vertical': false, 'small': false,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': true, 'large-empty-symbols': false
+    });
   });
 
   it('should use the \"large-filled-symbols\" layout when it is specified', () => {
@@ -484,8 +502,10 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = 'large-filled-symbols';
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': false, 'large-filled-symbols': true, 'large-empty': false, 'large-empty-symbols': false });
+    expect(navBar.classes).toEqual({
+      'horizontal': true, 'vertical': false, 'small': false,
+      'large-filled': false, 'large-filled-symbols': true, 'large-empty': false, 'large-empty-symbols': false
+    });
   });
 
   it('should use the \"large-empty-symbols\" layout when it is specified', () => {
@@ -494,8 +514,10 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = 'large-empty-symbols';
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({ 'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': true });
+    expect(navBar.classes).toEqual({
+      'horizontal': true, 'vertical': false, 'small': false,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': true
+    });
   });
 
   it('should show the correct step titles', () => {
@@ -519,5 +541,28 @@ describe('WizardNavigationBarComponent', () => {
     expect(navigationLinks[1].nativeElement.innerText).toBe('STEPTITLE 3');
     expect(navigationLinks[2].nativeElement.innerText).toBe('STEPTITLE 2');
     expect(navigationLinks[3].nativeElement.innerText).toBe('STEPTITLE 1');
+  });
+
+  it('should have the correct stepId', () => {
+    const navigationLiElements = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li'));
+
+    expect(navigationLiElements.length).toBe(4);
+    expect(navigationLiElements[0].nativeElement.id).toBe('step1');
+    expect(navigationLiElements[1].nativeElement.id).toBe('');
+    expect(navigationLiElements[2].nativeElement.id).toBe('');
+    expect(navigationLiElements[3].nativeElement.id).toBe('');
+  });
+
+  it('should change the stepId correctly', () => {
+    wizardTest.firstStepId = null;
+    wizardTestFixture.detectChanges();
+
+    const navigationLiElements = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li'));
+
+    expect(navigationLiElements.length).toBe(4);
+    expect(navigationLiElements[0].nativeElement.id).toBe('');
+    expect(navigationLiElements[1].nativeElement.id).toBe('');
+    expect(navigationLiElements[2].nativeElement.id).toBe('');
+    expect(navigationLiElements[3].nativeElement.id).toBe('');
   });
 });

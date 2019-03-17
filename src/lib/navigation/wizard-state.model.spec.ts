@@ -1,17 +1,23 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {Component} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
-import {WizardStep} from '../util/wizard-step.interface';
 import {ArchwizardModule} from '../archwizard.module';
+import {WizardStep} from '../util/wizard-step.interface';
 import {WizardState} from './wizard-state.model';
 
 @Component({
   selector: 'aw-test-wizard',
   template: `
     <aw-wizard>
-      <aw-wizard-step stepTitle='Steptitle 1'>Step 1</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 2'>Step 2</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 3'>Step 3</aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 1'>
+        Step 1
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 2'>
+        Step 2
+      </aw-wizard-step>
+      <aw-wizard-step stepTitle='Steptitle 3'>
+        Step 3
+      </aw-wizard-step>
     </aw-wizard>
   `
 })
