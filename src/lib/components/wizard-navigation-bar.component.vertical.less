@@ -48,7 +48,6 @@
   transition: 0.25s;
   border-radius: 100%;
 }
-
 .state-circle-hover(@dot-width, @dot-height, @dot-border-width) { }
 
 .state-circle-with-border(@color) {
@@ -140,16 +139,18 @@
     &.navigable.optional a:hover .step-indicator {
       .state-hover(@wz-color-optional);
     }
-    &.navigable.done a:hover .step-indicator,
-    &.navigable.completed a:hover .step-indicator {
-      .state-hover(@wz-color-done);
+    &.navigable.done, &.navigable.completed {
+      a:hover .step-indicator {
+        .state-hover(@wz-color-done);
+      }
     }
     &.navigable.current a:hover .step-indicator {
       .state-hover(@wz-color-current);
     }
-    &.navigable.current.done a:hover .step-indicator,
-    &.navigable.current.completed a:hover .step-indicator {
-      .state-hover(@wz-color-editing);
+    &.navigable.current.done, &.navigable.current.completed {
+      a:hover .step-indicator {
+        .state-hover(@wz-color-editing);
+      }
     }
   }
 }
