@@ -8,7 +8,7 @@ import {FreeNavigationMode} from './free-navigation-mode';
 import {BaseNavigationMode} from './base-navigation-mode.interface';
 
 class CustomNavigationMode extends BaseNavigationMode {
-  isNavigable(destinationIndex: number): boolean {
+  public isNavigable(destinationIndex: number): boolean {
     return true;
   }
 }

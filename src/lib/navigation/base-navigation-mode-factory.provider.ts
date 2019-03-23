@@ -14,7 +14,7 @@ export class BaseNavigationModeFactory implements NavigationModeFactory {
   /**
    * @inheritDoc
    */
-  create(wizard: WizardComponent, navigationModeInput: NavigationModeInput): NavigationMode {
+  public create(wizard: WizardComponent, navigationModeInput: NavigationModeInput): NavigationMode {
     let navigationModeName: string;
     if (typeof navigationModeInput === 'function') {
       // input is a function

@@ -102,7 +102,7 @@ export class WizardState {
    *
    * @param navigationMode An already constructed `NavigationMode` instance
    */
-  updateNavigationMode(navigationMode: NavigationMode): void {
+  public updateNavigationMode(navigationMode: NavigationMode): void {
     this.navigationMode = navigationMode;
   }
 
@@ -111,7 +111,7 @@ export class WizardState {
    *
    * @param updatedWizardSteps The updated wizard steps
    */
-  updateWizardSteps(updatedWizardSteps: Array<WizardStep>): void {
+  public updateWizardSteps(updatedWizardSteps: Array<WizardStep>): void {
     // the wizard is currently not in the initialization phase
     if (this.wizardSteps.length > 0 && this.currentStepIndex > -1) {
       this.currentStepIndex = updatedWizardSteps.indexOf(this.wizardSteps[this.currentStepIndex]);
@@ -126,7 +126,7 @@ export class WizardState {
    * @param stepIndex The to be checked index of a step inside this wizard
    * @returns True if the given `stepIndex` is contained inside this wizard, false otherwise
    */
-  hasStep(stepIndex: number): boolean {
+  public hasStep(stepIndex: number): boolean {
     return this.wizardSteps.length > 0 && 0 <= stepIndex && stepIndex < this.wizardSteps.length;
   }
 
@@ -135,7 +135,7 @@ export class WizardState {
    *
    * @returns True if this wizard has a previous step before the current step
    */
-  hasPreviousStep(): boolean {
+  public hasPreviousStep(): boolean {
     return this.hasStep(this.currentStepIndex - 1);
   }
 
@@ -144,7 +144,7 @@ export class WizardState {
    *
    * @returns True if this wizard has a next step after the current step
    */
-  hasNextStep(): boolean {
+  public hasNextStep(): boolean {
     return this.hasStep(this.currentStepIndex + 1);
   }
 
@@ -153,7 +153,7 @@ export class WizardState {
    *
    * @returns True if the wizard is currently inside its last step
    */
-  isLastStep(): boolean {
+  public isLastStep(): boolean {
     return this.wizardSteps.length > 0 && this.currentStepIndex === this.wizardSteps.length - 1;
   }
 
@@ -165,7 +165,7 @@ export class WizardState {
    * @returns The found [[WizardStep]] at the given index `stepIndex`
    * @throws An `Error` is thrown, if the given index `stepIndex` doesn't exist
    */
-  getStepAtIndex(stepIndex: number): WizardStep {
+  public getStepAtIndex(stepIndex: number): WizardStep {
     if (!this.hasStep(stepIndex)) {
       throw new Error(`Expected a known step, but got stepIndex: ${stepIndex}.`);
     }
@@ -180,7 +180,7 @@ export class WizardState {
    * @param stepId The given step id
    * @returns The found index of a step with the given step id, or `-1` if no step with the given id is included in the wizard
    */
-  getIndexOfStepWithId(stepId: string): number {
+  public getIndexOfStepWithId(stepId: string): number {
     return this.wizardSteps.findIndex(step => step.stepId === stepId);
   }
 
@@ -191,7 +191,7 @@ export class WizardState {
    * @param step The given [[WizardStep]]
    * @returns The found index of `step` or `-1` if the step is not included in the wizard
    */
-  getIndexOfStep(step: WizardStep): number {
+  public getIndexOfStep(step: WizardStep): number {
     return this.wizardSteps.indexOf(step);
   }
 
@@ -201,7 +201,7 @@ export class WizardState {
    * @param destinationStep The given destination step
    * @returns The calculated [[MovingDirection]]
    */
-  getMovingDirection(destinationStep: number): MovingDirection {
+  public getMovingDirection(destinationStep: number): MovingDirection {
     let movingDirection: MovingDirection;
 
     if (destinationStep > this.currentStepIndex) {

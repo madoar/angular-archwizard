@@ -81,7 +81,7 @@ export interface ArchwizardModuleConfig {
 })
 export class ArchwizardModule {
   /* istanbul ignore next */
-  static forRoot(config?: ArchwizardModuleConfig): ModuleWithProviders {
+  public static forRoot(config?: ArchwizardModuleConfig): ModuleWithProviders {
     return {
       ngModule: ArchwizardModule,
       providers: [

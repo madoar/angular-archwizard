@@ -55,7 +55,7 @@ export abstract class BaseNavigationMode implements NavigationMode {
   /**
    * @inheritDoc
    */
-  goToStep(destinationIndex: number, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
+  public goToStep(destinationIndex: number, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
     this.canGoToStep(destinationIndex).then(navigationAllowed => {
       if (navigationAllowed) {
         // the current step can be exited in the given direction

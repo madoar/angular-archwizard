@@ -5,7 +5,6 @@ import {ArchwizardModule} from '../archwizard.module';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {MovingDirection} from '../util/moving-direction.enum';
-import {WizardCompletionStepComponent} from './wizard-completion-step.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -29,11 +28,11 @@ class WizardTestComponent {
 
   public eventLog: Array<string> = [];
 
-  enterInto(direction: MovingDirection, destination: number): void {
+  public enterInto(direction: MovingDirection, destination: number): void {
     this.eventLog.push(`enter ${MovingDirection[direction]} ${destination}`);
   }
 
-  exitFrom(direction: MovingDirection, source: number): void {
+  public exitFrom(direction: MovingDirection, source: number): void {
     this.eventLog.push(`exit ${MovingDirection[direction]} ${source}`);
   }
 }

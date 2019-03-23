@@ -45,7 +45,7 @@ export class EnableBackLinksDirective implements OnInit {
   /**
    * Initialization work
    */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.completionStep.canExit = true;
     this.completionStep.stepExit = this.stepExit;
   }

@@ -166,7 +166,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    *
    * @param changes The detected changes
    */
-  ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     for (const propName of Object.keys(changes)) {
       const change = changes[propName];
 
@@ -191,7 +191,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
   /**
    * Initialization work
    */
-  ngAfterContentInit(): void {
+  public ngAfterContentInit(): void {
     // add a subscriber to the wizard steps QueryList to listen to changes in the DOM
     this.wizardSteps.changes.subscribe(changedWizardSteps => {
       this.model.updateWizardSteps(changedWizardSteps.toArray());
