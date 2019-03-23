@@ -90,10 +90,13 @@ export class WizardComponent implements OnChanges, AfterContentInit {
 
   /**
    * The navigation mode used for transitioning between different steps.
-   * The navigation mode can be either `strict`, `semi-strict` or `free`
+   * The navigation mode can be either `strict`, `semi-strict`, `free` or empty.
+   *
+   * When the value is empty, the configured [[NavigationModeFactory]] will use the default navigation mode.
+   * For the default [[NavigationModeFactory]], the default navigation mode is `strict`.
    */
   @Input()
-  public navigationMode: NavigationModeInput = 'strict';
+  public navigationMode: NavigationModeInput = '';
 
   /**
    * The initially selected step, represented by its index
