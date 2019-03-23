@@ -17,14 +17,7 @@ export class BaseNavigationModeFactory {
     let navigationModeName: string;
     if (typeof navigationModeInput === 'function') {
       // input is a function
-      const navigationMode = navigationModeInput(wizard);
-      if (typeof navigationMode === 'string') {
-        // function returned a name
-        navigationModeName = navigationMode;
-      } else {
-        // function returned a `NavigationMode` instance
-        return navigationMode;
-      }
+      return navigationModeInput(wizard);
     } else {
       // input is a name
       navigationModeName = navigationModeInput;
