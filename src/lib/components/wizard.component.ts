@@ -200,6 +200,13 @@ export class WizardComponent implements OnChanges, AfterContentInit {
     this.navigation.reset();
   }
 
+  /**
+   * Updates the navigation mode for this wizard component.
+   *
+   * Initially the wizard component uses the navigation mode specified in the [[navigationMode]] input
+   * or the default navigation mode if the [[navigationMode]] input is not defined.
+   * Use this method to select a different navigation mode after the wizard component is initialized.
+   */
   public updateNavigationMode(navigationModeInput: NavigationModeInput) {
     this.model.updateNavigationMode(this.navigationModeFactory.create(this, navigationModeInput));
   }
