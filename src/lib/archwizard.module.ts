@@ -19,7 +19,19 @@ import {NAVIGATION_MODE_FACTORY, NavigationModeFactory} from './navigation/navig
 import {BaseNavigationModeFactory} from './navigation/navigation-mode-factory.provider';
 
 
+/**
+ * Configuration object for the `angular-archwizard` module.
+ *
+ * Allows to customize global settings.
+ */
 export interface ArchwizardModuleConfig {
+
+  /**
+   * Custom factory of [[NavigationMode]] instances.
+   *
+   * You may need a custom factory in order to support custom navigation modes.
+   * By default, [[BaseNavigationModeFactory]] is used.
+   */
   navigationModeFactory?: new() => NavigationModeFactory;
 }
 
