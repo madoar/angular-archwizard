@@ -103,7 +103,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    * For the default navigation mode factory, the default mode is `strict`.
    */
   @Input()
-  public navigationMode: NavigationModeInput = '';
+  public navigationMode: NavigationModeInput;
 
   /**
    * The initially selected step, represented by its index
