@@ -34,8 +34,8 @@ export class BaseNavigationModeFactory implements NavigationModeFactory {
    * @param navigationModeInput The name of a built-in navigation mode or a custom navigation mode
    * @returns The created [[NavigationMode]]
    */
-  protected createByName(wizard: WizardComponent, navigationMode: string): NavigationMode {
-    switch (navigationMode) {
+  protected createByName(wizard: WizardComponent, navigationModeInput: string): NavigationMode {
+    switch (navigationModeInput) {
       case 'free':
         return new FreeNavigationMode(wizard.model);
       case 'semi-strict':
@@ -43,7 +43,7 @@ export class BaseNavigationModeFactory implements NavigationModeFactory {
       case 'strict':
         return new StrictNavigationMode(wizard.model);
       default:
-        return !navigationMode ? this.createDefault(wizard) : this.createUnknown(wizard, navigationMode);
+        return !navigationModeInput ? this.createDefault(wizard) : this.createUnknown(wizard, navigationModeInput);
     }
   }
 
@@ -66,7 +66,7 @@ export class BaseNavigationModeFactory implements NavigationModeFactory {
    * @param navigationModeInput The name of a custom navigation mode
    * @returns The created [[NavigationMode]]
    */
-  protected createUnknown(wizard: WizardComponent, navigationMode: string): NavigationMode {
-    throw new Error(`Unknown navigation mode name: ${navigationMode}`);
+  protected createUnknown(wizard: WizardComponent, navigationModeInput: string): NavigationMode {
+    throw new Error(`Unknown navigation mode name: ${navigationModeInput}`);
   }
 }
