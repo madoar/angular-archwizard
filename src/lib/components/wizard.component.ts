@@ -114,6 +114,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    * Constructor
    *
    * @param model The model for this wizard component
+   * @param navigationModeFactory Navigation mode factory for this wizard component
    */
   constructor(
     public model: WizardState,
