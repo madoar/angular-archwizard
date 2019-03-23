@@ -105,8 +105,9 @@ describe('NavigationMode', () => {
     const wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
+    const wizard = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardComponent);
     const wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    wizardState.updateNavigationMode('free');
+    wizard.updateNavigationMode('free');
     expect(wizardState.navigationMode).toEqual(jasmine.any(FreeNavigationMode));
   });
 });

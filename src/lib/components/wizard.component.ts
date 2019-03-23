@@ -7,10 +7,14 @@ import {
   OnChanges,
   QueryList,
   SimpleChanges,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Inject,
+  Optional
 } from '@angular/core';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
-import { navigationModeFactory, NavigationModeInput } from '../navigation/navigation-mode.provider';
+import {NavigationModeInput} from '../navigation/navigation-mode-input.interface';
+import {NavigationModeFactory, NAVIGATION_MODE_FACTORY} from '../navigation/navigation-mode-factory.interface';
+import {BaseNavigationModeFactory} from '../navigation/navigation-mode-factory.provider';
 import {WizardState} from '../navigation/wizard-state.model';
 import {WizardStep} from '../util/wizard-step.interface';
 
@@ -108,7 +112,13 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    *
    * @param model The model for this wizard component
    */
-  constructor(public model: WizardState) {
+  constructor(
+    public model: WizardState,
+    // Using @Optional() in order not to break applications which import ArchwizardModule without calling forRoot().
+    @Optional() @Inject(NAVIGATION_MODE_FACTORY) private navigationModeFactory: NavigationModeFactory) {
+    if (!this.navigationModeFactory) {
+      this.navigationModeFactory = new BaseNavigationModeFactory();
+    }
   }
 
   /**
@@ -186,7 +196,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
     this.navigation.reset();
   }
 
-  protected updateNavigationMode(navigationModeInput: NavigationModeInput) {
-    this.model.updateNavigationMode(navigationModeFactory(this, navigationModeInput));
+  public updateNavigationMode(navigationModeInput: NavigationModeInput) {
+    this.model.updateNavigationMode(this.navigationModeFactory.create(this, navigationModeInput));
   }
 }

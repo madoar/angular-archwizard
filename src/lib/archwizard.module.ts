@@ -15,6 +15,13 @@ import {WizardCompletionStepDirective} from './directives/wizard-completion-step
 import {WizardStepSymbolDirective} from './directives/wizard-step-symbol.directive';
 import {WizardStepTitleDirective} from './directives/wizard-step-title.directive';
 import {WizardStepDirective} from './directives/wizard-step.directive';
+import {NAVIGATION_MODE_FACTORY, NavigationModeFactory} from './navigation/navigation-mode-factory.interface';
+import {BaseNavigationModeFactory} from './navigation/navigation-mode-factory.provider';
+
+
+export interface ArchwizardModuleConfig {
+  navigationModeFactory?: new() => NavigationModeFactory;
+}
 
 /**
  * The module defining all the content inside `angular-archwizard`
@@ -62,7 +69,12 @@ import {WizardStepDirective} from './directives/wizard-step.directive';
 })
 export class ArchwizardModule {
   /* istanbul ignore next */
-  static forRoot(): ModuleWithProviders {
-    return {ngModule: ArchwizardModule, providers: []};
+  static forRoot(config?: ArchwizardModuleConfig): ModuleWithProviders {
+    return {
+      ngModule: ArchwizardModule,
+      providers: [
+        { provide: NAVIGATION_MODE_FACTORY, useClass: config && config.navigationModeFactory || BaseNavigationModeFactory },
+      ]
+    };
   }
 }
