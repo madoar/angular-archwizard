@@ -32,7 +32,7 @@ export interface ArchwizardModuleConfig {
    * You may need a custom factory in order to support custom navigation modes.
    * By default, [[BaseNavigationModeFactory]] is used.
    */
-  navigationModeFactory?: new() => NavigationModeFactory;
+  navigationModeFactory?: NavigationModeFactory;
 }
 
 /**
@@ -85,7 +85,7 @@ export class ArchwizardModule {
     return {
       ngModule: ArchwizardModule,
       providers: [
-        { provide: NAVIGATION_MODE_FACTORY, useClass: config && config.navigationModeFactory || BaseNavigationModeFactory },
+        { provide: NAVIGATION_MODE_FACTORY, useValue: config && config.navigationModeFactory || new BaseNavigationModeFactory() },
       ]
     };
   }
