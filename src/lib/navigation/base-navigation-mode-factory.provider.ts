@@ -4,11 +4,12 @@ import {SemiStrictNavigationMode} from './semi-strict-navigation-mode';
 import {StrictNavigationMode} from './strict-navigation-mode';
 import {WizardComponent} from '../components/wizard.component';
 import {NavigationModeInput} from './navigation-mode-input.interface';
+import {NavigationModeFactory} from './navigation-mode-factory.interface';
 
 /**
  * A factory used to create [[NavigationMode]] instances
  */
-export class BaseNavigationModeFactory {
+export class BaseNavigationModeFactory implements NavigationModeFactory {
 
   /**
    * @inheritDoc
@@ -33,7 +34,7 @@ export class BaseNavigationModeFactory {
    * @param navigationModeInput The name of a built-in navigation mode or a custom navigation mode
    * @returns The created [[NavigationMode]]
    */
-  createByName(wizard: WizardComponent, navigationMode: string): NavigationMode {
+  protected createByName(wizard: WizardComponent, navigationMode: string): NavigationMode {
     switch (navigationMode) {
       case 'free':
         return new FreeNavigationMode(wizard.model);
@@ -52,7 +53,7 @@ export class BaseNavigationModeFactory {
    * @param wizard The wizard componenent where the created [[NavigationMode]] will be used
    * @returns The created [[NavigationMode]]
    */
-  createDefault(wizard: WizardComponent): NavigationMode {
+  protected createDefault(wizard: WizardComponent): NavigationMode {
     return new StrictNavigationMode(wizard.model);
   }
 
@@ -65,7 +66,7 @@ export class BaseNavigationModeFactory {
    * @param navigationModeInput The name of a custom navigation mode
    * @returns The created [[NavigationMode]]
    */
-  createUnknown(wizard: WizardComponent, navigationMode: string): NavigationMode {
+  protected createUnknown(wizard: WizardComponent, navigationMode: string): NavigationMode {
     throw new Error(`Unknown navigation mode name: ${navigationMode}`);
   }
 }

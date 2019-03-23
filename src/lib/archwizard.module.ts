@@ -16,7 +16,7 @@ import {WizardStepSymbolDirective} from './directives/wizard-step-symbol.directi
 import {WizardStepTitleDirective} from './directives/wizard-step-title.directive';
 import {WizardStepDirective} from './directives/wizard-step.directive';
 import {NAVIGATION_MODE_FACTORY, NavigationModeFactory} from './navigation/navigation-mode-factory.interface';
-import {BaseNavigationModeFactory} from './navigation/navigation-mode-factory.provider';
+import {BaseNavigationModeFactory} from './navigation/base-navigation-mode-factory.provider';
 
 
 /**

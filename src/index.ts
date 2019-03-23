@@ -25,7 +25,7 @@ export {BaseNavigationMode} from './lib/navigation/base-navigation-mode.interfac
 export {WizardState} from './lib/navigation/wizard-state.model';
 export {NavigationModeInput} from './lib/navigation/navigation-mode-input.interface';
 export {NavigationModeFactory} from './lib/navigation/navigation-mode-factory.interface';
-export {BaseNavigationModeFactory} from './lib/navigation/navigation-mode-factory.provider';
+export {BaseNavigationModeFactory} from './lib/navigation/base-navigation-mode-factory.provider';
 
 // export the utility functions
 export {MovingDirection} from './lib/util/moving-direction.enum';

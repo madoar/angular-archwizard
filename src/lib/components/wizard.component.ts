@@ -14,7 +14,7 @@ import {
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {NavigationModeInput} from '../navigation/navigation-mode-input.interface';
 import {NavigationModeFactory, NAVIGATION_MODE_FACTORY} from '../navigation/navigation-mode-factory.interface';
-import {BaseNavigationModeFactory} from '../navigation/navigation-mode-factory.provider';
+import {BaseNavigationModeFactory} from '../navigation/base-navigation-mode-factory.provider';
 import {WizardState} from '../navigation/wizard-state.model';
 import {WizardStep} from '../util/wizard-step.interface';
 
