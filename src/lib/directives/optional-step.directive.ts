@@ -38,7 +38,7 @@ export class OptionalStepDirective implements OnInit {
   /**
    * Initialization work
    */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.wizardStep.optional = true;
   }
 }

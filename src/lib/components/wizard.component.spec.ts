@@ -40,7 +40,7 @@ class WizardTestComponent implements AfterViewInit {
   constructor(private _changeDetectionRef: ChangeDetectorRef) {
   }
 
-  ngAfterViewInit(): void {
+  public ngAfterViewInit(): void {
     // Force another change detection in order to fix an occuring ExpressionChangedAfterItHasBeenCheckedError
     this._changeDetectionRef.detectChanges();
   }

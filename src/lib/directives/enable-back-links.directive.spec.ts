@@ -31,11 +31,11 @@ class WizardTestComponent {
 
   public completionStepExit: (direction: MovingDirection, source: number) => void = this.exitFrom;
 
-  enterInto(direction: MovingDirection, destination: number): void {
+  public enterInto(direction: MovingDirection, destination: number): void {
     this.eventLog.push(`enter ${MovingDirection[direction]} ${destination}`);
   }
 
-  exitFrom(direction: MovingDirection, source: number): void {
+  public exitFrom(direction: MovingDirection, source: number): void {
     this.eventLog.push(`exit ${MovingDirection[direction]} ${source}`);
   }
 }

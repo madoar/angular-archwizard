@@ -1,64 +1,61 @@
-import {WizardState} from './wizard-state.model';
 import {EventEmitter} from '@angular/core';
 
 /**
- * An interface describing the basic functionality, which must be provided by a navigation mode.
+ * An interface containing the basic functionality, which must be provided by a navigation mode.
  * A navigation mode manages the navigation between different wizard steps, this contains the validation, if a step transition can be done
+ *
+ * For base implementation see [[BaseNavigationMode]].
  *
  * @author Marc Arndt
  */
-export abstract class NavigationMode {
-  constructor(protected wizardState: WizardState) {
-  }
+export interface NavigationMode {
 
   /**
    * Checks, whether a wizard step, as defined by the given destination index, can be transitioned to.
    *
+   * This method controls navigation by [[goToStep]], [[goToPreviousStep]], and [[goToNextStep]] directives.
+   * Navigation by navigation bar is governed by [[isNavigable]].
+   *
    * @param destinationIndex The index of the destination step
    * @returns A [[Promise]] containing `true`, if the destination step can be transitioned to and false otherwise
    */
-  abstract canGoToStep(destinationIndex: number): Promise<boolean>;
+  canGoToStep(destinationIndex: number): Promise<boolean>;
 
   /**
    * Tries to transition to the wizard step, as denoted by the given destination index.
-   * If this is not possible, the current wizard step should be exited and then reentered with `MovingDirection.Stay`
    *
-   * @param destinationIndex The index of the destination step
+   * @param destinationIndex The index of the destination wizard step, which should be entered
    * @param preFinalize An event emitter, to be called before the step has been transitioned
    * @param postFinalize An event emitter, to be called after the step has been transitioned
    */
-  abstract goToStep(destinationIndex: number, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void;
+  goToStep(destinationIndex: number, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void;
 
   /**
-   * Checks, whether the wizard step, located at the given index, is can be navigated to
+   * Checks, whether the wizard step, located at the given index, can be navigated to using the navigation bar.
    *
    * @param destinationIndex The index of the destination step
    * @returns True if the step can be navigated to, false otherwise
    */
-  abstract isNavigable(destinationIndex: number): boolean;
+  isNavigable(destinationIndex: number): boolean;
 
   /**
    * Resets the state of this wizard.
-   * A reset transitions the wizard automatically to the first step and sets all steps as incomplete.
-   * In addition the whole wizard is set as incomplete
    */
-  abstract reset(): void;
+  reset(): void;
 
   /**
    * Tries to transition the wizard to the previous step from the `currentStep`
+   *
+   * @param preFinalize An event emitter, to be called before the step has been transitioned
+   * @param postFinalize An event emitter, to be called after the step has been transitioned
    */
-  goToPreviousStep(preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
-    if (this.wizardState.hasPreviousStep()) {
-      this.goToStep(this.wizardState.currentStepIndex - 1, preFinalize, postFinalize);
-    }
-  }
+  goToPreviousStep(preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>);
 
   /**
    * Tries to transition the wizard to the next step from the `currentStep`
+   *
+   * @param preFinalize An event emitter, to be called before the step has been transitioned
+   * @param postFinalize An event emitter, to be called after the step has been transitioned
    */
-  goToNextStep(preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
-    if (this.wizardState.hasNextStep()) {
-      this.goToStep(this.wizardState.currentStepIndex + 1, preFinalize, postFinalize);
-    }
-  }
+  goToNextStep(preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>);
 }

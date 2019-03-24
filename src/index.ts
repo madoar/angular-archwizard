@@ -21,8 +21,11 @@ export {FreeNavigationMode} from './lib/navigation/free-navigation-mode';
 export {NavigationMode} from './lib/navigation/navigation-mode.interface';
 export {SemiStrictNavigationMode} from './lib/navigation/semi-strict-navigation-mode';
 export {StrictNavigationMode} from './lib/navigation/strict-navigation-mode';
+export {BaseNavigationMode} from './lib/navigation/base-navigation-mode.interface';
 export {WizardState} from './lib/navigation/wizard-state.model';
-export {navigationModeFactory} from './lib/navigation/navigation-mode.provider';
+export {NavigationModeInput} from './lib/navigation/navigation-mode-input.interface';
+export {NavigationModeFactory} from './lib/navigation/navigation-mode-factory.interface';
+export {BaseNavigationModeFactory} from './lib/navigation/base-navigation-mode-factory.provider';
 
 // export the utility functions
 export {MovingDirection} from './lib/util/moving-direction.enum';
@@ -34,4 +37,4 @@ export {WizardCompletionStep} from './lib/util/wizard-completion-step.interface'
 export {WizardStep} from './lib/util/wizard-step.interface';
 
 // export the module
-export {ArchwizardModule} from './lib/archwizard.module';
+export {ArchwizardModule, ArchwizardModuleConfig} from './lib/archwizard.module';

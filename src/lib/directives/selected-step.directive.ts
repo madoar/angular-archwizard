@@ -29,7 +29,7 @@ export class SelectedStepDirective implements OnInit {
   /**
    * Initialization work
    */
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.wizardStep.defaultSelected = true;
   }
 }

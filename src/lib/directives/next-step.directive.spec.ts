@@ -31,7 +31,7 @@ import {NextStepDirective} from './next-step.directive';
 class WizardTestComponent {
   public eventLog: Array<string> = [];
 
-  finalizeStep(stepIndex: number): void {
+  public finalizeStep(stepIndex: number): void {
     this.eventLog.push(`finalize ${stepIndex}`);
   }
 }

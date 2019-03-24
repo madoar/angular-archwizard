@@ -7,9 +7,14 @@ import {
   OnChanges,
   QueryList,
   SimpleChanges,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Inject,
+  Optional
 } from '@angular/core';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {NavigationModeInput} from '../navigation/navigation-mode-input.interface';
+import {NavigationModeFactory, NAVIGATION_MODE_FACTORY} from '../navigation/navigation-mode-factory.interface';
+import {BaseNavigationModeFactory} from '../navigation/base-navigation-mode-factory.provider';
 import {WizardState} from '../navigation/wizard-state.model';
 import {WizardStep} from '../util/wizard-step.interface';
 
@@ -85,10 +90,20 @@ export class WizardComponent implements OnChanges, AfterContentInit {
 
   /**
    * The navigation mode used for transitioning between different steps.
-   * The navigation mode can be either `strict`, `semi-strict` or `free`
+   *
+   * The input value can be either a navigation mode name or a function.
+   *
+   * A set of supported mode names is determined by the configured navigation mode factory.
+   * The default navigation mode factory recognizes `strict`, `semi-strict` and `free`.
+   *
+   * If the value is a function, the function will be called during the initialization of the wizard
+   * component and must return an instance of [[NavigationMode]] to be used in the component.
+   *
+   * If the input is not configured or set to a falsy value, a default mode will be chosen by the navigation mode factory.
+   * For the default navigation mode factory, the default mode is `strict`.
    */
   @Input()
-  public navigationMode = 'strict';
+  public navigationMode: NavigationModeInput;
 
   /**
    * The initially selected step, represented by its index
@@ -106,8 +121,15 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    * Constructor
    *
    * @param model The model for this wizard component
+   * @param navigationModeFactory Navigation mode factory for this wizard component
    */
-  constructor(public model: WizardState) {
+  constructor(
+    public model: WizardState,
+    // Using @Optional() in order not to break applications which import ArchwizardModule without calling forRoot().
+    @Optional() @Inject(NAVIGATION_MODE_FACTORY) private navigationModeFactory: NavigationModeFactory) {
+    if (!this.navigationModeFactory) {
+      this.navigationModeFactory = new BaseNavigationModeFactory();
+    }
   }
 
   /**
@@ -144,7 +166,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
    *
    * @param changes The detected changes
    */
-  ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     for (const propName of Object.keys(changes)) {
       const change = changes[propName];
 
@@ -157,7 +179,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
             this.model.disableNavigationBar = change.currentValue;
             break;
           case 'navigationMode':
-            this.model.updateNavigationMode(change.currentValue);
+            this.updateNavigationMode(change.currentValue);
             break;
           /* istanbul ignore next */
           default:
@@ -169,7 +191,7 @@ export class WizardComponent implements OnChanges, AfterContentInit {
   /**
    * Initialization work
    */
-  ngAfterContentInit(): void {
+  public ngAfterContentInit(): void {
     // add a subscriber to the wizard steps QueryList to listen to changes in the DOM
     this.wizardSteps.changes.subscribe(changedWizardSteps => {
       this.model.updateWizardSteps(changedWizardSteps.toArray());
@@ -179,9 +201,20 @@ export class WizardComponent implements OnChanges, AfterContentInit {
     this.model.disableNavigationBar = this.disableNavigationBar;
     this.model.defaultStepIndex = this.defaultStepIndex;
     this.model.updateWizardSteps(this.wizardSteps.toArray());
-    this.model.updateNavigationMode(this.navigationMode);
+    this.updateNavigationMode(this.navigationMode);
 
     // finally reset the whole wizard state
     this.navigation.reset();
+  }
+
+  /**
+   * Updates the navigation mode for this wizard component.
+   *
+   * Initially the wizard component uses the navigation mode specified in the [[navigationMode]] input
+   * or the default navigation mode if the [[navigationMode]] input is not defined.
+   * Use this method to select a different navigation mode after the wizard component is initialized.
+   */
+  public updateNavigationMode(navigationModeInput: NavigationModeInput) {
+    this.model.updateNavigationMode(this.navigationModeFactory.create(this, navigationModeInput));
   }
 }

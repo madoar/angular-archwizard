@@ -15,6 +15,25 @@ import {WizardCompletionStepDirective} from './directives/wizard-completion-step
 import {WizardStepSymbolDirective} from './directives/wizard-step-symbol.directive';
 import {WizardStepTitleDirective} from './directives/wizard-step-title.directive';
 import {WizardStepDirective} from './directives/wizard-step.directive';
+import {NAVIGATION_MODE_FACTORY, NavigationModeFactory} from './navigation/navigation-mode-factory.interface';
+import {BaseNavigationModeFactory} from './navigation/base-navigation-mode-factory.provider';
+
+
+/**
+ * Configuration object for the `angular-archwizard` module.
+ *
+ * Allows to customize global settings.
+ */
+export interface ArchwizardModuleConfig {
+
+  /**
+   * Custom factory of [[NavigationMode]] instances.
+   *
+   * You may need a custom factory in order to support custom navigation modes.
+   * By default, [[BaseNavigationModeFactory]] is used.
+   */
+  navigationModeFactory?: NavigationModeFactory;
+}
 
 /**
  * The module defining all the content inside `angular-archwizard`
@@ -62,7 +81,12 @@ import {WizardStepDirective} from './directives/wizard-step.directive';
 })
 export class ArchwizardModule {
   /* istanbul ignore next */
-  static forRoot(): ModuleWithProviders {
-    return {ngModule: ArchwizardModule, providers: []};
+  public static forRoot(config?: ArchwizardModuleConfig): ModuleWithProviders {
+    return {
+      ngModule: ArchwizardModule,
+      providers: [
+        { provide: NAVIGATION_MODE_FACTORY, useValue: config && config.navigationModeFactory || new BaseNavigationModeFactory() },
+      ]
+    };
   }
 }
