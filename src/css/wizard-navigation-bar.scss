@@ -57,39 +57,25 @@ $wz-indicator-color_: null !global;
   transition: 0.25s;
   border-radius: 100%;
 }
-@mixin wz-state-circle-hover($dot-width, $dot-height, $dot-border-width) { }
 
 @mixin wz-state-circle-with-border($color) {
   border-width: $wz-indicator-border-width_;
   border-style: solid;
-  border-color: $color;
-}
-@mixin wz-state-circle-with-border-hover($color) {
-  border-color: darken($color, 10%);
+  border-color: if($wz-indicator-state_ == 'hover', darken($color, 10%), $color);
 }
 
 @mixin wz-state-circle-with-border-and-content($color) {
   @include wz-state-circle-with-border($color);
-  color: $color;
-}
-@mixin wz-state-circle-with-border-and-content-hover($color) {
-  @include wz-state-circle-with-border-hover($color);
-  color: darken($color, 10%);
+  color: if($wz-indicator-state_ == 'hover', darken($color, 10%), $color);
 }
 
 @mixin wz-state-circle-with-background($color) {
-  background-color: $color;
-}
-@mixin wz-state-circle-with-background-hover($color) {
-  background-color: darken($color, 5%);
+  background-color: if($wz-indicator-state_ == 'hover', darken($color, 5%), $color);
 }
 
 @mixin wz-state-circle-with-background-and-content($color) {
   @include wz-state-circle-with-background($color);
   color: black;
-}
-@mixin wz-state-circle-with-background-and-content-hover($color) {
-  @include wz-state-circle-with-background-hover($color);
 }
 
 
@@ -153,9 +139,9 @@ $wz-indicator-color_: null !global;
         @include wz-circle-position-vertical($width, $height, $border-width);
       }
 
-      @include wz-state-circle($width, $height, $border-width);
       $wz-indicator-state_: 'default' !global;
       $wz-indicator-color_: $wz-color-default !global;
+      @include wz-state-circle($width, $height, $border-width);
       @content;
     }
     &.optional .step-indicator {
@@ -182,9 +168,9 @@ $wz-indicator-color_: null !global;
     }
 
     &.navigable a:hover .step-indicator {
-      @include wz-state-circle-hover($width, $height, $border-width);
       $wz-indicator-state_: 'hover' !global;
       $wz-indicator-color_: $wz-color-default !global;
+      @include wz-state-circle($width, $height, $border-width);
       @content;
     }
     &.navigable.optional a:hover .step-indicator {
@@ -225,56 +211,31 @@ $wz-indicator-color_: null !global;
 
     &.small ul.steps-indicator {
       @include wz-define-style($layout, $width: $wz-small-dot-width, $height: $wz-small-dot-height, $border-width: 0) {
-        @if ($wz-indicator-state_ == 'default') {
-          @include wz-state-circle-with-background($wz-indicator-color_);
-        }
-        @else {
-          @include wz-state-circle-with-background-hover($wz-indicator-color_);
-        }
+        @include wz-state-circle-with-background($wz-indicator-color_);
       }
     }
 
     &.large-filled ul.steps-indicator {
       @include wz-define-style($layout, $border-width: 0) {
-        @if ($wz-indicator-state_ == 'default') {
-          @include wz-state-circle-with-background($wz-indicator-color_);
-        }
-        @else {
-          @include wz-state-circle-with-background-hover($wz-indicator-color_);
-        }
+        @include wz-state-circle-with-background($wz-indicator-color_);
       }
     }
 
     &.large-empty ul.steps-indicator {
       @include wz-define-style($layout) {
-        @if ($wz-indicator-state_ == 'default') {
-          @include wz-state-circle-with-border($wz-indicator-color_);
-        }
-        @else {
-          @include wz-state-circle-with-border-hover($wz-indicator-color_);
-        }
+        @include wz-state-circle-with-border($wz-indicator-color_);
       }
     }
 
     &.large-filled-symbols ul.steps-indicator {
       @include wz-define-style($layout, $border-width: 0) {
-        @if ($wz-indicator-state_ == 'default') {
-          @include wz-state-circle-with-background-and-content($wz-indicator-color_);
-        }
-        @else {
-          @include wz-state-circle-with-background-and-content-hover($wz-indicator-color_);
-        }
+        @include wz-state-circle-with-background-and-content($wz-indicator-color_);
       }
     }
 
     &.large-empty-symbols ul.steps-indicator {
       @include wz-define-style($layout) {
-        @if ($wz-indicator-state_ == 'default') {
-          @include wz-state-circle-with-border-and-content($wz-indicator-color_);
-        }
-        @else {
-          @include wz-state-circle-with-border-and-content-hover($wz-indicator-color_);
-        }
+        @include wz-state-circle-with-border-and-content($wz-indicator-color_);
       }
     }
   }
