@@ -1,4 +1,4 @@
-import {Component, forwardRef, ViewEncapsulation} from '@angular/core';
+import {Component, forwardRef} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 
 /**
@@ -58,8 +58,6 @@ import {WizardStep} from '../util/wizard-step.interface';
 @Component({
   selector: 'aw-wizard-step',
   templateUrl: 'wizard-step.component.html',
-  styleUrls: ['wizard-step.component.css'],
-  encapsulation: ViewEncapsulation.None,
   providers: [
     {provide: WizardStep, useExisting: forwardRef(() => WizardStepComponent)}
   ]

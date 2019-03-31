@@ -34,7 +34,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run build-js && npm run build-scss && npm run build-css",
+    "build-js": "ng build",
+    "build-scss": "scss-bundle -e ./src/css/archwizard.scss -d ./dist/archwizard.scss",
+    "build-css": "node-sass ./dist/archwizard.scss ./dist/archwizard.css",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -66,8 +69,10 @@
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
     "ng-packagr": "^4.1.0",
+    "node-sass": "^4.11.0",
     "protractor": "~5.4.0",
     "rxjs": "~6.4.0",
+    "scss-bundle": "^2.5.0",
     "ts-node": "~7.0.0",
     "tsickle": ">=0.34.0",
     "tslib": "^1.9.0",

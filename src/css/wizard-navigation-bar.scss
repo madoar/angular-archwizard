@@ -19,16 +19,21 @@ $big-dot-height: 50px;
 // extra distance between the bottom of the dots and the baseline texts
 $dot-baseline-distance: 0px;
 
-// padding between text and baseline
-$text-margin-left: 15px;
-$text-height: 14px;
+// padding between text and baseline, for horizonal navigation bar
+$text-padding-bottom: 10px;
 
-// distance between steps
+// padding between text and baseline, for vertical navigation bar
+$text-margin-left: 15px;
+
+// distance between steps, for vertical navigation bar
 $distance-between-steps: 10px;
+
+$text-height: 14px;
 
 
 // Temporary variables used to pass parameters from the `define-style` mixin to its content block.
 // They will no longer be needed after content arguments support is released:
+//
 // - https://github.com/sass/sass/issues/871
 // - https://github.com/sass/libsass/releases
 // - https://github.com/sass/node-sass/releases/
@@ -45,7 +50,17 @@ $wz-indicator-state_: null !global;
 $wz-indicator-color_: null !global;
 
 
-@mixin line($dot-width, $dot-height, $line-color) {
+@mixin horizontal-line($dot-width, $dot-height, $line-color) {
+  background-color: $line-color;
+  content: '';
+  position: absolute;
+  height: 1px;
+  width: calc(100% - #{$dot-width});
+  top: -($dot-baseline-distance + $dot-height / 2);
+  left: calc(50% + #{$dot-width / 2});
+}
+
+@mixin vertical-line($dot-width, $dot-height, $line-color) {
   background-color: $line-color;
   content: '';
   position: absolute;
@@ -55,10 +70,18 @@ $wz-indicator-color_: null !global;
   width: 1px;
 }
 
-@mixin state-circle($dot-width, $dot-height, $dot-border-width) {
-  position: absolute;
+@mixin circle-position-horizontal($dot-width, $dot-height, $dot-border-width) {
+  top: -($dot-baseline-distance + $dot-height);
+  left: calc(50% - #{$dot-width / 2});
+}
+
+@mixin circle-position-vertical($dot-width, $dot-height, $dot-border-width) {
   top: 0;
   left: -($dot-baseline-distance + $dot-width);
+}
+
+@mixin state-circle($dot-width, $dot-height, $dot-border-width) {
+  position: absolute;
   width: $dot-width;
   height: $dot-height;
   text-align: center;
@@ -106,6 +129,7 @@ $wz-indicator-color_: null !global;
 // Helper mixin to define a step indicator style like 'small', 'large-filled-symbols' etc.
 //
 // Arguments:
+//   $layout - 'horizontal' | 'vertical'
 //   $width  - step indicator width
 //   $height - step indicator height
 //   $border-width - step indicator border width
@@ -124,25 +148,44 @@ $wz-indicator-color_: null !global;
 //   - $wz-indicator-height_ - equals to $height argument of the `define-style` mixin
 //   - $wz-indicator-border-width_ - equals to $border-width argument of the `define-style` mixin
 //
-@mixin define-style($width: $big-dot-height, $height: $big-dot-height, $border-width: $dot-border-width) {
+@mixin define-style($layout, $width: $big-dot-height, $height: $big-dot-height, $border-width: $dot-border-width) {
 
   // Make variables accessible from the content block
   $wz-indicator-width_: $width !global;
   $wz-indicator-height_: $height !global;
   $wz-indicator-border-width_: $border-width !global;
 
-  padding: ($distance-between-steps / 2) ($distance-between-steps / 2) ($distance-between-steps / 2) ($distance-between-steps / 2 + $dot-baseline-distance + $height);
+  @if ($layout == 'horizontal') {
+    padding: ($dot-baseline-distance + $height + $text-padding-bottom) 0 $text-padding-bottom 0;
+  }
+  @else if ($layout == 'vertical') {
+    padding: ($distance-between-steps / 2) ($distance-between-steps / 2) ($distance-between-steps / 2) ($distance-between-steps / 2 + $dot-baseline-distance + $height);
+  }
 
   li {
     &:not(:last-child):before {
-      @include line($width, $height, $wz-color-default);
+      @if ($layout == 'horizontal') {
+        @include horizontal-line($width, $height, $wz-color-default);
+      }
+      @else if ($layout == 'vertical') {
+        @include vertical-line($width, $height, $wz-color-default);
+      }
     }
 
-    a {
-      min-height: $height;
+    @if ($layout == 'vertical') {
+      a {
+        min-height: $height;
+      }
     }
 
     .step-indicator {
+      @if ($layout == 'horizontal') {
+        @include circle-position-horizontal($width, $height, $border-width);
+      }
+      @else if ($layout == 'vertical') {
+        @include circle-position-vertical($width, $height, $border-width);
+      }
+
       @include state-circle($width, $height, $border-width);
       $wz-indicator-state_: 'default' !global;
       $wz-indicator-color_: $wz-color-default !global;
@@ -204,75 +247,75 @@ $wz-indicator-color_: null !global;
   }
 }
 
-aw-wizard-navigation-bar.vertical {
-  max-width: 280px;
-  width: 20%;
-  height: 100%;
-  position: sticky;
-  top: 0;
 
-  &.small ul.steps-indicator {
-    @include define-style($width: $small-dot-width, $height: $small-dot-height, $border-width: 0) {
-      @if ($wz-indicator-state_ == 'default') {
-        @include state-circle-with-background($wz-indicator-color_);
+// Define navigation bar layout
+//
+// Arguments:
+//   $layout - 'horizontal' | 'vertical'
+//
+@mixin define-layout($layout) {
+  aw-wizard-navigation-bar.#{$layout} {
+
+    &.small ul.steps-indicator {
+      @include define-style($layout, $width: $small-dot-width, $height: $small-dot-height, $border-width: 0) {
+        @if ($wz-indicator-state_ == 'default') {
+          @include state-circle-with-background($wz-indicator-color_);
+        }
+        @else {
+          @include state-circle-with-background-hover($wz-indicator-color_);
+        }
       }
-      @else {
-        @include state-circle-with-background-hover($wz-indicator-color_);
+    }
+
+    &.large-filled ul.steps-indicator {
+      @include define-style($layout, $border-width: 0) {
+        @if ($wz-indicator-state_ == 'default') {
+          @include state-circle-with-background($wz-indicator-color_);
+        }
+        @else {
+          @include state-circle-with-background-hover($wz-indicator-color_);
+        }
+      }
+    }
+
+    &.large-empty ul.steps-indicator {
+      @include define-style($layout) {
+        @if ($wz-indicator-state_ == 'default') {
+          @include state-circle-with-border($wz-indicator-color_);
+        }
+        @else {
+          @include state-circle-with-border-hover($wz-indicator-color_);
+        }
+      }
+    }
+
+    &.large-filled-symbols ul.steps-indicator {
+      @include define-style($layout, $border-width: 0) {
+        @if ($wz-indicator-state_ == 'default') {
+          @include state-circle-with-background-and-content($wz-indicator-color_);
+        }
+        @else {
+          @include state-circle-with-background-and-content-hover($wz-indicator-color_);
+        }
+      }
+    }
+
+    &.large-empty-symbols ul.steps-indicator {
+      @include define-style($layout) {
+        @if ($wz-indicator-state_ == 'default') {
+          @include state-circle-with-border-and-content($wz-indicator-color_);
+        }
+        @else {
+          @include state-circle-with-border-and-content-hover($wz-indicator-color_);
+        }
       }
     }
   }
+}
 
-  &.large-filled ul.steps-indicator {
-    @include define-style($border-width: 0) {
-      @if ($wz-indicator-state_ == 'default') {
-        @include state-circle-with-background($wz-indicator-color_);
-      }
-      @else {
-        @include state-circle-with-background-hover($wz-indicator-color_);
-      }
-    }
-  }
-
-  &.large-empty ul.steps-indicator {
-    @include define-style() {
-      @if ($wz-indicator-state_ == 'default') {
-        @include state-circle-with-border($wz-indicator-color_);
-      }
-      @else {
-        @include state-circle-with-border-hover($wz-indicator-color_);
-      }
-    }
-  }
-
-  &.large-filled-symbols ul.steps-indicator {
-    @include define-style($border-width: 0) {
-      @if ($wz-indicator-state_ == 'default') {
-        @include state-circle-with-background-and-content($wz-indicator-color_);
-      }
-      @else {
-        @include state-circle-with-background-and-content-hover($wz-indicator-color_);
-      }
-    }
-  }
-
-  &.large-empty-symbols ul.steps-indicator {
-    @include define-style() {
-      @if ($wz-indicator-state_ == 'default') {
-        @include state-circle-with-border-and-content($wz-indicator-color_);
-      }
-      @else {
-        @include state-circle-with-border-and-content-hover($wz-indicator-color_);
-      }
-    }
-  }
+aw-wizard-navigation-bar {
 
   ul.steps-indicator {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    list-style: none;
-    margin: auto;
 
     // http://www.paulirish.com/2012/box-sizing-border-box-ftw/
     * {
@@ -284,6 +327,123 @@ aw-wizard-navigation-bar.vertical {
     li {
       position: relative;
       pointer-events: none;
+
+      a .label {
+        color: $wz-color-current;
+        line-height: $text-height;
+        font-size: $text-height;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        transition: 0.25s;
+      }
+    }
+
+    li.navigable {
+      pointer-events: auto;
+
+      a {
+        cursor: pointer;
+      }
+
+      a:hover .label {
+        color: darken($wz-color-current, 20%);
+      }
+    }
+  }
+}
+
+@include define-layout('horizontal');
+@include define-layout('vertical');
+
+aw-wizard-navigation-bar.horizontal {
+
+  ul.steps-indicator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    margin: 0;
+    width: 100%;
+    list-style: none;
+
+    @mixin steps($number-of-components) {
+      &:before {
+        left: 100% / $number-of-components / 2;
+        right: 100% / $number-of-components / 2;
+      }
+
+      li {
+        width: 100% / $number-of-components;
+      }
+    }
+
+    &.steps-2 {
+      @include steps(2);
+    }
+
+    &.steps-3 {
+      @include steps(3);
+    }
+
+    &.steps-4 {
+      @include steps(4);
+    }
+
+    &.steps-5 {
+      @include steps(5);
+    }
+
+    &.steps-6 {
+      @include steps(6);
+    }
+
+    &.steps-7 {
+      @include steps(7);
+    }
+
+    &.steps-8 {
+      @include steps(8);
+    }
+
+    &.steps-9 {
+      @include steps(9);
+    }
+
+    &.steps-10 {
+      @include steps(10);
+    }
+
+    li {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+
+      a .label {
+        display: inline-block;
+        padding-top: $text-padding-bottom;
+        text-align: center;
+      }
+    }
+  }
+}
+
+aw-wizard-navigation-bar.vertical {
+  max-width: 280px;
+  width: 20%;
+  height: 100%;
+  position: sticky;
+  top: 0;
+
+  ul.steps-indicator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    list-style: none;
+    margin: auto;
+
+    li {
 
       &:not(:last-child) {
         margin-bottom: 0;
@@ -298,27 +458,8 @@ aw-wizard-navigation-bar.vertical {
 
         .label {
           margin-left: $text-margin-left;
-          color: $wz-color-current;
-          line-height: $text-height;
-          font-size: $text-height;
-          text-decoration: none;
-          text-transform: uppercase;
           text-align: left;
-          font-weight: bold;
-          transition: 0.25s;
         }
-      }
-    }
-
-    li.navigable {
-      pointer-events: auto;
-
-      a {
-        cursor: pointer;
-      }
-
-      a:hover .label {
-        color: darken($wz-color-current, 20%);
       }
     }
   }
