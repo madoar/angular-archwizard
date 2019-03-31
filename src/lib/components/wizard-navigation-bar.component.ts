@@ -19,7 +19,7 @@ import {WizardStep} from '../util/wizard-step.interface';
 @Component({
   selector: 'aw-wizard-navigation-bar',
   templateUrl: 'wizard-navigation-bar.component.html',
-  styleUrls: ['wizard-navigation-bar.component.horizontal.less', 'wizard-navigation-bar.component.vertical.less'],
+  styleUrls: ['wizard-navigation-bar.component.horizontal.scss', 'wizard-navigation-bar.component.vertical.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class WizardNavigationBarComponent {

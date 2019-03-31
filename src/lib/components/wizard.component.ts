@@ -56,7 +56,7 @@ import {WizardStep} from '../util/wizard-step.interface';
 @Component({
   selector: 'aw-wizard',
   templateUrl: 'wizard.component.html',
-  styleUrls: ['wizard.component.less'],
+  styleUrls: ['wizard.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [WizardState]
 })

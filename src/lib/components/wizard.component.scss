@@ -15,7 +15,7 @@ aw-wizard {
     display: flex;
 
     &.vertical {
-      min-width: calc(100% ~'-' 280px);
+      min-width: calc(100% - 280px);
       width: 80%;
       height: 100%;
       flex-direction: column;
