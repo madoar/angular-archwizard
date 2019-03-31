@@ -1,36 +1,3 @@
-// color definitions
-$wz-color-default: #E6E6E6;
-$wz-color-current: #808080;
-$wz-color-done: #339933;
-$wz-color-optional: #38ef38;
-$wz-color-editing: #FF0000;
-
-// dot definitions
-$dot-border-width: 2px;
-
-// small definitions
-$small-dot-width: 14px;
-$small-dot-height: 14px;
-
-// big definitions
-$big-dot-width: 50px;
-$big-dot-height: 50px;
-
-// extra distance between the bottom of the dots and the baseline texts
-$dot-baseline-distance: 0px;
-
-// padding between text and baseline, for horizonal navigation bar
-$text-padding-bottom: 10px;
-
-// padding between text and baseline, for vertical navigation bar
-$text-margin-left: 15px;
-
-// distance between steps, for vertical navigation bar
-$distance-between-steps: 10px;
-
-$text-height: 14px;
-
-
 // Temporary variables used to pass parameters from the `define-style` mixin to its content block.
 // They will no longer be needed after content arguments support is released:
 //
@@ -50,37 +17,37 @@ $wz-indicator-state_: null !global;
 $wz-indicator-color_: null !global;
 
 
-@mixin horizontal-line($dot-width, $dot-height, $line-color) {
+@mixin wz-horizontal-line($dot-width, $dot-height, $line-color) {
   background-color: $line-color;
   content: '';
   position: absolute;
   height: 1px;
   width: calc(100% - #{$dot-width});
-  top: -($dot-baseline-distance + $dot-height / 2);
+  top: -($wz-dot-baseline-distance + $dot-height / 2);
   left: calc(50% + #{$dot-width / 2});
 }
 
-@mixin vertical-line($dot-width, $dot-height, $line-color) {
+@mixin wz-vertical-line($dot-width, $dot-height, $line-color) {
   background-color: $line-color;
   content: '';
   position: absolute;
-  left: -($dot-baseline-distance + $dot-height / 2);
+  left: -($wz-dot-baseline-distance + $dot-height / 2);
   top: $dot-height;
   height: calc(100% - #{$dot-height});
   width: 1px;
 }
 
-@mixin circle-position-horizontal($dot-width, $dot-height, $dot-border-width) {
-  top: -($dot-baseline-distance + $dot-height);
+@mixin wz-circle-position-horizontal($dot-width, $dot-height, $dot-border-width) {
+  top: -($wz-dot-baseline-distance + $dot-height);
   left: calc(50% - #{$dot-width / 2});
 }
 
-@mixin circle-position-vertical($dot-width, $dot-height, $dot-border-width) {
+@mixin wz-circle-position-vertical($dot-width, $dot-height, $dot-border-width) {
   top: 0;
-  left: -($dot-baseline-distance + $dot-width);
+  left: -($wz-dot-baseline-distance + $dot-width);
 }
 
-@mixin state-circle($dot-width, $dot-height, $dot-border-width) {
+@mixin wz-state-circle($dot-width, $dot-height, $dot-border-width) {
   position: absolute;
   width: $dot-width;
   height: $dot-height;
@@ -90,39 +57,39 @@ $wz-indicator-color_: null !global;
   transition: 0.25s;
   border-radius: 100%;
 }
-@mixin state-circle-hover($dot-width, $dot-height, $dot-border-width) { }
+@mixin wz-state-circle-hover($dot-width, $dot-height, $dot-border-width) { }
 
-@mixin state-circle-with-border($color) {
+@mixin wz-state-circle-with-border($color) {
   border-width: $wz-indicator-border-width_;
   border-style: solid;
   border-color: $color;
 }
-@mixin state-circle-with-border-hover($color) {
+@mixin wz-state-circle-with-border-hover($color) {
   border-color: darken($color, 10%);
 }
 
-@mixin state-circle-with-border-and-content($color) {
-  @include state-circle-with-border($color);
+@mixin wz-state-circle-with-border-and-content($color) {
+  @include wz-state-circle-with-border($color);
   color: $color;
 }
-@mixin state-circle-with-border-and-content-hover($color) {
-  @include state-circle-with-border-hover($color);
+@mixin wz-state-circle-with-border-and-content-hover($color) {
+  @include wz-state-circle-with-border-hover($color);
   color: darken($color, 10%);
 }
 
-@mixin state-circle-with-background($color) {
+@mixin wz-state-circle-with-background($color) {
   background-color: $color;
 }
-@mixin state-circle-with-background-hover($color) {
+@mixin wz-state-circle-with-background-hover($color) {
   background-color: darken($color, 5%);
 }
 
-@mixin state-circle-with-background-and-content($color) {
-  @include state-circle-with-background($color);
+@mixin wz-state-circle-with-background-and-content($color) {
+  @include wz-state-circle-with-background($color);
   color: black;
 }
-@mixin state-circle-with-background-and-content-hover($color) {
-  @include state-circle-with-background-hover($color);
+@mixin wz-state-circle-with-background-and-content-hover($color) {
+  @include wz-state-circle-with-background-hover($color);
 }
 
 
@@ -148,7 +115,7 @@ $wz-indicator-color_: null !global;
 //   - $wz-indicator-height_ - equals to $height argument of the `define-style` mixin
 //   - $wz-indicator-border-width_ - equals to $border-width argument of the `define-style` mixin
 //
-@mixin define-style($layout, $width: $big-dot-height, $height: $big-dot-height, $border-width: $dot-border-width) {
+@mixin wz-define-style($layout, $width: $wz-big-dot-height, $height: $wz-big-dot-height, $border-width: $wz-dot-border-width) {
 
   // Make variables accessible from the content block
   $wz-indicator-width_: $width !global;
@@ -156,19 +123,19 @@ $wz-indicator-color_: null !global;
   $wz-indicator-border-width_: $border-width !global;
 
   @if ($layout == 'horizontal') {
-    padding: ($dot-baseline-distance + $height + $text-padding-bottom) 0 $text-padding-bottom 0;
+    padding: ($wz-dot-baseline-distance + $height + $wz-text-padding-bottom) 0 $wz-text-padding-bottom 0;
   }
   @else if ($layout == 'vertical') {
-    padding: ($distance-between-steps / 2) ($distance-between-steps / 2) ($distance-between-steps / 2) ($distance-between-steps / 2 + $dot-baseline-distance + $height);
+    padding: ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2 + $wz-dot-baseline-distance + $height);
   }
 
   li {
     &:not(:last-child):before {
       @if ($layout == 'horizontal') {
-        @include horizontal-line($width, $height, $wz-color-default);
+        @include wz-horizontal-line($width, $height, $wz-color-default);
       }
       @else if ($layout == 'vertical') {
-        @include vertical-line($width, $height, $wz-color-default);
+        @include wz-vertical-line($width, $height, $wz-color-default);
       }
     }
 
@@ -180,13 +147,13 @@ $wz-indicator-color_: null !global;
 
     .step-indicator {
       @if ($layout == 'horizontal') {
-        @include circle-position-horizontal($width, $height, $border-width);
+        @include wz-circle-position-horizontal($width, $height, $border-width);
       }
       @else if ($layout == 'vertical') {
-        @include circle-position-vertical($width, $height, $border-width);
+        @include wz-circle-position-vertical($width, $height, $border-width);
       }
 
-      @include state-circle($width, $height, $border-width);
+      @include wz-state-circle($width, $height, $border-width);
       $wz-indicator-state_: 'default' !global;
       $wz-indicator-color_: $wz-color-default !global;
       @content;
@@ -215,7 +182,7 @@ $wz-indicator-color_: null !global;
     }
 
     &.navigable a:hover .step-indicator {
-      @include state-circle-hover($width, $height, $border-width);
+      @include wz-state-circle-hover($width, $height, $border-width);
       $wz-indicator-state_: 'hover' !global;
       $wz-indicator-color_: $wz-color-default !global;
       @content;
@@ -253,60 +220,60 @@ $wz-indicator-color_: null !global;
 // Arguments:
 //   $layout - 'horizontal' | 'vertical'
 //
-@mixin define-layout($layout) {
+@mixin wz-define-layout($layout) {
   aw-wizard-navigation-bar.#{$layout} {
 
     &.small ul.steps-indicator {
-      @include define-style($layout, $width: $small-dot-width, $height: $small-dot-height, $border-width: 0) {
+      @include wz-define-style($layout, $width: $wz-small-dot-width, $height: $wz-small-dot-height, $border-width: 0) {
         @if ($wz-indicator-state_ == 'default') {
-          @include state-circle-with-background($wz-indicator-color_);
+          @include wz-state-circle-with-background($wz-indicator-color_);
         }
         @else {
-          @include state-circle-with-background-hover($wz-indicator-color_);
+          @include wz-state-circle-with-background-hover($wz-indicator-color_);
         }
       }
     }
 
     &.large-filled ul.steps-indicator {
-      @include define-style($layout, $border-width: 0) {
+      @include wz-define-style($layout, $border-width: 0) {
         @if ($wz-indicator-state_ == 'default') {
-          @include state-circle-with-background($wz-indicator-color_);
+          @include wz-state-circle-with-background($wz-indicator-color_);
         }
         @else {
-          @include state-circle-with-background-hover($wz-indicator-color_);
+          @include wz-state-circle-with-background-hover($wz-indicator-color_);
         }
       }
     }
 
     &.large-empty ul.steps-indicator {
-      @include define-style($layout) {
+      @include wz-define-style($layout) {
         @if ($wz-indicator-state_ == 'default') {
-          @include state-circle-with-border($wz-indicator-color_);
+          @include wz-state-circle-with-border($wz-indicator-color_);
         }
         @else {
-          @include state-circle-with-border-hover($wz-indicator-color_);
+          @include wz-state-circle-with-border-hover($wz-indicator-color_);
         }
       }
     }
 
     &.large-filled-symbols ul.steps-indicator {
-      @include define-style($layout, $border-width: 0) {
+      @include wz-define-style($layout, $border-width: 0) {
         @if ($wz-indicator-state_ == 'default') {
-          @include state-circle-with-background-and-content($wz-indicator-color_);
+          @include wz-state-circle-with-background-and-content($wz-indicator-color_);
         }
         @else {
-          @include state-circle-with-background-and-content-hover($wz-indicator-color_);
+          @include wz-state-circle-with-background-and-content-hover($wz-indicator-color_);
         }
       }
     }
 
     &.large-empty-symbols ul.steps-indicator {
-      @include define-style($layout) {
+      @include wz-define-style($layout) {
         @if ($wz-indicator-state_ == 'default') {
-          @include state-circle-with-border-and-content($wz-indicator-color_);
+          @include wz-state-circle-with-border-and-content($wz-indicator-color_);
         }
         @else {
-          @include state-circle-with-border-and-content-hover($wz-indicator-color_);
+          @include wz-state-circle-with-border-and-content-hover($wz-indicator-color_);
         }
       }
     }
@@ -330,8 +297,8 @@ aw-wizard-navigation-bar {
 
       a .label {
         color: $wz-color-current;
-        line-height: $text-height;
-        font-size: $text-height;
+        line-height: $wz-text-height;
+        font-size: $wz-text-height;
         text-decoration: none;
         text-transform: uppercase;
         font-weight: bold;
@@ -353,8 +320,8 @@ aw-wizard-navigation-bar {
   }
 }
 
-@include define-layout('horizontal');
-@include define-layout('vertical');
+@include wz-define-layout('horizontal');
+@include wz-define-layout('vertical');
 
 aw-wizard-navigation-bar.horizontal {
 
@@ -421,7 +388,7 @@ aw-wizard-navigation-bar.horizontal {
 
       a .label {
         display: inline-block;
-        padding-top: $text-padding-bottom;
+        padding-top: $wz-text-padding-bottom;
         text-align: center;
       }
     }
@@ -447,7 +414,7 @@ aw-wizard-navigation-bar.vertical {
 
       &:not(:last-child) {
         margin-bottom: 0;
-        padding-bottom: $distance-between-steps;
+        padding-bottom: $wz-distance-between-steps;
       }
 
       a {
@@ -457,7 +424,7 @@ aw-wizard-navigation-bar.vertical {
         align-items: center;
 
         .label {
-          margin-left: $text-margin-left;
+          margin-left: $wz-text-margin-left;
           text-align: left;
         }
       }
