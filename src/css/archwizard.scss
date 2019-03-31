@@ -1,34 +1,34 @@
 // color definitions
-$wz-color-default: #E6E6E6;
-$wz-color-current: #808080;
-$wz-color-done: #339933;
-$wz-color-optional: #38ef38;
-$wz-color-editing: #FF0000;
+$wz-color-default: #E6E6E6 !default;
+$wz-color-current: #808080 !default;
+$wz-color-done: #339933 !default;
+$wz-color-optional: #38ef38 !default;
+$wz-color-editing: #FF0000 !default;
 
 // dot definitions
-$wz-dot-border-width: 2px;
+$wz-dot-border-width: 2px !default;
 
 // small definitions
-$wz-small-dot-width: 14px;
-$wz-small-dot-height: 14px;
+$wz-small-dot-width: 14px !default;
+$wz-small-dot-height: 14px !default;
 
 // big definitions
-$wz-big-dot-width: 50px;
-$wz-big-dot-height: 50px;
+$wz-big-dot-width: 50px !default;
+$wz-big-dot-height: 50px !default;
 
 // extra distance between the bottom of the dots and the baseline texts
-$wz-dot-baseline-distance: 0px;
+$wz-dot-baseline-distance: 0px !default;
 
 // padding between text and baseline, for horizonal navigation bar
-$wz-text-padding-bottom: 10px;
+$wz-text-padding-bottom: 10px !default;
 
 // padding between text and baseline, for vertical navigation bar
-$wz-text-margin-left: 15px;
+$wz-text-margin-left: 15px !default;
 
 // distance between steps, for vertical navigation bar
-$wz-distance-between-steps: 10px;
+$wz-distance-between-steps: 10px !default;
 
-$wz-text-height: 14px;
+$wz-text-height: 14px !default;
 
 
 aw-wizard {
