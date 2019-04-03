@@ -23,7 +23,7 @@ $wz-indicator-color_: null !global;
   position: absolute;
   height: 1px;
   width: calc(100% - #{$dot-width});
-  top: -($wz-dot-baseline-distance + $dot-height / 2);
+  top: -($dot-height / 2);
   left: calc(50% + #{$dot-width / 2});
 }
 
@@ -31,20 +31,20 @@ $wz-indicator-color_: null !global;
   background-color: $line-color;
   content: '';
   position: absolute;
-  left: -($wz-dot-baseline-distance + $dot-height / 2);
+  left: -($dot-height / 2);
   top: $dot-height;
   height: calc(100% - #{$dot-height});
   width: 1px;
 }
 
 @mixin wz-circle-position-horizontal($dot-width, $dot-height, $dot-border-width) {
-  top: -($wz-dot-baseline-distance + $dot-height);
+  top: -$dot-height;
   left: calc(50% - #{$dot-width / 2});
 }
 
 @mixin wz-circle-position-vertical($dot-width, $dot-height, $dot-border-width) {
   top: 0;
-  left: -($wz-dot-baseline-distance + $dot-width);
+  left: -$dot-width;
 }
 
 @mixin wz-state-circle($dot-width, $dot-height, $dot-border-width) {
@@ -109,10 +109,10 @@ $wz-indicator-color_: null !global;
   $wz-indicator-border-width_: $border-width !global;
 
   @if ($layout == 'horizontal') {
-    padding: ($wz-dot-baseline-distance + $height + $wz-text-padding-bottom) 0 $wz-text-padding-bottom 0;
+    padding: ($height + $wz-text-padding-bottom) 0 $wz-text-padding-bottom 0;
   }
   @else if ($layout == 'vertical') {
-    padding: ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2 + $wz-dot-baseline-distance + $height);
+    padding: ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2 + $height);
   }
 
   li {
