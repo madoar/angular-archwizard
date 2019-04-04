@@ -59,11 +59,11 @@ describe('FreeNavigationMode', () => {
   });
 
   it('should return correct can go to step', async(() => {
-    navigationMode.canGoToStep(-1).then(result => expect(result).toBe(false));
-    navigationMode.canGoToStep(0).then(result => expect(result).toBe(true));
-    navigationMode.canGoToStep(1).then(result => expect(result).toBe(true));
-    navigationMode.canGoToStep(2).then(result => expect(result).toBe(true));
-    navigationMode.canGoToStep(3).then(result => expect(result).toBe(false));
+    navigationMode.canGoToStep(wizardState, -1).then(result => expect(result).toBe(false));
+    navigationMode.canGoToStep(wizardState, 0).then(result => expect(result).toBe(true));
+    navigationMode.canGoToStep(wizardState, 1).then(result => expect(result).toBe(true));
+    navigationMode.canGoToStep(wizardState, 2).then(result => expect(result).toBe(true));
+    navigationMode.canGoToStep(wizardState, 3).then(result => expect(result).toBe(false));
   }));
 
   it('should go to step', fakeAsync(() => {
@@ -75,7 +75,7 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).selected).toBe(false);
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -88,7 +88,7 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
 
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -101,7 +101,7 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
 
-    navigationMode.goToStep(0);
+    navigationMode.goToStep(wizardState, 0);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -114,7 +114,7 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).completed).toBe(true);
     expect(wizardState.completed).toBe(true);
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -127,7 +127,7 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).completed).toBe(true);
     expect(wizardState.completed).toBe(true);
 
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -140,7 +140,7 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).completed).toBe(true);
     expect(wizardState.completed).toBe(true);
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -155,7 +155,7 @@ describe('FreeNavigationMode', () => {
   }));
 
   it('should go to next step', fakeAsync(() => {
-    navigationMode.goToNextStep();
+    navigationMode.goToNextStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -172,7 +172,7 @@ describe('FreeNavigationMode', () => {
   it('should go to previous step', fakeAsync(() => {
     expect(wizardState.getStepAtIndex(0).completed).toBe(false);
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -185,7 +185,7 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
 
-    navigationMode.goToPreviousStep();
+    navigationMode.goToPreviousStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -202,7 +202,7 @@ describe('FreeNavigationMode', () => {
   it('should stay at the current step', fakeAsync(() => {
     expect(wizardState.getStepAtIndex(0).completed).toBe(false);
 
-    navigationMode.goToPreviousStep();
+    navigationMode.goToPreviousStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -215,7 +215,7 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
 
-    navigationMode.goToStep(-1);
+    navigationMode.goToStep(wizardState, -1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -228,7 +228,7 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
 
-    navigationMode.goToStep(0);
+    navigationMode.goToStep(wizardState, 0);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -243,11 +243,11 @@ describe('FreeNavigationMode', () => {
   }));
 
   it('should reset the wizard correctly', fakeAsync(() => {
-    navigationMode.goToNextStep();
+    navigationMode.goToNextStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
-    navigationMode.goToNextStep();
+    navigationMode.goToNextStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -260,7 +260,7 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
 
-    navigationMode.reset();
+    navigationMode.reset(wizardState);
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
@@ -272,7 +272,7 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     wizardState.defaultStepIndex = -1;
-    expect(() => navigationMode.reset()).toThrow(new Error(`The wizard doesn't contain a step with index -1`));
+    expect(() => navigationMode.reset(wizardState)).toThrow(new Error(`The wizard doesn't contain a step with index -1`));
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
@@ -284,7 +284,7 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     wizardState.defaultStepIndex = 2;
-    navigationMode.reset();
+    navigationMode.reset(wizardState);
 
     expect(wizardState.currentStepIndex).toBe(2);
     expect(wizardState.getStepAtIndex(0).selected).toBe(false);

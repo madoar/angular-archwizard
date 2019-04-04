@@ -84,7 +84,7 @@ describe('PreviousStepDirective', () => {
     expect(wizardState.currentStepIndex).toBe(0);
 
     // move to second step to test the awPreviousStep directive
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -102,7 +102,7 @@ describe('PreviousStepDirective', () => {
     const secondStepButtons = wizardTestFixture.debugElement.queryAll(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awPreviousStep]'));
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -120,7 +120,7 @@ describe('PreviousStepDirective', () => {
     const secondStepButtons = wizardTestFixture.debugElement.queryAll(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awPreviousStep]'));
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 

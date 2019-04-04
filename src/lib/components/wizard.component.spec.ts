@@ -216,7 +216,7 @@ describe('WizardComponent', () => {
   });
 
   it('should react on a previous step removal and insertion correctly', fakeAsync(() => {
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -237,7 +237,7 @@ describe('WizardComponent', () => {
   }));
 
   it('should react on a later step removal and insertion correctly', fakeAsync(() => {
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -258,7 +258,7 @@ describe('WizardComponent', () => {
   }));
 
   it('should react on a combined removal and insertion of previous and later steps correctly', fakeAsync(() => {
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 

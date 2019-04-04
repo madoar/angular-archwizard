@@ -64,7 +64,7 @@ describe('ResetWizardDirective', () => {
   it('should reset the wizard correctly without finalize input', fakeAsync(() => {
     const resetButtons = wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective));
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -88,7 +88,7 @@ describe('ResetWizardDirective', () => {
   it('should reset the wizard correctly with finalize input', fakeAsync(() => {
     const resetButtons = wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective));
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 

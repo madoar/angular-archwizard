@@ -8,7 +8,7 @@ import {FreeNavigationMode} from './free-navigation-mode';
 import {BaseNavigationMode} from './base-navigation-mode.interface';
 
 class CustomNavigationMode extends BaseNavigationMode {
-  public isNavigable(destinationIndex: number): boolean {
+  public isNavigable(wizardState: WizardState, destinationIndex: number): boolean {
     return true;
   }
 }
@@ -48,7 +48,7 @@ class WizardWithFreeNavigationModeComponent {
 @Component({
   selector: 'aw-wizard-with-custom-nav-mode',
   template: `
-    <aw-wizard [navigationMode]="navigationModeFactory">
+    <aw-wizard [navigationMode]="customNavigationMode">
       <aw-wizard-step stepTitle='Steptitle 1'>Step 1</aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 2'>Step 2</aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 3'>Step 3</aw-wizard-step>
@@ -59,7 +59,7 @@ class WizardWithCustomNavigationModeComponent {
   @ViewChild(WizardComponent)
   private wizard: WizardComponent;
 
-  public navigationModeFactory(wizard: WizardComponent) { return new CustomNavigationMode(wizard.model); }
+  public customNavigationMode = new CustomNavigationMode();
 }
 
 describe('NavigationMode', () => {
@@ -71,7 +71,7 @@ describe('NavigationMode', () => {
     }).compileComponents();
   }));
 
-  it('can be created with a function', () => {
+  it('can be created with an instance', () => {
     const wizardTestFixture = TestBed.createComponent(WizardWithCustomNavigationModeComponent);
     wizardTestFixture.detectChanges();
 
@@ -86,7 +86,7 @@ describe('NavigationMode', () => {
     wizardTestFixture.detectChanges();
 
     const wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    const navigationMode = new CustomNavigationMode(wizardState);
+    const navigationMode = new CustomNavigationMode();
     wizardState.updateNavigationMode(navigationMode);
     expect(wizardState.navigationMode).toEqual(navigationMode);
   });

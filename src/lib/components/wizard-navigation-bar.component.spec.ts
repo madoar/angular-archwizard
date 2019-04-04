@@ -95,7 +95,7 @@ describe('WizardNavigationBarComponent', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to second step
-    navigationMode.goToNextStep();
+    navigationMode.goToNextStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -130,12 +130,12 @@ describe('WizardNavigationBarComponent', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to second step
-    navigationMode.goToNextStep();
+    navigationMode.goToNextStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
     // go to third step
-    navigationMode.goToNextStep();
+    navigationMode.goToNextStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -172,7 +172,7 @@ describe('WizardNavigationBarComponent', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to third step and jump over the optional second step
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -208,12 +208,12 @@ describe('WizardNavigationBarComponent', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to second step
-    navigationMode.goToNextStep();
+    navigationMode.goToNextStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
     // go back to first step
-    navigationMode.goToPreviousStep();
+    navigationMode.goToPreviousStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -248,12 +248,12 @@ describe('WizardNavigationBarComponent', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
     // go back to first step
-    navigationMode.goToStep(0);
+    navigationMode.goToStep(wizardState, 0);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -288,12 +288,12 @@ describe('WizardNavigationBarComponent', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
     // go back to second step
-    navigationMode.goToPreviousStep();
+    navigationMode.goToPreviousStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -328,12 +328,12 @@ describe('WizardNavigationBarComponent', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
     // go to the completion step
-    navigationMode.goToNextStep();
+    navigationMode.goToNextStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -349,7 +349,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardState.disableNavigationBar = true;
 
     // go to third step and jump over the optional second step
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -385,7 +385,7 @@ describe('WizardNavigationBarComponent', () => {
     expect(wizardState.currentStepIndex).toBe(0);
 
     // go to the second step
-    navigationMode.goToNextStep();
+    navigationMode.goToNextStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -405,7 +405,7 @@ describe('WizardNavigationBarComponent', () => {
     expect(wizardState.currentStepIndex).toBe(0);
 
     // go to the second step
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -425,7 +425,7 @@ describe('WizardNavigationBarComponent', () => {
     expect(wizardState.currentStepIndex).toBe(0);
 
     // go to the second step
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 

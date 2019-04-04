@@ -83,7 +83,7 @@ describe('StepId', () => {
 
     const wizardSteps = wizardState.wizardSteps;
 
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -131,7 +131,7 @@ describe('StepId', () => {
 
     const wizardSteps = wizardState.wizardSteps;
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 

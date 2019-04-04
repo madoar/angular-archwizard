@@ -70,19 +70,19 @@ describe('EnableBackLinksDirective', () => {
   });
 
   it('should be able to leave the completion step', fakeAsync(() => {
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
-    navigationMode.canGoToStep(0).then(result => expect(result).toBe(true));
-    navigationMode.canGoToStep(1).then(result => expect(result).toBe(true));
+    navigationMode.canGoToStep(wizardState, 0).then(result => expect(result).toBe(true));
+    navigationMode.canGoToStep(wizardState, 1).then(result => expect(result).toBe(true));
   }));
 
 
   it('should be able to leave the completion step in any direction', fakeAsync(() => {
     wizardTest.isValid = false;
 
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -93,13 +93,13 @@ describe('EnableBackLinksDirective', () => {
   it('should leave the completion step', fakeAsync(() => {
     wizardTest.isValid = false;
 
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
 
-    navigationMode.goToPreviousStep();
+    navigationMode.goToPreviousStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -116,14 +116,14 @@ describe('EnableBackLinksDirective', () => {
 
     expect(wizardState.completed).toBe(false);
 
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
     expect(wizardState.completed).toBe(true);
 
-    navigationMode.goToPreviousStep();
+    navigationMode.goToPreviousStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 

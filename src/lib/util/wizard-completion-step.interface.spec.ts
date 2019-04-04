@@ -66,7 +66,7 @@ describe('WizardCompletionStep', () => {
   });
 
   it('should set the wizard as completed after entering the completion step', fakeAsync(() => {
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -74,19 +74,19 @@ describe('WizardCompletionStep', () => {
   }));
 
   it('should be unable to leave the completion step', fakeAsync(() => {
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
-    navigationMode.canGoToStep(0).then(result => expect(result).toBe(false));
-    navigationMode.canGoToStep(1).then(result => expect(result).toBe(false));
+    navigationMode.canGoToStep(wizardState, 0).then(result => expect(result).toBe(false));
+    navigationMode.canGoToStep(wizardState, 1).then(result => expect(result).toBe(false));
   }));
 
 
   it('should not be able to leave the completion step in any direction', fakeAsync(() => {
     wizardTest.isValid = false;
 
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -97,13 +97,13 @@ describe('WizardCompletionStep', () => {
   it('should not leave the completion step if it can\'t be exited', fakeAsync(() => {
     wizardTest.isValid = false;
 
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
 
-    navigationMode.goToPreviousStep();
+    navigationMode.goToPreviousStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 

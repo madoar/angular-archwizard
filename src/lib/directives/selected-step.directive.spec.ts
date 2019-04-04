@@ -59,13 +59,13 @@ describe('SelectedStepDirective', () => {
   });
 
   it('should reset correctly to the default selected step', fakeAsync(() => {
-    navigationMode.goToStep(0);
+    navigationMode.goToStep(wizardState, 0);
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
 
-    navigationMode.reset();
+    navigationMode.reset(wizardState);
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);

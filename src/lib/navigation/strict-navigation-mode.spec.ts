@@ -80,17 +80,17 @@ describe('StrictNavigationMode', () => {
   });
 
   it('should return correct can go to step', async(() => {
-    navigationMode.canGoToStep(-1).then(result => expect(result).toBe(false));
-    navigationMode.canGoToStep(0).then(result => expect(result).toBe(true));
-    navigationMode.canGoToStep(1).then(result => expect(result).toBe(true));
-    navigationMode.canGoToStep(2).then(result => expect(result).toBe(false));
-    navigationMode.canGoToStep(3).then(result => expect(result).toBe(false));
+    navigationMode.canGoToStep(wizardState, -1).then(result => expect(result).toBe(false));
+    navigationMode.canGoToStep(wizardState, 0).then(result => expect(result).toBe(true));
+    navigationMode.canGoToStep(wizardState, 1).then(result => expect(result).toBe(true));
+    navigationMode.canGoToStep(wizardState, 2).then(result => expect(result).toBe(false));
+    navigationMode.canGoToStep(wizardState, 3).then(result => expect(result).toBe(false));
   }));
 
   it('should go to step', fakeAsync(() => {
     checkWizardSteps(wizardState.wizardSteps, 0);
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -100,7 +100,7 @@ describe('StrictNavigationMode', () => {
 
     checkWizardSteps(wizardState.wizardSteps, 1);
 
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -110,7 +110,7 @@ describe('StrictNavigationMode', () => {
 
     checkWizardSteps(wizardState.wizardSteps, 2);
 
-    navigationMode.goToStep(0);
+    navigationMode.goToStep(wizardState, 0);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -120,7 +120,7 @@ describe('StrictNavigationMode', () => {
 
     checkWizardSteps(wizardState.wizardSteps, 0);
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -130,7 +130,7 @@ describe('StrictNavigationMode', () => {
 
     checkWizardSteps(wizardState.wizardSteps, 1);
 
-    navigationMode.goToStep(2);
+    navigationMode.goToStep(wizardState, 2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -140,7 +140,7 @@ describe('StrictNavigationMode', () => {
 
     checkWizardSteps(wizardState.wizardSteps, 2);
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -152,7 +152,7 @@ describe('StrictNavigationMode', () => {
   }));
 
   it('should go to next step', fakeAsync(() => {
-    navigationMode.goToNextStep();
+    navigationMode.goToNextStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -167,14 +167,14 @@ describe('StrictNavigationMode', () => {
     expect(wizardState.getStepAtIndex(0).completed).toBe(false);
     checkWizardSteps(wizardState.wizardSteps, 0);
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.getStepAtIndex(0).completed).toBe(true);
     checkWizardSteps(wizardState.wizardSteps, 1);
 
-    navigationMode.goToPreviousStep();
+    navigationMode.goToPreviousStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -185,11 +185,11 @@ describe('StrictNavigationMode', () => {
   }));
 
   it('should reset the wizard correctly', fakeAsync(() => {
-    navigationMode.goToNextStep();
+    navigationMode.goToNextStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
-    navigationMode.goToNextStep();
+    navigationMode.goToNextStep(wizardState);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -202,7 +202,7 @@ describe('StrictNavigationMode', () => {
     expect(wizardState.getStepAtIndex(2).completed).toBe(false);
     expect(wizardState.completed).toBe(false);
 
-    navigationMode.reset();
+    navigationMode.reset(wizardState);
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
@@ -214,7 +214,7 @@ describe('StrictNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     wizardState.defaultStepIndex = -1;
-    expect(() => navigationMode.reset()).toThrow(new Error(`The wizard doesn't contain a step with index -1`));
+    expect(() => navigationMode.reset(wizardState)).toThrow(new Error(`The wizard doesn't contain a step with index -1`));
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
@@ -226,7 +226,7 @@ describe('StrictNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     wizardState.defaultStepIndex = 1;
-    navigationMode.reset();
+    navigationMode.reset(wizardState);
 
     expect(wizardState.currentStepIndex).toBe(1);
     expect(wizardState.getStepAtIndex(0).selected).toBe(false);
@@ -238,7 +238,7 @@ describe('StrictNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     wizardState.defaultStepIndex = 2;
-    expect(() => navigationMode.reset()).toThrow(new Error(`The default step index 2 is located after a non optional step`));
+    expect(() => navigationMode.reset(wizardState)).toThrow(new Error(`The default step index 2 is located after a non optional step`));
 
     expect(wizardState.currentStepIndex).toBe(1);
     expect(wizardState.getStepAtIndex(0).selected).toBe(false);

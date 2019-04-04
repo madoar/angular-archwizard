@@ -123,7 +123,7 @@ describe('NextStepDirective', () => {
     const secondStepButton = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awNextStep]')).nativeElement;
 
-    navigationMode.goToStep(1);
+    navigationMode.goToStep(wizardState, 1);
     tick();
     wizardTestFixture.detectChanges();
 
