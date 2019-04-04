@@ -127,6 +127,6 @@ export class GoToStepDirective {
    */
   @HostListener('click', ['$event'])
   public onClick(event: Event): void {
-    this.navigationMode.goToStep(this.destinationStep, this.preFinalize, this.postFinalize);
+    this.navigationMode.goToStep(this.wizardState, this.destinationStep, this.preFinalize, this.postFinalize);
   }
 }

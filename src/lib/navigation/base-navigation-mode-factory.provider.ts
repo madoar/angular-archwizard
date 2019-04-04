@@ -15,16 +15,16 @@ export class BaseNavigationModeFactory implements NavigationModeFactory {
    * @inheritDoc
    */
   public create(wizard: WizardComponent, navigationModeInput: NavigationModeInput): NavigationMode {
-    let navigationModeName: string;
-    if (typeof navigationModeInput === 'function') {
-      // input is a function
-      return navigationModeInput(wizard);
-    } else {
+    if (typeof navigationModeInput === 'string') {
       // input is a name
-      navigationModeName = navigationModeInput;
+      return this.createByName(wizard, navigationModeInput);
+    } else if (navigationModeInput) {
+      // input is a NavigationMode instance
+      return navigationModeInput;
+    } else {
+      // use default
+      return this.createDefault(wizard);
     }
-    // create NavigationMode by name
-    return this.createByName(wizard, navigationModeName);
   }
 
   /**
@@ -37,11 +37,11 @@ export class BaseNavigationModeFactory implements NavigationModeFactory {
   protected createByName(wizard: WizardComponent, navigationModeInput: string): NavigationMode {
     switch (navigationModeInput) {
       case 'free':
-        return new FreeNavigationMode(wizard.model);
+        return new FreeNavigationMode();
       case 'semi-strict':
-        return new SemiStrictNavigationMode(wizard.model);
+        return new SemiStrictNavigationMode();
       case 'strict':
-        return new StrictNavigationMode(wizard.model);
+        return new StrictNavigationMode();
       default:
         return !navigationModeInput ? this.createDefault(wizard) : this.createUnknown(wizard, navigationModeInput);
     }
@@ -54,7 +54,7 @@ export class BaseNavigationModeFactory implements NavigationModeFactory {
    * @returns The created [[NavigationMode]]
    */
   protected createDefault(wizard: WizardComponent): NavigationMode {
-    return new StrictNavigationMode(wizard.model);
+    return new StrictNavigationMode();
   }
 
   /**

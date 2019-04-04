@@ -6,11 +6,12 @@ import {NavigationMode} from './navigation-mode.interface';
 /**
  * Base implementation of [[NavigationMode]]
  *
+ * Note: Built-in [[NavigationMode]] classes should be stateless, allowing the library user to easily create
+ * an instance of a particular [[NavigationMode]] class and pass it to `<aw-wizard [navigationMode]="...">`.
+ *
  * @author Marc Arndt
  */
 export abstract class BaseNavigationMode implements NavigationMode {
-  constructor(protected wizardState: WizardState) {
-  }
 
   /**
    * Checks, whether a wizard step, as defined by the given destination index, can be transitioned to.
@@ -25,24 +26,25 @@ export abstract class BaseNavigationMode implements NavigationMode {
    *
    * Subclasses can impose additional restrictions, see [[canTransitionToStep]].
    *
+   * @param wizardState The wizard state to operate on
    * @param destinationIndex The index of the destination step
-   * @returns A [[Promise]] containing `true`, if the destination step can be transitioned to and false otherwise
+   * @returns A [[Promise]] containing `true`, if the destination step can be transitioned to and `false` otherwise
    */
-  public canGoToStep(destinationIndex: number): Promise<boolean> {
-    const hasStep = this.wizardState.hasStep(destinationIndex);
+  public canGoToStep(wizardState: WizardState, destinationIndex: number): Promise<boolean> {
+    const hasStep = wizardState.hasStep(destinationIndex);
 
-    const movingDirection = this.wizardState.getMovingDirection(destinationIndex);
+    const movingDirection = wizardState.getMovingDirection(destinationIndex);
 
     const canExitCurrentStep = (previous: boolean) => {
-      return previous && this.wizardState.currentStep.canExitStep(movingDirection);
+      return previous && wizardState.currentStep.canExitStep(movingDirection);
     };
 
     const canEnterDestinationStep = (previous: boolean) => {
-      return previous && this.wizardState.getStepAtIndex(destinationIndex).canEnterStep(movingDirection);
+      return previous && wizardState.getStepAtIndex(destinationIndex).canEnterStep(movingDirection);
     };
 
     const canTransitionToStep = (previous: boolean) => {
-      return previous && this.canTransitionToStep(destinationIndex);
+      return previous && this.canTransitionToStep(wizardState, destinationIndex);
     };
 
     return Promise.resolve(hasStep)
@@ -60,9 +62,13 @@ export abstract class BaseNavigationMode implements NavigationMode {
    * The base implementation allows transition iff the given step is navigable from the navigation bar (see `isNavigable`).
    * However, in some navigation modes `canTransitionToStep` can be more relaxed to allow navigation to certain steps
    * by previous/next buttons, but not using the navigation bar.
+   *
+   * @param wizardState The wizard state to operate on
+   * @param destinationIndex The index of the destination step
+   * @returns `true`, if the destination step can be transitioned to and `false` otherwise
    */
-  protected canTransitionToStep(destinationIndex: number): boolean {
-    return this.isNavigable(destinationIndex);
+  protected canTransitionToStep(wizardState: WizardState, destinationIndex: number): boolean {
+    return this.isNavigable(wizardState, destinationIndex);
   }
 
   /**
@@ -78,15 +84,21 @@ export abstract class BaseNavigationMode implements NavigationMode {
    * When the destination step couldn't be entered, the following actions are done:
    * - the current step is exited and entered in the direction `MovingDirection.Stay`
    *
+   * @param wizardState The wizard state to operate on
    * @param destinationIndex The index of the destination wizard step, which should be entered
    * @param preFinalize An event emitter, to be called before the step has been transitioned
    * @param postFinalize An event emitter, to be called after the step has been transitioned
    */
-  public goToStep(destinationIndex: number, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
-    this.canGoToStep(destinationIndex).then(navigationAllowed => {
+  public goToStep(
+    wizardState: WizardState,
+    destinationIndex: number,
+    preFinalize?: EventEmitter<void>,
+    postFinalize?: EventEmitter<void>): void {
+
+    this.canGoToStep(wizardState, destinationIndex).then(navigationAllowed => {
       if (navigationAllowed) {
         // the current step can be exited in the given direction
-        const movingDirection: MovingDirection = this.wizardState.getMovingDirection(destinationIndex);
+        const movingDirection: MovingDirection = wizardState.getMovingDirection(destinationIndex);
 
         /* istanbul ignore if */
         if (preFinalize) {
@@ -94,15 +106,15 @@ export abstract class BaseNavigationMode implements NavigationMode {
         }
 
         // leave current step
-        this.wizardState.currentStep.completed = true;
-        this.wizardState.currentStep.exit(movingDirection);
-        this.wizardState.currentStep.selected = false;
+        wizardState.currentStep.completed = true;
+        wizardState.currentStep.exit(movingDirection);
+        wizardState.currentStep.selected = false;
 
-        this.transition(destinationIndex);
+        this.transition(wizardState, destinationIndex);
 
         // go to next step
-        this.wizardState.currentStep.enter(movingDirection);
-        this.wizardState.currentStep.selected = true;
+        wizardState.currentStep.enter(movingDirection);
+        wizardState.currentStep.selected = true;
 
         /* istanbul ignore if */
         if (postFinalize) {
@@ -110,8 +122,8 @@ export abstract class BaseNavigationMode implements NavigationMode {
         }
       } else {
         // if the current step can't be left, reenter the current step
-        this.wizardState.currentStep.exit(MovingDirection.Stay);
-        this.wizardState.currentStep.enter(MovingDirection.Stay);
+        wizardState.currentStep.exit(MovingDirection.Stay);
+        wizardState.currentStep.enter(MovingDirection.Stay);
       }
     });
   }
@@ -121,38 +133,41 @@ export abstract class BaseNavigationMode implements NavigationMode {
    *
    * Can perform additional actions in particular navigation mode implementations.
    *
+   * @param wizardState The wizard state to operate on
    * @param destinationIndex The index of the destination wizard step
    */
-  protected transition(destinationIndex: number): void {
-    this.wizardState.currentStepIndex = destinationIndex;
+  protected transition(wizardState: WizardState, destinationIndex: number): void {
+    wizardState.currentStepIndex = destinationIndex;
   }
 
   /**
    * @inheritDoc
    */
-  public abstract isNavigable(destinationIndex: number): boolean;
+  public abstract isNavigable(wizardState, destinationIndex: number): boolean;
 
   /**
    * Resets the state of this wizard.
    *
    * A reset transitions the wizard automatically to the first step and sets all steps as incomplete.
    * In addition the whole wizard is set as incomplete.
+   *
+   * @param wizardState The wizard state to operate on
    */
-  public reset(): void {
-    if (!this.checkReset()) {
+  public reset(wizardState: WizardState): void {
+    if (!this.checkReset(wizardState)) {
       return;
     }
 
     // reset the step internal state
-    this.wizardState.wizardSteps.forEach(step => {
+    wizardState.wizardSteps.forEach(step => {
       step.completed = false;
       step.selected = false;
     });
 
     // set the first step as the current step
-    this.wizardState.currentStepIndex = this.wizardState.defaultStepIndex;
-    this.wizardState.currentStep.selected = true;
-    this.wizardState.currentStep.enter(MovingDirection.Forwards);
+    wizardState.currentStepIndex = wizardState.defaultStepIndex;
+    wizardState.currentStep.selected = true;
+    wizardState.currentStep.enter(MovingDirection.Forwards);
   }
 
   /**
@@ -163,13 +178,14 @@ export abstract class BaseNavigationMode implements NavigationMode {
    *
    * Can include additional checks in particular navigation mode implementations.
    *
-   * @returns True if wizard configuration is correct and reset can be performed, false otherwise
+   * @param wizardState The wizard state to operate on
+   * @returns `true` if wizard configuration is correct and reset can be performed, `false` otherwise
    * @throws An `Error` is thrown, if a micconfiguration issue is discovered.
    */
-  protected checkReset(): boolean {
+  protected checkReset(wizardState: WizardState): boolean {
     // the wizard doesn't contain a step with the default step index
-    if (!this.wizardState.hasStep(this.wizardState.defaultStepIndex)) {
-      throw new Error(`The wizard doesn't contain a step with index ${this.wizardState.defaultStepIndex}`);
+    if (!wizardState.hasStep(wizardState.defaultStepIndex)) {
+      throw new Error(`The wizard doesn't contain a step with index ${wizardState.defaultStepIndex}`);
     }
     return true;
   }
@@ -177,14 +193,14 @@ export abstract class BaseNavigationMode implements NavigationMode {
   /**
    * @inheritDoc
    */
-  public goToPreviousStep(preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
-    this.goToStep(this.wizardState.currentStepIndex - 1, preFinalize, postFinalize);
+  public goToPreviousStep(wizardState: WizardState, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
+    this.goToStep(wizardState, wizardState.currentStepIndex - 1, preFinalize, postFinalize);
   }
 
   /**
    * @inheritDoc
    */
-  public goToNextStep(preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
-    this.goToStep(this.wizardState.currentStepIndex + 1, preFinalize, postFinalize);
+  public goToNextStep(wizardState: WizardState, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
+    this.goToStep(wizardState, wizardState.currentStepIndex + 1, preFinalize, postFinalize);
   }
 }

@@ -69,6 +69,6 @@ export class PreviousStepDirective {
    */
   @HostListener('click', ['$event'])
   public onClick(event: Event): void {
-    this.navigationMode.goToPreviousStep(this.preFinalize, this.postFinalize);
+    this.navigationMode.goToPreviousStep(this.wizardState, this.preFinalize, this.postFinalize);
   }
 }

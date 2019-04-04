@@ -121,6 +121,6 @@ export class WizardNavigationBarComponent {
    */
   public isNavigable(wizardStep: WizardStep): boolean {
     return !wizardStep.selected && !this.wizardState.disableNavigationBar &&
-      this.navigationMode.isNavigable(this.wizardState.getIndexOfStep(wizardStep));
+      this.navigationMode.isNavigable(this.wizardState, this.wizardState.getIndexOfStep(wizardStep));
   }
 }

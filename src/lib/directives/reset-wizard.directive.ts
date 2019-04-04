@@ -47,6 +47,6 @@ export class ResetWizardDirective {
     // do some optional cleanup work
     this.finalize.emit();
     // reset the wizard to its initial state
-    this.navigationMode.reset();
+    this.navigationMode.reset(this.wizardState);
   }
 }

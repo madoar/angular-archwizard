@@ -1,5 +1,6 @@
 import {BaseNavigationMode} from './base-navigation-mode.interface';
 import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
+import {WizardState} from './wizard-state.model';
 
 /**
  * A [[NavigationMode]], which allows the user to navigate with some limitations.
@@ -14,10 +15,10 @@ export class SemiStrictNavigationMode extends BaseNavigationMode {
   /**
    * @inheritDoc
    */
-  public isNavigable(destinationIndex: number): boolean {
-    if (this.wizardState.getStepAtIndex(destinationIndex) instanceof WizardCompletionStep) {
+  public isNavigable(wizardState: WizardState, destinationIndex: number): boolean {
+    if (wizardState.getStepAtIndex(destinationIndex) instanceof WizardCompletionStep) {
       // a completion step can only be entered, if all previous steps have been completed, are optional, or selected
-      return this.wizardState.wizardSteps
+      return wizardState.wizardSteps
         .filter((step, index) => index < destinationIndex)
         .every(step => step.completed || step.optional || step.selected);
     } else {
@@ -29,15 +30,15 @@ export class SemiStrictNavigationMode extends BaseNavigationMode {
   /**
    * @inheritDoc
    */
-  protected checkReset(): boolean {
-    if (!super.checkReset()) {
+  protected checkReset(wizardState: WizardState): boolean {
+    if (!super.checkReset(wizardState)) {
       return false;
     }
 
     // the default step is a completion step and the wizard contains more than one step
-    const defaultCompletionStep = this.wizardState.getStepAtIndex(this.wizardState.defaultStepIndex) instanceof WizardCompletionStep;
-    if (defaultCompletionStep && this.wizardState.wizardSteps.length !== 1) {
-      throw new Error(`The default step index ${this.wizardState.defaultStepIndex} references a completion step`);
+    const defaultCompletionStep = wizardState.getStepAtIndex(wizardState.defaultStepIndex) instanceof WizardCompletionStep;
+    if (defaultCompletionStep && wizardState.wizardSteps.length !== 1) {
+      throw new Error(`The default step index ${wizardState.defaultStepIndex} references a completion step`);
     }
 
     return true;
