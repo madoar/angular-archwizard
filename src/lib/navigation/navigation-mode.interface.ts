@@ -63,7 +63,7 @@ export interface NavigationMode {
   goToPreviousStep(
     wizardState: WizardState,
     preFinalize?: EventEmitter<void>,
-    postFinalize?: EventEmitter<void>);
+    postFinalize?: EventEmitter<void>): void;
 
   /**
    * Tries to transition the wizard to the next step from the `currentStep`
@@ -75,5 +75,5 @@ export interface NavigationMode {
   goToNextStep(
     wizardState: WizardState,
     preFinalize?: EventEmitter<void>,
-    postFinalize?: EventEmitter<void>);
+    postFinalize?: EventEmitter<void>): void;
 }
