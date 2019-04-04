@@ -143,7 +143,7 @@ export abstract class BaseNavigationMode implements NavigationMode {
   /**
    * @inheritDoc
    */
-  public abstract isNavigable(wizardState, destinationIndex: number): boolean;
+  public abstract isNavigable(wizardState: WizardState, destinationIndex: number): boolean;
 
   /**
    * Resets the state of this wizard.
@@ -193,14 +193,22 @@ export abstract class BaseNavigationMode implements NavigationMode {
   /**
    * @inheritDoc
    */
-  public goToPreviousStep(wizardState: WizardState, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
+  public goToPreviousStep(
+    wizardState: WizardState,
+    preFinalize?: EventEmitter<void>,
+    postFinalize?: EventEmitter<void>): void {
+
     this.goToStep(wizardState, wizardState.currentStepIndex - 1, preFinalize, postFinalize);
   }
 
   /**
    * @inheritDoc
    */
-  public goToNextStep(wizardState: WizardState, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void {
+  public goToNextStep(
+    wizardState: WizardState,
+    preFinalize?: EventEmitter<void>,
+    postFinalize?: EventEmitter<void>): void {
+
     this.goToStep(wizardState, wizardState.currentStepIndex + 1, preFinalize, postFinalize);
   }
 }

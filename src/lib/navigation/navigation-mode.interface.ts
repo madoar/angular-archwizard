@@ -31,7 +31,11 @@ export interface NavigationMode {
    * @param preFinalize An event emitter, to be called before the step has been transitioned
    * @param postFinalize An event emitter, to be called after the step has been transitioned
    */
-  goToStep(wizardState: WizardState, destinationIndex: number, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>): void;
+  goToStep(
+    wizardState: WizardState,
+    destinationIndex: number,
+    preFinalize?: EventEmitter<void>,
+    postFinalize?: EventEmitter<void>): void;
 
   /**
    * Checks, whether the wizard step, located at the given index, can be navigated to using the navigation bar.
@@ -56,7 +60,10 @@ export interface NavigationMode {
    * @param preFinalize An event emitter, to be called before the step has been transitioned
    * @param postFinalize An event emitter, to be called after the step has been transitioned
    */
-  goToPreviousStep(wizardState: WizardState, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>);
+  goToPreviousStep(
+    wizardState: WizardState,
+    preFinalize?: EventEmitter<void>,
+    postFinalize?: EventEmitter<void>);
 
   /**
    * Tries to transition the wizard to the next step from the `currentStep`
@@ -65,5 +72,8 @@ export interface NavigationMode {
    * @param preFinalize An event emitter, to be called before the step has been transitioned
    * @param postFinalize An event emitter, to be called after the step has been transitioned
    */
-  goToNextStep(wizardState: WizardState, preFinalize?: EventEmitter<void>, postFinalize?: EventEmitter<void>);
+  goToNextStep(
+    wizardState: WizardState,
+    preFinalize?: EventEmitter<void>,
+    postFinalize?: EventEmitter<void>);
 }

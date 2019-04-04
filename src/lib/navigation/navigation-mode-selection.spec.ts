@@ -59,7 +59,7 @@ class WizardWithCustomNavigationModeComponent {
   @ViewChild(WizardComponent)
   private wizard: WizardComponent;
 
-  public customNavigationMode = new CustomNavigationMode();
+  public customNavigationMode: CustomNavigationMode = new CustomNavigationMode();
 }
 
 describe('NavigationMode', () => {

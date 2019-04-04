@@ -214,7 +214,8 @@ describe('StrictNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     wizardState.defaultStepIndex = -1;
-    expect(() => navigationMode.reset(wizardState)).toThrow(new Error(`The wizard doesn't contain a step with index -1`));
+    expect(() => navigationMode.reset(wizardState))
+      .toThrow(new Error(`The wizard doesn't contain a step with index -1`));
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
@@ -238,7 +239,8 @@ describe('StrictNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     wizardState.defaultStepIndex = 2;
-    expect(() => navigationMode.reset(wizardState)).toThrow(new Error(`The default step index 2 is located after a non optional step`));
+    expect(() => navigationMode.reset(wizardState))
+      .toThrow(new Error(`The default step index 2 is located after a non optional step`));
 
     expect(wizardState.currentStepIndex).toBe(1);
     expect(wizardState.getStepAtIndex(0).selected).toBe(false);

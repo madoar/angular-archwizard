@@ -272,7 +272,8 @@ describe('FreeNavigationMode', () => {
     expect(wizardState.completed).toBe(false);
 
     wizardState.defaultStepIndex = -1;
-    expect(() => navigationMode.reset(wizardState)).toThrow(new Error(`The wizard doesn't contain a step with index -1`));
+    expect(() => navigationMode.reset(wizardState))
+      .toThrow(new Error(`The wizard doesn't contain a step with index -1`));
 
     expect(wizardState.currentStepIndex).toBe(0);
     expect(wizardState.getStepAtIndex(0).selected).toBe(true);
