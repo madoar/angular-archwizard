@@ -108,28 +108,7 @@ $wz-indicator-color_: null !global;
   $wz-indicator-height_: $height !global;
   $wz-indicator-border-width_: $border-width !global;
 
-  @if ($layout == 'horizontal') {
-    padding: ($height + $wz-text-padding-bottom) 0 $wz-text-padding-bottom 0;
-  }
-  @else if ($layout == 'vertical') {
-    padding: ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2 + $height);
-  }
-
   li {
-    &:not(:last-child):before {
-      @if ($layout == 'horizontal') {
-        @include wz-horizontal-line($width, $height, $wz-color-default);
-      }
-      @else if ($layout == 'vertical') {
-        @include wz-vertical-line($width, $height, $wz-color-default);
-      }
-    }
-
-    @if ($layout == 'vertical') {
-      a {
-        min-height: $height;
-      }
-    }
 
     .step-indicator {
       @if ($layout == 'horizontal') {
@@ -195,6 +174,32 @@ $wz-indicator-color_: null !global;
         $wz-indicator-state_: 'hover' !global;
         $wz-indicator-color_: $wz-color-editing !global;
         @content;
+      }
+    }
+  }
+
+  @if ($layout == 'horizontal') {
+    padding: ($height + $wz-text-padding-bottom) 0 $wz-text-padding-bottom 0;
+
+    li {
+
+      &:not(:last-child):before {
+        @include wz-horizontal-line($width, $height, $wz-color-default);
+      }
+    }
+  }
+
+  @if ($layout == 'vertical') {
+    padding: ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2 + $height);
+
+    li {
+
+      &:not(:last-child):before {
+        @include wz-vertical-line($width, $height, $wz-color-default);
+      }
+
+      a {
+        min-height: $height;
       }
     }
   }
