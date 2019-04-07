@@ -10,7 +10,6 @@ import {
   ViewEncapsulation,
   Inject,
   Optional,
-  EventEmitter
 } from '@angular/core';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {NavigationModeInput} from '../navigation/navigation-mode-input.interface';
