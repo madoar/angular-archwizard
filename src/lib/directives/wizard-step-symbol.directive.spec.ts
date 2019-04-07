@@ -50,7 +50,7 @@ describe('WizardStepSymbolDirective', () => {
     const navigationSymbols = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li .step-indicator'));
 
     expect(navigationSymbols.length).toBe(2);
-    expect(navigationSymbols[0].nativeElement.innerText).toBe('A');
-    expect(navigationSymbols[1].nativeElement.innerText).toBe('B');
+    expect(navigationSymbols[0].nativeElement.textContent.trim()).toBe('A');
+    expect(navigationSymbols[1].nativeElement.textContent.trim()).toBe('B');
   });
 });

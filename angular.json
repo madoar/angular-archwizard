@@ -22,10 +22,7 @@
             "main": "src/test.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "codeCoverage": true,
-            "styles": [
-              "src/css/archwizard.scss"
-            ]
+            "codeCoverage": true
           }
         },
         "lint": {
