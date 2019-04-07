@@ -5,6 +5,7 @@ USER root
 # Install chrome dependencies
 RUN apt-get update && apt-get install -y \
   gconf-service \
+  libappindicator3-1 \
   libasound2 \
   libatk1.0-0 \
   libatk-bridge2.0-0 \
@@ -48,6 +49,10 @@ RUN apt-get update && apt-get install -y \
 RUN curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /chrome.deb
 RUN dpkg -i /chrome.deb || apt-get install -yf
 RUN rm /chrome.deb
+
+RUN groupadd -r gitpod && useradd -r -g gitpod -G audio,video chrome \
+    && mkdir -p /home/gitpod && chown -R gitpod:gitpod /home/gitpod \
+		&& mkdir -p /opt/google/chrome && chown -R gitpod:gitpod /opt/google/chrome
 
 # Give back control
 USER root
