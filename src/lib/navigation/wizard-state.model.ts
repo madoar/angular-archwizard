@@ -215,7 +215,7 @@ export class WizardState {
     return movingDirection;
   }
 
-    /**
+  /**
    * Checks, whether a wizard step, as defined by the given destination index, can be transitioned to.
    *
    * This method controls navigation by [[goToStep]], [[goToPreviousStep]], and [[goToNextStep]] directives.
