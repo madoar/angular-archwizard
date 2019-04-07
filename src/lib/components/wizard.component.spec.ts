@@ -72,8 +72,8 @@ describe('WizardComponent', () => {
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
     expect(wizard).toBeTruthy();
-    expect(wizard.model).toBeTruthy();
-    expect(wizard.navigation).toBeTruthy();
+    expect(wizardState).toBeTruthy();
+    expect(wizardState.navigationMode).toBeTruthy();
   });
 
   it('should contain navigation bar at the correct position in default navBarLocation mode', () => {
@@ -96,7 +96,7 @@ describe('WizardComponent', () => {
   });
 
   it('should contain navigation bar at the correct position in top navBarLocation mode', () => {
-    wizardTest.wizard.navBarLocation = 'top';
+    wizard.navBarLocation = 'top';
     wizardTestFixture.detectChanges();
 
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
@@ -118,7 +118,7 @@ describe('WizardComponent', () => {
   });
 
   it('should contain navigation bar at the correct position in left navBarLocation mode', () => {
-    wizardTest.wizard.navBarLocation = 'left';
+    wizard.navBarLocation = 'left';
     wizardTestFixture.detectChanges();
 
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
@@ -140,7 +140,7 @@ describe('WizardComponent', () => {
   });
 
   it('should contain navigation bar at the correct position in bottom navBarLocation mode', () => {
-    wizardTest.wizard.navBarLocation = 'bottom';
+    wizard.navBarLocation = 'bottom';
     wizardTestFixture.detectChanges();
 
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
@@ -162,7 +162,7 @@ describe('WizardComponent', () => {
   });
 
   it('should contain navigation bar at the correct position in right navBarLocation mode', () => {
-    wizardTest.wizard.navBarLocation = 'right';
+    wizard.navBarLocation = 'right';
     wizardTestFixture.detectChanges();
 
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
@@ -184,12 +184,12 @@ describe('WizardComponent', () => {
   });
 
   it('should change the navigation mode correctly during runtime', () => {
-    expect(wizardTest.wizard.navigation instanceof StrictNavigationMode).toBe(true);
+    expect(wizardState.navigationMode instanceof StrictNavigationMode).toBe(true);
 
     wizardTest.navigationMode = 'free';
     wizardTestFixture.detectChanges();
 
-    expect(wizardTest.wizard.navigation instanceof FreeNavigationMode).toBe(true);
+    expect(wizardState.navigationMode instanceof FreeNavigationMode).toBe(true);
   });
 
   it('should change disableNavigationBar correctly during runtime', () => {
