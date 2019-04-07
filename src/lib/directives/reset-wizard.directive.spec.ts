@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {ResetWizardDirective} from './reset-wizard.directive';
+import {WizardComponent} from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -26,6 +27,10 @@ import {ResetWizardDirective} from './reset-wizard.directive';
   `
 })
 class WizardTestComponent {
+
+  @ViewChild(WizardComponent)
+  public wizard: WizardComponent;
+
   public eventLog: Array<string> = [];
 
   public cleanup(): void {
@@ -34,11 +39,11 @@ class WizardTestComponent {
 }
 
 describe('ResetWizardDirective', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
   let wizardState: WizardState;
-  let navigationMode: NavigationMode;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -52,8 +57,8 @@ describe('ResetWizardDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
+    wizardState = wizard.model;
   });
 
   it('should create an instance', () => {
@@ -64,7 +69,7 @@ describe('ResetWizardDirective', () => {
   it('should reset the wizard correctly without finalize input', fakeAsync(() => {
     const resetButtons = wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective));
 
-    navigationMode.goToStep(wizardState, 1);
+    wizardState.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -88,7 +93,7 @@ describe('ResetWizardDirective', () => {
   it('should reset the wizard correctly with finalize input', fakeAsync(() => {
     const resetButtons = wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective));
 
-    navigationMode.goToStep(wizardState, 1);
+    wizardState.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 

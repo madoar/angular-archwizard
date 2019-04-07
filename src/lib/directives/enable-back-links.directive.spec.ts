@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {MovingDirection} from '../util/moving-direction.enum';
+import {WizardComponent} from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -25,6 +25,10 @@ import {MovingDirection} from '../util/moving-direction.enum';
   `
 })
 class WizardTestComponent {
+
+  @ViewChild(WizardComponent)
+  public wizard: WizardComponent;
+
   public isValid: any = true;
 
   public eventLog: Array<string> = [];
@@ -41,11 +45,11 @@ class WizardTestComponent {
 }
 
 describe('EnableBackLinksDirective', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
   let wizardState: WizardState;
-  let navigationMode: NavigationMode;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -59,8 +63,8 @@ describe('EnableBackLinksDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
+    wizardState = wizard.model;
   });
 
   it('should create', () => {
@@ -70,19 +74,19 @@ describe('EnableBackLinksDirective', () => {
   });
 
   it('should be able to leave the completion step', fakeAsync(() => {
-    navigationMode.goToStep(wizardState, 2);
+    wizardState.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
-    navigationMode.canGoToStep(wizardState, 0).then(result => expect(result).toBe(true));
-    navigationMode.canGoToStep(wizardState, 1).then(result => expect(result).toBe(true));
+    wizardState.canGoToStep(0).then(result => expect(result).toBe(true));
+    wizardState.canGoToStep(1).then(result => expect(result).toBe(true));
   }));
 
 
   it('should be able to leave the completion step in any direction', fakeAsync(() => {
     wizardTest.isValid = false;
 
-    navigationMode.goToStep(wizardState, 2);
+    wizardState.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -93,13 +97,13 @@ describe('EnableBackLinksDirective', () => {
   it('should leave the completion step', fakeAsync(() => {
     wizardTest.isValid = false;
 
-    navigationMode.goToStep(wizardState, 2);
+    wizardState.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
 
-    navigationMode.goToPreviousStep(wizardState);
+    wizardState.goToPreviousStep();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -116,14 +120,14 @@ describe('EnableBackLinksDirective', () => {
 
     expect(wizardState.completed).toBe(false);
 
-    navigationMode.goToStep(wizardState, 2);
+    wizardState.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(2);
     expect(wizardState.completed).toBe(true);
 
-    navigationMode.goToPreviousStep(wizardState);
+    wizardState.goToPreviousStep();
     tick();
     wizardTestFixture.detectChanges();
 

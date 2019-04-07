@@ -189,26 +189,4 @@ export abstract class BaseNavigationMode implements NavigationMode {
     }
     return true;
   }
-
-  /**
-   * @inheritDoc
-   */
-  public goToPreviousStep(
-    wizardState: WizardState,
-    preFinalize?: EventEmitter<void>,
-    postFinalize?: EventEmitter<void>): void {
-
-    this.goToStep(wizardState, wizardState.currentStepIndex - 1, preFinalize, postFinalize);
-  }
-
-  /**
-   * @inheritDoc
-   */
-  public goToNextStep(
-    wizardState: WizardState,
-    preFinalize?: EventEmitter<void>,
-    postFinalize?: EventEmitter<void>): void {
-
-    this.goToStep(wizardState, wizardState.currentStepIndex + 1, preFinalize, postFinalize);
-  }
 }

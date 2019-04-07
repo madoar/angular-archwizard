@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {SelectedStepDirective} from './selected-step.directive';
+import {WizardComponent} from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -23,14 +23,17 @@ import {SelectedStepDirective} from './selected-step.directive';
   `
 })
 class WizardTestComponent {
+
+  @ViewChild(WizardComponent)
+  public wizard: WizardComponent;
 }
 
 describe('SelectedStepDirective', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
   let wizardState: WizardState;
-  let navigationMode: NavigationMode;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -44,8 +47,8 @@ describe('SelectedStepDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
+    wizardState = wizard.model;
   });
 
   it('should create an instance', () => {
@@ -59,13 +62,13 @@ describe('SelectedStepDirective', () => {
   });
 
   it('should reset correctly to the default selected step', fakeAsync(() => {
-    navigationMode.goToStep(wizardState, 0);
+    wizardState.goToStep(0);
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(0);
 
-    navigationMode.reset(wizardState);
+    wizardState.reset();
     wizardTestFixture.detectChanges();
 
     expect(wizardState.currentStepIndex).toBe(1);

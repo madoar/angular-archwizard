@@ -47,11 +47,11 @@ class WizardTestComponent implements AfterViewInit {
 }
 
 describe('WizardComponent', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
   let wizardState: WizardState;
-  let navigationMode: NavigationMode;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -65,25 +65,20 @@ describe('WizardComponent', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
+    wizardState = wizard.model;
   });
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
-    expect(wizardTest.wizard).toBeTruthy();
-
-    expect(wizardTestFixture.debugElement.query(By.css('aw-wizard'))).toBeTruthy();
-    expect(wizardTest.wizard.model).toBeTruthy();
-    expect(wizardTest.wizard.navigation).toBeTruthy();
-
-    expect(wizardTest.wizard.model).toBe(wizardState);
-    expect(wizardTest.wizard.navigation).toBe(navigationMode);
+    expect(wizard).toBeTruthy();
+    expect(wizard.model).toBeTruthy();
+    expect(wizard.navigation).toBeTruthy();
   });
 
   it('should contain navigation bar at the correct position in default navBarLocation mode', () => {
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
-    const wizard = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
+    const wizardEl = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
     const wizardStepsDiv = wizardTestFixture.debugElement.query(By.css('div.wizard-steps'));
 
     // check default: the navbar should be at the top of the wizard if no navBarLocation was set
@@ -96,7 +91,7 @@ describe('WizardComponent', () => {
       'horizontal': true, 'vertical': false, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
-    expect(wizard.classes).toEqual({'horizontal': true, 'vertical': false});
+    expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
   });
 
@@ -105,7 +100,7 @@ describe('WizardComponent', () => {
     wizardTestFixture.detectChanges();
 
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
-    const wizard = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
+    const wizardEl = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
     const wizardStepsDiv = wizardTestFixture.debugElement.query(By.css('div.wizard-steps'));
 
     // check default: the navbar should be at the top of the wizard if no navBarLocation was set
@@ -118,7 +113,7 @@ describe('WizardComponent', () => {
       'horizontal': true, 'vertical': false, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
-    expect(wizard.classes).toEqual({'horizontal': true, 'vertical': false});
+    expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
   });
 
@@ -127,7 +122,7 @@ describe('WizardComponent', () => {
     wizardTestFixture.detectChanges();
 
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
-    const wizard = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
+    const wizardEl = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
     const wizardStepsDiv = wizardTestFixture.debugElement.query(By.css('div.wizard-steps'));
 
     // check default: the navbar should be at the top of the wizard if no navBarLocation was set
@@ -140,7 +135,7 @@ describe('WizardComponent', () => {
       'horizontal': false, 'vertical': true, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
-    expect(wizard.classes).toEqual({'horizontal': false, 'vertical': true});
+    expect(wizardEl.classes).toEqual({'horizontal': false, 'vertical': true});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': false, 'vertical': true});
   });
 
@@ -149,7 +144,7 @@ describe('WizardComponent', () => {
     wizardTestFixture.detectChanges();
 
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
-    const wizard = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
+    const wizardEl = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
     const wizardStepsDiv = wizardTestFixture.debugElement.query(By.css('div.wizard-steps'));
 
     // check default: the navbar should be at the top of the wizard if no navBarLocation was set
@@ -162,7 +157,7 @@ describe('WizardComponent', () => {
       'horizontal': true, 'vertical': false, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
-    expect(wizard.classes).toEqual({'horizontal': true, 'vertical': false});
+    expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
   });
 
@@ -171,7 +166,7 @@ describe('WizardComponent', () => {
     wizardTestFixture.detectChanges();
 
     const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
-    const wizard = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
+    const wizardEl = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
     const wizardStepsDiv = wizardTestFixture.debugElement.query(By.css('div.wizard-steps'));
 
     // check default: the navbar should be at the top of the wizard if no navBarLocation was set
@@ -184,7 +179,7 @@ describe('WizardComponent', () => {
       'horizontal': false, 'vertical': true, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
-    expect(wizard.classes).toEqual({'horizontal': false, 'vertical': true});
+    expect(wizardEl.classes).toEqual({'horizontal': false, 'vertical': true});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': false, 'vertical': true});
   });
 
@@ -216,7 +211,7 @@ describe('WizardComponent', () => {
   });
 
   it('should react on a previous step removal and insertion correctly', fakeAsync(() => {
-    navigationMode.goToStep(wizardState, 1);
+    wizardState.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -237,7 +232,7 @@ describe('WizardComponent', () => {
   }));
 
   it('should react on a later step removal and insertion correctly', fakeAsync(() => {
-    navigationMode.goToStep(wizardState, 1);
+    wizardState.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -258,7 +253,7 @@ describe('WizardComponent', () => {
   }));
 
   it('should react on a combined removal and insertion of previous and later steps correctly', fakeAsync(() => {
-    navigationMode.goToStep(wizardState, 1);
+    wizardState.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 

@@ -52,28 +52,4 @@ export interface NavigationMode {
    * @param wizardState The wizard state to operate on
    */
   reset(wizardState: WizardState): void;
-
-  /**
-   * Tries to transition the wizard to the previous step from the `currentStep`
-   *
-   * @param wizardState The wizard state to operate on
-   * @param preFinalize An event emitter, to be called before the step has been transitioned
-   * @param postFinalize An event emitter, to be called after the step has been transitioned
-   */
-  goToPreviousStep(
-    wizardState: WizardState,
-    preFinalize?: EventEmitter<void>,
-    postFinalize?: EventEmitter<void>): void;
-
-  /**
-   * Tries to transition the wizard to the next step from the `currentStep`
-   *
-   * @param wizardState The wizard state to operate on
-   * @param preFinalize An event emitter, to be called before the step has been transitioned
-   * @param postFinalize An event emitter, to be called after the step has been transitioned
-   */
-  goToNextStep(
-    wizardState: WizardState,
-    preFinalize?: EventEmitter<void>,
-    postFinalize?: EventEmitter<void>): void;
 }

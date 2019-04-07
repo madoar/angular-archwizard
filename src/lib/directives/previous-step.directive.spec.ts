@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 import {PreviousStepDirective} from './previous-step.directive';
+import {WizardComponent} from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -29,6 +29,10 @@ import {PreviousStepDirective} from './previous-step.directive';
   `
 })
 class WizardTestComponent {
+
+  @ViewChild(WizardComponent)
+  public wizard: WizardComponent;
+
   public eventLog: Array<string> = [];
 
   public finalizeStep(stepIndex: number): void {
@@ -37,11 +41,11 @@ class WizardTestComponent {
 }
 
 describe('PreviousStepDirective', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
   let wizardState: WizardState;
-  let navigationMode: NavigationMode;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -55,8 +59,8 @@ describe('PreviousStepDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
+    wizardState = wizard.model;
   });
 
   it('should create an instance', () => {
@@ -84,7 +88,7 @@ describe('PreviousStepDirective', () => {
     expect(wizardState.currentStepIndex).toBe(0);
 
     // move to second step to test the awPreviousStep directive
-    navigationMode.goToStep(wizardState, 1);
+    wizardState.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -102,7 +106,7 @@ describe('PreviousStepDirective', () => {
     const secondStepButtons = wizardTestFixture.debugElement.queryAll(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awPreviousStep]'));
 
-    navigationMode.goToStep(wizardState, 1);
+    wizardState.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -120,7 +124,7 @@ describe('PreviousStepDirective', () => {
     const secondStepButtons = wizardTestFixture.debugElement.queryAll(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awPreviousStep]'));
 
-    navigationMode.goToStep(wizardState, 1);
+    wizardState.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 

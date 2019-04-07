@@ -1,5 +1,4 @@
 import {Directive, EventEmitter, HostListener, Output} from '@angular/core';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
 
 /**
@@ -56,18 +55,11 @@ export class NextStepDirective {
   }
 
   /**
-   * The navigation mode
-   */
-  private get navigationMode(): NavigationMode {
-    return this.wizardState.navigationMode;
-  }
-
-  /**
    * Listener method for `click` events on the component with this directive.
    * After this method is called the wizard will try to transition to the next step
    */
   @HostListener('click', ['$event'])
   public onClick(event: Event): void {
-    this.navigationMode.goToNextStep(this.wizardState, this.preFinalize, this.postFinalize);
+    this.wizardState.goToNextStep(this.preFinalize, this.postFinalize);
   }
 }

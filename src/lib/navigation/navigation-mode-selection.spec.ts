@@ -1,6 +1,5 @@
 import {TestBed, async} from '@angular/core/testing';
 import {Component, ViewChild} from '@angular/core';
-import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {WizardState} from './wizard-state.model';
 import {WizardComponent} from '../components/wizard.component';
@@ -24,8 +23,9 @@ class CustomNavigationMode extends BaseNavigationMode {
   `
 })
 class WizardTestComponent {
+
   @ViewChild(WizardComponent)
-  private wizard: WizardComponent;
+  public wizard: WizardComponent;
 }
 
 @Component({
@@ -39,8 +39,9 @@ class WizardTestComponent {
   `
 })
 class WizardWithFreeNavigationModeComponent {
+
   @ViewChild(WizardComponent)
-  private wizard: WizardComponent;
+  public wizard: WizardComponent;
 
   public navigationModeFactory() { return 'free'; }
 }
@@ -56,8 +57,9 @@ class WizardWithFreeNavigationModeComponent {
   `
 })
 class WizardWithCustomNavigationModeComponent {
+
   @ViewChild(WizardComponent)
-  private wizard: WizardComponent;
+  public wizard: WizardComponent;
 
   public customNavigationMode: CustomNavigationMode = new CustomNavigationMode();
 }
@@ -74,30 +76,27 @@ describe('NavigationMode', () => {
   it('can be created with an instance', () => {
     const wizardTestFixture = TestBed.createComponent(WizardWithCustomNavigationModeComponent);
     wizardTestFixture.detectChanges();
+    const wizard = wizardTestFixture.componentInstance.wizard;
 
-    const wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    const navigationMode = wizardState.navigationMode;
-
-    expect(navigationMode).toEqual(jasmine.any(CustomNavigationMode));
+    expect(wizard.model.navigationMode).toEqual(jasmine.any(CustomNavigationMode));
   });
 
   it('can be assigned with updateNavigationMode', () => {
     const wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
+    const wizard = wizardTestFixture.componentInstance.wizard;
 
-    const wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
     const navigationMode = new CustomNavigationMode();
-    wizardState.updateNavigationMode(navigationMode);
-    expect(wizardState.navigationMode).toEqual(navigationMode);
+    wizard.updateNavigationMode(navigationMode);
+    expect(wizard.model.navigationMode).toEqual(navigationMode);
   });
 
   it('can be assigned with updateNavigationMode by name', () => {
     const wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
+    const wizard = wizardTestFixture.componentInstance.wizard;
 
-    const wizard = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardComponent);
-    const wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
     wizard.updateNavigationMode('free');
-    expect(wizardState.navigationMode).toEqual(jasmine.any(FreeNavigationMode));
+    expect(wizard.model.navigationMode).toEqual(jasmine.any(FreeNavigationMode));
   });
 });

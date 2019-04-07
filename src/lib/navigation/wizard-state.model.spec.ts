@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardState} from './wizard-state.model';
+import {WizardComponent} from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -22,6 +23,9 @@ import {WizardState} from './wizard-state.model';
   `
 })
 class WizardTestComponent {
+
+  @ViewChild(WizardComponent)
+  public wizard: WizardComponent;
 }
 
 function checkWizardSteps(steps: Array<WizardStep>, selectedStepIndex: number) {
@@ -45,8 +49,10 @@ function checkWizardSteps(steps: Array<WizardStep>, selectedStepIndex: number) {
 }
 
 describe('WizardState', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
+
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
   let wizardState: WizardState;
 
   beforeEach(async(() => {
@@ -61,7 +67,8 @@ describe('WizardState', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
+    wizard = wizardTest.wizard;
+    wizardState = wizard.model;
   });
 
   it('should create', () => {

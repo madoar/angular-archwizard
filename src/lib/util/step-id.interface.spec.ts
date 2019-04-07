@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {GoToStepDirective} from '../directives/go-to-step.directive';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardState} from '../navigation/wizard-state.model';
+import {WizardComponent} from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -32,6 +33,10 @@ import {WizardState} from '../navigation/wizard-state.model';
   `
 })
 class WizardTestComponent {
+
+  @ViewChild(WizardComponent)
+  public wizard: WizardComponent;
+
   public canExit = true;
 
   public eventLog: Array<string> = [];
@@ -42,11 +47,11 @@ class WizardTestComponent {
 }
 
 describe('StepId', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
   let wizardState: WizardState;
-  let navigationMode: NavigationMode;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -60,8 +65,8 @@ describe('StepId', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
+    wizardState = wizard.model;
   });
 
   it('should create an instance', () => {
@@ -83,7 +88,7 @@ describe('StepId', () => {
 
     const wizardSteps = wizardState.wizardSteps;
 
-    navigationMode.goToStep(wizardState, 2);
+    wizardState.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
@@ -131,7 +136,7 @@ describe('StepId', () => {
 
     const wizardSteps = wizardState.wizardSteps;
 
-    navigationMode.goToStep(wizardState, 1);
+    wizardState.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
