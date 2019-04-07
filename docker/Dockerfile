@@ -1,6 +1,5 @@
 FROM gitpod/workspace-full:latest
 
-
 USER root
 # Install chrome dependencies
 RUN apt-get update && apt-get install -y \
