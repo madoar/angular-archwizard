@@ -4,7 +4,6 @@ import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {GoToStepDirective} from '../directives/go-to-step.directive';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardState} from '../navigation/wizard-state.model';
 import {WizardComponent} from '../components/wizard.component';
 
 @Component({
@@ -51,7 +50,6 @@ describe('StepIndex', () => {
 
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
-  let wizardState: WizardState;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -66,7 +64,6 @@ describe('StepIndex', () => {
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-    wizardState = wizard.model;
   });
 
   it('should create an instance', () => {
@@ -86,13 +83,13 @@ describe('StepIndex', () => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 3"] > button')).nativeElement;
 
-    const wizardSteps = wizardState.wizardSteps;
+    const wizardSteps = wizard.wizardSteps;
 
-    wizardState.goToStep(2);
+    wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(2);
+    expect(wizard.currentStepIndex).toBe(2);
     expect(wizardSteps[0].selected).toBe(false);
     expect(wizardSteps[1].selected).toBe(false);
     expect(wizardSteps[2].selected).toBe(true);
@@ -102,7 +99,7 @@ describe('StepIndex', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizard.currentStepIndex).toBe(0);
     expect(wizardSteps[0].selected).toBe(true);
     expect(wizardSteps[1].selected).toBe(false);
     expect(wizardSteps[2].selected).toBe(false);
@@ -112,9 +109,9 @@ describe('StepIndex', () => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button')).nativeElement;
 
-    const wizardSteps = wizardState.wizardSteps;
+    const wizardSteps = wizard.wizardSteps;
 
-    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizard.currentStepIndex).toBe(0);
     expect(wizardSteps[0].selected).toBe(true);
     expect(wizardSteps[1].selected).toBe(false);
     expect(wizardSteps[2].selected).toBe(false);
@@ -124,7 +121,7 @@ describe('StepIndex', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(2);
+    expect(wizard.currentStepIndex).toBe(2);
     expect(wizardSteps[0].selected).toBe(false);
     expect(wizardSteps[1].selected).toBe(false);
     expect(wizardSteps[2].selected).toBe(true);
@@ -134,13 +131,13 @@ describe('StepIndex', () => {
     const firstStepGoToButton = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button')).nativeElement;
 
-    const wizardSteps = wizardState.wizardSteps;
+    const wizardSteps = wizard.wizardSteps;
 
-    wizardState.goToStep(1);
+    wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
+    expect(wizard.currentStepIndex).toBe(1);
     expect(wizardSteps[0].selected).toBe(false);
     expect(wizardSteps[1].selected).toBe(true);
     expect(wizardSteps[2].selected).toBe(false);
@@ -150,7 +147,7 @@ describe('StepIndex', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
+    expect(wizard.currentStepIndex).toBe(1);
     expect(wizardSteps[0].selected).toBe(false);
     expect(wizardSteps[1].selected).toBe(true);
     expect(wizardSteps[2].selected).toBe(false);
@@ -170,7 +167,7 @@ describe('StepIndex', () => {
   }));
 
   it('should not leave current step if the destination step can not be entered', fakeAsync(() => {
-    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizard.currentStepIndex).toBe(0);
 
     wizardTest.canExit = false;
     wizardTestFixture.detectChanges();
@@ -183,6 +180,6 @@ describe('StepIndex', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizard.currentStepIndex).toBe(0);
   }));
 });

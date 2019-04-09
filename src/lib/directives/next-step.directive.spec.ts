@@ -3,7 +3,6 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardState} from '../navigation/wizard-state.model';
 import {NextStepDirective} from './next-step.directive';
 import {WizardComponent} from '../components/wizard.component';
 
@@ -46,7 +45,6 @@ describe('NextStepDirective', () => {
 
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
-  let wizardState: WizardState;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -61,7 +59,6 @@ describe('NextStepDirective', () => {
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-    wizardState = wizard.model;
   });
 
   it('should create an instance', () => {
@@ -79,21 +76,21 @@ describe('NextStepDirective', () => {
     const secondStepButton = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awNextStep]')).nativeElement;
 
-    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizard.currentStepIndex).toBe(0);
 
     // go to second step
     firstStepButton.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
+    expect(wizard.currentStepIndex).toBe(1);
 
     // don't go to third step because it doesn't exist
     secondStepButton.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
+    expect(wizard.currentStepIndex).toBe(1);
   }));
 
   it('should call finalize correctly when going the next step', fakeAsync(() => {
@@ -128,7 +125,7 @@ describe('NextStepDirective', () => {
     const secondStepButton = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awNextStep]')).nativeElement;
 
-    wizardState.goToStep(1);
+    wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 

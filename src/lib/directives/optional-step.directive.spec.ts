@@ -3,7 +3,6 @@ import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from '../navigation/wizard-state.model';
 import {WizardComponent} from '../components/wizard.component';
 
 @Component({
@@ -33,7 +32,6 @@ describe('OptionalStepDirective', () => {
 
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
-  let wizardState: WizardState;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -48,7 +46,6 @@ describe('OptionalStepDirective', () => {
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-    wizardState = wizard.model;
   });
 
   it('should create an instance', () => {
@@ -57,8 +54,8 @@ describe('OptionalStepDirective', () => {
   });
 
   it('should set optional correctly', () => {
-    expect(wizardState.getStepAtIndex(0).optional).toBe(false);
-    expect(wizardState.getStepAtIndex(1).optional).toBe(true);
-    expect(wizardState.getStepAtIndex(2).optional).toBe(false);
+    expect(wizard.getStepAtIndex(0).optional).toBe(false);
+    expect(wizard.getStepAtIndex(1).optional).toBe(true);
+    expect(wizard.getStepAtIndex(2).optional).toBe(false);
   });
 });

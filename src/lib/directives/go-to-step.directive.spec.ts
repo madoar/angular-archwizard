@@ -3,7 +3,6 @@ import {async, ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardState} from '../navigation/wizard-state.model';
 import {GoToStepDirective} from './go-to-step.directive';
 import { WizardComponent } from '../components/wizard.component';
 
@@ -62,7 +61,6 @@ describe('GoToStepDirective', () => {
 
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
-  let wizardState: WizardState;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -77,7 +75,6 @@ describe('GoToStepDirective', () => {
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-    wizardState = wizard.model;
   });
 
   it('should create an instance', () => {

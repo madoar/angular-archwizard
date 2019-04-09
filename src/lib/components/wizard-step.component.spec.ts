@@ -2,9 +2,8 @@ import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from '../navigation/wizard-state.model';
 import {MovingDirection} from '../util/moving-direction.enum';
-import {WizardComponent} from 'src';
+import {WizardComponent} from './wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -46,7 +45,6 @@ describe('WizardStepComponent', () => {
 
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
-  let wizardState: WizardState;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -61,7 +59,6 @@ describe('WizardStepComponent', () => {
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-    wizardState = wizard.model;
   });
 
   it('should create', () => {

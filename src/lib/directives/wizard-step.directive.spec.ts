@@ -2,7 +2,6 @@ import {Component, forwardRef, Host, ViewChild} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from '../navigation/wizard-state.model';
 import {MovingDirection} from '../util/moving-direction.enum';
 import {WizardStepDirective} from './wizard-step.directive';
 import {WizardComponent} from '../components/wizard.component';
@@ -60,7 +59,6 @@ describe('WizardStepDirective', () => {
 
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
-  let wizardState: WizardState;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -75,7 +73,6 @@ describe('WizardStepDirective', () => {
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-    wizardState = wizard.model;
   });
 
   it('should create', () => {

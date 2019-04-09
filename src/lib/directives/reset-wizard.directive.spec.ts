@@ -3,7 +3,6 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardState} from '../navigation/wizard-state.model';
 import {ResetWizardDirective} from './reset-wizard.directive';
 import {WizardComponent} from '../components/wizard.component';
 
@@ -43,7 +42,6 @@ describe('ResetWizardDirective', () => {
 
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
-  let wizardState: WizardState;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -58,7 +56,6 @@ describe('ResetWizardDirective', () => {
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-    wizardState = wizard.model;
   });
 
   it('should create an instance', () => {
@@ -69,48 +66,48 @@ describe('ResetWizardDirective', () => {
   it('should reset the wizard correctly without finalize input', fakeAsync(() => {
     const resetButtons = wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective));
 
-    wizardState.goToStep(1);
+    wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.getStepAtIndex(0).selected).toBe(false);
-    expect(wizardState.getStepAtIndex(0).completed).toBe(true);
-    expect(wizardState.getStepAtIndex(1).selected).toBe(true);
-    expect(wizardState.getStepAtIndex(1).completed).toBe(false);
+    expect(wizard.getStepAtIndex(0).selected).toBe(false);
+    expect(wizard.getStepAtIndex(0).completed).toBe(true);
+    expect(wizard.getStepAtIndex(1).selected).toBe(true);
+    expect(wizard.getStepAtIndex(1).completed).toBe(false);
     expect(wizardTest.eventLog).toEqual([]);
 
     resetButtons[0].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.getStepAtIndex(0).selected).toBe(true);
-    expect(wizardState.getStepAtIndex(0).completed).toBe(false);
-    expect(wizardState.getStepAtIndex(1).selected).toBe(false);
-    expect(wizardState.getStepAtIndex(1).completed).toBe(false);
+    expect(wizard.getStepAtIndex(0).selected).toBe(true);
+    expect(wizard.getStepAtIndex(0).completed).toBe(false);
+    expect(wizard.getStepAtIndex(1).selected).toBe(false);
+    expect(wizard.getStepAtIndex(1).completed).toBe(false);
     expect(wizardTest.eventLog).toEqual([]);
   }));
 
   it('should reset the wizard correctly with finalize input', fakeAsync(() => {
     const resetButtons = wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective));
 
-    wizardState.goToStep(1);
+    wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.getStepAtIndex(0).selected).toBe(false);
-    expect(wizardState.getStepAtIndex(0).completed).toBe(true);
-    expect(wizardState.getStepAtIndex(1).selected).toBe(true);
-    expect(wizardState.getStepAtIndex(1).completed).toBe(false);
+    expect(wizard.getStepAtIndex(0).selected).toBe(false);
+    expect(wizard.getStepAtIndex(0).completed).toBe(true);
+    expect(wizard.getStepAtIndex(1).selected).toBe(true);
+    expect(wizard.getStepAtIndex(1).completed).toBe(false);
     expect(wizardTest.eventLog).toEqual([]);
 
     resetButtons[1].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.getStepAtIndex(0).selected).toBe(true);
-    expect(wizardState.getStepAtIndex(0).completed).toBe(false);
-    expect(wizardState.getStepAtIndex(1).selected).toBe(false);
-    expect(wizardState.getStepAtIndex(1).completed).toBe(false);
+    expect(wizard.getStepAtIndex(0).selected).toBe(true);
+    expect(wizard.getStepAtIndex(0).completed).toBe(false);
+    expect(wizard.getStepAtIndex(1).selected).toBe(false);
+    expect(wizard.getStepAtIndex(1).completed).toBe(false);
     expect(wizardTest.eventLog).toEqual(['Cleanup done!']);
   }));
 });

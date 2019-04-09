@@ -1,13 +1,12 @@
 import {TestBed, async} from '@angular/core/testing';
 import {Component, ViewChild} from '@angular/core';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from './wizard-state.model';
 import {WizardComponent} from '../components/wizard.component';
 import {FreeNavigationMode} from './free-navigation-mode';
 import {BaseNavigationMode} from './base-navigation-mode.interface';
 
 class CustomNavigationMode extends BaseNavigationMode {
-  public isNavigable(wizardState: WizardState, destinationIndex: number): boolean {
+  public isNavigable(wizard: WizardComponent, destinationIndex: number): boolean {
     return true;
   }
 }
@@ -78,7 +77,7 @@ describe('NavigationMode', () => {
     wizardTestFixture.detectChanges();
     const wizard = wizardTestFixture.componentInstance.wizard;
 
-    expect(wizard.model.navigationMode).toEqual(jasmine.any(CustomNavigationMode));
+    expect(wizard.navigation).toEqual(jasmine.any(CustomNavigationMode));
   });
 
   it('can be assigned with updateNavigationMode', () => {
@@ -88,7 +87,7 @@ describe('NavigationMode', () => {
 
     const navigationMode = new CustomNavigationMode();
     wizard.updateNavigationMode(navigationMode);
-    expect(wizard.model.navigationMode).toEqual(navigationMode);
+    expect(wizard.navigation).toEqual(navigationMode);
   });
 
   it('can be assigned with updateNavigationMode by name', () => {
@@ -97,6 +96,6 @@ describe('NavigationMode', () => {
     const wizard = wizardTestFixture.componentInstance.wizard;
 
     wizard.updateNavigationMode('free');
-    expect(wizard.model.navigationMode).toEqual(jasmine.any(FreeNavigationMode));
+    expect(wizard.navigation).toEqual(jasmine.any(FreeNavigationMode));
   });
 });
