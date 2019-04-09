@@ -1,5 +1,5 @@
 import {BaseNavigationMode} from './base-navigation-mode.interface';
-import {WizardState} from './wizard-state.model';
+import {WizardComponent} from '../components/wizard.component';
 
 /**
  * A [[NavigationMode]], which allows the user to navigate without any limitations,
@@ -12,7 +12,7 @@ export class FreeNavigationMode extends BaseNavigationMode {
   /**
    * @inheritdoc
    */
-  public isNavigable(wizardState: WizardState, destinationIndex: number): boolean {
+  public isNavigable(wizard: WizardComponent, destinationIndex: number): boolean {
     return true;
   }
 }

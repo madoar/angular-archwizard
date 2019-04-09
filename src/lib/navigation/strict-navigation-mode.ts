@@ -1,5 +1,5 @@
 import {BaseNavigationMode} from './base-navigation-mode.interface';
-import { WizardState } from './wizard-state.model';
+import {WizardComponent} from '../components/wizard.component';
 
 /**
  * A [[NavigationMode]], which allows the user to navigate with strict limitations.
@@ -13,47 +13,47 @@ export class StrictNavigationMode extends BaseNavigationMode {
   /**
    * @inheritDoc
    */
-  protected canTransitionToStep(wizardState: WizardState, destinationIndex: number): boolean {
+  protected canTransitionToStep(wizard: WizardComponent, destinationIndex: number): boolean {
     // navigation with [goToStep] is permitted if all previous steps to the destination step have been completed or are optional
-    return wizardState.wizardSteps
-        .filter((step, index) => index < destinationIndex && index !== wizardState.currentStepIndex)
+    return wizard.wizardSteps
+        .filter((step, index) => index < destinationIndex && index !== wizard.currentStepIndex)
         .every(step => step.completed || step.optional);
   }
 
   /**
    * @inheritDoc
    */
-  protected transition(wizardState: WizardState, destinationIndex: number): void {
+  protected transition(wizard: WizardComponent, destinationIndex: number): void {
     // set all steps after the destination step to incomplete
-    wizardState.wizardSteps
-      .filter((step, index) => wizardState.currentStepIndex > destinationIndex && index > destinationIndex)
+    wizard.wizardSteps
+      .filter((step, index) => wizard.currentStepIndex > destinationIndex && index > destinationIndex)
       .forEach(step => step.completed = false);
 
-    super.transition(wizardState, destinationIndex);
+    super.transition(wizard, destinationIndex);
   }
 
   /**
    * @inheritDoc
    */
-  public isNavigable(wizardState: WizardState, destinationIndex: number): boolean {
+  public isNavigable(wizard: WizardComponent, destinationIndex: number): boolean {
     // a wizard step can be navigated to through the navigation bar, iff it's located before the current wizard step
-    return destinationIndex < wizardState.currentStepIndex;
+    return destinationIndex < wizard.currentStepIndex;
   }
 
   /**
    * @inheritDoc
    */
-  protected checkReset(wizardState: WizardState): boolean {
-    if (!super.checkReset(wizardState)) {
+  protected checkReset(wizard: WizardComponent): boolean {
+    if (!super.checkReset(wizard)) {
       return false;
     }
 
     // at least one step is before the default step, that is not optional
-    const illegalDefaultStep = wizardState.wizardSteps
-      .filter((step, index) => index < wizardState.defaultStepIndex)
+    const illegalDefaultStep = wizard.wizardSteps
+      .filter((step, index) => index < wizard.defaultStepIndex)
       .some(step => !step.optional);
     if (illegalDefaultStep) {
-      throw new Error(`The default step index ${wizardState.defaultStepIndex} is located after a non optional step`);
+      throw new Error(`The default step index ${wizard.defaultStepIndex} is located after a non optional step`);
     }
 
     return true;

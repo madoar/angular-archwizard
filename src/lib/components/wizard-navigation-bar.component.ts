@@ -1,7 +1,7 @@
 import {Component, Input, ViewEncapsulation} from '@angular/core';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardState} from '../navigation/wizard-state.model';
 import {WizardStep} from '../util/wizard-step.interface';
+import {WizardComponent} from './wizard.component';
 
 /**
  * The `aw-wizard-navigation-bar` component contains the navigation bar inside a [[WizardComponent]].
@@ -33,16 +33,9 @@ export class WizardNavigationBarComponent {
   /**
    * Constructor
    *
-   * @param wizardState The state the wizard currently resides in
+   * @param wizard The state the wizard currently resides in
    */
-  constructor(public wizardState: WizardState) {
-  }
-
-  /**
-   * The navigation mode
-   */
-  public get navigationMode(): NavigationMode {
-    return this.wizardState.navigationMode;
+  constructor(public wizard: WizardComponent) {
   }
 
   /**
@@ -53,10 +46,10 @@ export class WizardNavigationBarComponent {
   get wizardSteps(): Array<WizardStep> {
     switch (this.direction) {
       case 'right-to-left':
-        return this.wizardState.wizardSteps.slice().reverse();
+        return this.wizard.wizardSteps.slice().reverse();
       case 'left-to-right':
       default:
-        return this.wizardState.wizardSteps;
+        return this.wizard.wizardSteps;
     }
   }
 
@@ -66,7 +59,7 @@ export class WizardNavigationBarComponent {
    * @returns The number of wizard steps to be displayed
    */
   get numberOfWizardSteps(): number {
-    return this.wizardState.wizardSteps.length;
+    return this.wizard.wizardSteps.length;
   }
 
   /**
@@ -106,7 +99,7 @@ export class WizardNavigationBarComponent {
    * @returns True if the step can be marked as `completed`
    */
   public isCompleted(wizardStep: WizardStep): boolean {
-    return this.wizardState.completed;
+    return this.wizard.completed;
   }
 
   /**
@@ -120,7 +113,7 @@ export class WizardNavigationBarComponent {
    * @returns True if the step can be marked as navigable
    */
   public isNavigable(wizardStep: WizardStep): boolean {
-    return !wizardStep.selected && !this.wizardState.disableNavigationBar &&
-      this.navigationMode.isNavigable(this.wizardState, this.wizardState.getIndexOfStep(wizardStep));
+    return !wizardStep.selected && !this.wizard.disableNavigationBar &&
+      this.wizard.isNavigable(this.wizard.getIndexOfStep(wizardStep));
   }
 }

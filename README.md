@@ -500,9 +500,6 @@ In such a case you can get the instance of the used wizard component in your own
 public wizard: WizardComponent;
 ```
 
-After obtaining a `WizardComponent` object, you can then obtain the `WizardState` instance of the wizard via `wizard.model` and
-the `NavigationMode` instance via `wizard.navigation`.
-
 ### Customizing the wizard stylesheets
 Sometimes you like to use your own custom CSS for some parts of the wizard like its navigation bar.
 This is quite easy to do.
