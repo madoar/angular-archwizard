@@ -71,22 +71,22 @@ describe('NextStepDirective', () => {
   });
 
   it('should move correctly to the next step', fakeAsync(() => {
-    const firstStepButton = wizardTestFixture.debugElement.query(
+    const firstStepButtonEl = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button[awNextStep]')).nativeElement;
-    const secondStepButton = wizardTestFixture.debugElement.query(
+    const secondStepButtonEl = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awNextStep]')).nativeElement;
 
     expect(wizard.currentStepIndex).toBe(0);
 
     // go to second step
-    firstStepButton.click();
+    firstStepButtonEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizard.currentStepIndex).toBe(1);
 
     // don't go to third step because it doesn't exist
-    secondStepButton.click();
+    secondStepButtonEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -94,13 +94,13 @@ describe('NextStepDirective', () => {
   }));
 
   it('should call finalize correctly when going the next step', fakeAsync(() => {
-    const firstStepButtons = wizardTestFixture.debugElement.queryAll(
+    const firstStepButtonEls = wizardTestFixture.debugElement.queryAll(
       By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button[awNextStep]'));
 
     expect(wizardTest.eventLog).toEqual([]);
 
     // go to second step
-    firstStepButtons[0].nativeElement.click();
+    firstStepButtonEls[0].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -108,13 +108,13 @@ describe('NextStepDirective', () => {
   }));
 
   it('should call postFinalize correctly when going the next step', fakeAsync(() => {
-    const firstStepButtons = wizardTestFixture.debugElement.queryAll(
+    const firstStepButtonEls = wizardTestFixture.debugElement.queryAll(
       By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button[awNextStep]'));
 
     expect(wizardTest.eventLog).toEqual([]);
 
     // go to second step
-    firstStepButtons[1].nativeElement.click();
+    firstStepButtonEls[1].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -122,7 +122,7 @@ describe('NextStepDirective', () => {
   }));
 
   it('shouldn\'t call finalize when going to an nonexistent step', fakeAsync(() => {
-    const secondStepButton = wizardTestFixture.debugElement.query(
+    const secondStepButtonEl = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awNextStep]')).nativeElement;
 
     wizard.goToStep(1);
@@ -132,7 +132,7 @@ describe('NextStepDirective', () => {
     expect(wizardTest.eventLog).toEqual([]);
 
     // don't go to third step because it doesn't exist
-    secondStepButton.click();
+    secondStepButtonEl.click();
     tick();
     wizardTestFixture.detectChanges();
 

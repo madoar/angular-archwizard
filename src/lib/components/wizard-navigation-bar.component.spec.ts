@@ -62,68 +62,68 @@ describe('WizardNavigationBarComponent', () => {
   });
 
   it('should show the initial step correctly', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
-    const allLi = navBar.queryAll(By.css('li'));
+    const allLiELs = navBarEl.queryAll(By.css('li'));
 
-    const currentLi = navBar.queryAll(By.css('li.current'));
-    const doneLi = navBar.queryAll(By.css('li.done'));
-    const completedLi = navBar.queryAll(By.css('li.completed'));
-    const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const navigableLi = navBar.queryAll(By.css('li.navigable'));
+    const currentLiEls = navBarEl.queryAll(By.css('li.current'));
+    const doneLiEls = navBarEl.queryAll(By.css('li.done'));
+    const completedLiEls = navBarEl.queryAll(By.css('li.completed'));
+    const optionalLiEls = navBarEl.queryAll(By.css('li.optional'));
+    const navigableLiEls = navBarEl.queryAll(By.css('li.navigable'));
 
     // the first step is the current step
-    expect(currentLi.length).toBe(1);
-    expect(currentLi[0]).toBe(allLi[0]);
+    expect(currentLiEls.length).toBe(1);
+    expect(currentLiEls[0]).toBe(allLiELs[0]);
 
     // no step is currently marked as done or completed
-    expect(doneLi.length).toBe(0);
-    expect(completedLi.length).toBe(0);
+    expect(doneLiEls.length).toBe(0);
+    expect(completedLiEls.length).toBe(0);
 
     // only the second step is marked as optional
-    expect(optionalLi.length).toBe(1);
-    expect(optionalLi[0]).toBe(allLi[1]);
+    expect(optionalLiEls.length).toBe(1);
+    expect(optionalLiEls[0]).toBe(allLiELs[1]);
 
-    expect(navigableLi.length).toBe(0);
+    expect(navigableLiEls.length).toBe(0);
   });
 
   it('should show the second step correctly', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to second step
     wizard.goToNextStep();
     tick();
     wizardTestFixture.detectChanges();
 
-    const allLi = navBar.queryAll(By.css('li'));
+    const allLiELs = navBarEl.queryAll(By.css('li'));
 
-    const currentLi = navBar.queryAll(By.css('li.current'));
-    const doneLi = navBar.queryAll(By.css('li.done'));
-    const completedLi = navBar.queryAll(By.css('li.completed'));
-    const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const navigableLi = navBar.queryAll(By.css('li.navigable'));
+    const currentLiEls = navBarEl.queryAll(By.css('li.current'));
+    const doneLiEls = navBarEl.queryAll(By.css('li.done'));
+    const completedLiEls = navBarEl.queryAll(By.css('li.completed'));
+    const optionalLiEls = navBarEl.queryAll(By.css('li.optional'));
+    const navigableLiEls = navBarEl.queryAll(By.css('li.navigable'));
 
     // the second step is the current step
-    expect(currentLi.length).toBe(1);
-    expect(currentLi[0]).toBe(allLi[1]);
+    expect(currentLiEls.length).toBe(1);
+    expect(currentLiEls[0]).toBe(allLiELs[1]);
 
     // the first step should be marked as done
-    expect(doneLi.length).toBe(1);
-    expect(doneLi[0]).toBe(allLi[0]);
+    expect(doneLiEls.length).toBe(1);
+    expect(doneLiEls[0]).toBe(allLiELs[0]);
 
     // no step is marked as completed
-    expect(completedLi.length).toBe(0);
+    expect(completedLiEls.length).toBe(0);
 
     // the second step should still be marked as optional, even when it is selected
-    expect(optionalLi.length).toBe(1);
-    expect(optionalLi[0]).toBe(allLi[1]);
+    expect(optionalLiEls.length).toBe(1);
+    expect(optionalLiEls[0]).toBe(allLiELs[1]);
 
-    expect(navigableLi.length).toBe(1);
-    expect(navigableLi[0]).toBe(allLi[0]);
+    expect(navigableLiEls.length).toBe(1);
+    expect(navigableLiEls[0]).toBe(allLiELs[0]);
   }));
 
   it('should show the third step correctly', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to second step
     wizard.goToNextStep();
@@ -135,73 +135,73 @@ describe('WizardNavigationBarComponent', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    const allLi = navBar.queryAll(By.css('li'));
+    const allLiELs = navBarEl.queryAll(By.css('li'));
 
-    const currentLi = navBar.queryAll(By.css('li.current'));
-    const doneLi = navBar.queryAll(By.css('li.done'));
-    const completedLi = navBar.queryAll(By.css('li.completed'));
-    const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const navigableLi = navBar.queryAll(By.css('li.navigable'));
+    const currentLiEls = navBarEl.queryAll(By.css('li.current'));
+    const doneLiEls = navBarEl.queryAll(By.css('li.done'));
+    const completedLiEls = navBarEl.queryAll(By.css('li.completed'));
+    const optionalLiEls = navBarEl.queryAll(By.css('li.optional'));
+    const navigableLiEls = navBarEl.queryAll(By.css('li.navigable'));
 
     // the third step is the current step
-    expect(currentLi.length).toBe(1);
-    expect(currentLi[0]).toBe(allLi[2]);
+    expect(currentLiEls.length).toBe(1);
+    expect(currentLiEls[0]).toBe(allLiELs[2]);
 
     // the first and second step should be marked as done
-    expect(doneLi.length).toBe(2);
-    expect(doneLi[0]).toBe(allLi[0]);
-    expect(doneLi[1]).toBe(allLi[1]);
+    expect(doneLiEls.length).toBe(2);
+    expect(doneLiEls[0]).toBe(allLiELs[0]);
+    expect(doneLiEls[1]).toBe(allLiELs[1]);
 
     // no step is marked as completed
-    expect(completedLi.length).toBe(0);
+    expect(completedLiEls.length).toBe(0);
 
     // the second step should still be marked as optional, even when it is also marked as "done"
-    expect(optionalLi.length).toBe(1);
-    expect(optionalLi[0]).toBe(allLi[1]);
+    expect(optionalLiEls.length).toBe(1);
+    expect(optionalLiEls[0]).toBe(allLiELs[1]);
 
-    expect(navigableLi.length).toBe(2);
-    expect(navigableLi[0]).toBe(allLi[0]);
-    expect(navigableLi[1]).toBe(allLi[1]);
+    expect(navigableLiEls.length).toBe(2);
+    expect(navigableLiEls[0]).toBe(allLiELs[0]);
+    expect(navigableLiEls[1]).toBe(allLiELs[1]);
   }));
 
   it('should show the third step correctly, after jump from first to third step', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to third step and jump over the optional second step
     wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
-    const allLi = navBar.queryAll(By.css('li'));
+    const allLiELs = navBarEl.queryAll(By.css('li'));
 
-    const currentLi = navBar.queryAll(By.css('li.current'));
-    const doneLi = navBar.queryAll(By.css('li.done'));
-    const completedLi = navBar.queryAll(By.css('li.completed'));
-    const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const navigableLi = navBar.queryAll(By.css('li.navigable'));
+    const currentLiEls = navBarEl.queryAll(By.css('li.current'));
+    const doneLiEls = navBarEl.queryAll(By.css('li.done'));
+    const completedLiEls = navBarEl.queryAll(By.css('li.completed'));
+    const optionalLiEls = navBarEl.queryAll(By.css('li.optional'));
+    const navigableLiEls = navBarEl.queryAll(By.css('li.navigable'));
 
     // the third step is the current step
-    expect(currentLi.length).toBe(1);
-    expect(currentLi[0]).toBe(allLi[2]);
+    expect(currentLiEls.length).toBe(1);
+    expect(currentLiEls[0]).toBe(allLiELs[2]);
 
     // the first step should be marked as done
-    expect(doneLi.length).toBe(1);
-    expect(doneLi[0]).toBe(allLi[0]);
+    expect(doneLiEls.length).toBe(1);
+    expect(doneLiEls[0]).toBe(allLiELs[0]);
 
     // no step is marked as completed
-    expect(completedLi.length).toBe(0);
+    expect(completedLiEls.length).toBe(0);
 
     // the second step is still marked as optional
-    expect(optionalLi.length).toBe(1);
-    expect(optionalLi[0]).toBe(allLi[1]);
+    expect(optionalLiEls.length).toBe(1);
+    expect(optionalLiEls[0]).toBe(allLiELs[1]);
 
-    expect(navigableLi.length).toBe(2);
-    expect(navigableLi[0]).toBe(allLi[0]);
-    expect(navigableLi[1]).toBe(allLi[1]);
+    expect(navigableLiEls.length).toBe(2);
+    expect(navigableLiEls[0]).toBe(allLiELs[0]);
+    expect(navigableLiEls[1]).toBe(allLiELs[1]);
   }));
 
   it('should show the first step correctly, after going back from the second step to the first step', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to second step
     wizard.goToNextStep();
@@ -213,35 +213,35 @@ describe('WizardNavigationBarComponent', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    const allLi = navBar.queryAll(By.css('li'));
+    const allLiELs = navBarEl.queryAll(By.css('li'));
 
-    const currentLi = navBar.queryAll(By.css('li.current'));
-    const doneLi = navBar.queryAll(By.css('li.done'));
-    const completedLi = navBar.queryAll(By.css('li.completed'));
-    const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const navigableLi = navBar.queryAll(By.css('li.navigable'));
+    const currentLiEls = navBarEl.queryAll(By.css('li.current'));
+    const doneLiEls = navBarEl.queryAll(By.css('li.done'));
+    const completedLiEls = navBarEl.queryAll(By.css('li.completed'));
+    const optionalLiEls = navBarEl.queryAll(By.css('li.optional'));
+    const navigableLiEls = navBarEl.queryAll(By.css('li.navigable'));
 
     // the first step is the current step
-    expect(currentLi.length).toBe(1);
-    expect(currentLi[0]).toBe(allLi[0]);
+    expect(currentLiEls.length).toBe(1);
+    expect(currentLiEls[0]).toBe(allLiELs[0]);
 
     // the first step should still be marked as "done"
-    expect(doneLi.length).toBe(1);
-    expect(doneLi[0]).toBe(allLi[0]);
+    expect(doneLiEls.length).toBe(1);
+    expect(doneLiEls[0]).toBe(allLiELs[0]);
 
     // no step is marked as completed
-    expect(completedLi.length).toBe(0);
+    expect(completedLiEls.length).toBe(0);
 
     // the second step is marked as optional
-    expect(optionalLi.length).toBe(1);
-    expect(optionalLi[0]).toBe(allLi[1]);
+    expect(optionalLiEls.length).toBe(1);
+    expect(optionalLiEls[0]).toBe(allLiELs[1]);
 
-    expect(navigableLi.length).toBe(0);
+    expect(navigableLiEls.length).toBe(0);
   }));
 
   it('should show the first step correctly, after first jumping from the first to the third step ' +
     'and then back from the third step to the first step', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step
     wizard.goToStep(2);
@@ -253,35 +253,35 @@ describe('WizardNavigationBarComponent', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    const allLi = navBar.queryAll(By.css('li'));
+    const allLiELs = navBarEl.queryAll(By.css('li'));
 
-    const currentLi = navBar.queryAll(By.css('li.current'));
-    const doneLi = navBar.queryAll(By.css('li.done'));
-    const completedLi = navBar.queryAll(By.css('li.completed'));
-    const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const navigableLi = navBar.queryAll(By.css('li.navigable'));
+    const currentLiEls = navBarEl.queryAll(By.css('li.current'));
+    const doneLiEls = navBarEl.queryAll(By.css('li.done'));
+    const completedLiEls = navBarEl.queryAll(By.css('li.completed'));
+    const optionalLiEls = navBarEl.queryAll(By.css('li.optional'));
+    const navigableLiEls = navBarEl.queryAll(By.css('li.navigable'));
 
     // the first step is the current step
-    expect(currentLi.length).toBe(1);
-    expect(currentLi[0]).toBe(allLi[0]);
+    expect(currentLiEls.length).toBe(1);
+    expect(currentLiEls[0]).toBe(allLiELs[0]);
 
     // the first step should still be marked as "done"
-    expect(doneLi.length).toBe(1);
-    expect(doneLi[0]).toBe(allLi[0]);
+    expect(doneLiEls.length).toBe(1);
+    expect(doneLiEls[0]).toBe(allLiELs[0]);
 
     // no step is marked as completed
-    expect(completedLi.length).toBe(0);
+    expect(completedLiEls.length).toBe(0);
 
     // the second step is marked as optional
-    expect(optionalLi.length).toBe(1);
-    expect(optionalLi[0]).toBe(allLi[1]);
+    expect(optionalLiEls.length).toBe(1);
+    expect(optionalLiEls[0]).toBe(allLiELs[1]);
 
-    expect(navigableLi.length).toBe(0);
+    expect(navigableLiEls.length).toBe(0);
   }));
 
   it('should show the second step correctly, after first jumping from the first to the third step ' +
     'and then back from the third step to the second step', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step
     wizard.goToStep(2);
@@ -293,35 +293,35 @@ describe('WizardNavigationBarComponent', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    const allLi = navBar.queryAll(By.css('li'));
+    const allLiELs = navBarEl.queryAll(By.css('li'));
 
-    const currentLi = navBar.queryAll(By.css('li.current'));
-    const doneLi = navBar.queryAll(By.css('li.done'));
-    const completedLi = navBar.queryAll(By.css('li.completed'));
-    const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const navigableLi = navBar.queryAll(By.css('li.navigable'));
+    const currentLiEls = navBarEl.queryAll(By.css('li.current'));
+    const doneLiEls = navBarEl.queryAll(By.css('li.done'));
+    const completedLiEls = navBarEl.queryAll(By.css('li.completed'));
+    const optionalLiEls = navBarEl.queryAll(By.css('li.optional'));
+    const navigableLiEls = navBarEl.queryAll(By.css('li.navigable'));
 
     // the second step is the current step
-    expect(currentLi.length).toBe(1);
-    expect(currentLi[0]).toBe(allLi[1]);
+    expect(currentLiEls.length).toBe(1);
+    expect(currentLiEls[0]).toBe(allLiELs[1]);
 
     // the first step should be marked as done
-    expect(doneLi.length).toBe(1);
-    expect(doneLi[0]).toBe(allLi[0]);
+    expect(doneLiEls.length).toBe(1);
+    expect(doneLiEls[0]).toBe(allLiELs[0]);
 
     // no step is marked as completed
-    expect(completedLi.length).toBe(0);
+    expect(completedLiEls.length).toBe(0);
 
     // the second step should still be marked as optional, even when it is selected
-    expect(optionalLi.length).toBe(1);
-    expect(optionalLi[0]).toBe(allLi[1]);
+    expect(optionalLiEls.length).toBe(1);
+    expect(optionalLiEls[0]).toBe(allLiELs[1]);
 
-    expect(navigableLi.length).toBe(1);
-    expect(navigableLi[0]).toBe(allLi[0]);
+    expect(navigableLiEls.length).toBe(1);
+    expect(navigableLiEls[0]).toBe(allLiELs[0]);
   }));
 
   it('should mark all steps completed after visiting the completion step', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step
     wizard.goToStep(2);
@@ -333,14 +333,14 @@ describe('WizardNavigationBarComponent', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    const allLi = navBar.queryAll(By.css('li'));
-    const completedLi = navBar.queryAll(By.css('li.completed'));
+    const allLiELs = navBarEl.queryAll(By.css('li'));
+    const completedLiEls = navBarEl.queryAll(By.css('li.completed'));
 
-    expect(completedLi.length).toBe(allLi.length);
+    expect(completedLiEls.length).toBe(allLiELs.length);
   }));
 
   it('should disable navigation through the navigation bar correctly', fakeAsync(() => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     wizard.disableNavigationBar = true;
 
@@ -349,34 +349,34 @@ describe('WizardNavigationBarComponent', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    const allLi = navBar.queryAll(By.css('li'));
+    const allLiELs = navBarEl.queryAll(By.css('li'));
 
-    const currentLi = navBar.queryAll(By.css('li.current'));
-    const doneLi = navBar.queryAll(By.css('li.done'));
-    const completedLi = navBar.queryAll(By.css('li.completed'));
-    const optionalLi = navBar.queryAll(By.css('li.optional'));
-    const navigableLi = navBar.queryAll(By.css('li.navigable'));
+    const currentLiEls = navBarEl.queryAll(By.css('li.current'));
+    const doneLiEls = navBarEl.queryAll(By.css('li.done'));
+    const completedLiEls = navBarEl.queryAll(By.css('li.completed'));
+    const optionalLiEls = navBarEl.queryAll(By.css('li.optional'));
+    const navigableLiEls = navBarEl.queryAll(By.css('li.navigable'));
 
     // the third step is the current step
-    expect(currentLi.length).toBe(1);
-    expect(currentLi[0]).toBe(allLi[2]);
+    expect(currentLiEls.length).toBe(1);
+    expect(currentLiEls[0]).toBe(allLiELs[2]);
 
     // the first step should be marked as done
-    expect(doneLi.length).toBe(1);
-    expect(doneLi[0]).toBe(allLi[0]);
+    expect(doneLiEls.length).toBe(1);
+    expect(doneLiEls[0]).toBe(allLiELs[0]);
 
     // no step is marked as completed
-    expect(completedLi.length).toBe(0);
+    expect(completedLiEls.length).toBe(0);
 
     // the second step is marked as optional
-    expect(optionalLi.length).toBe(1);
-    expect(optionalLi[0]).toBe(allLi[1]);
+    expect(optionalLiEls.length).toBe(1);
+    expect(optionalLiEls[0]).toBe(allLiELs[1]);
 
-    expect(navigableLi.length).toBe(0);
+    expect(navigableLiEls.length).toBe(0);
   }));
 
   it('should move back to the first step from the second step, after clicking on the corresponding link', fakeAsync(() => {
-    const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1) a')).nativeElement;
+    const goToFirstStepLinkEl = wizardTestFixture.debugElement.query(By.css('li:nth-child(1) a')).nativeElement;
 
     expect(wizard.currentStepIndex).toBe(0);
 
@@ -388,7 +388,7 @@ describe('WizardNavigationBarComponent', () => {
     expect(wizard.currentStepIndex).toBe(1);
 
     // go back to the first step
-    goToFirstStepLink.click();
+    goToFirstStepLinkEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -396,7 +396,7 @@ describe('WizardNavigationBarComponent', () => {
   }));
 
   it('should move back to the first step from the third step, after clicking on the corresponding link', fakeAsync(() => {
-    const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1) a')).nativeElement;
+    const goToFirstStepLinkEl = wizardTestFixture.debugElement.query(By.css('li:nth-child(1) a')).nativeElement;
 
     expect(wizard.currentStepIndex).toBe(0);
 
@@ -408,7 +408,7 @@ describe('WizardNavigationBarComponent', () => {
     expect(wizard.currentStepIndex).toBe(2);
 
     // go back to the first step
-    goToFirstStepLink.click();
+    goToFirstStepLinkEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -416,7 +416,7 @@ describe('WizardNavigationBarComponent', () => {
   }));
 
   it('should move back to the second step from the third step, after clicking on the corresponding link', fakeAsync(() => {
-    const goToSecondStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(2) a')).nativeElement;
+    const goToSecondStepLinkEl = wizardTestFixture.debugElement.query(By.css('li:nth-child(2) a')).nativeElement;
 
     expect(wizard.currentStepIndex).toBe(0);
 
@@ -428,7 +428,7 @@ describe('WizardNavigationBarComponent', () => {
     expect(wizard.currentStepIndex).toBe(2);
 
     // go back to the first step
-    goToSecondStepLink.click();
+    goToSecondStepLinkEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -436,129 +436,129 @@ describe('WizardNavigationBarComponent', () => {
   }));
 
   it('should not move to the second step from the first step, after clicking on the corresponding link', () => {
-    const goToFirstStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(1)'));
-    const goToSecondStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(2)'));
-    const goToThirdStepLink = wizardTestFixture.debugElement.query(By.css('li:nth-child(3)'));
+    const goToFirstStepLinkEl = wizardTestFixture.debugElement.query(By.css('li:nth-child(1)'));
+    const goToSecondStepLinkEl = wizardTestFixture.debugElement.query(By.css('li:nth-child(2)'));
+    const goToThirdStepLinkEl = wizardTestFixture.debugElement.query(By.css('li:nth-child(3)'));
 
     expect(wizard.currentStepIndex).toBe(0);
     // links contain a class that is not clickable (contains "pointer-events: none;")
-    expect(goToFirstStepLink.classes['navigable']).toBeFalsy('First step label is clickable');
-    expect(goToSecondStepLink.classes['navigable']).toBeFalsy('Second step label is clickable');
-    expect(goToThirdStepLink.classes['navigable']).toBeFalsy('Third step label is clickable');
+    expect(goToFirstStepLinkEl.classes['navigable']).toBeFalsy('First step label is clickable');
+    expect(goToSecondStepLinkEl.classes['navigable']).toBeFalsy('Second step label is clickable');
+    expect(goToThirdStepLinkEl.classes['navigable']).toBeFalsy('Third step label is clickable');
   });
 
   it('should use the \"small\" layout when no navigation bar layout is specified', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
-    expect(navBar.classes).toEqual({
+    expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
   });
 
   it('should use the \"small\" layout when it is specified', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     wizardTest.wizard.navBarLayout = 'small';
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({
+    expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
   });
 
   it('should use the \"large-filled\" layout when it is specified', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     wizardTest.wizard.navBarLayout = 'large-filled';
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({
+    expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': false,
       'large-filled': true, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
   });
 
   it('should use the \"large-empty\" layout when it is specified', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     wizardTest.wizard.navBarLayout = 'large-empty';
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({
+    expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': false,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': true, 'large-empty-symbols': false
     });
   });
 
   it('should use the \"large-filled-symbols\" layout when it is specified', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     wizardTest.wizard.navBarLayout = 'large-filled-symbols';
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({
+    expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': false,
       'large-filled': false, 'large-filled-symbols': true, 'large-empty': false, 'large-empty-symbols': false
     });
   });
 
   it('should use the \"large-empty-symbols\" layout when it is specified', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     wizardTest.wizard.navBarLayout = 'large-empty-symbols';
     wizardTestFixture.detectChanges();
 
-    expect(navBar.classes).toEqual({
+    expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': false,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': true
     });
   });
 
   it('should show the correct step titles', () => {
-    const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
+    const navigationLinkEls = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
-    expect(navigationLinks.length).toBe(4);
-    expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 1');
-    expect(navigationLinks[1].nativeElement.innerText).toBe('STEPTITLE 2');
-    expect(navigationLinks[2].nativeElement.innerText).toBe('STEPTITLE 3');
-    expect(navigationLinks[3].nativeElement.innerText).toBe('STEPTITLE 4');
+    expect(navigationLinkEls.length).toBe(4);
+    expect(navigationLinkEls[0].nativeElement.innerText).toBe('STEPTITLE 1');
+    expect(navigationLinkEls[1].nativeElement.innerText).toBe('STEPTITLE 2');
+    expect(navigationLinkEls[2].nativeElement.innerText).toBe('STEPTITLE 3');
+    expect(navigationLinkEls[3].nativeElement.innerText).toBe('STEPTITLE 4');
   });
 
   it('should show the correct reversed step titles', () => {
     wizardTest.wizard.navBarDirection = 'right-to-left';
     wizardTestFixture.detectChanges();
 
-    const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
+    const navigationLinkEls = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
-    expect(navigationLinks.length).toBe(4);
-    expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 4');
-    expect(navigationLinks[1].nativeElement.innerText).toBe('STEPTITLE 3');
-    expect(navigationLinks[2].nativeElement.innerText).toBe('STEPTITLE 2');
-    expect(navigationLinks[3].nativeElement.innerText).toBe('STEPTITLE 1');
+    expect(navigationLinkEls.length).toBe(4);
+    expect(navigationLinkEls[0].nativeElement.innerText).toBe('STEPTITLE 4');
+    expect(navigationLinkEls[1].nativeElement.innerText).toBe('STEPTITLE 3');
+    expect(navigationLinkEls[2].nativeElement.innerText).toBe('STEPTITLE 2');
+    expect(navigationLinkEls[3].nativeElement.innerText).toBe('STEPTITLE 1');
   });
 
   it('should have the correct stepId', () => {
-    const navigationLiElements = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li'));
+    const navigationLiEls = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li'));
 
-    expect(navigationLiElements.length).toBe(4);
-    expect(navigationLiElements[0].nativeElement.id).toBe('step1');
-    expect(navigationLiElements[1].nativeElement.id).toBe('');
-    expect(navigationLiElements[2].nativeElement.id).toBe('');
-    expect(navigationLiElements[3].nativeElement.id).toBe('');
+    expect(navigationLiEls.length).toBe(4);
+    expect(navigationLiEls[0].nativeElement.id).toBe('step1');
+    expect(navigationLiEls[1].nativeElement.id).toBe('');
+    expect(navigationLiEls[2].nativeElement.id).toBe('');
+    expect(navigationLiEls[3].nativeElement.id).toBe('');
   });
 
   it('should change the stepId correctly', () => {
     wizardTest.firstStepId = null;
     wizardTestFixture.detectChanges();
 
-    const navigationLiElements = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li'));
+    const navigationLiEls = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li'));
 
-    expect(navigationLiElements.length).toBe(4);
-    expect(navigationLiElements[0].nativeElement.id).toBe('');
-    expect(navigationLiElements[1].nativeElement.id).toBe('');
-    expect(navigationLiElements[2].nativeElement.id).toBe('');
-    expect(navigationLiElements[3].nativeElement.id).toBe('');
+    expect(navigationLiEls.length).toBe(4);
+    expect(navigationLiEls[0].nativeElement.id).toBe('');
+    expect(navigationLiEls[1].nativeElement.id).toBe('');
+    expect(navigationLiEls[2].nativeElement.id).toBe('');
+    expect(navigationLiEls[3].nativeElement.id).toBe('');
   });
 });

@@ -80,7 +80,7 @@ describe('StepIndex', () => {
   });
 
   it('should move to an earlier step correctly', fakeAsync(() => {
-    const firstStepGoToButton = wizardTestFixture.debugElement.query(
+    const firstStepGoToButtonEl = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 3"] > button')).nativeElement;
 
     const wizardSteps = wizard.wizardSteps;
@@ -95,7 +95,7 @@ describe('StepIndex', () => {
     expect(wizardSteps[2].selected).toBe(true);
 
     // click button
-    firstStepGoToButton.click();
+    firstStepGoToButtonEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -106,7 +106,7 @@ describe('StepIndex', () => {
   }));
 
   it('should move to a later step correctly', fakeAsync(() => {
-    const firstStepGoToButton = wizardTestFixture.debugElement.query(
+    const firstStepGoToButtonEl = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button')).nativeElement;
 
     const wizardSteps = wizard.wizardSteps;
@@ -117,7 +117,7 @@ describe('StepIndex', () => {
     expect(wizardSteps[2].selected).toBe(false);
 
     // click button
-    firstStepGoToButton.click();
+    firstStepGoToButtonEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -128,7 +128,7 @@ describe('StepIndex', () => {
   }));
 
   it('should stay at current step correctly', fakeAsync(() => {
-    const firstStepGoToButton = wizardTestFixture.debugElement.query(
+    const firstStepGoToButtonEl = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button')).nativeElement;
 
     const wizardSteps = wizard.wizardSteps;
@@ -143,7 +143,7 @@ describe('StepIndex', () => {
     expect(wizardSteps[2].selected).toBe(false);
 
     // click button
-    firstStepGoToButton.click();
+    firstStepGoToButtonEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -154,16 +154,16 @@ describe('StepIndex', () => {
   }));
 
   it('should return correct destination step for correct targetStep values', fakeAsync(() => {
-    const firstGoToAttribute = wizardTestFixture.debugElement
+    const firstGoToAttributeEl = wizardTestFixture.debugElement
       .query(By.css('aw-wizard-step[stepTitle="Steptitle 1"]'))
       .query(By.directive(GoToStepDirective)).injector.get(GoToStepDirective) as GoToStepDirective;
 
-    const secondGoToAttribute = wizardTestFixture.debugElement
+    const secondGoToAttributeEl = wizardTestFixture.debugElement
       .query(By.css('aw-wizard-step[stepTitle="Steptitle 3"]'))
       .query(By.directive(GoToStepDirective)).injector.get(GoToStepDirective) as GoToStepDirective;
 
-    expect(firstGoToAttribute.destinationStep).toBe(2);
-    expect(secondGoToAttribute.destinationStep).toBe(0);
+    expect(firstGoToAttributeEl.destinationStep).toBe(2);
+    expect(secondGoToAttributeEl.destinationStep).toBe(0);
   }));
 
   it('should not leave current step if the destination step can not be entered', fakeAsync(() => {
@@ -172,11 +172,11 @@ describe('StepIndex', () => {
     wizardTest.canExit = false;
     wizardTestFixture.detectChanges();
 
-    const secondGoToAttribute = wizardTestFixture.debugElement
+    const secondGoToAttributeEl = wizardTestFixture.debugElement
       .query(By.css('aw-wizard-navigation-bar'))
       .query(By.directive(GoToStepDirective)).nativeElement;
 
-    secondGoToAttribute.click();
+    secondGoToAttributeEl.click();
     tick();
     wizardTestFixture.detectChanges();
 

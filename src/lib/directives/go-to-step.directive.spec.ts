@@ -91,11 +91,11 @@ describe('GoToStepDirective', () => {
   });
 
   it('should throw an error when using an invalid targetStep value', fakeAsync(() => {
-    const invalidGoToAttribute = wizardTestFixture.debugElement
+    const invalidGoToAttributeEl = wizardTestFixture.debugElement
       .query(By.css('aw-wizard-step[stepTitle="Steptitle 2"]'))
       .queryAll(By.directive(GoToStepDirective))[1].injector.get(GoToStepDirective) as GoToStepDirective;
 
-    expect(() => invalidGoToAttribute.destinationStep)
+    expect(() => invalidGoToAttributeEl.destinationStep)
       .toThrow(new Error(`Input 'targetStep' is neither a WizardStep, StepOffset, StepIndex or StepId`));
   }));
 });

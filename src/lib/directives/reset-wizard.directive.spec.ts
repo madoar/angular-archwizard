@@ -64,7 +64,7 @@ describe('ResetWizardDirective', () => {
   });
 
   it('should reset the wizard correctly without finalize input', fakeAsync(() => {
-    const resetButtons = wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective));
+    const resetButtonEls = wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective));
 
     wizard.goToStep(1);
     tick();
@@ -76,7 +76,7 @@ describe('ResetWizardDirective', () => {
     expect(wizard.getStepAtIndex(1).completed).toBe(false);
     expect(wizardTest.eventLog).toEqual([]);
 
-    resetButtons[0].nativeElement.click();
+    resetButtonEls[0].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -88,7 +88,7 @@ describe('ResetWizardDirective', () => {
   }));
 
   it('should reset the wizard correctly with finalize input', fakeAsync(() => {
-    const resetButtons = wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective));
+    const resetButtonEls = wizardTestFixture.debugElement.queryAll(By.directive(ResetWizardDirective));
 
     wizard.goToStep(1);
     tick();
@@ -100,7 +100,7 @@ describe('ResetWizardDirective', () => {
     expect(wizard.getStepAtIndex(1).completed).toBe(false);
     expect(wizardTest.eventLog).toEqual([]);
 
-    resetButtons[1].nativeElement.click();
+    resetButtonEls[1].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
