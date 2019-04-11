@@ -500,6 +500,17 @@ In such a case you can get the instance of the used wizard component in your own
 public wizard: WizardComponent;
 ```
 
+### Navigating the wizard programmatically
+
+In addition to letting the user navigate the wizard with `awNextStep`, `awPreviousStep` and `awGoToStep` directives,
+you can trigger navigation programmatically.  Use navigation methods exposed by the `WizardComponent` class:
+
+```typescript
+wizard.goToNextStep();
+wizard.goToPreviousStep();
+wizard.goToStep(desinationIndex);
+```
+
 ### Customizing the wizard stylesheets
 Sometimes you like to use your own custom CSS for some parts of the wizard like its navigation bar.
 This is quite easy to do.
