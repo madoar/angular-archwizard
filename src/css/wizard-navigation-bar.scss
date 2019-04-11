@@ -92,7 +92,7 @@ $wz-param-indicator-color: null !global;
 // The content block is invoked several times, each time with different arguments passed through global variables:
 //
 //   - $wz-param-indicator-state - indicator state: 'default' or 'hover'
-//   - $wz-param-indicator-color - base color for one of possible indicator states (default, current, done etc.)
+//   - $wz-param-indicator-color - base color for one of possible wizard step states (default, current, done etc.)
 //
 // In addition to these variables, the content block can use the following
 // variables passed through the `define-style` mixin:
@@ -201,46 +201,6 @@ $wz-param-indicator-color: null !global;
 }
 
 
-// Define navigation bar layout
-//
-// Arguments:
-//   $layout - 'horizontal' | 'vertical'
-//
-@mixin wz-define-layout($layout) {
-  aw-wizard-navigation-bar.#{$layout} {
-
-    &.small ul.steps-indicator {
-      @include wz-define-style($layout, $width: $wz-small-dot-width, $height: $wz-small-dot-height, $border-width: 0) {
-        @include wz-state-circle-with-background($wz-param-indicator-color);
-      }
-    }
-
-    &.large-filled ul.steps-indicator {
-      @include wz-define-style($layout, $border-width: 0) {
-        @include wz-state-circle-with-background($wz-param-indicator-color);
-      }
-    }
-
-    &.large-empty ul.steps-indicator {
-      @include wz-define-style($layout) {
-        @include wz-state-circle-with-border($wz-param-indicator-color);
-      }
-    }
-
-    &.large-filled-symbols ul.steps-indicator {
-      @include wz-define-style($layout, $border-width: 0) {
-        @include wz-state-circle-with-background-and-content($wz-param-indicator-color);
-      }
-    }
-
-    &.large-empty-symbols ul.steps-indicator {
-      @include wz-define-style($layout) {
-        @include wz-state-circle-with-border-and-content($wz-param-indicator-color);
-      }
-    }
-  }
-}
-
 aw-wizard-navigation-bar {
 
   ul.steps-indicator {
@@ -280,9 +240,6 @@ aw-wizard-navigation-bar {
     }
   }
 }
-
-@include wz-define-layout('horizontal');
-@include wz-define-layout('vertical');
 
 aw-wizard-navigation-bar.horizontal {
 
@@ -388,6 +345,42 @@ aw-wizard-navigation-bar.vertical {
           margin-left: $wz-text-margin-left;
           text-align: left;
         }
+      }
+    }
+  }
+}
+
+// Define indicator styles for both layouts
+@each $layout in 'horizontal', 'vertical' {
+  aw-wizard-navigation-bar.#{$layout} {
+
+    &.small ul.steps-indicator {
+      @include wz-define-style($layout, $width: $wz-small-dot-width, $height: $wz-small-dot-height, $border-width: 0) {
+        @include wz-state-circle-with-background($wz-param-indicator-color);
+      }
+    }
+
+    &.large-filled ul.steps-indicator {
+      @include wz-define-style($layout, $border-width: 0) {
+        @include wz-state-circle-with-background($wz-param-indicator-color);
+      }
+    }
+
+    &.large-empty ul.steps-indicator {
+      @include wz-define-style($layout) {
+        @include wz-state-circle-with-border($wz-param-indicator-color);
+      }
+    }
+
+    &.large-filled-symbols ul.steps-indicator {
+      @include wz-define-style($layout, $border-width: 0) {
+        @include wz-state-circle-with-background-and-content($wz-param-indicator-color);
+      }
+    }
+
+    &.large-empty-symbols ul.steps-indicator {
+      @include wz-define-style($layout) {
+        @include wz-state-circle-with-border-and-content($wz-param-indicator-color);
       }
     }
   }
