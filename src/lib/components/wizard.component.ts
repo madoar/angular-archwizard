@@ -129,26 +129,18 @@ export class WizardComponent implements AfterContentInit, OnChanges {
   private _defaultStepIndex = 0;
 
   /**
-   * The WizardStep object belonging to the currently visible and selected step.
-   * The currentStep is always the currently selected wizard step.
-   * The currentStep can be either completed, if it was visited earlier,
-   * or not completed, if it is visited for the first time or its state is currently out of date.
-   *
-   * If this wizard contains no steps, currentStep is null
-   */
-  public get currentStep(): WizardStep {
-    if (this.hasStep(this.currentStepIndex)) {
-      return this.wizardSteps[this.currentStepIndex];
-    } else {
-      return null;
-    }
-  }
-
-  /**
    * True, if the navigation bar shouldn't be used for navigating
    */
   @Input()
   public disableNavigationBar = false;
+
+  /**
+   * The navigation mode used to navigate inside the wizard
+   */
+  public get navigation(): NavigationMode {
+    return this._navigation;
+  }
+  private _navigation: NavigationMode;
 
   /**
    * An array representation of all wizard steps belonging to this model
@@ -168,12 +160,28 @@ export class WizardComponent implements AfterContentInit, OnChanges {
   public currentStepIndex = -1;
 
   /**
-   * The navigation mode used to navigate inside the wizard
+   * The WizardStep object belonging to the currently visible and selected step.
+   * The currentStep is always the currently selected wizard step.
+   * The currentStep can be either completed, if it was visited earlier,
+   * or not completed, if it is visited for the first time or its state is currently out of date.
+   *
+   * If this wizard contains no steps, currentStep is null
    */
-  public get navigation(): NavigationMode {
-    return this._navigation;
+  public get currentStep(): WizardStep {
+    if (this.hasStep(this.currentStepIndex)) {
+      return this.wizardSteps[this.currentStepIndex];
+    } else {
+      return null;
+    }
   }
-  private _navigation: NavigationMode;
+
+  /**
+   * The completeness of the wizard.
+   * If the wizard has been completed, i.e. all steps are either completed or optional, this value is true, otherwise it is false
+   */
+  public get completed(): boolean {
+    return this.wizardSteps.every(step => step.completed || step.optional);
+  }
 
   /**
    * Constructor
@@ -264,14 +272,6 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    */
   public updateNavigationMode(navigationMode: NavigationModeInput) {
     this._navigation = this.navigationModeFactory.create(this, navigationMode);
-  }
-
-  /**
-   * The completeness of the wizard.
-   * If the wizard has been completed, i.e. all steps are either completed or optional, this value is true, otherwise it is false
-   */
-  public get completed(): boolean {
-    return this.wizardSteps.every(step => step.completed || step.optional);
   }
 
   /**
