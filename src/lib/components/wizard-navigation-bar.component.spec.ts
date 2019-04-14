@@ -524,10 +524,10 @@ describe('WizardNavigationBarComponent', () => {
     const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
     expect(navigationLinks.length).toBe(4);
-    expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 1');
-    expect(navigationLinks[1].nativeElement.innerText).toBe('STEPTITLE 2');
-    expect(navigationLinks[2].nativeElement.innerText).toBe('STEPTITLE 3');
-    expect(navigationLinks[3].nativeElement.innerText).toBe('STEPTITLE 4');
+    expect(navigationLinks[0].nativeElement.textContent.trim()).toBe('Steptitle 1');
+    expect(navigationLinks[1].nativeElement.textContent.trim()).toBe('Steptitle 2');
+    expect(navigationLinks[2].nativeElement.textContent.trim()).toBe('Steptitle 3');
+    expect(navigationLinks[3].nativeElement.textContent.trim()).toBe('Steptitle 4');
   });
 
   it('should show the correct reversed step titles', () => {
@@ -537,10 +537,10 @@ describe('WizardNavigationBarComponent', () => {
     const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
     expect(navigationLinks.length).toBe(4);
-    expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 4');
-    expect(navigationLinks[1].nativeElement.innerText).toBe('STEPTITLE 3');
-    expect(navigationLinks[2].nativeElement.innerText).toBe('STEPTITLE 2');
-    expect(navigationLinks[3].nativeElement.innerText).toBe('STEPTITLE 1');
+    expect(navigationLinks[0].nativeElement.textContent.trim()).toBe('Steptitle 4');
+    expect(navigationLinks[1].nativeElement.textContent.trim()).toBe('Steptitle 3');
+    expect(navigationLinks[2].nativeElement.textContent.trim()).toBe('Steptitle 2');
+    expect(navigationLinks[3].nativeElement.textContent.trim()).toBe('Steptitle 1');
   });
 
   it('should have the correct stepId', () => {

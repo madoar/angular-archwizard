@@ -1,0 +1,69 @@
+// color definitions
+$wz-color-default: #E6E6E6 !default;
+$wz-color-current: #808080 !default;
+$wz-color-done: #339933 !default;
+$wz-color-optional: #38ef38 !default;
+$wz-color-editing: #FF0000 !default;
+
+// dot definitions
+$wz-dot-border-width: 2px !default;
+
+// small definitions
+$wz-small-dot-width: 14px !default;
+$wz-small-dot-height: 14px !default;
+
+// big definitions
+$wz-big-dot-width: 50px !default;
+$wz-big-dot-height: 50px !default;
+
+// padding between text and baseline, for horizonal navigation bar
+$wz-text-padding-bottom: 10px !default;
+
+// padding between text and baseline, for vertical navigation bar
+$wz-text-margin-left: 15px !default;
+
+// distance between steps, for vertical navigation bar
+$wz-distance-between-steps: 10px !default;
+
+$wz-text-height: 14px !default;
+
+
+aw-wizard {
+  display: flex;
+  justify-content: flex-start;
+
+  .wizard-steps {
+    top: 0;
+    display: flex;
+  }
+}
+
+aw-wizard.horizontal {
+  flex-direction: column;
+
+  .wizard-steps {
+    width: 100%;
+    flex-direction: row;
+  }
+}
+
+aw-wizard.vertical {
+  flex-direction: row;
+
+  .wizard-steps {
+    min-width: calc(100% - 280px);
+    width: 80%;
+    height: 100%;
+    flex-direction: column;
+  }
+}
+
+
+aw-wizard-step,
+aw-wizard-completion-step {
+  height: auto;
+  width: 100%;
+}
+
+
+@import './wizard-navigation-bar';

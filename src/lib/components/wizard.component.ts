@@ -7,7 +7,6 @@ import {
   OnChanges,
   QueryList,
   SimpleChanges,
-  ViewEncapsulation,
   Inject,
   Optional
 } from '@angular/core';
@@ -56,8 +55,6 @@ import {WizardStep} from '../util/wizard-step.interface';
 @Component({
   selector: 'aw-wizard',
   templateUrl: 'wizard.component.html',
-  styleUrls: ['wizard.component.less'],
-  encapsulation: ViewEncapsulation.None,
   providers: [WizardState]
 })
 export class WizardComponent implements OnChanges, AfterContentInit {

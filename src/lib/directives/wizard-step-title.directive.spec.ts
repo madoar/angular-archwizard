@@ -50,7 +50,7 @@ describe('WizardStepTitleDirective', () => {
     const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
     expect(navigationLinks.length).toBe(2);
-    expect(navigationLinks[0].nativeElement.innerText).toBe('STEPTITLE 1');
-    expect(navigationLinks[1].nativeElement.innerText).toBe('STEPTITLE 2');
+    expect(navigationLinks[0].nativeElement.textContent.trim()).toBe('Steptitle 1');
+    expect(navigationLinks[1].nativeElement.textContent.trim()).toBe('Steptitle 2');
   });
 });
