@@ -139,9 +139,7 @@ export abstract class BaseNavigationMode implements NavigationMode {
    * In addition the whole wizard is set as incomplete.
    */
   public reset(): void {
-    if (!this.checkReset()) {
-      return;
-    }
+    this.ensureCanReset();
 
     // reset the step internal state
     this.wizardState.wizardSteps.forEach(step => {
@@ -158,20 +156,17 @@ export abstract class BaseNavigationMode implements NavigationMode {
   /**
    * Checks if wizard configuration allows to perform reset.
    *
-   * A check failure can be indicated either by `false` return value or by throwing
-   * an `Error` with the message discribing the discovered misconfiguration issue.
+   * A check failure is indicated by throwing an `Error` with the message discribing the discovered misconfiguration issue.
    *
    * Can include additional checks in particular navigation mode implementations.
    *
-   * @returns True if wizard configuration is correct and reset can be performed, false otherwise
    * @throws An `Error` is thrown, if a micconfiguration issue is discovered.
    */
-  protected checkReset(): boolean {
+  protected ensureCanReset(): void {
     // the wizard doesn't contain a step with the default step index
     if (!this.wizardState.hasStep(this.wizardState.defaultStepIndex)) {
       throw new Error(`The wizard doesn't contain a step with index ${this.wizardState.defaultStepIndex}`);
     }
-    return true;
   }
 
   /**
