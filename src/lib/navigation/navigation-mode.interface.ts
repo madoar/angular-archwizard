@@ -26,6 +26,9 @@ export interface NavigationMode {
   /**
    * Tries to transition to the wizard step, as denoted by the given destination index.
    *
+   * Note: You do not have to call [[canGoToStep]] before calling [[goToStep]].
+   * The [[canGoToStep]] method will be called automatically.
+   *
    * @param wizard The wizard component to operate on
    * @param destinationIndex The index of the destination wizard step, which should be entered
    * @param preFinalize An event emitter, to be called before the step has been transitioned
