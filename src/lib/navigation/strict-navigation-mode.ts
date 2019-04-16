@@ -43,10 +43,8 @@ export class StrictNavigationMode extends BaseNavigationMode {
   /**
    * @inheritDoc
    */
-  protected checkReset(wizard: WizardComponent): boolean {
-    if (!super.checkReset(wizard)) {
-      return false;
-    }
+  protected ensureCanReset(wizard: WizardComponent): void {
+    super.ensureCanReset(wizard);
 
     // at least one step is before the default step, that is not optional
     const illegalDefaultStep = wizard.wizardSteps
@@ -55,7 +53,5 @@ export class StrictNavigationMode extends BaseNavigationMode {
     if (illegalDefaultStep) {
       throw new Error(`The default step index ${wizard.defaultStepIndex} is located after a non optional step`);
     }
-
-    return true;
   }
 }

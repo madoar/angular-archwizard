@@ -5,12 +5,11 @@ import {
   HostBinding,
   Input,
   QueryList,
-  ViewEncapsulation,
+  SimpleChanges,
   Inject,
   Optional,
   EventEmitter,
   OnChanges,
-  SimpleChanges,
 } from '@angular/core';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {NavigationModeInput} from '../navigation/navigation-mode-input.interface';
@@ -57,8 +56,6 @@ import {MovingDirection} from '../util/moving-direction.enum';
 @Component({
   selector: 'aw-wizard',
   templateUrl: 'wizard.component.html',
-  styleUrls: ['wizard.component.less'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class WizardComponent implements AfterContentInit, OnChanges {
   /**

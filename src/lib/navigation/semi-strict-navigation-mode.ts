@@ -30,10 +30,8 @@ export class SemiStrictNavigationMode extends BaseNavigationMode {
   /**
    * @inheritDoc
    */
-  protected checkReset(wizard: WizardComponent): boolean {
-    if (!super.checkReset(wizard)) {
-      return false;
-    }
+  protected ensureCanReset(wizard: WizardComponent): void {
+    super.ensureCanReset(wizard);
 
     // the default step is a completion step and the wizard contains more than one step
     const defaultWizardStep = wizard.getStepAtIndex(wizard.defaultStepIndex);
@@ -41,7 +39,5 @@ export class SemiStrictNavigationMode extends BaseNavigationMode {
     if (defaultCompletionStep && wizard.wizardSteps.length !== 1) {
       throw new Error(`The default step index ${wizard.defaultStepIndex} references a completion step`);
     }
-
-    return true;
   }
 }

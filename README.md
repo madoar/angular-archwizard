@@ -23,12 +23,14 @@ Latest `angular-archwizard` is compatible with Angular 5+.
 
 ## Installation
 
+### Step 1: Install `angular-archwizard`
 `angular-archwizard` is available as a NPM package. To install `angular-archwizard` in your project directory run:
 ```
 $ npm install --save angular-archwizard
 ```
 
-Afterwards you can import `angular-archwizard` in your angular project by adding the `ArchwizardModule` to your Module declaration as followed:
+### Step 2: Import the ArchwizardModule
+After installation you can import `angular-archwizard` into your Angular project by adding the `ArchwizardModule` to your module declaration as follows:
 ```typescript
 import { ArchwizardModule } from 'angular-archwizard';
 
@@ -39,6 +41,29 @@ import { ArchwizardModule } from 'angular-archwizard';
 })
 export class Module { }
 ```
+
+### Step 3: Include styles
+To allow customization, `angular-archwizard` bundles CSS styles separately. If you are using Angular CLI, import them into your `styles.css`...
+
+```css
+@import '../node_modules/angular-archwizard/archwizard.css';
+```
+
+...or include them into `.angular-cli.json` (Angular 5) or `angular.json` (Angular 6 onwards):
+
+```javascript
+{
+  // ...
+  "styles": [
+    "node_modules/angular-archwizard/archwizard.css",
+    "src/styles.css"
+  ]
+  // ...
+}
+```
+
+If you are using SCSS, you can include the styles in the form of a `.scss` file: `node_modules/angular-archwizard/archwizard.scss`.
+This way you can easily customize wizard's appearance by tweaking SCSS variables as described in [Styles Customization](#styles-customization).
 
 ## How to use the wizard
 To use this wizard component in an angular project simply add a `aw-wizard` component to the html template of your component:
@@ -556,6 +581,23 @@ the wizard will adjust the index of the current step to make the changed state v
 
 Please be also sure to not remove the step, the wizard is currently displaying, because otherwise the wizard will be inside an
 invalid state, which may lead to strange and unexpected behavior.
+
+## Styles Customization
+
+If you are using SCSS, you can easily customize wizard's global styles and color theme using SCSS variables:
+
+1. Import `node_modules/angular-archwizard/archwizard.scss` into your `styles.scss` file as described in the [Installation](#installation) section.
+2. Re-define any of the variables you can find at the top of `node_modules/angular-archwizard/archwizard.scss`.
+
+Here is a quick example:
+
+```scss
+// styles.scss
+
+$wz-color-default: #569700;
+
+@import '../node_modules/angular-archwizard/archwizard.scss';
+```
 
 ## Example
 You can find an basic example project using `angular-archwizard` [here](https://madoar.github.io/angular-archwizard-demo).

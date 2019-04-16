@@ -1,0 +1,387 @@
+// Temporary variables used to pass parameters from the `define-style` mixin to its content block.
+// They will no longer be needed after content arguments support is released:
+//
+// - https://github.com/sass/sass/issues/871
+// - https://github.com/sass/libsass/releases
+// - https://github.com/sass/node-sass/releases/
+//
+// Using global variables is the recommended workaround
+//
+// - https://github.com/sass/sass/issues/626#issuecomment-345432420
+// - https://github.com/sass/sass/issues/871
+
+// indicator state: 'default' or 'hover'
+$wz-param-indicator-state: null !global;
+
+// base color for one of possible wizard step states (default, current, done etc.).
+$wz-param-indicator-color: null !global;
+
+
+@mixin wz-horizontal-line($dot-width, $dot-height, $line-color) {
+  background-color: $line-color;
+  content: '';
+  position: absolute;
+  height: 1px;
+  width: calc(100% - #{$dot-width});
+  top: -($dot-height / 2);
+  left: calc(50% + #{$dot-width / 2});
+}
+
+@mixin wz-vertical-line($dot-width, $dot-height, $line-color) {
+  background-color: $line-color;
+  content: '';
+  position: absolute;
+  left: -($dot-height / 2);
+  top: $dot-height;
+  height: calc(100% - #{$dot-height});
+  width: 1px;
+}
+
+@mixin wz-circle-position-horizontal($dot-width, $dot-height, $dot-border-width) {
+  top: -$dot-height;
+  left: calc(50% - #{$dot-width / 2});
+}
+
+@mixin wz-circle-position-vertical($dot-width, $dot-height, $dot-border-width) {
+  top: 0;
+  left: -$dot-width;
+}
+
+@mixin wz-state-circle($dot-width, $dot-height, $dot-border-width) {
+  position: absolute;
+  width: $dot-width;
+  height: $dot-height;
+  text-align: center;
+  vertical-align: middle;
+  line-height: $dot-height - 2 * $dot-border-width;
+  transition: 0.25s;
+  border-radius: 100%;
+}
+
+@mixin wz-state-circle-with-border($color) {
+  border-width: $wz-param-indicator-border-width;
+  border-style: solid;
+  border-color: if($wz-param-indicator-state == 'hover', darken($color, 10%), $color);
+}
+
+@mixin wz-state-circle-with-border-and-content($color) {
+  @include wz-state-circle-with-border($color);
+  color: if($wz-param-indicator-state == 'hover', darken($color, 10%), $color);
+}
+
+@mixin wz-state-circle-with-background($color) {
+  background-color: if($wz-param-indicator-state == 'hover', darken($color, 5%), $color);
+}
+
+@mixin wz-state-circle-with-background-and-content($color) {
+  @include wz-state-circle-with-background($color);
+  color: black;
+}
+
+
+// Helper mixin to define a step indicator style like 'small', 'large-filled-symbols' etc.
+//
+// Arguments:
+//   $layout - 'horizontal' | 'vertical'
+//   $width  - step indicator width
+//   $height - step indicator height
+//   $border-width - step indicator border width
+//
+// Apart from the arguments, the `define-style` mixin receives a content block,
+// which is applied for .step-indicator elements and is expected to customize indicator representation.
+// The content block is invoked several times, each time with different arguments passed through global variables:
+//
+//   - $wz-param-indicator-state - indicator state: 'default' or 'hover'
+//   - $wz-param-indicator-color - base color for one of possible wizard step states (default, current, done etc.)
+//
+// In addition to these variables, the content block can use the following
+// variables passed through the `define-style` mixin:
+//
+//   - $wz-param-indicator-width - equals to $width argument of the `define-style` mixin
+//   - $wz-param-indicator-height - equals to $height argument of the `define-style` mixin
+//   - $wz-param-indicator-border-width - equals to $border-width argument of the `define-style` mixin
+//
+@mixin wz-define-style($layout, $width: $wz-big-dot-height, $height: $wz-big-dot-height, $border-width: $wz-dot-border-width) {
+
+  // Make variables accessible from the content block
+  $wz-param-indicator-width: $width !global;
+  $wz-param-indicator-height: $height !global;
+  $wz-param-indicator-border-width: $border-width !global;
+
+  @if ($layout == 'horizontal') {
+    padding: ($height + $wz-text-padding-bottom) 0 $wz-text-padding-bottom 0;
+  }
+  @else if ($layout == 'vertical') {
+    padding: ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2 + $height);
+  }
+
+  li {
+    &:not(:last-child):before {
+      @if ($layout == 'horizontal') {
+        @include wz-horizontal-line($width, $height, $wz-color-default);
+      }
+      @else if ($layout == 'vertical') {
+        @include wz-vertical-line($width, $height, $wz-color-default);
+      }
+    }
+
+    @if ($layout == 'vertical') {
+      a {
+        min-height: $height;
+      }
+    }
+
+    .step-indicator {
+      @if ($layout == 'horizontal') {
+        @include wz-circle-position-horizontal($width, $height, $border-width);
+      }
+      @else if ($layout == 'vertical') {
+        @include wz-circle-position-vertical($width, $height, $border-width);
+      }
+
+      $wz-param-indicator-state: 'default' !global;
+      $wz-param-indicator-color: $wz-color-default !global;
+      @include wz-state-circle($width, $height, $border-width);
+      @content;
+    }
+    &.optional .step-indicator {
+      $wz-param-indicator-state: 'default' !global;
+      $wz-param-indicator-color: $wz-color-optional !global;
+      @content;
+    }
+    &.done .step-indicator,
+    &.completed .step-indicator {
+      $wz-param-indicator-state: 'default' !global;
+      $wz-param-indicator-color: $wz-color-done !global;
+      @content;
+    }
+    &.current .step-indicator {
+      $wz-param-indicator-state: 'default' !global;
+      $wz-param-indicator-color: $wz-color-current !global;
+      @content;
+    }
+    &.current.done .step-indicator,
+    &.current.completed .step-indicator {
+      $wz-param-indicator-state: 'default' !global;
+      $wz-param-indicator-color: $wz-color-editing !global;
+      @content;
+    }
+
+    &.navigable a:hover .step-indicator {
+      $wz-param-indicator-state: 'hover' !global;
+      $wz-param-indicator-color: $wz-color-default !global;
+      @include wz-state-circle($width, $height, $border-width);
+      @content;
+    }
+    &.navigable.optional a:hover .step-indicator {
+      $wz-param-indicator-state: 'hover' !global;
+      $wz-param-indicator-color: $wz-color-optional !global;
+      @content;
+    }
+    &.navigable.done, &.navigable.completed {
+      a:hover .step-indicator {
+        $wz-param-indicator-state: 'hover' !global;
+        $wz-param-indicator-color: $wz-color-done !global;
+        @content;
+      }
+    }
+    &.navigable.current a:hover .step-indicator {
+      $wz-param-indicator-state: 'hover' !global;
+      $wz-param-indicator-color: $wz-color-current !global;
+      @content;
+    }
+    &.navigable.current.done, &.navigable.current.completed {
+      a:hover .step-indicator {
+        $wz-param-indicator-state: 'hover' !global;
+        $wz-param-indicator-color: $wz-color-editing !global;
+        @content;
+      }
+    }
+  }
+}
+
+
+aw-wizard-navigation-bar {
+
+  ul.steps-indicator {
+
+    // http://www.paulirish.com/2012/box-sizing-border-box-ftw/
+    * {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    li {
+      position: relative;
+      pointer-events: none;
+
+      a .label {
+        color: $wz-color-current;
+        line-height: $wz-text-height;
+        font-size: $wz-text-height;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        transition: 0.25s;
+      }
+    }
+
+    li.navigable {
+      pointer-events: auto;
+
+      a {
+        cursor: pointer;
+      }
+
+      a:hover .label {
+        color: darken($wz-color-current, 20%);
+      }
+    }
+  }
+}
+
+aw-wizard-navigation-bar.horizontal {
+
+  ul.steps-indicator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    margin: 0;
+    width: 100%;
+    list-style: none;
+
+    @mixin steps($number-of-components) {
+      &:before {
+        left: 100% / $number-of-components / 2;
+        right: 100% / $number-of-components / 2;
+      }
+
+      li {
+        width: 100% / $number-of-components;
+      }
+    }
+
+    &.steps-2 {
+      @include steps(2);
+    }
+
+    &.steps-3 {
+      @include steps(3);
+    }
+
+    &.steps-4 {
+      @include steps(4);
+    }
+
+    &.steps-5 {
+      @include steps(5);
+    }
+
+    &.steps-6 {
+      @include steps(6);
+    }
+
+    &.steps-7 {
+      @include steps(7);
+    }
+
+    &.steps-8 {
+      @include steps(8);
+    }
+
+    &.steps-9 {
+      @include steps(9);
+    }
+
+    &.steps-10 {
+      @include steps(10);
+    }
+
+    li {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+
+      a .label {
+        display: inline-block;
+        padding-top: $wz-text-padding-bottom;
+        text-align: center;
+      }
+    }
+  }
+}
+
+aw-wizard-navigation-bar.vertical {
+  max-width: 280px;
+  width: 20%;
+  height: 100%;
+  position: sticky;
+  top: 0;
+
+  ul.steps-indicator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    list-style: none;
+    margin: auto;
+
+    li {
+
+      &:not(:last-child) {
+        margin-bottom: 0;
+        padding-bottom: $wz-distance-between-steps;
+      }
+
+      a {
+        // center labels vertically
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .label {
+          margin-left: $wz-text-margin-left;
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+// Define indicator styles for both layouts
+@each $layout in 'horizontal', 'vertical' {
+  aw-wizard-navigation-bar.#{$layout} {
+
+    &.small ul.steps-indicator {
+      @include wz-define-style($layout, $width: $wz-small-dot-width, $height: $wz-small-dot-height, $border-width: 0) {
+        @include wz-state-circle-with-background($wz-param-indicator-color);
+      }
+    }
+
+    &.large-filled ul.steps-indicator {
+      @include wz-define-style($layout, $border-width: 0) {
+        @include wz-state-circle-with-background($wz-param-indicator-color);
+      }
+    }
+
+    &.large-empty ul.steps-indicator {
+      @include wz-define-style($layout) {
+        @include wz-state-circle-with-border($wz-param-indicator-color);
+      }
+    }
+
+    &.large-filled-symbols ul.steps-indicator {
+      @include wz-define-style($layout, $border-width: 0) {
+        @include wz-state-circle-with-background-and-content($wz-param-indicator-color);
+      }
+    }
+
+    &.large-empty-symbols ul.steps-indicator {
+      @include wz-define-style($layout) {
+        @include wz-state-circle-with-border-and-content($wz-param-indicator-color);
+      }
+    }
+  }
+}
