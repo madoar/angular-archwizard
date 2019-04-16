@@ -144,7 +144,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
   /**
    * An array representation of all wizard steps belonging to this model
    *
-   * For outside acess, use the [[wizardSteps]] getter.
+   * For outside access, use the [[wizardSteps]] getter.
    */
   private _wizardSteps: WizardStep[] = [];
 
