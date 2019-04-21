@@ -1,10 +1,9 @@
 import {OptionalStepDirective} from './optional-step.directive';
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {WizardState} from '../navigation/wizard-state.model';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardComponent} from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -23,14 +22,16 @@ import {NavigationMode} from '../navigation/navigation-mode.interface';
   `
 })
 class WizardTestComponent {
+
+  @ViewChild(WizardComponent)
+  public wizard: WizardComponent;
 }
 
 describe('OptionalStepDirective', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
-  let wizardState: WizardState;
-  let navigationMode: NavigationMode;
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -44,8 +45,7 @@ describe('OptionalStepDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
   });
 
   it('should create an instance', () => {
@@ -54,8 +54,8 @@ describe('OptionalStepDirective', () => {
   });
 
   it('should set optional correctly', () => {
-    expect(wizardState.getStepAtIndex(0).optional).toBe(false);
-    expect(wizardState.getStepAtIndex(1).optional).toBe(true);
-    expect(wizardState.getStepAtIndex(2).optional).toBe(false);
+    expect(wizard.getStepAtIndex(0).optional).toBe(false);
+    expect(wizard.getStepAtIndex(1).optional).toBe(true);
+    expect(wizard.getStepAtIndex(2).optional).toBe(false);
   });
 });

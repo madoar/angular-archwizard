@@ -47,10 +47,10 @@ describe('WizardStepTitleDirective', () => {
   });
 
   it('should create an instance', () => {
-    const navigationLinks = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
+    const navigationLinkEls = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
 
-    expect(navigationLinks.length).toBe(2);
-    expect(navigationLinks[0].nativeElement.textContent.trim()).toBe('Steptitle 1');
-    expect(navigationLinks[1].nativeElement.textContent.trim()).toBe('Steptitle 2');
+    expect(navigationLinkEls.length).toBe(2);
+    expect(navigationLinkEls[0].nativeElement.textContent.trim()).toBe('Steptitle 1');
+    expect(navigationLinkEls[1].nativeElement.textContent.trim()).toBe('Steptitle 2');
   });
 });

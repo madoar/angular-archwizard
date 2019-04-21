@@ -47,10 +47,10 @@ describe('WizardStepSymbolDirective', () => {
   });
 
   it('should create an instance', () => {
-    const navigationSymbols = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li .step-indicator'));
+    const navigationSymbolEls = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li .step-indicator'));
 
-    expect(navigationSymbols.length).toBe(2);
-    expect(navigationSymbols[0].nativeElement.textContent.trim()).toBe('A');
-    expect(navigationSymbols[1].nativeElement.textContent.trim()).toBe('B');
+    expect(navigationSymbolEls.length).toBe(2);
+    expect(navigationSymbolEls[0].nativeElement.textContent.trim()).toBe('A');
+    expect(navigationSymbolEls[1].nativeElement.textContent.trim()).toBe('B');
   });
 });

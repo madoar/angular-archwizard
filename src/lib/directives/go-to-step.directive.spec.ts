@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardState} from '../navigation/wizard-state.model';
 import {GoToStepDirective} from './go-to-step.directive';
+import { WizardComponent } from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -41,6 +41,10 @@ import {GoToStepDirective} from './go-to-step.directive';
   `
 })
 class WizardTestComponent {
+
+  @ViewChild(WizardComponent)
+  public wizard: WizardComponent;
+
   public goToSecondStep = 1;
 
   public canExit = true;
@@ -53,11 +57,10 @@ class WizardTestComponent {
 }
 
 describe('GoToStepDirective', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
-  let wizardState: WizardState;
-  let navigationMode: NavigationMode;
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -71,8 +74,7 @@ describe('GoToStepDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
   });
 
   it('should create an instance', () => {
@@ -89,11 +91,11 @@ describe('GoToStepDirective', () => {
   });
 
   it('should throw an error when using an invalid targetStep value', fakeAsync(() => {
-    const invalidGoToAttribute = wizardTestFixture.debugElement
+    const invalidGoToAttributeEl = wizardTestFixture.debugElement
       .query(By.css('aw-wizard-step[stepTitle="Steptitle 2"]'))
       .queryAll(By.directive(GoToStepDirective))[1].injector.get(GoToStepDirective) as GoToStepDirective;
 
-    expect(() => invalidGoToAttribute.destinationStep)
+    expect(() => invalidGoToAttributeEl.destinationStep)
       .toThrow(new Error(`Input 'targetStep' is neither a WizardStep, StepOffset, StepIndex or StepId`));
   }));
 });

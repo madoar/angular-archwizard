@@ -1,10 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardState} from '../navigation/wizard-state.model';
 import {MovingDirection} from './moving-direction.enum';
+import {WizardComponent} from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -24,6 +23,10 @@ import {MovingDirection} from './moving-direction.enum';
   `
 })
 class WizardTestComponent {
+
+  @ViewChild(WizardComponent)
+  public wizard: WizardComponent;
+
   public isValid: any = true;
 
   public eventLog: Array<string> = [];
@@ -38,10 +41,10 @@ class WizardTestComponent {
 }
 
 describe('WizardCompletionStep', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
-  let wizardState: WizardState;
-  let navigationMode: NavigationMode;
+
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -55,8 +58,7 @@ describe('WizardCompletionStep', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
   });
 
   it('should create', () => {
@@ -66,48 +68,48 @@ describe('WizardCompletionStep', () => {
   });
 
   it('should set the wizard as completed after entering the completion step', fakeAsync(() => {
-    navigationMode.goToStep(2);
+    wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.completed).toBe(true);
+    expect(wizard.completed).toBe(true);
   }));
 
   it('should be unable to leave the completion step', fakeAsync(() => {
-    navigationMode.goToStep(2);
+    wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
-    navigationMode.canGoToStep(0).then(result => expect(result).toBe(false));
-    navigationMode.canGoToStep(1).then(result => expect(result).toBe(false));
+    wizard.canGoToStep(0).then(result => expect(result).toBe(false));
+    wizard.canGoToStep(1).then(result => expect(result).toBe(false));
   }));
 
 
   it('should not be able to leave the completion step in any direction', fakeAsync(() => {
     wizardTest.isValid = false;
 
-    navigationMode.goToStep(2);
+    wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(2);
-    expect(wizardState.currentStep.canExit).toBe(false);
+    expect(wizard.currentStepIndex).toBe(2);
+    expect(wizard.currentStep.canExit).toBe(false);
   }));
 
   it('should not leave the completion step if it can\'t be exited', fakeAsync(() => {
     wizardTest.isValid = false;
 
-    navigationMode.goToStep(2);
+    wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(2);
+    expect(wizard.currentStepIndex).toBe(2);
 
-    navigationMode.goToPreviousStep();
+    wizard.goToPreviousStep();
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(2);
+    expect(wizard.currentStepIndex).toBe(2);
     expect(wizardTest.eventLog)
       .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 3', 'enter Stay 3']);
   }));

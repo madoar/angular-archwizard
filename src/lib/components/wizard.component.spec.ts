@@ -3,10 +3,9 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {FreeNavigationMode} from '../navigation/free-navigation-mode';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {StrictNavigationMode} from '../navigation/strict-navigation-mode';
-import {WizardState} from '../navigation/wizard-state.model';
 import {WizardComponent} from './wizard.component';
+import {WizardStep} from '../util/wizard-step.interface';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -47,11 +46,10 @@ class WizardTestComponent implements AfterViewInit {
 }
 
 describe('WizardComponent', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
-  let wizardState: WizardState;
-  let navigationMode: NavigationMode;
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -65,218 +63,306 @@ describe('WizardComponent', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
   });
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
-    expect(wizardTest.wizard).toBeTruthy();
-
-    expect(wizardTestFixture.debugElement.query(By.css('aw-wizard'))).toBeTruthy();
-    expect(wizardTest.wizard.model).toBeTruthy();
-    expect(wizardTest.wizard.navigation).toBeTruthy();
-
-    expect(wizardTest.wizard.model).toBe(wizardState);
-    expect(wizardTest.wizard.navigation).toBe(navigationMode);
+    expect(wizard).toBeTruthy();
+    expect(wizard.navigationMode).toBeTruthy();
   });
 
   it('should contain navigation bar at the correct position in default navBarLocation mode', () => {
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
-    const wizard = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const wizardEl = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
     const wizardStepsDiv = wizardTestFixture.debugElement.query(By.css('div.wizard-steps'));
 
     // check default: the navbar should be at the top of the wizard if no navBarLocation was set
-    expect(navBar).toBeTruthy();
+    expect(navBarEl).toBeTruthy();
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard')).children.length).toBe(2);
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('aw-wizard-navigation-bar');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('div');
 
-    expect(navBar.classes).toEqual({
+    expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
-    expect(wizard.classes).toEqual({'horizontal': true, 'vertical': false});
+    expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
   });
 
   it('should contain navigation bar at the correct position in top navBarLocation mode', () => {
-    wizardTest.wizard.navBarLocation = 'top';
+    wizard.navBarLocation = 'top';
     wizardTestFixture.detectChanges();
 
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
-    const wizard = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const wizardEl = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
     const wizardStepsDiv = wizardTestFixture.debugElement.query(By.css('div.wizard-steps'));
 
     // check default: the navbar should be at the top of the wizard if no navBarLocation was set
-    expect(navBar).toBeTruthy();
+    expect(navBarEl).toBeTruthy();
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard')).children.length).toBe(2);
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('aw-wizard-navigation-bar');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('div');
 
-    expect(navBar.classes).toEqual({
+    expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
-    expect(wizard.classes).toEqual({'horizontal': true, 'vertical': false});
+    expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
   });
 
   it('should contain navigation bar at the correct position in left navBarLocation mode', () => {
-    wizardTest.wizard.navBarLocation = 'left';
+    wizard.navBarLocation = 'left';
     wizardTestFixture.detectChanges();
 
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
-    const wizard = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const wizardEl = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
     const wizardStepsDiv = wizardTestFixture.debugElement.query(By.css('div.wizard-steps'));
 
     // check default: the navbar should be at the top of the wizard if no navBarLocation was set
-    expect(navBar).toBeTruthy();
+    expect(navBarEl).toBeTruthy();
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard')).children.length).toBe(2);
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('aw-wizard-navigation-bar');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('div');
 
-    expect(navBar.classes).toEqual({
+    expect(navBarEl.classes).toEqual({
       'horizontal': false, 'vertical': true, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
-    expect(wizard.classes).toEqual({'horizontal': false, 'vertical': true});
+    expect(wizardEl.classes).toEqual({'horizontal': false, 'vertical': true});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': false, 'vertical': true});
   });
 
   it('should contain navigation bar at the correct position in bottom navBarLocation mode', () => {
-    wizardTest.wizard.navBarLocation = 'bottom';
+    wizard.navBarLocation = 'bottom';
     wizardTestFixture.detectChanges();
 
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
-    const wizard = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const wizardEl = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
     const wizardStepsDiv = wizardTestFixture.debugElement.query(By.css('div.wizard-steps'));
 
     // check default: the navbar should be at the top of the wizard if no navBarLocation was set
-    expect(navBar).toBeTruthy();
+    expect(navBarEl).toBeTruthy();
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard')).children.length).toBe(2);
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('div');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('aw-wizard-navigation-bar');
 
-    expect(navBar.classes).toEqual({
+    expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
-    expect(wizard.classes).toEqual({'horizontal': true, 'vertical': false});
+    expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
   });
 
   it('should contain navigation bar at the correct position in right navBarLocation mode', () => {
-    wizardTest.wizard.navBarLocation = 'right';
+    wizard.navBarLocation = 'right';
     wizardTestFixture.detectChanges();
 
-    const navBar = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
-    const wizard = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
+    const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+    const wizardEl = wizardTestFixture.debugElement.query(By.css('aw-wizard'));
     const wizardStepsDiv = wizardTestFixture.debugElement.query(By.css('div.wizard-steps'));
 
     // check default: the navbar should be at the top of the wizard if no navBarLocation was set
-    expect(navBar).toBeTruthy();
+    expect(navBarEl).toBeTruthy();
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard')).children.length).toBe(2);
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('div');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('aw-wizard-navigation-bar');
 
-    expect(navBar.classes).toEqual({
+    expect(navBarEl.classes).toEqual({
       'horizontal': false, 'vertical': true, 'small': true,
       'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
-    expect(wizard.classes).toEqual({'horizontal': false, 'vertical': true});
+    expect(wizardEl.classes).toEqual({'horizontal': false, 'vertical': true});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': false, 'vertical': true});
   });
 
   it('should change the navigation mode correctly during runtime', () => {
-    expect(wizardTest.wizard.navigation instanceof StrictNavigationMode).toBe(true);
+    expect(wizard.navigation instanceof StrictNavigationMode).toBe(true);
 
     wizardTest.navigationMode = 'free';
     wizardTestFixture.detectChanges();
 
-    expect(wizardTest.wizard.navigation instanceof FreeNavigationMode).toBe(true);
+    expect(wizard.navigation instanceof FreeNavigationMode).toBe(true);
   });
 
   it('should change disableNavigationBar correctly during runtime', () => {
-    expect(wizardState.disableNavigationBar).toBe(false);
+    expect(wizard.disableNavigationBar).toBe(false);
 
     wizardTest.disableNavigationBar = true;
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.disableNavigationBar).toBe(true);
+    expect(wizard.disableNavigationBar).toBe(true);
   });
 
   it('should change defaultStepIndex correctly during runtime', () => {
-    expect(wizardState.defaultStepIndex).toBe(0);
+    expect(wizard.defaultStepIndex).toBe(0);
 
     wizardTest.defaultStepIndex = 1;
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.defaultStepIndex).toBe(1);
+    expect(wizard.defaultStepIndex).toBe(1);
   });
 
   it('should react on a previous step removal and insertion correctly', fakeAsync(() => {
-    navigationMode.goToStep(1);
+    wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
-    expect(wizardState.wizardSteps.length).toBe(3);
+    expect(wizard.currentStepIndex).toBe(1);
+    expect(wizard.wizardSteps.length).toBe(3);
 
     wizardTest.showStep1 = false;
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(0);
-    expect(wizardState.wizardSteps.length).toBe(2);
+    expect(wizard.currentStepIndex).toBe(0);
+    expect(wizard.wizardSteps.length).toBe(2);
 
     wizardTest.showStep1 = true;
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
-    expect(wizardState.wizardSteps.length).toBe(3);
+    expect(wizard.currentStepIndex).toBe(1);
+    expect(wizard.wizardSteps.length).toBe(3);
   }));
 
   it('should react on a later step removal and insertion correctly', fakeAsync(() => {
-    navigationMode.goToStep(1);
+    wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
-    expect(wizardState.wizardSteps.length).toBe(3);
+    expect(wizard.currentStepIndex).toBe(1);
+    expect(wizard.wizardSteps.length).toBe(3);
 
     wizardTest.showStep3 = false;
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
-    expect(wizardState.wizardSteps.length).toBe(2);
+    expect(wizard.currentStepIndex).toBe(1);
+    expect(wizard.wizardSteps.length).toBe(2);
 
     wizardTest.showStep3 = true;
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
-    expect(wizardState.wizardSteps.length).toBe(3);
+    expect(wizard.currentStepIndex).toBe(1);
+    expect(wizard.wizardSteps.length).toBe(3);
   }));
 
   it('should react on a combined removal and insertion of previous and later steps correctly', fakeAsync(() => {
-    navigationMode.goToStep(1);
+    wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
-    expect(wizardState.wizardSteps.length).toBe(3);
+    expect(wizard.currentStepIndex).toBe(1);
+    expect(wizard.wizardSteps.length).toBe(3);
 
     wizardTest.showStep1 = false;
     wizardTest.showStep3 = false;
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(0);
-    expect(wizardState.wizardSteps.length).toBe(1);
+    expect(wizard.currentStepIndex).toBe(0);
+    expect(wizard.wizardSteps.length).toBe(1);
 
     wizardTest.showStep1 = true;
     wizardTest.showStep3 = true;
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
-    expect(wizardState.wizardSteps.length).toBe(3);
+    expect(wizard.currentStepIndex).toBe(1);
+    expect(wizard.wizardSteps.length).toBe(3);
   }));
+
+  it('should have steps', () => {
+    expect(wizard.wizardSteps.length).toBe(3);
+  });
+
+  it('should start at first step', () => {
+    expect(wizard.currentStepIndex).toBe(0);
+    expect(wizard.currentStep.stepTitle).toBe('Steptitle 1');
+
+    checkWizardSteps(wizard.wizardSteps, 0);
+  });
+
+  it('should return correct step at index', () => {
+    expect(() => wizard.getStepAtIndex(-1))
+      .toThrow(new Error(`Expected a known step, but got stepIndex: -1.`));
+
+    expect(wizard.getStepAtIndex(0).stepTitle).toBe('Steptitle 1');
+    expect(wizard.getStepAtIndex(1).stepTitle).toBe('Steptitle 2');
+    expect(wizard.getStepAtIndex(2).stepTitle).toBe('Steptitle 3');
+
+    // Check that the first wizard step is the only selected one
+    checkWizardSteps(wizard.wizardSteps, 0);
+
+    expect(() => wizard.getStepAtIndex(3))
+      .toThrow(new Error(`Expected a known step, but got stepIndex: 3.`));
+  });
+
+  it('should return correct index at step', () => {
+    expect(wizard.getIndexOfStep(wizard.getStepAtIndex(0))).toBe(0);
+    expect(wizard.getIndexOfStep(wizard.getStepAtIndex(1))).toBe(1);
+    expect(wizard.getIndexOfStep(wizard.getStepAtIndex(2))).toBe(2);
+  });
+
+  it('should have next step', () => {
+    expect(wizard.hasNextStep()).toBe(true);
+
+    wizard.currentStepIndex++;
+
+    expect(wizard.hasNextStep()).toBe(true);
+
+    wizard.currentStepIndex++;
+
+    expect(wizard.hasNextStep()).toBe(false);
+  });
+
+  it('should have previous step', () => {
+    expect(wizard.hasPreviousStep()).toBe(false);
+
+    wizard.currentStepIndex++;
+
+    expect(wizard.hasPreviousStep()).toBe(true);
+
+    wizard.currentStepIndex++;
+
+    expect(wizard.hasPreviousStep()).toBe(true);
+  });
+
+  it('should be last step', () => {
+    expect(wizard.isLastStep()).toBe(false);
+
+    wizard.currentStepIndex++;
+
+    expect(wizard.isLastStep()).toBe(false);
+
+    wizard.currentStepIndex++;
+
+    expect(wizard.isLastStep()).toBe(true);
+  });
+
+  it('should return null when staying in an incorrect step', () => {
+    wizard.currentStepIndex = -1;
+    expect(wizard.currentStep).toBeNull();
+  });
+
 });
+
+
+function checkWizardSteps(steps: WizardStep[], selectedStepIndex: number) {
+  steps.forEach((step, index) => {
+    // Only the selected step should be selected
+    if (index === selectedStepIndex) {
+      expect(step.selected).toBe(true, `the selected wizard step index ${index} is not selected`);
+    } else {
+      expect(step.selected).toBe(false, `the not selected wizard step index ${index} is selected`);
+    }
+
+    // All steps before the selected step need to be completed
+    if (index < selectedStepIndex) {
+      expect(step.completed).toBe(true,
+        `the wizard step ${index} is not completed while the currently selected step index is ${selectedStepIndex}`);
+    } else if (index > selectedStepIndex) {
+      expect(step.completed).toBe(false,
+        `the wizard step ${index} is completed while the currently selected step index is ${selectedStepIndex}`);
+    }
+  });
+}

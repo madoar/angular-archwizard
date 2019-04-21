@@ -1,10 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardState} from '../navigation/wizard-state.model';
 import {PreviousStepDirective} from './previous-step.directive';
+import {WizardComponent} from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -29,6 +28,10 @@ import {PreviousStepDirective} from './previous-step.directive';
   `
 })
 class WizardTestComponent {
+
+  @ViewChild(WizardComponent)
+  public wizard: WizardComponent;
+
   public eventLog: Array<string> = [];
 
   public finalizeStep(stepIndex: number): void {
@@ -37,11 +40,10 @@ class WizardTestComponent {
 }
 
 describe('PreviousStepDirective', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
-  let wizardState: WizardState;
-  let navigationMode: NavigationMode;
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -55,8 +57,7 @@ describe('PreviousStepDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
   });
 
   it('should create an instance', () => {
@@ -69,47 +70,47 @@ describe('PreviousStepDirective', () => {
   });
 
   it('should move correctly to the previous step', fakeAsync(() => {
-    const firstStepButton = wizardTestFixture.debugElement.query(
+    const firstStepButtonEl = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button[awPreviousStep]')).nativeElement;
-    const secondStepButton = wizardTestFixture.debugElement.query(
+    const secondStepButtonEl = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awPreviousStep]')).nativeElement;
 
-    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizard.currentStepIndex).toBe(0);
 
     // don't go to zero (-1) step, because it doesn't exist
-    firstStepButton.click();
+    firstStepButtonEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizard.currentStepIndex).toBe(0);
 
     // move to second step to test the awPreviousStep directive
-    navigationMode.goToStep(1);
+    wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
+    expect(wizard.currentStepIndex).toBe(1);
 
     // go back to first step
-    secondStepButton.click();
+    secondStepButtonEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizard.currentStepIndex).toBe(0);
   }));
 
   it('should call finalize correctly when going the previous step', fakeAsync(() => {
-    const secondStepButtons = wizardTestFixture.debugElement.queryAll(
+    const secondStepButtonEls = wizardTestFixture.debugElement.queryAll(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awPreviousStep]'));
 
-    navigationMode.goToStep(1);
+    wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.eventLog).toEqual([]);
 
     // go to second step
-    secondStepButtons[0].nativeElement.click();
+    secondStepButtonEls[0].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -117,17 +118,17 @@ describe('PreviousStepDirective', () => {
   }));
 
   it('should call postFinalize correctly when going the previous step', fakeAsync(() => {
-    const secondStepButtons = wizardTestFixture.debugElement.queryAll(
+    const secondStepButtonEls = wizardTestFixture.debugElement.queryAll(
       By.css('aw-wizard-step[stepTitle="Steptitle 2"] > button[awPreviousStep]'));
 
-    navigationMode.goToStep(1);
+    wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
     expect(wizardTest.eventLog).toEqual([]);
 
     // go to second step
-    secondStepButtons[1].nativeElement.click();
+    secondStepButtonEls[1].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
@@ -135,13 +136,13 @@ describe('PreviousStepDirective', () => {
   }));
 
   it('shouldn\'t call finalize when going to an nonexistent step', fakeAsync(() => {
-    const firstStepButton = wizardTestFixture.debugElement.query(
+    const firstStepButtonEl = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button[awPreviousStep]')).nativeElement;
 
     expect(wizardTest.eventLog).toEqual([]);
 
     // don't go to third step because it doesn't exist
-    firstStepButton.click();
+    firstStepButtonEl.click();
     tick();
     wizardTestFixture.detectChanges();
 

@@ -1,10 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardState} from '../navigation/wizard-state.model';
 import {SelectedStepDirective} from './selected-step.directive';
+import {WizardComponent} from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -23,14 +22,16 @@ import {SelectedStepDirective} from './selected-step.directive';
   `
 })
 class WizardTestComponent {
+
+  @ViewChild(WizardComponent)
+  public wizard: WizardComponent;
 }
 
 describe('SelectedStepDirective', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
-  let wizardState: WizardState;
-  let navigationMode: NavigationMode;
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -44,8 +45,7 @@ describe('SelectedStepDirective', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
   });
 
   it('should create an instance', () => {
@@ -54,20 +54,20 @@ describe('SelectedStepDirective', () => {
   });
 
   it('should set optional correctly', () => {
-    expect(wizardState.defaultStepIndex).toBe(1);
-    expect(wizardState.currentStepIndex).toBe(1);
+    expect(wizard.defaultStepIndex).toBe(1);
+    expect(wizard.currentStepIndex).toBe(1);
   });
 
   it('should reset correctly to the default selected step', fakeAsync(() => {
-    navigationMode.goToStep(0);
+    wizard.goToStep(0);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(0);
+    expect(wizard.currentStepIndex).toBe(0);
 
-    navigationMode.reset();
+    wizard.reset();
     wizardTestFixture.detectChanges();
 
-    expect(wizardState.currentStepIndex).toBe(1);
+    expect(wizard.currentStepIndex).toBe(1);
   }));
 });

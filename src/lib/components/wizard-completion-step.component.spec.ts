@@ -1,10 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardState} from '../navigation/wizard-state.model';
 import {MovingDirection} from '../util/moving-direction.enum';
+import {WizardComponent} from './wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -24,6 +23,10 @@ import {MovingDirection} from '../util/moving-direction.enum';
   `
 })
 class WizardTestComponent {
+
+  @ViewChild(WizardComponent)
+  public wizard: WizardComponent;
+
   public isValid: any = true;
 
   public eventLog: Array<string> = [];
@@ -38,10 +41,10 @@ class WizardTestComponent {
 }
 
 describe('WizardCompletionStepComponent', () => {
-  let wizardTest: WizardTestComponent;
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
-  let wizardState: WizardState;
-  let navigationMode: NavigationMode;
+
+  let wizardTest: WizardTestComponent;
+  let wizard: WizardComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -55,8 +58,7 @@ describe('WizardCompletionStepComponent', () => {
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
-    wizardState = wizardTestFixture.debugElement.query(By.css('aw-wizard')).injector.get(WizardState);
-    navigationMode = wizardState.navigationMode;
+    wizard = wizardTest.wizard;
   });
 
   it('should create', () => {
