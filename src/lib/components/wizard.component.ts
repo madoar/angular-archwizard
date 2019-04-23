@@ -112,7 +112,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
     this.updateNavigationBarLayoutClass();
   }
 
-  protected navigationBarLayoutClass: string;
+  public navigationBarLayoutClass: string;
 
   /**
    * The direction in which the steps inside the navigation bar should be shown.
