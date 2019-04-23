@@ -2,18 +2,18 @@ import {
   AfterContentInit,
   Component,
   ContentChildren,
+  EventEmitter,
   HostBinding,
+  Inject,
   Input,
+  OnChanges,
+  Optional,
   QueryList,
   SimpleChanges,
-  Inject,
-  Optional,
-  EventEmitter,
-  OnChanges,
 } from '@angular/core';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {NavigationModeInput} from '../navigation/navigation-mode-input.interface';
-import {NavigationModeFactory, NAVIGATION_MODE_FACTORY} from '../navigation/navigation-mode-factory.interface';
+import {NAVIGATION_MODE_FACTORY, NavigationModeFactory} from '../navigation/navigation-mode-factory.interface';
 import {BaseNavigationModeFactory} from '../navigation/base-navigation-mode-factory.provider';
 import {WizardStep} from '../util/wizard-step.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
@@ -68,15 +68,51 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    * The location of the navigation bar inside the wizard.
    * This location can be either top, bottom, left or right
    */
+  private _navBarLocation = 'top';
+
+  /**
+   * The location of the navigation bar inside the wizard.
+   * This location can be either top, bottom, left or right
+   */
   @Input()
-  public navBarLocation = 'top';
+  get navBarLocation(): string {
+    return this._navBarLocation;
+  }
+
+  set navBarLocation(value: string) {
+    this._navBarLocation = value;
+
+    this.updateOrientationClasses();
+  }
+
+  protected navigationBarOrientationClassForTopLeft: string;
+  protected navigationBarOrientationClassForBottomRight: string;
+
+  protected wizardStepsOrientationClass: string;
 
   /**
    * The layout of the navigation bar inside the wizard.
    * The layout can be either small, large-filled, large-empty or large-symbols
    */
   @Input()
-  public navBarLayout = 'small';
+  private _navBarLayout = 'small';
+
+  /**
+   * The layout of the navigation bar inside the wizard.
+   * The layout can be either small, large-filled, large-empty or large-symbols
+   */
+  @Input()
+  get navBarLayout(): string {
+    return this._navBarLayout;
+  }
+
+  set navBarLayout(value: string) {
+    this._navBarLayout = value;
+
+    this.updateNavigationBarLayoutClass();
+  }
+
+  protected navigationBarLayoutClass: string;
 
   /**
    * The direction in which the steps inside the navigation bar should be shown.
@@ -120,9 +156,11 @@ export class WizardComponent implements AfterContentInit, OnChanges {
       return this._defaultStepIndex;
     }
   }
+
   public set defaultStepIndex(defaultStepIndex: number) {
     this._defaultStepIndex = defaultStepIndex;
   }
+
   private _defaultStepIndex = 0;
 
   /**
@@ -166,6 +204,9 @@ export class WizardComponent implements AfterContentInit, OnChanges {
     if (!this.navigationModeFactory) {
       this.navigationModeFactory = new BaseNavigationModeFactory();
     }
+
+    this.updateOrientationClasses();
+    this.updateNavigationBarLayoutClass();
   }
 
   /**
@@ -176,7 +217,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    */
   @HostBinding('class.horizontal')
   public get horizontalOrientation(): boolean {
-    return this.navBarLocation === 'top' || this.navBarLocation === 'bottom';
+    return this._navBarLocation === 'top' || this._navBarLocation === 'bottom';
   }
 
   /**
@@ -187,7 +228,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    */
   @HostBinding('class.vertical')
   public get verticalOrientation(): boolean {
-    return this.navBarLocation === 'left' || this.navBarLocation === 'right';
+    return this._navBarLocation === 'left' || this._navBarLocation === 'right';
   }
 
   /**
@@ -218,7 +259,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
     this.updateWizardSteps(this.wizardStepsQueryList.toArray());
     this.updateNavigationMode(this.navigationMode);
 
-    // finally reset the whole wizard componennt
+    // finally reset the whole wizard component
     this.reset();
   }
 
@@ -440,5 +481,77 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    */
   public reset(): void {
     this.navigation.reset(this);
+  }
+
+  private updateOrientationClasses(): void {
+    this.updateNavigationBarOrientationClassForTopLeft();
+    this.updateNavigationBarOrientationClassForBottomRight();
+
+    this.updateWizardStepsOrientationClass();
+  }
+
+  private updateNavigationBarOrientationClassForTopLeft(): void {
+    // Not making this function as a `get` function and make it the class name
+    // to reduce the amount of times the function been called
+    switch (this._navBarLocation) {
+      case 'left':
+        this.navigationBarOrientationClassForTopLeft =  'vertical';
+        break;
+      case 'top':
+        this.navigationBarOrientationClassForTopLeft =  'horizontal';
+        break;
+      default:
+        this.navigationBarOrientationClassForTopLeft =  '';
+        break;
+    }
+  }
+
+  private updateNavigationBarOrientationClassForBottomRight(): void {
+    // Not making this function as a `get` function and make it the class name
+    // to reduce the amount of times the function been called
+    switch (this._navBarLocation) {
+      case 'right':
+        this.navigationBarOrientationClassForBottomRight = 'vertical';
+        break;
+      case 'bottom':
+        this.navigationBarOrientationClassForBottomRight = 'horizontal';
+        break;
+      default:
+        this.navigationBarOrientationClassForBottomRight = '';
+        break;
+    }
+  }
+
+  private updateNavigationBarLayoutClass(): void {
+    switch (this.navBarLayout) {
+      case 'small':
+      case 'large-filled':
+      case 'large-filled-symbols':
+      case 'large-empty':
+      case 'large-empty-symbols':
+        this.navigationBarLayoutClass = this.navBarLayout;
+        break;
+      default:
+        this.navigationBarLayoutClass = '';
+        break;
+    }
+  }
+
+  private updateWizardStepsOrientationClass(): void {
+    // Not making this function as a `get` function and make it the class name
+    // to reduce the amount of times the function been called
+    switch (this._navBarLocation) {
+      case 'left':
+      case 'right':
+        this.wizardStepsOrientationClass =  'vertical';
+        break;
+      case 'top':
+      case 'bottom':
+        this.wizardStepsOrientationClass =  'horizontal';
+        break;
+      default:
+        this.wizardStepsOrientationClass =  '';
+        break;
+    }
   }
 }

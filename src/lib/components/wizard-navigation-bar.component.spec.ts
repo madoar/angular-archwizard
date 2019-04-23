@@ -3,6 +3,7 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {WizardComponent} from './wizard.component';
+import {isPrimitivesArraysMatchAtAnyOrder} from '../util/tests-comparation';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -450,10 +451,7 @@ describe('WizardNavigationBarComponent', () => {
   it('should use the \"small\" layout when no navigation bar layout is specified', () => {
     const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
+    isPrimitivesArraysMatchAtAnyOrder(navBarEl.nativeElement.classList, ['small', 'horizontal']);
   });
 
   it('should use the \"small\" layout when it is specified', () => {
@@ -462,10 +460,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = 'small';
     wizardTestFixture.detectChanges();
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
+    isPrimitivesArraysMatchAtAnyOrder(navBarEl.nativeElement.classList, ['small', 'horizontal']);
   });
 
   it('should use the \"large-filled\" layout when it is specified', () => {
@@ -474,10 +469,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = 'large-filled';
     wizardTestFixture.detectChanges();
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': true, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
+    isPrimitivesArraysMatchAtAnyOrder(navBarEl.nativeElement.classList, ['large-filled', 'horizontal']);
   });
 
   it('should use the \"large-empty\" layout when it is specified', () => {
@@ -486,10 +478,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = 'large-empty';
     wizardTestFixture.detectChanges();
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': true, 'large-empty-symbols': false
-    });
+    isPrimitivesArraysMatchAtAnyOrder(navBarEl.nativeElement.classList, ['large-empty', 'horizontal']);
   });
 
   it('should use the \"large-filled-symbols\" layout when it is specified', () => {
@@ -498,10 +487,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = 'large-filled-symbols';
     wizardTestFixture.detectChanges();
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': false, 'large-filled-symbols': true, 'large-empty': false, 'large-empty-symbols': false
-    });
+    isPrimitivesArraysMatchAtAnyOrder(navBarEl.nativeElement.classList, ['large-filled-symbols', 'horizontal']);
   });
 
   it('should use the \"large-empty-symbols\" layout when it is specified', () => {
@@ -510,10 +496,7 @@ describe('WizardNavigationBarComponent', () => {
     wizardTest.wizard.navBarLayout = 'large-empty-symbols';
     wizardTestFixture.detectChanges();
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': true
-    });
+    isPrimitivesArraysMatchAtAnyOrder(navBarEl.nativeElement.classList, ['large-empty-symbols', 'horizontal']);
   });
 
   it('should show the correct step titles', () => {

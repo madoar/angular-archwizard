@@ -6,6 +6,7 @@ import {FreeNavigationMode} from '../navigation/free-navigation-mode';
 import {StrictNavigationMode} from '../navigation/strict-navigation-mode';
 import {WizardComponent} from './wizard.component';
 import {WizardStep} from '../util/wizard-step.interface';
+import {isPrimitivesArraysMatchAtAnyOrder} from '../util/tests-comparation';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -83,12 +84,9 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('aw-wizard-navigation-bar');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('div');
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
+    isPrimitivesArraysMatchAtAnyOrder(navBarEl.nativeElement.classList, ['small', 'horizontal']);
     expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
-    expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
+    isPrimitivesArraysMatchAtAnyOrder(wizardStepsDiv.nativeElement.classList, ['wizard-steps', 'horizontal']);
   });
 
   it('should contain navigation bar at the correct position in top navBarLocation mode', () => {
@@ -105,12 +103,9 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('aw-wizard-navigation-bar');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('div');
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
+    isPrimitivesArraysMatchAtAnyOrder(navBarEl.nativeElement.classList, ['small', 'horizontal']);
     expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
-    expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
+    isPrimitivesArraysMatchAtAnyOrder(wizardStepsDiv.nativeElement.classList, ['wizard-steps', 'horizontal']);
   });
 
   it('should contain navigation bar at the correct position in left navBarLocation mode', () => {
@@ -127,12 +122,9 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('aw-wizard-navigation-bar');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('div');
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': false, 'vertical': true, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
+    isPrimitivesArraysMatchAtAnyOrder(navBarEl.nativeElement.classList, ['small', 'vertical']);
     expect(wizardEl.classes).toEqual({'horizontal': false, 'vertical': true});
-    expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': false, 'vertical': true});
+    isPrimitivesArraysMatchAtAnyOrder(wizardStepsDiv.nativeElement.classList, ['wizard-steps', 'vertical']);
   });
 
   it('should contain navigation bar at the correct position in bottom navBarLocation mode', () => {
@@ -149,12 +141,9 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('div');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('aw-wizard-navigation-bar');
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
+    isPrimitivesArraysMatchAtAnyOrder(navBarEl.nativeElement.classList, ['small', 'horizontal']);
     expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
-    expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
+    isPrimitivesArraysMatchAtAnyOrder(wizardStepsDiv.nativeElement.classList, ['wizard-steps', 'horizontal']);
   });
 
   it('should contain navigation bar at the correct position in right navBarLocation mode', () => {
@@ -171,12 +160,9 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('div');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('aw-wizard-navigation-bar');
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': false, 'vertical': true, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
+    isPrimitivesArraysMatchAtAnyOrder(navBarEl.nativeElement.classList, ['vertical', 'small']);
     expect(wizardEl.classes).toEqual({'horizontal': false, 'vertical': true});
-    expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': false, 'vertical': true});
+    isPrimitivesArraysMatchAtAnyOrder(wizardStepsDiv.nativeElement.classList, ['wizard-steps', 'vertical']);
   });
 
   it('should change the navigation mode correctly during runtime', () => {
