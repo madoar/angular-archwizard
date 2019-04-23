@@ -68,7 +68,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    * The location of the navigation bar inside the wizard.
    * This location can be either top, bottom, left or right
    */
-  private _navBarLocation = 'top';
+  private _navBarLocation: string = 'top';
 
   /**
    * The location of the navigation bar inside the wizard.
@@ -95,7 +95,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    * The layout can be either small, large-filled, large-empty or large-symbols
    */
   @Input()
-  private _navBarLayout = 'small';
+  private _navBarLayout: string = 'small';
 
   /**
    * The layout of the navigation bar inside the wizard.
@@ -167,7 +167,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    * True, if the navigation bar shouldn't be used for navigating
    */
   @Input()
-  public disableNavigationBar = false;
+  public disableNavigationBar: boolean = false;
 
   /**
    * The navigation mode used to navigate inside the wizard
@@ -190,7 +190,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    * Note: Do not modify this field directly.  Instead, use navigation methods:
    * [[goToStep]], [[goToPreviousStep]], [[goToNextStep]].
    */
-  public currentStepIndex = -1;
+  public currentStepIndex: number = -1;
 
   /**
    * Constructor
@@ -320,7 +320,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    *
    * @param navigationMode The updated navigation mode
    */
-  public updateNavigationMode(navigationMode: NavigationModeInput) {
+  public updateNavigationMode(navigationMode: NavigationModeInput): void {
     this._navigation = this.navigationModeFactory.create(this, navigationMode);
   }
 

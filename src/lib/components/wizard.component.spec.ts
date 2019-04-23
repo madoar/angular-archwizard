@@ -6,7 +6,7 @@ import {FreeNavigationMode} from '../navigation/free-navigation-mode';
 import {StrictNavigationMode} from '../navigation/strict-navigation-mode';
 import {WizardComponent} from './wizard.component';
 import {WizardStep} from '../util/wizard-step.interface';
-import {isPrimitivesArraysMatchAtAnyOrder} from '../util/tests-comparation';
+import {isPrimitivesArraysMatchAtAnyOrder} from '../util/tests-comparison';
 
 @Component({
   selector: 'aw-test-wizard',

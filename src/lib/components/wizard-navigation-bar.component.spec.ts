@@ -3,7 +3,7 @@ import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/t
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {WizardComponent} from './wizard.component';
-import {isPrimitivesArraysMatchAtAnyOrder} from '../util/tests-comparation';
+import {isPrimitivesArraysMatchAtAnyOrder} from '../util/tests-comparison';
 
 @Component({
   selector: 'aw-test-wizard',

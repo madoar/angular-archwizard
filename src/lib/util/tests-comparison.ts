@@ -1,5 +1,5 @@
 
-export function isPrimitivesArraysMatchAtAnyOrder(actualArray: any[], expectedArray: any[]) {
+export function isPrimitivesArraysMatchAtAnyOrder<T = any>(actualArray: T[], expectedArray: T[]): void {
   // check if every element of array2 is element of array1
   // to ensure [1, 1] !== [1, 2]
   expectedArray.forEach(x => expect(actualArray).toContain(x));
