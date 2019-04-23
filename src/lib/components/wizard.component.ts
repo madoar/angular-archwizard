@@ -85,10 +85,10 @@ export class WizardComponent implements AfterContentInit, OnChanges {
     this.updateOrientationClasses();
   }
 
-  protected navigationBarOrientationClassForTopLeft: string;
-  protected navigationBarOrientationClassForBottomRight: string;
+  public navigationBarOrientationClassForTopLeft: string;
+  public navigationBarOrientationClassForBottomRight: string;
 
-  protected wizardStepsOrientationClass: string;
+  public wizardStepsOrientationClass: string;
 
   /**
    * The layout of the navigation bar inside the wizard.
