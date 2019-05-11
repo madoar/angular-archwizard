@@ -20,7 +20,8 @@ export class ConfigurableNavigationMode extends BaseNavigationMode {
       return true;
     }
 
-    // navigation with [goToStep] is permitted if all previous steps to the destination step have been completed or are optional
+    // navigation with [goToStep] is permitted if all previous steps
+    // to the destination step have been completed or are optional
     return wizard.wizardSteps
         .filter((step, index) => index < destinationIndex && index !== wizard.currentStepIndex)
         .every(step => step.completed || step.optional);

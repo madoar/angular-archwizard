@@ -252,7 +252,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    *
    * @param navigationMode The updated navigation mode
    */
-  public updateNavigationMode(navigationMode: NavigationMode) {
+  public updateNavigationMode(navigationMode: NavigationMode): void {
     this._navigation = navigationMode;
   }
 
