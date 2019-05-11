@@ -4,7 +4,10 @@ import { WizardCompletionStep } from '../util/wizard-completion-step.interface';
 
 export class ConfigurableNavigationMode extends BaseNavigationMode {
 
-  constructor(private navigateBackward: 'allow'|'deny'|null = null, private navigateForward: 'allow'|'deny'|null = null) {
+  constructor(
+    private navigateBackward: 'allow'|'deny'|null = null,
+    private navigateForward: 'allow'|'deny'|null = null,
+  ) {
     super();
     this.navigateBackward = this.navigateBackward || 'allow';
     this.navigateForward = this.navigateForward || 'deny';
