@@ -6,17 +6,13 @@ import {
   Input,
   QueryList,
   SimpleChanges,
-  Inject,
-  Optional,
   EventEmitter,
   OnChanges,
 } from '@angular/core';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {NavigationModeInput} from '../navigation/navigation-mode-input.interface';
-import {NavigationModeFactory, NAVIGATION_MODE_FACTORY} from '../navigation/navigation-mode-factory.interface';
-import {BaseNavigationModeFactory} from '../navigation/base-navigation-mode-factory.provider';
 import {WizardStep} from '../util/wizard-step.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
+import {ConfigurableNavigationMode} from '../navigation/configurable-navigation-mode';
 
 /**
  * The `aw-wizard` component defines the root component of a wizard.
@@ -86,23 +82,6 @@ export class WizardComponent implements AfterContentInit, OnChanges {
   public navBarDirection = 'left-to-right';
 
   /**
-   * The navigation mode used for transitioning between different steps.
-   *
-   * The input value can be either a navigation mode name or a function.
-   *
-   * A set of supported mode names is determined by the configured navigation mode factory.
-   * The default navigation mode factory recognizes `strict`, `semi-strict` and `free`.
-   *
-   * If the value is a function, the function will be called during the initialization of the wizard
-   * component and must return an instance of [[NavigationMode]] to be used in the component.
-   *
-   * If the input is not configured or set to a falsy value, a default mode will be chosen by the navigation mode factory.
-   * For the default navigation mode factory, the default mode is `strict`.
-   */
-  @Input()
-  public navigationMode: NavigationModeInput;
-
-  /**
    * The initially selected step, represented by its index
    * Beware: This initial default is only used if no wizard step has been enhanced with the `selected` directive
    */
@@ -156,16 +135,8 @@ export class WizardComponent implements AfterContentInit, OnChanges {
 
   /**
    * Constructor
-   *
-   * @param model The model for this wizard component
-   * @param navigationModeFactory Navigation mode factory for this wizard component
    */
-  constructor(
-    // Using @Optional() in order not to break applications which import ArchwizardModule without calling forRoot().
-    @Optional() @Inject(NAVIGATION_MODE_FACTORY) private navigationModeFactory: NavigationModeFactory) {
-    if (!this.navigationModeFactory) {
-      this.navigationModeFactory = new BaseNavigationModeFactory();
-    }
+  constructor() {
   }
 
   /**
@@ -216,7 +187,9 @@ export class WizardComponent implements AfterContentInit, OnChanges {
 
     // initialize the model
     this.updateWizardSteps(this.wizardStepsQueryList.toArray());
-    this.updateNavigationMode(this.navigationMode);
+    if (!this._navigation) {
+      this._navigation = new ConfigurableNavigationMode();
+    }
 
     // finally reset the whole wizard componennt
     this.reset();
@@ -279,8 +252,8 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    *
    * @param navigationMode The updated navigation mode
    */
-  public updateNavigationMode(navigationMode: NavigationModeInput) {
-    this._navigation = this.navigationModeFactory.create(this, navigationMode);
+  public updateNavigationMode(navigationMode: NavigationMode) {
+    this._navigation = navigationMode;
   }
 
   /**
