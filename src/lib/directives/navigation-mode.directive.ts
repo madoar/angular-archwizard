@@ -1,8 +1,8 @@
-import { Directive, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {Directive, Input, OnChanges, SimpleChanges} from '@angular/core';
 
-import { NavigationMode } from '../navigation/navigation-mode.interface';
-import { ConfigurableNavigationMode } from '../navigation/configurable-navigation-mode';
-import { WizardComponent } from '../components/wizard.component';
+import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {ConfigurableNavigationMode} from '../navigation/configurable-navigation-mode';
+import {WizardComponent} from '../components/wizard.component';
 
 
 @Directive({

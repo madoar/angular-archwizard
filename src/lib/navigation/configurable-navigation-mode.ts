@@ -1,6 +1,6 @@
 import {BaseNavigationMode} from './base-navigation-mode.interface';
 import {WizardComponent} from '../components/wizard.component';
-import { WizardCompletionStep } from '../util/wizard-completion-step.interface';
+import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 
 export class ConfigurableNavigationMode extends BaseNavigationMode {
 
