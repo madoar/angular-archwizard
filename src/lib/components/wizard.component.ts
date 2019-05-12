@@ -115,7 +115,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    *
    * For outside access, use the [[navigation]] getter.
    */
-  private _navigation: NavigationMode;
+  private _navigation: NavigationMode = new ConfigurableNavigationMode();
 
   /**
    * An array representation of all wizard steps belonging to this model
@@ -187,9 +187,6 @@ export class WizardComponent implements AfterContentInit, OnChanges {
 
     // initialize the model
     this.updateWizardSteps(this.wizardStepsQueryList.toArray());
-    if (!this._navigation) {
-      this._navigation = new ConfigurableNavigationMode();
-    }
 
     // finally reset the whole wizard componennt
     this.reset();
