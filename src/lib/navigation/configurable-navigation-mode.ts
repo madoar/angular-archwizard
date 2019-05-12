@@ -63,6 +63,8 @@ export class ConfigurableNavigationMode extends BaseNavigationMode {
       switch (this.navigateBackward) {
         case 'allow': return true;
         case 'deny': return false;
+        default:
+          throw new Error(`Invalid value for navigateBackward: ${this.navigateBackward}`);
       }
 
     } else if (destinationIndex > wizard.currentStepIndex) {
@@ -70,6 +72,8 @@ export class ConfigurableNavigationMode extends BaseNavigationMode {
       switch (this.navigateForward) {
         case 'allow': return true;
         case 'deny': return false;
+        default:
+          throw new Error(`Invalid value for navigateForward: ${this.navigateForward}`);
       }
 
     } else {
