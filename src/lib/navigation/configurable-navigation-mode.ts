@@ -48,8 +48,9 @@ export class ConfigurableNavigationMode extends BaseNavigationMode {
    * @inheritDoc
    */
   public isNavigable(wizard: WizardComponent, destinationIndex: number): boolean {
+    // Check if the destination step can be navigated to
     if (wizard.getStepAtIndex(destinationIndex) instanceof WizardCompletionStep) {
-      // a completion step can only be entered, if all previous steps have been completed, are optional, or selected
+      // A completion step can only be entered, if all previous steps have been completed, are optional, or selected
       const previousStepsCompleted = wizard.wizardSteps
         .filter((step, index) => index < destinationIndex)
         .every(step => step.completed || step.optional || step.selected);
@@ -58,25 +59,25 @@ export class ConfigurableNavigationMode extends BaseNavigationMode {
       }
     }
 
+    // Apply navigation pocicies
     if (destinationIndex < wizard.currentStepIndex) {
-
+      // If the destination step is before current, apply the `navigateBackward` policy
       switch (this.navigateBackward) {
         case 'allow': return true;
         case 'deny': return false;
         default:
           throw new Error(`Invalid value for navigateBackward: ${this.navigateBackward}`);
       }
-
     } else if (destinationIndex > wizard.currentStepIndex) {
-
+      // If the destination step is after current, apply the `navigateForward` policy
       switch (this.navigateForward) {
         case 'allow': return true;
         case 'deny': return false;
         default:
           throw new Error(`Invalid value for navigateForward: ${this.navigateForward}`);
       }
-
     } else {
+      // Re-entering the current step is not allowed
       return false;
     }
   }
