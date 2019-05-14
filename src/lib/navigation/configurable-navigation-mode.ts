@@ -2,8 +2,33 @@ import {BaseNavigationMode} from './base-navigation-mode.interface';
 import {WizardComponent} from '../components/wizard.component';
 import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 
+/**
+ * The default navigation mode used by [[WizardComponent]] and [[NavigationModeDirective]].
+ *
+ * It is parameterized with two navigation policies passed to constructor:
+ *
+ * - [[navigateBackward]] policy controls whether wizard steps before the current step are navigable:
+ *
+ *   - `"deny"` -- the steps are not navigable
+ *   - `"allow"` -- the steps are navigable
+ *   - If the corresponding constructor argument is omitted or is `null` or `undefined`,
+ *     then the default value is applied which is `"deny"`
+ *
+ * - [[navigateForward]] policy controls whether wizard steps after the current step are navigable:
+ *
+ *   - `"deny"` -- the steps are not navigable
+ *   - `"allow"` -- the steps are navigable
+ *   - If the corresponding constructor argument is omitted or is `null` or `undefined`,
+ *     then the default value is applied which is `"allow"`
+ */
 export class ConfigurableNavigationMode extends BaseNavigationMode {
 
+  /**
+   * Constructor
+   *
+   * @param navigateBackward Controls whether wizard steps before the current step are navigable
+   * @param navigateForward Controls whether wizard steps before the current step are navigable
+   */
   constructor(
     private navigateBackward: 'allow'|'deny'|null = null,
     private navigateForward: 'allow'|'deny'|null = null,
