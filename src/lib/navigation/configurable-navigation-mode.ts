@@ -113,16 +113,6 @@ export class ConfigurableNavigationMode extends BaseNavigationMode {
   protected ensureCanReset(wizard: WizardComponent): void {
     super.ensureCanReset(wizard);
 
-    if (this.navigateBackward === 'deny') {
-      // at least one step is before the default step, that is not optional
-      const illegalDefaultStep = wizard.wizardSteps
-        .filter((step, index) => index < wizard.defaultStepIndex)
-        .some(step => !step.optional);
-      if (illegalDefaultStep) {
-        throw new Error(`The default step index ${wizard.defaultStepIndex} is located after a non optional step`);
-      }
-    }
-
     // the default step is a completion step and the wizard contains more than one step
     const defaultWizardStep = wizard.getStepAtIndex(wizard.defaultStepIndex);
     const defaultCompletionStep = defaultWizardStep instanceof WizardCompletionStep;
