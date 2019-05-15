@@ -15,6 +15,7 @@ export {SelectedStepDirective} from './lib/directives/selected-step.directive';
 export {WizardCompletionStepDirective} from './lib/directives/wizard-completion-step.directive';
 export {WizardStepDirective} from './lib/directives/wizard-step.directive';
 export {WizardStepTitleDirective} from './lib/directives/wizard-step-title.directive';
+export {NavigationModeDirective} from './lib/directives/navigation-mode.directive';
 
 // export the navigation classes
 export {NavigationMode} from './lib/navigation/navigation-mode.interface';
