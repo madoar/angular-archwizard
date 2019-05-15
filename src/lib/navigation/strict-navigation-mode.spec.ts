@@ -224,20 +224,5 @@ describe('StrictNavigationMode', () => {
     expect(wizard.getStepAtIndex(2).selected).toBe(false);
     expect(wizard.getStepAtIndex(2).completed).toBe(false);
     expect(wizard.completed).toBe(false);
-
-    /*
-    wizard.defaultStepIndex = 2;
-    expect(() => wizard.reset())
-      .toThrow(new Error(`The default step index 2 is located after a non optional step`));
-
-    expect(wizard.currentStepIndex).toBe(1);
-    expect(wizard.getStepAtIndex(0).selected).toBe(false);
-    expect(wizard.getStepAtIndex(0).completed).toBe(false);
-    expect(wizard.getStepAtIndex(1).selected).toBe(true);
-    expect(wizard.getStepAtIndex(1).completed).toBe(false);
-    expect(wizard.getStepAtIndex(2).selected).toBe(false);
-    expect(wizard.getStepAtIndex(2).completed).toBe(false);
-    expect(wizard.completed).toBe(false);
-    */
   }));
 });
