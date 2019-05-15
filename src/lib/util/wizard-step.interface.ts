@@ -46,14 +46,23 @@ export abstract class WizardStep {
   public navigationSymbol: NavigationSymbol = {symbol: ''};
 
   /**
-   * A boolean describing if the wizard step has been completed
+   * An input that controls whether the step is shown as completed when the wizard is presented to the user.
+   *
+   * It is useful to make a step initially completed when it is automatically filled with some derived/predefined information.
    */
-  public completed = false;
+  // tslint:disable-next-line:no-input-rename
+  @Input('completed')
+  public initiallyCompleted = false;
 
   /**
    * A boolean describing if the wizard step is currently selected
    */
   public selected = false;
+
+  /**
+   * A boolean describing if the wizard step has been completed
+   */
+  public completed = false;
 
   /**
    * A boolean describing, if the wizard step should be selected by default, i.e. after the wizard has been initialized as the initial step
