@@ -116,26 +116,6 @@ Normally the steps in the navigation bar are layed out from left to right or fro
 In some cases, like with languages that are written from right to left, it may be required to change this direction to layout the steps from right to left.
 To layout the steps from right to left you can pass `right-to-left` to the `navBarDirection` input of the wizard component.
 
-#### \[navigationMode\]
-`angular-archwizard` supports three different navigation modes:
-- **strict** navigation mode:
-   The first navigation mode is strict navigation.
-   This mode describes the status quo, i.e. the current navigation behavior of the wizard.
-   Currently you can only navigate through the wizard steps in a linear fashion,
-   where you can only enter the next step if all previous steps have been completed and the exit condition of your current step have been fulfilled.
-   In this mode it is not possible to jump between different steps, i.e. move to step 3 from step 1, then go to step 2 to finally go to step 4.
-   The only exception to this rule are optional steps, which a user can skip.
-   Therefore you are required to do the steps in the order `1 -> 2 -> 3 -> 4`.
-- **semi-strict** navigation mode:
-   The second navigation mode is semi-strict navigation.
-   This mode lets the user navigate between the steps in any order he likes.
-   This means that in this navigation mode a user could complete the steps in the order `1 -> 3 -> 2 -> 4`, if the exit conditions have been fulfilled.
-   This mode has only one restriction, where the user can enter the completion step after he has completed all previous steps.
-   Again optional steps are skipable in this mode.
-- **free** navigation mode:
-   The third navigation mode is free navigation.
-   This mode let's the user navigate freely between the different steps, including the completion step, in any order he desires.
-
 #### \[defaultStepIndex\]
 Per default the wizard always starts with the first wizard step, after initialisation. The same applies for a reset, where the wizard normally resets to the first step.
 Sometimes this needs to be changed. If another default wizard step needs to be used, you can set it, by using the `[defaultStepIndex]` input of the wizard component.
@@ -158,7 +138,6 @@ Possible `<aw-wizard>` parameters:
 | [navBarLocation]       | `top` \| `bottom` \| `left` \| `right`                                                                | top           |
 | [navBarLayout]         | `small` \| `large-filled` \| `large-empty` \| `large-filled-symbols` \| `large-empty-symbols`         | small         |
 | [navBarDirection]      | `left-to-right` \| `right-to-left`                                                                    | left-to-right |
-| [navigationMode]       | `strict` \| `semi-strict` \| `free`                                                                   | strict        |
 | [defaultStepIndex]     | `number`                                                                                              | 0             |
 | [disableNavigationBar] | `boolean`                                                                                             | false         |
 
@@ -271,6 +250,64 @@ Possible `<aw-wizard-completion-step>` parameters:
 | (stepEnter)                   | `function(MovingDirection): void`                                                                    | null           |
 
 ## Directives
+
+### \[awNavigationMode\]
+By default `angular-archwizard` operates in a "strict" navigation mode.
+It requires users to navigate through the wizard steps in a linear fashion, where they can only enter the next step if all previous steps have been completed and the exit condition of the current step have been fulfilled.
+The only exception to this rule are optional steps, which a user can skip.
+Using the navigation bar, the user can navigate back to steps they already visited.
+
+You can alter this behavior by applying to the `<aw-wizard>` element an additional `[awNavigationMode]` directive, which can be used in two ways.
+The easiest option is to tweak the default navigation mode with `[navigateBackward]` and/or `[navigateForward]` inputs which control the navigation bar.  Valid options for these inputs are `'allow'` and `'deny`'.  Take notice that the `'allow'` option still respects step exit conditions.  Also, the completion step still only becomes enterable after all previous steps are completed.  Example usage:
+
+```html
+<aw-wizard [awNavigationMode] navigateBackward="allow" navigateForward="allow">...</aw-wizard>
+```
+
+If changes you need are more radical, you can define your own navigation mode.  In order to do this, create a class implementing the `NavigationMode` interface and pass an instance of this class into the `[awNavigationMode]` directive.  This takes priority over `[navigateBackward]` and `[navigateForward]` inputs.  Example usage:
+
+custom-navigation-mode.ts:
+```typescript
+import { NavigationMode } from 'angular-archwizard'
+
+class CustomNavigationMode implements NavigationMode {
+
+  // ...
+}
+```
+
+my.component.ts:
+```typescript
+@Component({
+  // ...
+})
+class MyComponent {
+
+  navigationMode = new CustomNavigationMode();
+}
+```
+
+my.component.html:
+```html
+<aw-wizard [awNavigationMode]="navigationMode">...</aw-wizard>
+```
+
+Instead of implementing the `NavigationMode` interface from scratch, you can extend one of the classes provided by `angular-archwizard`:
+
+- `BaseNavigationMode`.  This class contains an abstract method called `isNavigable`, which you will have to override to define wizard's behavior towards navigation using the navigation bar.
+
+- `ConfigurableNavigationMode`.  This class defines the default navigation mode used by `angular-archwizard`.  In some cases, it might be more convenient to base your custom implementation on it.
+
+This way of customizing the wizard is advanced, so be prepared to refer to documentation comments and source code for help.
+
+#### Parameter overview
+Possible `awNavigationMode` parameters:
+
+| Parameter name                | Possible Values                                                                                      | Default Value |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
+| [awNavigationMode]            | `NavigationMode`                                                                                     | `null`        |
+| [navigateBackward]            | `'allow'|'deny'`                                                                                     | `'deny'`      |
+| [navigateForward]             | `'allow'|'deny'`                                                                                     | `'allow'`     |
 
 ### \[awEnableBackLinks\]
 In some cases it may be required that the user is allowed to leave an entered `aw-wizard-completion-step`.
