@@ -5,9 +5,7 @@ import {
   HostBinding,
   Input,
   QueryList,
-  SimpleChanges,
   EventEmitter,
-  OnChanges,
 } from '@angular/core';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardStep} from '../util/wizard-step.interface';
@@ -53,7 +51,7 @@ import {ConfigurableNavigationMode} from '../navigation/configurable-navigation-
   selector: 'aw-wizard',
   templateUrl: 'wizard.component.html',
 })
-export class WizardComponent implements AfterContentInit, OnChanges {
+export class WizardComponent implements AfterContentInit {
   /**
    * A QueryList containing all [[WizardStep]]s inside this wizard
    */
@@ -162,21 +160,6 @@ export class WizardComponent implements AfterContentInit, OnChanges {
   }
 
   /**
-   * Updates the model after certain input values have changed
-   *
-   * @param changes The detected changes
-   */
-  public ngOnChanges(changes: SimpleChanges) {
-    for (const propName of Object.keys(changes)) {
-      const change = changes[propName];
-
-      if (!change.firstChange && propName === 'navigationMode') {
-        this.updateNavigationMode(change.currentValue);
-      }
-    }
-  }
-
-  /**
    * Initialization work
    */
   public ngAfterContentInit(): void {
@@ -247,10 +230,10 @@ export class WizardComponent implements AfterContentInit, OnChanges {
   /**
    * Updates the navigation mode for this wizard component
    *
-   * @param navigationMode The updated navigation mode
+   * @param navigation The updated navigation mode
    */
-  public updateNavigationMode(navigationMode: NavigationMode): void {
-    this._navigation = navigationMode;
+  public set navigation(navigation: NavigationMode) {
+    this._navigation = navigation;
   }
 
   /**

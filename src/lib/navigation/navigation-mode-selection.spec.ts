@@ -61,13 +61,13 @@ describe('NavigationMode', () => {
     expect(wizard.navigation).toEqual(jasmine.any(CustomNavigationMode));
   });
 
-  it('can be assigned with updateNavigationMode', () => {
+  it('can be assigned with .navigation setter', () => {
     const wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
     const wizard = wizardTestFixture.componentInstance.wizard;
 
     const navigationMode = new CustomNavigationMode();
-    wizard.updateNavigationMode(navigationMode);
+    wizard.navigation = navigationMode;
     expect(wizard.navigation).toEqual(navigationMode);
   });
 });

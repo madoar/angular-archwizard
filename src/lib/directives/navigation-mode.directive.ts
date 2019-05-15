@@ -84,7 +84,7 @@ export class NavigationModeDirective implements OnChanges {
   constructor(private wizard: WizardComponent) { }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this.wizard.updateNavigationMode(this.getNavigationMode());
+    this.wizard.navigation = this.getNavigationMode();
   }
 
   private getNavigationMode(): NavigationMode {
