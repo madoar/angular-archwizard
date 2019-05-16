@@ -2,12 +2,11 @@ import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {ArchwizardModule} from '../archwizard.module';
 import {WizardComponent} from '../components/wizard.component';
-import {FreeNavigationMode} from './free-navigation-mode';
 
 @Component({
   selector: 'aw-test-wizard',
   template: `
-    <aw-wizard navigationMode="free">
+    <aw-wizard [awNavigationMode] navigateForward="allow">
       <aw-wizard-step stepTitle='Steptitle 1'>
         Step 1
       </aw-wizard-step>
@@ -44,11 +43,6 @@ describe('FreeNavigationMode', () => {
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-  });
-
-  it('should create', () => {
-    expect(wizard.navigation instanceof FreeNavigationMode).toBe(true,
-      'Navigation mode is not an instance of FreeNavigationMode');
   });
 
   it('should return correct can go to step', async(() => {

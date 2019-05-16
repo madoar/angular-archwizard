@@ -2,15 +2,15 @@ import {AfterViewInit, ChangeDetectorRef, Component, ViewChild} from '@angular/c
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
-import {FreeNavigationMode} from '../navigation/free-navigation-mode';
-import {StrictNavigationMode} from '../navigation/strict-navigation-mode';
 import {WizardComponent} from './wizard.component';
 import {WizardStep} from '../util/wizard-step.interface';
 
 @Component({
   selector: 'aw-test-wizard',
   template: `
-    <aw-wizard [navigationMode]="navigationMode" [disableNavigationBar]="disableNavigationBar" [defaultStepIndex]="defaultStepIndex">
+    <aw-wizard
+      [disableNavigationBar]="disableNavigationBar" [defaultStepIndex]="defaultStepIndex"
+      [awNavigationMode] [navigateForward]="navigateForward" [navigateBackward]="navigateBackward">
       <aw-wizard-step stepTitle='Steptitle 1' *ngIf="showStep1">
         Step 1
       </aw-wizard-step>
@@ -24,7 +24,8 @@ import {WizardStep} from '../util/wizard-step.interface';
   `
 })
 class WizardTestComponent implements AfterViewInit {
-  public navigationMode = 'strict';
+  public navigateForward = 'deny';
+  public navigateBackward = 'deny';
 
   public disableNavigationBar = false;
 
@@ -69,7 +70,6 @@ describe('WizardComponent', () => {
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
     expect(wizard).toBeTruthy();
-    expect(wizard.navigationMode).toBeTruthy();
   });
 
   it('should contain navigation bar at the correct position in default navBarLocation mode', () => {
@@ -180,12 +180,13 @@ describe('WizardComponent', () => {
   });
 
   it('should change the navigation mode correctly during runtime', () => {
-    expect(wizard.navigation instanceof StrictNavigationMode).toBe(true);
+    const oldNavigation = wizard.navigation;
 
-    wizardTest.navigationMode = 'free';
+    wizardTest.navigateForward = 'allow';
+    wizardTest.navigateBackward = 'allow';
     wizardTestFixture.detectChanges();
 
-    expect(wizard.navigation instanceof FreeNavigationMode).toBe(true);
+    expect(wizard.navigation).not.toBe(oldNavigation);
   });
 
   it('should change disableNavigationBar correctly during runtime', () => {

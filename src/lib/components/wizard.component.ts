@@ -5,18 +5,12 @@ import {
   HostBinding,
   Input,
   QueryList,
-  SimpleChanges,
-  Inject,
-  Optional,
   EventEmitter,
-  OnChanges,
 } from '@angular/core';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {NavigationModeInput} from '../navigation/navigation-mode-input.interface';
-import {NavigationModeFactory, NAVIGATION_MODE_FACTORY} from '../navigation/navigation-mode-factory.interface';
-import {BaseNavigationModeFactory} from '../navigation/base-navigation-mode-factory.provider';
 import {WizardStep} from '../util/wizard-step.interface';
 import {MovingDirection} from '../util/moving-direction.enum';
+import {ConfigurableNavigationMode} from '../navigation/configurable-navigation-mode';
 
 /**
  * The `aw-wizard` component defines the root component of a wizard.
@@ -57,7 +51,7 @@ import {MovingDirection} from '../util/moving-direction.enum';
   selector: 'aw-wizard',
   templateUrl: 'wizard.component.html',
 })
-export class WizardComponent implements AfterContentInit, OnChanges {
+export class WizardComponent implements AfterContentInit {
   /**
    * A QueryList containing all [[WizardStep]]s inside this wizard
    */
@@ -84,23 +78,6 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    */
   @Input()
   public navBarDirection = 'left-to-right';
-
-  /**
-   * The navigation mode used for transitioning between different steps.
-   *
-   * The input value can be either a navigation mode name or a function.
-   *
-   * A set of supported mode names is determined by the configured navigation mode factory.
-   * The default navigation mode factory recognizes `strict`, `semi-strict` and `free`.
-   *
-   * If the value is a function, the function will be called during the initialization of the wizard
-   * component and must return an instance of [[NavigationMode]] to be used in the component.
-   *
-   * If the input is not configured or set to a falsy value, a default mode will be chosen by the navigation mode factory.
-   * For the default navigation mode factory, the default mode is `strict`.
-   */
-  @Input()
-  public navigationMode: NavigationModeInput;
 
   /**
    * The initially selected step, represented by its index
@@ -136,7 +113,7 @@ export class WizardComponent implements AfterContentInit, OnChanges {
    *
    * For outside access, use the [[navigation]] getter.
    */
-  private _navigation: NavigationMode;
+  private _navigation: NavigationMode = new ConfigurableNavigationMode();
 
   /**
    * An array representation of all wizard steps belonging to this model
@@ -156,16 +133,8 @@ export class WizardComponent implements AfterContentInit, OnChanges {
 
   /**
    * Constructor
-   *
-   * @param model The model for this wizard component
-   * @param navigationModeFactory Navigation mode factory for this wizard component
    */
-  constructor(
-    // Using @Optional() in order not to break applications which import ArchwizardModule without calling forRoot().
-    @Optional() @Inject(NAVIGATION_MODE_FACTORY) private navigationModeFactory: NavigationModeFactory) {
-    if (!this.navigationModeFactory) {
-      this.navigationModeFactory = new BaseNavigationModeFactory();
-    }
+  constructor() {
   }
 
   /**
@@ -191,21 +160,6 @@ export class WizardComponent implements AfterContentInit, OnChanges {
   }
 
   /**
-   * Updates the model after certain input values have changed
-   *
-   * @param changes The detected changes
-   */
-  public ngOnChanges(changes: SimpleChanges) {
-    for (const propName of Object.keys(changes)) {
-      const change = changes[propName];
-
-      if (!change.firstChange && propName === 'navigationMode') {
-        this.updateNavigationMode(change.currentValue);
-      }
-    }
-  }
-
-  /**
    * Initialization work
    */
   public ngAfterContentInit(): void {
@@ -216,7 +170,6 @@ export class WizardComponent implements AfterContentInit, OnChanges {
 
     // initialize the model
     this.updateWizardSteps(this.wizardStepsQueryList.toArray());
-    this.updateNavigationMode(this.navigationMode);
 
     // finally reset the whole wizard componennt
     this.reset();
@@ -277,10 +230,10 @@ export class WizardComponent implements AfterContentInit, OnChanges {
   /**
    * Updates the navigation mode for this wizard component
    *
-   * @param navigationMode The updated navigation mode
+   * @param navigation The updated navigation mode
    */
-  public updateNavigationMode(navigationMode: NavigationModeInput) {
-    this._navigation = this.navigationModeFactory.create(this, navigationMode);
+  public set navigation(navigation: NavigationMode) {
+    this._navigation = navigation;
   }
 
   /**
