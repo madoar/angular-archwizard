@@ -9,7 +9,7 @@
 //
 // - https://github.com/sass/sass/issues/626#issuecomment-345432420
 // - https://github.com/sass/sass/issues/871
-
+//
 // indicator state: 'default' or 'hover'
 $wz-param-indicator-state: null !global;
 
@@ -201,6 +201,54 @@ $wz-param-indicator-color: null !global;
 }
 
 
+// Helper mixin to define indicator styles like 'small', 'large-filled-symbols' etc. for the given layout
+//
+// Arguments:
+//   $layout - 'horizontal' | 'vertical'
+//
+@mixin wz-define-styles($layout) {
+  &.small ul.steps-indicator {
+    @include wz-define-style($layout, $width: $wz-small-dot-width, $height: $wz-small-dot-height, $border-width: 0) {
+      @include wz-state-circle-with-background($wz-param-indicator-color);
+    }
+  }
+
+  &.large-filled ul.steps-indicator {
+    @include wz-define-style($layout, $border-width: 0) {
+      @include wz-state-circle-with-background($wz-param-indicator-color);
+    }
+  }
+
+  &.large-empty ul.steps-indicator {
+    @include wz-define-style($layout) {
+      @include wz-state-circle-with-border($wz-param-indicator-color);
+    }
+  }
+
+  &.large-filled-symbols ul.steps-indicator {
+    @include wz-define-style($layout, $border-width: 0) {
+      @include wz-state-circle-with-background-and-content($wz-param-indicator-color);
+    }
+  }
+
+  &.large-empty-symbols ul.steps-indicator {
+    @include wz-define-style($layout) {
+      @include wz-state-circle-with-border-and-content($wz-param-indicator-color);
+    }
+  }
+}
+
+
+// Helper mixin to define indicator styles for 'horizontal' and 'vertical' layouts
+@mixin wz-define-layout-styles() {
+  @each $layout in 'horizontal', 'vertical' {
+    aw-wizard-navigation-bar.#{$layout} {
+      @include wz-define-styles($layout);
+    }
+  }
+}
+
+
 aw-wizard-navigation-bar {
 
   ul.steps-indicator {
@@ -350,38 +398,4 @@ aw-wizard-navigation-bar.vertical {
   }
 }
 
-// Define indicator styles for both layouts
-@each $layout in 'horizontal', 'vertical' {
-  aw-wizard-navigation-bar.#{$layout} {
-
-    &.small ul.steps-indicator {
-      @include wz-define-style($layout, $width: $wz-small-dot-width, $height: $wz-small-dot-height, $border-width: 0) {
-        @include wz-state-circle-with-background($wz-param-indicator-color);
-      }
-    }
-
-    &.large-filled ul.steps-indicator {
-      @include wz-define-style($layout, $border-width: 0) {
-        @include wz-state-circle-with-background($wz-param-indicator-color);
-      }
-    }
-
-    &.large-empty ul.steps-indicator {
-      @include wz-define-style($layout) {
-        @include wz-state-circle-with-border($wz-param-indicator-color);
-      }
-    }
-
-    &.large-filled-symbols ul.steps-indicator {
-      @include wz-define-style($layout, $border-width: 0) {
-        @include wz-state-circle-with-background-and-content($wz-param-indicator-color);
-      }
-    }
-
-    &.large-empty-symbols ul.steps-indicator {
-      @include wz-define-style($layout) {
-        @include wz-state-circle-with-border-and-content($wz-param-indicator-color);
-      }
-    }
-  }
-}
+@include wz-define-layout-styles();
