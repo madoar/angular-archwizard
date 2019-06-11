@@ -21,5 +21,5 @@ export enum MovingDirection {
   /**
    * No step transition was done
    */
-  Stay
+  Stay,
 }

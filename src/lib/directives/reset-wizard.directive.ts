@@ -14,7 +14,7 @@ import {WizardComponent} from '../components/wizard.component';
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[awResetWizard]'
+  selector: '[awResetWizard]',
 })
 export class ResetWizardDirective {
   /**

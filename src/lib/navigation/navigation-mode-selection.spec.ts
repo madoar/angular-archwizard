@@ -18,7 +18,7 @@ class CustomNavigationMode extends BaseNavigationMode {
       <aw-wizard-step stepTitle='Steptitle 2'>Step 2</aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 3'>Step 3</aw-wizard-step>
     </aw-wizard>
-  `
+  `,
 })
 class WizardTestComponent {
 
@@ -34,7 +34,7 @@ class WizardTestComponent {
       <aw-wizard-step stepTitle='Steptitle 2'>Step 2</aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 3'>Step 3</aw-wizard-step>
     </aw-wizard>
-  `
+  `,
 })
 class WizardWithCustomNavigationModeComponent {
 
@@ -49,7 +49,7 @@ describe('NavigationMode', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent, WizardWithCustomNavigationModeComponent],
-      imports: [ArchwizardModule]
+      imports: [ArchwizardModule],
     }).compileComponents();
   }));
 

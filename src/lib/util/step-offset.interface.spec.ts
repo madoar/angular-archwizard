@@ -29,7 +29,7 @@ import {WizardComponent} from '../components/wizard.component';
         </button>
       </aw-wizard-step>
     </aw-wizard>
-  `
+  `,
 })
 class WizardTestComponent {
 
@@ -54,7 +54,7 @@ describe('StepOffset', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
-      imports: [ArchwizardModule]
+      imports: [ArchwizardModule],
     }).compileComponents();
   }));
 

@@ -13,7 +13,7 @@ import {WizardComponent} from '../components/wizard.component';
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[awNextStep]'
+  selector: '[awNextStep]',
 })
 export class NextStepDirective {
   /**

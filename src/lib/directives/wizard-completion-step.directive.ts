@@ -42,8 +42,8 @@ import {WizardStep} from '../util/wizard-step.interface';
   selector: '[awWizardCompletionStep]',
   providers: [
     {provide: WizardStep, useExisting: forwardRef(() => WizardCompletionStepDirective)},
-    {provide: WizardCompletionStep, useExisting: forwardRef(() => WizardCompletionStepDirective)}
-  ]
+    {provide: WizardCompletionStep, useExisting: forwardRef(() => WizardCompletionStepDirective)},
+  ],
 })
 export class WizardCompletionStepDirective extends WizardCompletionStep {
 }

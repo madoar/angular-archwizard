@@ -21,7 +21,7 @@ import {WizardComponent} from './wizard.component';
         Step 4
       </aw-wizard-completion-step>
     </aw-wizard>
-  `
+  `,
 })
 class WizardTestComponent {
   public firstStepId = 'step1';
@@ -39,7 +39,7 @@ describe('WizardNavigationBarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
-      imports: [ArchwizardModule]
+      imports: [ArchwizardModule],
     }).compileComponents();
   }));
 
@@ -452,7 +452,7 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false,
     });
   });
 
@@ -464,7 +464,7 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false,
     });
   });
 
@@ -476,7 +476,7 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': true, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
+      'large-filled': true, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false,
     });
   });
 
@@ -488,7 +488,7 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': true, 'large-empty-symbols': false
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': true, 'large-empty-symbols': false,
     });
   });
 
@@ -500,7 +500,7 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': false, 'large-filled-symbols': true, 'large-empty': false, 'large-empty-symbols': false
+      'large-filled': false, 'large-filled-symbols': true, 'large-empty': false, 'large-empty-symbols': false,
     });
   });
 
@@ -512,7 +512,7 @@ describe('WizardNavigationBarComponent', () => {
 
     expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': false,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': true
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': true,
     });
   });
 

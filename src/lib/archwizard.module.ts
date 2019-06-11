@@ -43,7 +43,7 @@ import {NavigationModeDirective} from './directives/navigation-mode.directive';
     NavigationModeDirective,
   ],
   imports: [
-    CommonModule
+    CommonModule,
   ],
   exports: [
     WizardComponent,
@@ -62,7 +62,7 @@ import {NavigationModeDirective} from './directives/navigation-mode.directive';
     SelectedStepDirective,
     ResetWizardDirective,
     NavigationModeDirective,
-  ]
+  ],
 })
 export class ArchwizardModule {
   /* istanbul ignore next */
@@ -71,7 +71,7 @@ export class ArchwizardModule {
       ngModule: ArchwizardModule,
       providers: [
         // Nothing here yet
-      ]
+      ],
     };
   }
 }
