@@ -4,8 +4,8 @@ export function checkWizardState(
   wizard: WizardComponent,
   selectedStepIndex: number,
   completedStepIndexes: number[],
-  wizardCompleted: boolean
-) {
+  wizardCompleted: boolean,
+): void {
   expect(wizard.currentStepIndex).toBe(selectedStepIndex, `expected current step index to be ${selectedStepIndex}`);
 
   wizard.wizardSteps.forEach((step, index) => {
@@ -17,5 +17,6 @@ export function checkWizardState(
       `expected step ${index} ${completedStepIndexes.includes(index) ? 'to be completed' : 'not to be completed'}`);
   });
 
-  expect(wizard.completed).toBe(wizardCompleted, `expected wizard ${wizardCompleted ? 'to be completed' : 'not to be completed'}`);
+  expect(wizard.completed).toBe(wizardCompleted,
+    `expected wizard ${wizardCompleted ? 'to be completed' : 'not to be completed'}`);
 }

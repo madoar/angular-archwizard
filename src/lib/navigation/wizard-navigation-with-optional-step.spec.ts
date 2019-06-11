@@ -18,7 +18,7 @@ import {checkWizardState} from '../util/test-utils';
         Step 3
       </aw-wizard-step>
     </aw-wizard>
-  `
+  `,
 })
 class WizardTestComponent {
   @ViewChild(WizardComponent)
@@ -34,7 +34,7 @@ describe('Wizard navigation with optional step', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
-      imports: [ArchwizardModule]
+      imports: [ArchwizardModule],
     }).compileComponents();
   }));
 
