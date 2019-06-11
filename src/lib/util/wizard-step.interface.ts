@@ -48,7 +48,8 @@ export abstract class WizardStep {
   /**
    * An input that controls whether the step is shown as completed when the wizard is presented to the user.
    *
-   * It is useful to make a step initially completed when it is automatically filled with some derived/predefined information.
+   * It is useful to make a step initially completed when it is automatically filled
+   * with some derived/predefined information.
    */
   // tslint:disable-next-line:no-input-rename
   @Input('completed')
