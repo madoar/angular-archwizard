@@ -7,16 +7,16 @@ import {checkWizardState} from '../util/test-utils';
 @Component({
   selector: 'aw-test-wizard',
   template: `
-    <aw-wizard [awNavigationMode] navigateForward="allow">
+    <aw-wizard>
       <aw-wizard-step stepTitle='Steptitle 1'>
         Step 1
       </aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 2'>
         Step 2
       </aw-wizard-step>
-      <aw-wizard-completion-step awEnableBackLinks stepTitle='Completion Steptitle'>
+      <aw-wizard-step stepTitle='Steptitle 3'>
         Step 3
-      </aw-wizard-completion-step>
+      </aw-wizard-step>
     </aw-wizard>
   `
 })
@@ -25,7 +25,7 @@ class WizardTestComponent {
   public wizard: WizardComponent;
 }
 
-describe('SemiStrictNavigationMode', () => {
+describe('Wizard navigation', () => {
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
   let wizardTest: WizardTestComponent;
@@ -67,25 +67,25 @@ describe('SemiStrictNavigationMode', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 2, [0, 1, 2], true);
+    checkWizardState(wizard, 2, [0, 1], false);
 
     wizard.goToStep(0);
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 0, [0, 1], false);
+    checkWizardState(wizard, 0, [0], false);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 1, [0, 1], false);
+    checkWizardState(wizard, 1, [0], false);
 
     wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 2, [0, 1, 2], true);
+    checkWizardState(wizard, 2, [0, 1], false);
 
     wizard.goToStep(1);
     tick();
@@ -100,25 +100,22 @@ describe('SemiStrictNavigationMode', () => {
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 1, [0], false);
-    expect(wizard.completed).toBe(false);
   }));
 
   it('should go to previous step', fakeAsync(() => {
-    expect(wizard.getStepAtIndex(0).completed).toBe(false);
+    checkWizardState(wizard, 0, [], false);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 1, [0], false);
-    expect(wizard.completed).toBe(false);
 
     wizard.goToPreviousStep();
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 0, [0, 1], false);
-    expect(wizard.completed).toBe(false);
+    checkWizardState(wizard, 0, [0], false);
   }));
 
   it('should stay at the current step', fakeAsync(() => {
@@ -152,7 +149,7 @@ describe('SemiStrictNavigationMode', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 2, [0, 1, 2], true);
+    checkWizardState(wizard, 2, [0, 1], false);
 
     wizard.reset();
 
@@ -164,15 +161,14 @@ describe('SemiStrictNavigationMode', () => {
 
     checkWizardState(wizard, 0, [], false);
 
-    wizard.defaultStepIndex = 2;
-    expect(() => wizard.reset())
-      .toThrow(new Error(`The default step index 2 references a completion step`));
-
-    checkWizardState(wizard, 0, [], false);
-
     wizard.defaultStepIndex = 1;
     wizard.reset();
 
     checkWizardState(wizard, 1, [], false);
+
+    wizard.defaultStepIndex = 2;
+    wizard.reset();
+
+    checkWizardState(wizard, 2, [], false);
   }));
 });

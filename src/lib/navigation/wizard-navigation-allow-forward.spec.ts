@@ -25,7 +25,7 @@ class WizardTestComponent {
   public wizard: WizardComponent;
 }
 
-describe('FreeNavigationMode', () => {
+describe('Wizard navigation with navigateForward=allow', () => {
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
   let wizardTest: WizardTestComponent;
@@ -73,6 +73,8 @@ describe('FreeNavigationMode', () => {
     tick();
     wizardTestFixture.detectChanges();
 
+    // If forward navigation is allowed, visited steps after
+    // the selected step are still considered completed
     checkWizardState(wizard, 0, [0, 1, 2], true);
 
     wizard.goToStep(1);
@@ -103,7 +105,7 @@ describe('FreeNavigationMode', () => {
   }));
 
   it('should go to previous step', fakeAsync(() => {
-    expect(wizard.getStepAtIndex(0).completed).toBe(false);
+    checkWizardState(wizard, 0, [], false);
 
     wizard.goToStep(1);
     tick();
@@ -115,6 +117,8 @@ describe('FreeNavigationMode', () => {
     tick();
     wizardTestFixture.detectChanges();
 
+    // If forward navigation is allowed, visited steps after
+    // the selected step are still considered completed
     checkWizardState(wizard, 0, [0, 1], false);
   }));
 
@@ -160,6 +164,11 @@ describe('FreeNavigationMode', () => {
       .toThrow(new Error(`The wizard doesn't contain a step with index -1`));
 
     checkWizardState(wizard, 0, [], false);
+
+    wizard.defaultStepIndex = 1;
+    wizard.reset();
+
+    checkWizardState(wizard, 1, [], false);
 
     wizard.defaultStepIndex = 2;
     wizard.reset();

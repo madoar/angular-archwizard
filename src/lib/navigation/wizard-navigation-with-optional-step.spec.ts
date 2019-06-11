@@ -25,7 +25,7 @@ class WizardTestComponent {
   public wizard: WizardComponent;
 }
 
-describe('StrictNavigationMode', () => {
+describe('Wizard navigation with optional step', () => {
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
   let wizardTest: WizardTestComponent;
@@ -118,6 +118,28 @@ describe('StrictNavigationMode', () => {
     checkWizardState(wizard, 0, [0], false);
   }));
 
+  it('should stay at the current step', fakeAsync(() => {
+    expect(wizard.getStepAtIndex(0).completed).toBe(false);
+
+    wizard.goToPreviousStep();
+    tick();
+    wizardTestFixture.detectChanges();
+
+    checkWizardState(wizard, 0, [], false);
+
+    wizard.goToStep(-1);
+    tick();
+    wizardTestFixture.detectChanges();
+
+    checkWizardState(wizard, 0, [], false);
+
+    wizard.goToStep(0);
+    tick();
+    wizardTestFixture.detectChanges();
+
+    checkWizardState(wizard, 0, [0], false);
+  }));
+
   it('should reset the wizard correctly', fakeAsync(() => {
     wizard.goToNextStep();
     tick();
@@ -143,5 +165,10 @@ describe('StrictNavigationMode', () => {
     wizard.reset();
 
     checkWizardState(wizard, 1, [], false);
+
+    wizard.defaultStepIndex = 2;
+    wizard.reset();
+
+    checkWizardState(wizard, 2, [], false);
   }));
 });
