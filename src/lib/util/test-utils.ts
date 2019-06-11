@@ -1,5 +1,13 @@
 import { WizardComponent } from '../components/wizard.component';
 
+/**
+ * Check wizard state and cause the current unit test to fail if the actual state does not match the expected.
+ *
+ * @param wizard Wizard component under test
+ * @param selectedStepIndex Expected selected step index
+ * @param completedStepIndexes Array of step indexes expected to be completed
+ * @param wizardCompleted Whether the whole wizard is expected to be completed
+ */
 export function checkWizardState(
   wizard: WizardComponent,
   selectedStepIndex: number,
