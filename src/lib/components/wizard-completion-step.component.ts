@@ -43,8 +43,8 @@ import {WizardStep} from '../util/wizard-step.interface';
   templateUrl: 'wizard-completion-step.component.html',
   providers: [
     {provide: WizardStep, useExisting: forwardRef(() => WizardCompletionStepComponent)},
-    {provide: WizardCompletionStep, useExisting: forwardRef(() => WizardCompletionStepComponent)},
-  ],
+    {provide: WizardCompletionStep, useExisting: forwardRef(() => WizardCompletionStepComponent)}
+  ]
 })
 export class WizardCompletionStepComponent extends WizardCompletionStep {
 }

@@ -21,7 +21,7 @@ import {WizardStep} from '../util/wizard-step.interface';
         Step 3
       </aw-wizard-step>
     </aw-wizard>
-  `,
+  `
 })
 class WizardTestComponent implements AfterViewInit {
   public navigateForward = 'deny';
@@ -55,7 +55,7 @@ describe('WizardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
-      imports: [ArchwizardModule],
+      imports: [ArchwizardModule]
     }).compileComponents();
   }));
 
@@ -85,7 +85,7 @@ describe('WizardComponent', () => {
 
     expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
     expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
@@ -107,7 +107,7 @@ describe('WizardComponent', () => {
 
     expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
     expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
@@ -129,7 +129,7 @@ describe('WizardComponent', () => {
 
     expect(navBarEl.classes).toEqual({
       'horizontal': false, 'vertical': true, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
     expect(wizardEl.classes).toEqual({'horizontal': false, 'vertical': true});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': false, 'vertical': true});
@@ -151,7 +151,7 @@ describe('WizardComponent', () => {
 
     expect(navBarEl.classes).toEqual({
       'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
     expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
@@ -173,7 +173,7 @@ describe('WizardComponent', () => {
 
     expect(navBarEl.classes).toEqual({
       'horizontal': false, 'vertical': true, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false,
+      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
     });
     expect(wizardEl.classes).toEqual({'horizontal': false, 'vertical': true});
     expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': false, 'vertical': true});

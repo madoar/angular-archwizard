@@ -21,7 +21,7 @@ import {WizardComponent} from '../components/wizard.component';
         Step 2
       </aw-wizard-completion-step>
     </aw-wizard>
-  `,
+  `
 })
 class WizardTestComponent {
   @ViewChild(WizardComponent)
@@ -35,7 +35,7 @@ describe('WizardStepTitleDirective', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
-      imports: [ArchwizardModule],
+      imports: [ArchwizardModule]
     }).compileComponents();
   }));
 

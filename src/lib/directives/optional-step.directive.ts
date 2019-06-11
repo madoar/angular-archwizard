@@ -24,7 +24,7 @@ import {WizardStep} from '../util/wizard-step.interface';
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[awOptionalStep]',
+  selector: '[awOptionalStep]'
 })
 export class OptionalStepDirective implements OnInit {
   /**

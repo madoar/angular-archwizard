@@ -20,7 +20,7 @@ import {WizardComponent} from '../components/wizard.component';
         Step 3
       </div>
     </aw-wizard>
-  `,
+  `
 })
 class WizardTestComponent {
 
@@ -45,7 +45,7 @@ class WizardTestComponent {
   selector: 'aw-test-wizard-step',
   template: `
     Step 2
-  `,
+  `
 })
 class WizardStepTestComponent {
   constructor(@Host() private wizardStep: WizardStepDirective, wizard: WizardTestComponent) {
@@ -63,7 +63,7 @@ describe('WizardStepDirective', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent, WizardStepTestComponent],
-      imports: [ArchwizardModule],
+      imports: [ArchwizardModule]
     }).compileComponents();
   }));
 

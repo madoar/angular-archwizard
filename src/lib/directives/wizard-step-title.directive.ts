@@ -16,7 +16,7 @@ import {Directive, TemplateRef} from '@angular/core';
  * @author Marc Arndt
  */
 @Directive({
-  selector: 'ng-template[awStepTitle], ng-template[awWizardStepTitle]',
+  selector: 'ng-template[awStepTitle], ng-template[awWizardStepTitle]'
 })
 export class WizardStepTitleDirective {
   /**

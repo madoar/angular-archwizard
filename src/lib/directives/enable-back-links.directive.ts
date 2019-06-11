@@ -24,7 +24,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  * @author Marc Arndt
  */
 @Directive({
-  selector: '[awEnableBackLinks]',
+  selector: '[awEnableBackLinks]'
 })
 export class EnableBackLinksDirective implements OnInit {
   /**
