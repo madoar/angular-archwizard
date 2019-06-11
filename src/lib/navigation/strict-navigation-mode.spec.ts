@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {ArchwizardModule} from '../archwizard.module';
 import {WizardComponent} from '../components/wizard.component';
-import {WizardStep} from '../util/wizard-step.interface';
+import {checkWizardState} from '../util/test-utils';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -23,26 +23,6 @@ import {WizardStep} from '../util/wizard-step.interface';
 class WizardTestComponent {
   @ViewChild(WizardComponent)
   public wizard: WizardComponent;
-}
-
-function checkWizardSteps(steps: Array<WizardStep>, selectedStepIndex: number) {
-  steps.forEach((step, index) => {
-    // Only the selected step should be selected
-    if (index === selectedStepIndex) {
-      expect(step.selected).toBe(true, `the selected wizard step index ${index} is not selected`);
-    } else {
-      expect(step.selected).toBe(false, `the not selected wizard step index ${index} is selected`);
-    }
-
-    // All steps before the selected step need to be completed
-    if (index < selectedStepIndex) {
-      expect(step.completed).toBe(true,
-        `the wizard step ${index} is not completed while the currently selected step index is ${selectedStepIndex}`);
-    } else if (index > selectedStepIndex) {
-      expect(step.completed).toBe(false,
-        `the wizard step ${index} is completed while the currently selected step index is ${selectedStepIndex}`);
-    }
-  });
 }
 
 describe('StrictNavigationMode', () => {
@@ -75,67 +55,43 @@ describe('StrictNavigationMode', () => {
   }));
 
   it('should go to step', fakeAsync(() => {
-    checkWizardSteps(wizard.wizardSteps, 0);
+    checkWizardState(wizard, 0, [], false);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.currentStepIndex).toBe(1);
-    expect(wizard.currentStep).toBe(wizard.getStepAtIndex(1));
-    expect(wizard.currentStep.completed).toBe(false);
-
-    checkWizardSteps(wizard.wizardSteps, 1);
+    checkWizardState(wizard, 1, [0], false);
 
     wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.currentStepIndex).toBe(2);
-    expect(wizard.currentStep).toBe(wizard.getStepAtIndex(2));
-    expect(wizard.currentStep.completed).toBe(false);
-
-    checkWizardSteps(wizard.wizardSteps, 2);
+    checkWizardState(wizard, 2, [0, 1], false);
 
     wizard.goToStep(0);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.currentStepIndex).toBe(0);
-    expect(wizard.currentStep).toBe(wizard.getStepAtIndex(0));
-    expect(wizard.currentStep.completed).toBe(true);
-
-    checkWizardSteps(wizard.wizardSteps, 0);
+    checkWizardState(wizard, 0, [0], false);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.currentStepIndex).toBe(1);
-    expect(wizard.currentStep).toBe(wizard.getStepAtIndex(1));
-    expect(wizard.currentStep.completed).toBe(false);
-
-    checkWizardSteps(wizard.wizardSteps, 1);
+    checkWizardState(wizard, 1, [0], false);
 
     wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.currentStepIndex).toBe(2);
-    expect(wizard.currentStep).toBe(wizard.getStepAtIndex(2));
-    expect(wizard.currentStep.completed).toBe(false);
-
-    checkWizardSteps(wizard.wizardSteps, 2);
+    checkWizardState(wizard, 2, [0, 1], false);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.currentStepIndex).toBe(1);
-    expect(wizard.currentStep).toBe(wizard.getStepAtIndex(1));
-    expect(wizard.currentStep.completed).toBe(true);
-
-    checkWizardSteps(wizard.wizardSteps, 1);
+    checkWizardState(wizard, 1, [0, 1], false);
   }));
 
   it('should go to next step', fakeAsync(() => {
@@ -143,32 +99,23 @@ describe('StrictNavigationMode', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.currentStepIndex).toBe(1);
-    expect(wizard.currentStep.stepTitle).toBe('Steptitle 2');
-    expect(wizard.currentStep.completed).toBe(false);
-
-    checkWizardSteps(wizard.wizardSteps, 1);
+    checkWizardState(wizard, 1, [0], false);
   }));
 
   it('should go to previous step', fakeAsync(() => {
-    expect(wizard.getStepAtIndex(0).completed).toBe(false);
-    checkWizardSteps(wizard.wizardSteps, 0);
+    checkWizardState(wizard, 0, [], false);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.getStepAtIndex(0).completed).toBe(true);
-    checkWizardSteps(wizard.wizardSteps, 1);
+    checkWizardState(wizard, 1, [0], false);
 
     wizard.goToPreviousStep();
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.currentStepIndex).toBe(0);
-    expect(wizard.currentStep).toBe(wizard.getStepAtIndex(0));
-
-    checkWizardSteps(wizard.wizardSteps, 0);
+    checkWizardState(wizard, 0, [0], false);
   }));
 
   it('should reset the wizard correctly', fakeAsync(() => {
@@ -180,49 +127,21 @@ describe('StrictNavigationMode', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.currentStepIndex).toBe(2);
-    expect(wizard.getStepAtIndex(0).selected).toBe(false);
-    expect(wizard.getStepAtIndex(0).completed).toBe(true);
-    expect(wizard.getStepAtIndex(1).selected).toBe(false);
-    expect(wizard.getStepAtIndex(1).completed).toBe(true);
-    expect(wizard.getStepAtIndex(2).selected).toBe(true);
-    expect(wizard.getStepAtIndex(2).completed).toBe(false);
-    expect(wizard.completed).toBe(false);
+    checkWizardState(wizard, 2, [0, 1], false);
 
     wizard.reset();
 
-    expect(wizard.currentStepIndex).toBe(0);
-    expect(wizard.getStepAtIndex(0).selected).toBe(true);
-    expect(wizard.getStepAtIndex(0).completed).toBe(false);
-    expect(wizard.getStepAtIndex(1).selected).toBe(false);
-    expect(wizard.getStepAtIndex(1).completed).toBe(false);
-    expect(wizard.getStepAtIndex(2).selected).toBe(false);
-    expect(wizard.getStepAtIndex(2).completed).toBe(false);
-    expect(wizard.completed).toBe(false);
+    checkWizardState(wizard, 0, [], false);
 
     wizard.defaultStepIndex = -1;
     expect(() => wizard.reset())
       .toThrow(new Error(`The wizard doesn't contain a step with index -1`));
 
-    expect(wizard.currentStepIndex).toBe(0);
-    expect(wizard.getStepAtIndex(0).selected).toBe(true);
-    expect(wizard.getStepAtIndex(0).completed).toBe(false);
-    expect(wizard.getStepAtIndex(1).selected).toBe(false);
-    expect(wizard.getStepAtIndex(1).completed).toBe(false);
-    expect(wizard.getStepAtIndex(2).selected).toBe(false);
-    expect(wizard.getStepAtIndex(2).completed).toBe(false);
-    expect(wizard.completed).toBe(false);
+    checkWizardState(wizard, 0, [], false);
 
     wizard.defaultStepIndex = 1;
     wizard.reset();
 
-    expect(wizard.currentStepIndex).toBe(1);
-    expect(wizard.getStepAtIndex(0).selected).toBe(false);
-    expect(wizard.getStepAtIndex(0).completed).toBe(false);
-    expect(wizard.getStepAtIndex(1).selected).toBe(true);
-    expect(wizard.getStepAtIndex(1).completed).toBe(false);
-    expect(wizard.getStepAtIndex(2).selected).toBe(false);
-    expect(wizard.getStepAtIndex(2).completed).toBe(false);
-    expect(wizard.completed).toBe(false);
+    checkWizardState(wizard, 1, [], false);
   }));
 });
