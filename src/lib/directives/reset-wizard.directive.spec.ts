@@ -5,6 +5,7 @@ import {ArchwizardModule} from '../archwizard.module';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {ResetWizardDirective} from './reset-wizard.directive';
 import {WizardComponent} from '../components/wizard.component';
+import { checkWizardState } from '../util/test-utils';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -70,20 +71,14 @@ describe('ResetWizardDirective', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.getStepAtIndex(0).selected).toBe(false);
-    expect(wizard.getStepAtIndex(0).completed).toBe(true);
-    expect(wizard.getStepAtIndex(1).selected).toBe(true);
-    expect(wizard.getStepAtIndex(1).completed).toBe(false);
+    checkWizardState(wizard, 1, [0], false);
     expect(wizardTest.eventLog).toEqual([]);
 
     resetButtonEls[0].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.getStepAtIndex(0).selected).toBe(true);
-    expect(wizard.getStepAtIndex(0).completed).toBe(false);
-    expect(wizard.getStepAtIndex(1).selected).toBe(false);
-    expect(wizard.getStepAtIndex(1).completed).toBe(false);
+    checkWizardState(wizard, 0, [], false);
     expect(wizardTest.eventLog).toEqual([]);
   }));
 
@@ -94,20 +89,14 @@ describe('ResetWizardDirective', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.getStepAtIndex(0).selected).toBe(false);
-    expect(wizard.getStepAtIndex(0).completed).toBe(true);
-    expect(wizard.getStepAtIndex(1).selected).toBe(true);
-    expect(wizard.getStepAtIndex(1).completed).toBe(false);
+    checkWizardState(wizard, 1, [0], false);
     expect(wizardTest.eventLog).toEqual([]);
 
     resetButtonEls[1].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    expect(wizard.getStepAtIndex(0).selected).toBe(true);
-    expect(wizard.getStepAtIndex(0).completed).toBe(false);
-    expect(wizard.getStepAtIndex(1).selected).toBe(false);
-    expect(wizard.getStepAtIndex(1).completed).toBe(false);
+    checkWizardState(wizard, 0, [], false);
     expect(wizardTest.eventLog).toEqual(['Cleanup done!']);
   }));
 });
