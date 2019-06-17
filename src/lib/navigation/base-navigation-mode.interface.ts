@@ -108,13 +108,20 @@ export abstract class BaseNavigationMode implements NavigationMode {
         // leave current step
         wizard.currentStep.completed = true;
         wizard.currentStep.exit(movingDirection);
+        wizard.currentStep.editing = false;
         wizard.currentStep.selected = false;
 
         this.transition(wizard, destinationIndex);
 
+        // remember if the next step is already completed before entering it to properly set `editing` flag
+        const wasCompleted = wizard.completed || wizard.currentStep.completed;
+
         // go to next step
         wizard.currentStep.enter(movingDirection);
         wizard.currentStep.selected = true;
+        if (wasCompleted) {
+          wizard.currentStep.editing = true;
+        }
 
         /* istanbul ignore if */
         if (postFinalize) {
@@ -160,6 +167,7 @@ export abstract class BaseNavigationMode implements NavigationMode {
     wizard.wizardSteps.forEach(step => {
       step.completed = false;
       step.selected = false;
+      step.editing = false;
     });
 
     // set the first step as the current step

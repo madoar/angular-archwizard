@@ -56,6 +56,13 @@ export abstract class WizardStep {
   public selected = false;
 
   /**
+   * A boolean describing if the wizard step is being edited after being competed
+   *
+   * This flag can only be true when `selected` is true.
+   */
+  public editing = false;
+
+  /**
    * A boolean describing, if the wizard step should be selected by default, i.e. after the wizard has been initialized as the initial step
    */
   public defaultSelected = false;
