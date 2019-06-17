@@ -88,28 +88,28 @@ describe('StepId', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 2, [0], false);
+    checkWizardState(wizard, 2, false, [0], false);
 
     // click button
     firstStepGoToButtonEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 0, [0], false);
+    checkWizardState(wizard, 0, true, [0], false);
   }));
 
   it('should move to a later step correctly', fakeAsync(() => {
     const firstStepGoToButtonEl = wizardTestFixture.debugElement.query(
       By.css('aw-wizard-step[stepTitle="Steptitle 1"] > button')).nativeElement;
 
-    checkWizardState(wizard, 0, [], false);
+    checkWizardState(wizard, 0, false, [], false);
 
     // click button
     firstStepGoToButtonEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 2, [0], false);
+    checkWizardState(wizard, 2, false, [0], false);
   }));
 
   it('should stay at current step correctly', fakeAsync(() => {
@@ -120,14 +120,14 @@ describe('StepId', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 1, [0], false);
+    checkWizardState(wizard, 1, false, [0], false);
 
     // click button
     firstStepGoToButtonEl.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 1, [0, 1], false);
+    checkWizardState(wizard, 1, true, [0, 1], false);
   }));
 
   it('should return correct destination step for correct targetStep values', fakeAsync(() => {

@@ -71,14 +71,14 @@ describe('ResetWizardDirective', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 1, [0], false);
+    checkWizardState(wizard, 1, false, [0], false);
     expect(wizardTest.eventLog).toEqual([]);
 
     resetButtonEls[0].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 0, [], false);
+    checkWizardState(wizard, 0, false, [], false);
     expect(wizardTest.eventLog).toEqual([]);
   }));
 
@@ -89,14 +89,14 @@ describe('ResetWizardDirective', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 1, [0], false);
+    checkWizardState(wizard, 1, false, [0], false);
     expect(wizardTest.eventLog).toEqual([]);
 
     resetButtonEls[1].nativeElement.click();
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 0, [], false);
+    checkWizardState(wizard, 0, false, [], false);
     expect(wizardTest.eventLog).toEqual(['Cleanup done!']);
   }));
 });

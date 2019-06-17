@@ -55,19 +55,19 @@ describe('Wizard navigation with navigateForward=allow', () => {
   }));
 
   it('should go to step', fakeAsync(() => {
-    checkWizardState(wizard, 0, [], false);
+    checkWizardState(wizard, 0, false, [], false);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 1, [0], false);
+    checkWizardState(wizard, 1, false, [0], false);
 
     wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 2, [0, 1], false);
+    checkWizardState(wizard, 2, false, [0, 1], false);
 
     wizard.goToStep(0);
     tick();
@@ -75,25 +75,25 @@ describe('Wizard navigation with navigateForward=allow', () => {
 
     // If forward navigation is allowed, visited steps after
     // the selected step are still considered completed
-    checkWizardState(wizard, 0, [0, 1, 2], true);
+    checkWizardState(wizard, 0, true, [0, 1, 2], true);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 1, [0, 1, 2], true);
+    checkWizardState(wizard, 1, true, [0, 1, 2], true);
 
     wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 2, [0, 1, 2], true);
+    checkWizardState(wizard, 2, true, [0, 1, 2], true);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 1, [0, 1, 2], true);
+    checkWizardState(wizard, 1, true, [0, 1, 2], true);
   }));
 
   it('should go to next step', fakeAsync(() => {
@@ -101,17 +101,17 @@ describe('Wizard navigation with navigateForward=allow', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 1, [0], false);
+    checkWizardState(wizard, 1, false, [0], false);
   }));
 
   it('should go to previous step', fakeAsync(() => {
-    checkWizardState(wizard, 0, [], false);
+    checkWizardState(wizard, 0, false, [], false);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 1, [0], false);
+    checkWizardState(wizard, 1, false, [0], false);
 
     wizard.goToPreviousStep();
     tick();
@@ -119,7 +119,7 @@ describe('Wizard navigation with navigateForward=allow', () => {
 
     // If forward navigation is allowed, visited steps after
     // the selected step are still considered completed
-    checkWizardState(wizard, 0, [0, 1], false);
+    checkWizardState(wizard, 0, true, [0, 1], false);
   }));
 
   it('should stay at the current step', fakeAsync(() => {
@@ -129,19 +129,19 @@ describe('Wizard navigation with navigateForward=allow', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 0, [], false);
+    checkWizardState(wizard, 0, false, [], false);
 
     wizard.goToStep(-1);
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 0, [], false);
+    checkWizardState(wizard, 0, false, [], false);
 
     wizard.goToStep(0);
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 0, [0], false);
+    checkWizardState(wizard, 0, true, [0], false);
   }));
 
   it('should reset the wizard correctly', fakeAsync(() => {
@@ -153,26 +153,26 @@ describe('Wizard navigation with navigateForward=allow', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    checkWizardState(wizard, 2, [0, 1], false);
+    checkWizardState(wizard, 2, false, [0, 1], false);
 
     wizard.reset();
 
-    checkWizardState(wizard, 0, [], false);
+    checkWizardState(wizard, 0, false, [], false);
 
     wizard.defaultStepIndex = -1;
     expect(() => wizard.reset())
       .toThrow(new Error(`The wizard doesn't contain a step with index -1`));
 
-    checkWizardState(wizard, 0, [], false);
+    checkWizardState(wizard, 0, false, [], false);
 
     wizard.defaultStepIndex = 1;
     wizard.reset();
 
-    checkWizardState(wizard, 1, [], false);
+    checkWizardState(wizard, 1, false, [], false);
 
     wizard.defaultStepIndex = 2;
     wizard.reset();
 
-    checkWizardState(wizard, 2, [], false);
+    checkWizardState(wizard, 2, false, [], false);
   }));
 });
