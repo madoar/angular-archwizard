@@ -20,12 +20,15 @@
     "angular5",
     "angular6",
     "angular7",
+    "angular8",
     "angular 5",
     "angular 6",
     "angular 7",
+    "angular 8",
     "ng5",
     "ng6",
     "ng7",
+    "ng8",
     "ngx",
     "typescript",
     "wizard",
@@ -34,9 +37,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "npm run build-js && npm run build-scss && npm run build-css",
+    "build": "npm run build-js && npm run build-scss && npm run extract-scss-variables && npm run build-css",
     "build-js": "ng build",
     "build-scss": "scss-bundle -e ./src/css/archwizard.scss -d ./dist/archwizard.scss",
+    "extract-scss-variables": "node node_modules/@earshinov/extract-scss-variables/bin/extract-scss-variables ./dist/archwizard.scss ./dist/variables.scss",
     "build-css": "node-sass ./dist/archwizard.scss ./dist/archwizard.css",
     "test": "ng test",
     "lint": "ng lint",
@@ -56,6 +60,7 @@
     "@angular/platform-browser": "^7.2.8",
     "@angular/platform-browser-dynamic": "^7.2.8",
     "@angular/router": "^7.2.8",
+    "@earshinov/extract-scss-variables": "^0.1.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
@@ -81,6 +86,6 @@
     "zone.js": "~0.8.29"
   },
   "peerDependencies": {
-    "@angular/common": "5.x, 6.x, 7.x"
+    "@angular/common": ">= 5"
   }
 }
