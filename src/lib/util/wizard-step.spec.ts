@@ -52,64 +52,36 @@ class WizardTestComponent {
   }
 }
 
-@Component({
-  selector: 'aw-test-wizard',
-  template: `
-    <aw-wizard>
-      <aw-wizard-step stepTitle='Steptitle 1'>Step 1</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 2' [completed]="true">Step 2</aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 3'>Step 3</aw-wizard-step>
-    </aw-wizard>
-  `
-})
-class WizardWithCompletedStepsTestComponent {
-  @ViewChild(WizardComponent)
-  public wizard: WizardComponent;
-}
-
 describe('WizardStep', () => {
-  let wizardTestFixture: ComponentFixture<WizardTestComponent|WizardWithCompletedStepsTestComponent>;
+  let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [WizardTestComponent, WizardWithCompletedStepsTestComponent],
+      declarations: [WizardTestComponent],
       imports: [ArchwizardModule]
     }).compileComponents();
   }));
 
-  const createTestWizard = () => {
-    const fixture = TestBed.createComponent(WizardTestComponent);
-    fixture.detectChanges();
-
-    wizardTestFixture = fixture;
-    wizardTest = fixture.componentInstance;
+  beforeEach(() => {
+    wizardTestFixture = TestBed.createComponent(WizardTestComponent);
+    wizardTestFixture.detectChanges();
+    wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-  };
-
-  const createTestWizardWithCompletedSteps = () => {
-    const fixture = TestBed.createComponent(WizardWithCompletedStepsTestComponent);
-    fixture.detectChanges();
-
-    wizardTestFixture = fixture;
-    wizard = fixture.componentInstance.wizard;
-  };
+  });
 
   it('should create an instance', () => {
-    createTestWizard();
     expect(wizard.wizardSteps.length).toBe(3);
   });
 
   it('should not be a WizardStep', () => {
-    createTestWizard();
     expect({stepOffset: 1} instanceof WizardStep).toBe(false);
     expect({title: 'Test stepTitle'} instanceof WizardStep).toBe(false);
   });
 
   it('should evaluate canEnter with boolean values correctly', fakeAsync(() => {
-    createTestWizard();
     wizardTest.secondStep.canEnterStep(MovingDirection.Backwards).then(result => expect(result).toBe(true));
     wizardTest.secondStep.canEnterStep(MovingDirection.Forwards).then(result => expect(result).toBe(true));
 
@@ -129,7 +101,6 @@ describe('WizardStep', () => {
   }));
 
   it('should evaluate canEnter with functions returning a boolean value correctly', fakeAsync(() => {
-    createTestWizard();
     wizardTest.canEnter = (direction) => direction === MovingDirection.Forwards;
     tick();
     wizardTestFixture.detectChanges();
@@ -146,7 +117,6 @@ describe('WizardStep', () => {
   }));
 
   it('should evaluate canEnter with functions returning a promise correctly', fakeAsync(() => {
-    createTestWizard();
     wizardTest.canEnter = (direction) => Promise.resolve(direction === MovingDirection.Forwards);
     tick();
     wizardTestFixture.detectChanges();
@@ -163,7 +133,6 @@ describe('WizardStep', () => {
   }));
 
   it('should evaluate canEnter throwing an error correctly', fakeAsync(() => {
-    createTestWizard();
     wizardTest.canEnter = 'malformed input';
     tick();
     wizardTestFixture.detectChanges();
@@ -188,7 +157,6 @@ describe('WizardStep', () => {
   }));
 
   it('should evaluate canExit with boolean values correctly', fakeAsync(() => {
-    createTestWizard();
     wizardTest.secondStep.canExitStep(MovingDirection.Backwards).then(result => expect(result).toBe(true));
     wizardTest.secondStep.canExitStep(MovingDirection.Forwards).then(result => expect(result).toBe(true));
 
@@ -208,7 +176,6 @@ describe('WizardStep', () => {
   }));
 
   it('should evaluate canExit with functions returning a boolean value correctly', fakeAsync(() => {
-    createTestWizard();
     wizardTest.canExit = (direction) => direction === MovingDirection.Forwards;
     tick();
     wizardTestFixture.detectChanges();
@@ -225,7 +192,6 @@ describe('WizardStep', () => {
   }));
 
   it('should evaluate canExit with functions returning a promise correctly', fakeAsync(() => {
-    createTestWizard();
     wizardTest.canExit = (direction) => Promise.resolve(direction === MovingDirection.Forwards);
     tick();
     wizardTestFixture.detectChanges();
@@ -242,7 +208,6 @@ describe('WizardStep', () => {
   }));
 
   it('should evaluate canExit throwing an error correctly', fakeAsync(() => {
-    createTestWizard();
     wizardTest.canExit = 'malformed input';
     tick();
     wizardTestFixture.detectChanges();
@@ -267,12 +232,10 @@ describe('WizardStep', () => {
   }));
 
   it('should enter first step after initialisation', () => {
-    createTestWizard();
     expect(wizardTest.eventLog).toEqual(['enter Forwards 1']);
   });
 
   it('should enter second step after first step', fakeAsync(() => {
-    createTestWizard();
     wizard.goToNextStep();
     tick();
     wizardTestFixture.detectChanges();
@@ -281,7 +244,6 @@ describe('WizardStep', () => {
   }));
 
   it('should enter first step after exiting second step', fakeAsync(() => {
-    createTestWizard();
     wizard.goToNextStep();
     tick();
     wizardTestFixture.detectChanges();
@@ -295,7 +257,6 @@ describe('WizardStep', () => {
   }));
 
   it('should enter third step after jumping over second optional step', fakeAsync(() => {
-    createTestWizard();
     wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
@@ -304,7 +265,6 @@ describe('WizardStep', () => {
   }));
 
   it('should enter first step after jumping over second optional step two times', fakeAsync(() => {
-    createTestWizard();
     wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
@@ -318,7 +278,6 @@ describe('WizardStep', () => {
   }));
 
   it('should enter second step after jumping over second optional step and the going back once', fakeAsync(() => {
-    createTestWizard();
     wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
@@ -332,7 +291,6 @@ describe('WizardStep', () => {
   }));
 
   it('should stay at first step correctly', fakeAsync(() => {
-    createTestWizard();
     wizard.goToStep(0);
     tick();
     wizardTestFixture.detectChanges();
@@ -341,7 +299,6 @@ describe('WizardStep', () => {
   }));
 
   it('should not leave the second step in forward direction if it can\'t be exited', fakeAsync(() => {
-    createTestWizard();
     wizardTest.canExit = false;
 
     wizard.goToNextStep();
@@ -360,7 +317,6 @@ describe('WizardStep', () => {
   }));
 
   it('should not leave the second step in backward direction if it can\'t be exited', fakeAsync(() => {
-    createTestWizard();
     wizardTest.canExit = false;
 
     wizard.goToNextStep();
@@ -379,7 +335,6 @@ describe('WizardStep', () => {
   }));
 
   it('should not leave the second step in forward direction if it can\'t be exited in this direction', fakeAsync(() => {
-    createTestWizard();
     wizardTest.canExit = direction => direction === MovingDirection.Backwards;
 
     wizard.goToNextStep();
@@ -398,7 +353,6 @@ describe('WizardStep', () => {
   }));
 
   it('should not leave the second step in backward direction if it can\'t be exited in this direction', fakeAsync(() => {
-    createTestWizard();
     wizardTest.canExit = direction => direction === MovingDirection.Forwards;
 
     wizard.goToNextStep();
@@ -417,7 +371,6 @@ describe('WizardStep', () => {
   }));
 
   it('should leave the second step in forward direction if it can be exited in this direction', fakeAsync(() => {
-    createTestWizard();
     wizardTest.canExit = direction => direction === MovingDirection.Forwards;
 
     wizard.goToNextStep();
@@ -436,7 +389,6 @@ describe('WizardStep', () => {
   }));
 
   it('should leave the second step in backward direction if it can be exited in this direction', fakeAsync(() => {
-    createTestWizard();
     wizardTest.canExit = direction => direction === MovingDirection.Backwards;
 
     wizard.goToNextStep();
@@ -452,38 +404,5 @@ describe('WizardStep', () => {
     expect(wizard.currentStepIndex).toBe(0);
     expect(wizardTest.eventLog)
       .toEqual(['enter Forwards 1', 'exit Forwards 1', 'enter Forwards 2', 'exit Backwards 2', 'enter Backwards 1']);
-  }));
-
-  it('should mark initially completed steps', () => {
-    createTestWizardWithCompletedSteps();
-
-    expect(wizard.getStepAtIndex(0).completed).toBe(false);
-    expect(wizard.getStepAtIndex(1).completed).toBe(true);
-    expect(wizard.getStepAtIndex(2).completed).toBe(false);
-  });
-
-  it('should mark initially completed steps after wizard is reset', fakeAsync(() => {
-    createTestWizardWithCompletedSteps();
-
-    // scroll the wizard to the last step
-    wizard.goToNextStep();
-    tick();
-    wizardTestFixture.detectChanges();
-
-    wizard.goToNextStep();
-    tick();
-    wizardTestFixture.detectChanges();
-
-    expect(wizard.getStepAtIndex(0).completed).toBe(true);
-    expect(wizard.getStepAtIndex(1).completed).toBe(true);
-    expect(wizard.getStepAtIndex(2).completed).toBe(false);
-
-    wizard.reset();
-    tick();
-    wizardTestFixture.detectChanges();
-
-    expect(wizard.getStepAtIndex(0).completed).toBe(false);
-    expect(wizard.getStepAtIndex(1).completed).toBe(true);  // Step 1 is initially completed
-    expect(wizard.getStepAtIndex(2).completed).toBe(false);
   }));
 });
