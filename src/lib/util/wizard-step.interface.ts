@@ -46,14 +46,21 @@ export abstract class WizardStep {
   public navigationSymbol: NavigationSymbol = {symbol: ''};
 
   /**
+   * A boolean describing if the wizard step is currently selected
+   */
+  public selected = false;
+
+  /**
    * A boolean describing if the wizard step has been completed
    */
   public completed = false;
 
   /**
-   * A boolean describing if the wizard step is currently selected
+   * A boolean describing if the wizard step is shown as completed when the wizard is presented to the user
+   *
+   * Users will typically use `CompletedStepDirective` to set this flag
    */
-  public selected = false;
+  public initiallyCompleted = false;
 
   /**
    * A boolean describing, if the wizard step should be selected by default, i.e. after the wizard has been initialized as the initial step

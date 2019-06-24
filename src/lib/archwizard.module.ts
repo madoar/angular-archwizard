@@ -16,6 +16,7 @@ import {WizardStepSymbolDirective} from './directives/wizard-step-symbol.directi
 import {WizardStepTitleDirective} from './directives/wizard-step-title.directive';
 import {WizardStepDirective} from './directives/wizard-step.directive';
 import {NavigationModeDirective} from './directives/navigation-mode.directive';
+import {CompletedStepDirective} from './directives/completed-step.directive';
 
 
 /**
@@ -41,6 +42,7 @@ import {NavigationModeDirective} from './directives/navigation-mode.directive';
     SelectedStepDirective,
     ResetWizardDirective,
     NavigationModeDirective,
+    CompletedStepDirective,
   ],
   imports: [
     CommonModule
@@ -62,6 +64,7 @@ import {NavigationModeDirective} from './directives/navigation-mode.directive';
     SelectedStepDirective,
     ResetWizardDirective,
     NavigationModeDirective,
+    CompletedStepDirective,
   ]
 })
 export class ArchwizardModule {

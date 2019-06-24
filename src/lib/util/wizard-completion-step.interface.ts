@@ -30,8 +30,8 @@ export abstract class WizardCompletionStep extends WizardStep {
    * @inheritDoc
    */
   public exit(direction: MovingDirection): void {
-    // set this completion step as incomplete
-    this.completed = false;
+    // set this completion step as incomplete (unless it happens to be initiallyCompleted)
+    this.completed = this.initiallyCompleted;
     this.stepExit.emit(direction);
   }
 }
