@@ -1,6 +1,7 @@
 <ul class="steps-indicator steps-{{numberOfWizardSteps}}">
   <li [attr.id]="step.stepId" *ngFor="let step of wizardSteps"
       [ngClass]="{
+        completion: isCompletion(step),
         current: isCurrent(step),
         editing: isEditing(step),
         done: isDone(step),

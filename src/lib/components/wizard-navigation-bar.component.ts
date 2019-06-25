@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {NavigationMode} from '../navigation/navigation-mode.interface';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardComponent} from './wizard.component';
+import { WizardCompletionStep } from '../util/wizard-completion-step.interface';
 
 /**
  * The `aw-wizard-navigation-bar` component contains the navigation bar inside a [[WizardComponent]].
@@ -58,6 +59,16 @@ export class WizardNavigationBarComponent {
    */
   get numberOfWizardSteps(): number {
     return this.wizard.wizardSteps.length;
+  }
+
+  /**
+   * Checks, whether a [[WizardStep]] is a completion step
+   *
+   * @param wizardStep The wizard step to be checked
+   * @returns True if the step is a completion step
+   */
+  public isCompletion(wizardStep: WizardStep): boolean {
+    return wizardStep instanceof WizardCompletionStep;
   }
 
   /**
