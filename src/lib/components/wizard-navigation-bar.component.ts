@@ -1,8 +1,7 @@
 import {Component, Input} from '@angular/core';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
+import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
 import {WizardStep} from '../util/wizard-step.interface';
 import {WizardComponent} from './wizard.component';
-import { WizardCompletionStep } from '../util/wizard-completion-step.interface';
 
 /**
  * The `aw-wizard-navigation-bar` component contains the navigation bar inside a [[WizardComponent]].
@@ -62,16 +61,6 @@ export class WizardNavigationBarComponent {
   }
 
   /**
-   * Checks, whether a [[WizardStep]] is a completion step
-   *
-   * @param wizardStep The wizard step to be checked
-   * @returns True if the step is a completion step
-   */
-  public isCompletion(wizardStep: WizardStep): boolean {
-    return wizardStep instanceof WizardCompletionStep;
-  }
-
-  /**
    * Checks, whether a [[WizardStep]] can be marked as `current` in the navigation bar
    *
    * @param wizardStep The wizard step to be checked
@@ -112,13 +101,15 @@ export class WizardNavigationBarComponent {
   }
 
   /**
-   * Checks, whether a [[WizardStep]] can be marked as `completed` in the navigation bar
+   * Checks, whether a [[WizardStep]] can be marked as `completed` in the navigation bar.
+   *
+   * The `completed` class is only applied to completion steps.
    *
    * @param wizardStep The wizard step to be checked
    * @returns True if the step can be marked as `completed`
    */
   public isCompleted(wizardStep: WizardStep): boolean {
-    return this.wizard.completed;
+    return wizardStep instanceof WizardCompletionStep && this.wizard.completed;
   }
 
   /**

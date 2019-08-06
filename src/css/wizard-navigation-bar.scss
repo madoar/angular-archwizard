@@ -144,39 +144,31 @@ $wz-param-indicator-color: null !global;
       @include wz-state-circle($width, $height, $border-width);
       @content;
     }
-    // NOTE: In some cases CSS class is included twice to ensure specificity equal to the `.completion.done`
-    // selector below, so that CSS style application order matches declaration order
-    &.optional.optional .step-indicator {
+    &.optional .step-indicator {
       $wz-param-indicator-state: 'default' !global;
       $wz-param-indicator-color: $wz-color-optional !global;
       @content;
     }
-    &.done.done .step-indicator,
-    &.completed.completed .step-indicator {
+    &.done .step-indicator {
       $wz-param-indicator-state: 'default' !global;
       $wz-param-indicator-color: $wz-color-done !global;
       @content;
     }
-    &.current.current .step-indicator {
+    &.current .step-indicator {
       $wz-param-indicator-state: 'default' !global;
       $wz-param-indicator-color: $wz-color-current !global;
       @content;
     }
-    &.editing.editing .step-indicator {
+    &.editing .step-indicator {
       $wz-param-indicator-state: 'default' !global;
       $wz-param-indicator-color: $wz-color-editing !global;
       @content;
     }
-    // For completion steps, .done CSS class should take priority over .current
+    // 'completed' class takes priority
     // https://github.com/madoar/angular-archwizard/pull/221
-    &.completion.done .step-indicator {
+    &.completed .step-indicator {
       $wz-param-indicator-state: 'default' !global;
       $wz-param-indicator-color: $wz-color-done !global;
-      @content;
-    }
-    &.completion.editing .step-indicator {
-      $wz-param-indicator-state: 'default' !global;
-      $wz-param-indicator-color: $wz-color-editing !global;
       @content;
     }
 
@@ -186,41 +178,31 @@ $wz-param-indicator-color: null !global;
       @include wz-state-circle($width, $height, $border-width);
       @content;
     }
-    // NOTE: In some cases CSS class is included twice to ensure specificity equal to the `.completion.done`
-    // selector below, so that CSS style application order matches declaration order
-    &.navigable.optional.optional a:hover .step-indicator {
+    &.navigable.optional a:hover .step-indicator {
       $wz-param-indicator-state: 'hover' !global;
       $wz-param-indicator-color: $wz-color-optional !global;
       @content;
     }
-    &.navigable.done.done,
-    &.navigable.completed.completed {
-      a:hover .step-indicator {
-        $wz-param-indicator-state: 'hover' !global;
-        $wz-param-indicator-color: $wz-color-done !global;
-        @content;
-      }
-    }
-    &.navigable.current.current a:hover .step-indicator {
-      $wz-param-indicator-state: 'hover' !global;
-      $wz-param-indicator-color: $wz-color-current !global;
-      @content;
-    }
-    &.navigable.editing.editing a:hover .step-indicator {
-      $wz-param-indicator-state: 'hover' !global;
-      $wz-param-indicator-color: $wz-color-editing !global;
-      @content;
-    }
-    // For completion steps, .done CSS class should take priority over .current
-    // https://github.com/madoar/angular-archwizard/pull/221
-    &.navigable.completion.done a:hover .step-indicator {
+    &.navigable.done a:hover .step-indicator {
       $wz-param-indicator-state: 'hover' !global;
       $wz-param-indicator-color: $wz-color-done !global;
       @content;
     }
-    &.navigable.completion.editing a:hover .step-indicator {
+    &.navigable.current a:hover .step-indicator {
+      $wz-param-indicator-state: 'hover' !global;
+      $wz-param-indicator-color: $wz-color-current !global;
+      @content;
+    }
+    &.navigable.editing a:hover .step-indicator {
       $wz-param-indicator-state: 'hover' !global;
       $wz-param-indicator-color: $wz-color-editing !global;
+      @content;
+    }
+    // 'completed' class takes priority
+    // https://github.com/madoar/angular-archwizard/pull/221
+    &.navigable.completed a:hover .step-indicator {
+      $wz-param-indicator-state: 'hover' !global;
+      $wz-param-indicator-color: $wz-color-done !global;
       @content;
     }
   }
