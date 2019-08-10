@@ -71,6 +71,16 @@ export class WizardNavigationBarComponent {
   }
 
   /**
+   * Checks, whether a [[WizardStep]] can be marked as `editing` in the navigation bar
+   *
+   * @param wizardStep The wizard step to be checked
+   * @returns True if the step can be marked as `editing`
+   */
+  public isEditing(wizardStep: WizardStep): boolean {
+    return wizardStep.editing;
+  }
+
+  /**
    * Checks, whether a [[WizardStep]] can be marked as `done` in the navigation bar
    *
    * @param wizardStep The wizard step to be checked

@@ -160,8 +160,7 @@ $wz-param-indicator-color: null !global;
       $wz-param-indicator-color: $wz-color-current !global;
       @content;
     }
-    &.current.done .step-indicator,
-    &.current.completed .step-indicator {
+    &.editing .step-indicator {
       $wz-param-indicator-state: 'default' !global;
       $wz-param-indicator-color: $wz-color-editing !global;
       @content;
@@ -190,7 +189,7 @@ $wz-param-indicator-color: null !global;
       $wz-param-indicator-color: $wz-color-current !global;
       @content;
     }
-    &.navigable.current.done, &.navigable.current.completed {
+    &.navigable.editing {
       a:hover .step-indicator {
         $wz-param-indicator-state: 'hover' !global;
         $wz-param-indicator-color: $wz-color-editing !global;

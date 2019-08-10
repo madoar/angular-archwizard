@@ -2,6 +2,7 @@
   <li [attr.id]="step.stepId" *ngFor="let step of wizardSteps"
       [ngClass]="{
         current: isCurrent(step),
+        editing: isEditing(step),
         done: isDone(step),
         optional: isOptional(step),
         completed: isCompleted(step),

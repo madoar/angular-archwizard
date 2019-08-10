@@ -5,12 +5,14 @@ import { WizardComponent } from '../components/wizard.component';
  *
  * @param wizard Wizard component under test
  * @param selectedStepIndex Expected selected step index
+ * @param selectedStepEditing Whether the selected step is expected to be in "editing" state
  * @param completedStepIndexes Array of step indexes expected to be completed
  * @param wizardCompleted Whether the whole wizard is expected to be completed
  */
 export function checkWizardState(
   wizard: WizardComponent,
   selectedStepIndex: number,
+  selectedStepEditing: boolean,
   completedStepIndexes: number[],
   wizardCompleted: boolean,
 ): void {
@@ -20,10 +22,20 @@ export function checkWizardState(
     // Only the selected step should be selected
     expect(step.selected).toBe(index === selectedStepIndex, `expected only step ${index} to be selected`);
 
-    // All steps before the selected step need to be completed
+    // Check completed step indexes
     expect(step.completed).toBe(completedStepIndexes.includes(index),
       `expected step ${index} ${completedStepIndexes.includes(index) ? 'to be completed' : 'not to be completed'}`);
+
+    // Check step "editing" state.  It is only applicable to the selected step.
+    const expectation = index === selectedStepIndex && selectedStepEditing ? 'to be in editing state' : 'not to be in editing state';
+    expect(step.editing).toBe(index === selectedStepIndex && selectedStepEditing, `expected step ${index} ${expectation}`);
   });
+
+  // A step in "editing" state should also be completed
+  if (selectedStepEditing) {
+    expect(completedStepIndexes).toContain(selectedStepIndex,
+      `expected step ${selectedStepIndex} to be completed, as follows from its assumed editing state`);
+  }
 
   expect(wizard.completed).toBe(wizardCompleted,
     `expected wizard ${wizardCompleted ? 'to be completed' : 'not to be completed'}`);
