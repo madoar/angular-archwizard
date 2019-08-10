@@ -22,7 +22,7 @@ class CustomNavigationMode extends BaseNavigationMode {
 })
 class WizardTestComponent {
 
-  @ViewChild(WizardComponent)
+  @ViewChild(WizardComponent, {static: false})
   public wizard: WizardComponent;
 }
 
@@ -38,7 +38,7 @@ class WizardTestComponent {
 })
 class WizardWithCustomNavigationModeComponent {
 
-  @ViewChild(WizardComponent)
+  @ViewChild(WizardComponent, {static: false})
   public wizard: WizardComponent;
 
   public customNavigationMode: CustomNavigationMode = new CustomNavigationMode();

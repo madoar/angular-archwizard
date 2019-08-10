@@ -15,14 +15,14 @@ export abstract class WizardStep {
    * This title is then shown inside the navigation bar.
    * Compared to `stepTitle` this property can contain any html content and not only plain text
    */
-  @ContentChild(WizardStepTitleDirective)
+  @ContentChild(WizardStepTitleDirective, {static: false})
   public stepTitleTemplate: WizardStepTitleDirective;
 
   /**
    * A step symbol property that, if defined, overrides `navigationSymbol`.
    * Allows to display arbitrary content as a step symbol instead of plain text.
    */
-  @ContentChild(WizardStepSymbolDirective)
+  @ContentChild(WizardStepSymbolDirective, {static: false})
   public stepSymbolTemplate: WizardStepSymbolDirective;
 
   /**

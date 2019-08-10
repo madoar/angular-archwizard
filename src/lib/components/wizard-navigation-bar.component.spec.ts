@@ -26,7 +26,7 @@ import {WizardComponent} from './wizard.component';
 class WizardTestComponent {
   public firstStepId = 'step1';
 
-  @ViewChild(WizardComponent)
+  @ViewChild(WizardComponent, {static: false})
   public wizard: WizardComponent;
 }
 

@@ -34,7 +34,7 @@ class WizardTestComponent implements AfterViewInit {
   public showStep1 = true;
   public showStep3 = true;
 
-  @ViewChild(WizardComponent)
+  @ViewChild(WizardComponent, {static: false})
   public wizard: WizardComponent;
 
   constructor(private _changeDetectionRef: ChangeDetectorRef) {
