@@ -29,16 +29,16 @@ class WizardTestComponent {
 
   public canExit: any = true;
 
-  @ViewChild(WizardComponent)
+  @ViewChild(WizardComponent, {static: false})
   public wizard: WizardComponent;
 
-  @ViewChild('firstStep')
+  @ViewChild('firstStep', {static: false})
   public firstStep: WizardStep;
 
-  @ViewChild('secondStep')
+  @ViewChild('secondStep', {static: false})
   public secondStep: WizardStep;
 
-  @ViewChild('thirdStep')
+  @ViewChild('thirdStep', {static: false})
   public thirdStep: WizardStep;
 
   public eventLog: Array<string> = [];
