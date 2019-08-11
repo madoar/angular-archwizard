@@ -165,7 +165,7 @@ export abstract class BaseNavigationMode implements NavigationMode {
 
     // reset the step internal state
     wizard.wizardSteps.forEach(step => {
-      step.completed = false;
+      step.completed = step.initiallyCompleted;
       step.selected = false;
       step.editing = false;
     });

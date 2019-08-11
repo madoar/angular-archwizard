@@ -1,6 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
 import {ArchwizardModule} from '../archwizard.module';
 import {MovingDirection} from './moving-direction.enum';
 import {WizardStep} from './wizard-step.interface';
@@ -10,14 +9,16 @@ import {WizardComponent} from '../components/wizard.component';
   selector: 'aw-test-wizard',
   template: `
     <aw-wizard>
-      <aw-wizard-step #firstStep stepTitle='Steptitle 1' (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
+      <aw-wizard-step #firstStep stepTitle='Steptitle 1'
+                      (stepEnter)="enterInto($event, 1)" (stepExit)="exitFrom($event, 1)">
         Step 1
       </aw-wizard-step>
       <aw-wizard-step #secondStep stepTitle='Steptitle 2' [canExit]="canExit" [canEnter]="canEnter" awOptionalStep
                       (stepEnter)="enterInto($event, 2)" (stepExit)="exitFrom($event, 2)">
         Step 2
       </aw-wizard-step>
-      <aw-wizard-step #thirdStep stepTitle='Steptitle 3' (stepEnter)="enterInto($event, 3)" (stepExit)="exitFrom($event, 3)">
+      <aw-wizard-step #thirdStep stepTitle='Steptitle 3'
+                      (stepEnter)="enterInto($event, 3)" (stepExit)="exitFrom($event, 3)">
         Step 3
       </aw-wizard-step>
     </aw-wizard>
@@ -67,7 +68,6 @@ describe('WizardStep', () => {
   beforeEach(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
-
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
   });
