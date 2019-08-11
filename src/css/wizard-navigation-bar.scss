@@ -149,8 +149,7 @@ $wz-param-indicator-color: null !global;
       $wz-param-indicator-color: $wz-color-optional !global;
       @content;
     }
-    &.done .step-indicator,
-    &.completed .step-indicator {
+    &.done .step-indicator {
       $wz-param-indicator-state: 'default' !global;
       $wz-param-indicator-color: $wz-color-done !global;
       @content;
@@ -165,6 +164,13 @@ $wz-param-indicator-color: null !global;
       $wz-param-indicator-color: $wz-color-editing !global;
       @content;
     }
+    // 'completed' class takes priority
+    // https://github.com/madoar/angular-archwizard/pull/221
+    &.completed .step-indicator {
+      $wz-param-indicator-state: 'default' !global;
+      $wz-param-indicator-color: $wz-color-done !global;
+      @content;
+    }
 
     &.navigable a:hover .step-indicator {
       $wz-param-indicator-state: 'hover' !global;
@@ -177,24 +183,27 @@ $wz-param-indicator-color: null !global;
       $wz-param-indicator-color: $wz-color-optional !global;
       @content;
     }
-    &.navigable.done, &.navigable.completed {
-      a:hover .step-indicator {
-        $wz-param-indicator-state: 'hover' !global;
-        $wz-param-indicator-color: $wz-color-done !global;
-        @content;
-      }
+    &.navigable.done a:hover .step-indicator {
+      $wz-param-indicator-state: 'hover' !global;
+      $wz-param-indicator-color: $wz-color-done !global;
+      @content;
     }
     &.navigable.current a:hover .step-indicator {
       $wz-param-indicator-state: 'hover' !global;
       $wz-param-indicator-color: $wz-color-current !global;
       @content;
     }
-    &.navigable.editing {
-      a:hover .step-indicator {
-        $wz-param-indicator-state: 'hover' !global;
-        $wz-param-indicator-color: $wz-color-editing !global;
-        @content;
-      }
+    &.navigable.editing a:hover .step-indicator {
+      $wz-param-indicator-state: 'hover' !global;
+      $wz-param-indicator-color: $wz-color-editing !global;
+      @content;
+    }
+    // 'completed' class takes priority
+    // https://github.com/madoar/angular-archwizard/pull/221
+    &.navigable.completed a:hover .step-indicator {
+      $wz-param-indicator-state: 'hover' !global;
+      $wz-param-indicator-color: $wz-color-done !global;
+      @content;
     }
   }
 }

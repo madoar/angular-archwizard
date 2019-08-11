@@ -320,7 +320,7 @@ describe('WizardNavigationBarComponent', () => {
     expect(navigableLiEls[0]).toBe(allLiELs[0]);
   }));
 
-  it('should mark all steps completed after visiting the completion step', fakeAsync(() => {
+  it('should mark completion steps completed after visiting the completion step', fakeAsync(() => {
     const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
 
     // go to third step, by jumping over the optional step
@@ -333,10 +333,11 @@ describe('WizardNavigationBarComponent', () => {
     tick();
     wizardTestFixture.detectChanges();
 
-    const allLiELs = navBarEl.queryAll(By.css('li'));
-    const completedLiEls = navBarEl.queryAll(By.css('li.completed'));
-
-    expect(completedLiEls.length).toBe(allLiELs.length);
+    const allLiEls = navBarEl.queryAll(By.css('li'));
+    expect(allLiEls[0].classes['completed']).toBeFalsy('Only completion step should be marked completed');
+    expect(allLiEls[1].classes['completed']).toBeFalsy('Only completion step should be marked completed');
+    expect(allLiEls[2].classes['completed']).toBeFalsy('Only completion step should be marked completed');
+    expect(allLiEls[3].classes['completed']).toBeTruthy('Completion step should be marked completed');
   }));
 
   it('should disable navigation through the navigation bar correctly', fakeAsync(() => {
