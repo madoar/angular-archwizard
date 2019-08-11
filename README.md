@@ -258,13 +258,22 @@ The only exception to this rule are optional steps, which a user can skip.
 Using the navigation bar, the user can navigate back to steps they already visited.
 
 You can alter this behavior by applying to the `<aw-wizard>` element an additional `[awNavigationMode]` directive, which can be used in two ways.
-The easiest option is to tweak the default navigation mode with `[navigateBackward]` and/or `[navigateForward]` inputs which control the navigation bar.  Valid options for these inputs are `'allow'` and `'deny`'.  Take notice that the `'allow'` option still respects step exit conditions.  Also, the completion step still only becomes enterable after all previous steps are completed.  Example usage:
+The easiest option is to tweak the default navigation mode with `[navigateBackward]` and/or `[navigateForward]` inputs which control the navigation bar and have the following options:
+
+| Parameter name                | Possible Values                                                                                      | Default Value |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
+| [navigateBackward]            | `'allow'|'deny'`                                                                                     | `'deny'`      |
+| [navigateForward]             | `'allow'|'deny'|'visited'`                                                                           | `'allow'`     |
+
+Take notice that the `'allow'` and `'visited'` options still respect step exit conditions.  Also, the completion step still only becomes enterable after all previous steps are completed.  Example usage:
 
 ```html
 <aw-wizard [awNavigationMode] navigateBackward="allow" navigateForward="allow">...</aw-wizard>
 ```
 
-If changes you need are more radical, you can define your own navigation mode.  In order to do this, create a class implementing the `NavigationMode` interface and pass an instance of this class into the `[awNavigationMode]` directive.  This takes priority over `[navigateBackward]` and `[navigateForward]` inputs.  Example usage:
+If changes you need are more radical, you can define your own navigation mode.  In order to do this, create a class implementing the `NavigationMode` interface and pass an instance of this class into the `[awNavigationMode]` directive.
+This takes priority over `[navigateBackward]` and `[navigateForward]` inputs.
+Example usage:
 
 custom-navigation-mode.ts:
 ```typescript
@@ -307,7 +316,7 @@ Possible `awNavigationMode` parameters:
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
 | [awNavigationMode]            | `NavigationMode`                                                                                     | `null`        |
 | [navigateBackward]            | `'allow'|'deny'`                                                                                     | `'deny'`      |
-| [navigateForward]             | `'allow'|'deny'`                                                                                     | `'allow'`     |
+| [navigateForward]             | `'allow'|'deny'|'visited'`                                                                           | `'allow'`     |
 
 ### \[awEnableBackLinks\]
 In some cases it may be required that the user is allowed to leave an entered `aw-wizard-completion-step`.

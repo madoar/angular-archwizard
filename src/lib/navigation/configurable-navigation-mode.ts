@@ -18,6 +18,7 @@ import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
  *
  *   - `"deny"` -- the steps are not navigable
  *   - `"allow"` -- the steps are navigable
+ *   - `"visited"` -- a step is navigable iff it was already visited before
  *   - If the corresponding constructor argument is omitted or is `null` or `undefined`,
  *     then the default value is applied which is `"allow"`
  */
@@ -31,7 +32,7 @@ export class ConfigurableNavigationMode extends BaseNavigationMode {
    */
   constructor(
     private navigateBackward: 'allow'|'deny'|null = null,
-    private navigateForward: 'allow'|'deny'|null = null,
+    private navigateForward: 'allow'|'deny'|'visited'|null = null,
   ) {
     super();
     this.navigateBackward = this.navigateBackward || 'allow';
@@ -74,7 +75,8 @@ export class ConfigurableNavigationMode extends BaseNavigationMode {
    */
   public isNavigable(wizard: WizardComponent, destinationIndex: number): boolean {
     // Check if the destination step can be navigated to
-    if (wizard.getStepAtIndex(destinationIndex) instanceof WizardCompletionStep) {
+    const destinationStep = wizard.getStepAtIndex(destinationIndex);
+    if (destinationStep instanceof WizardCompletionStep) {
       // A completion step can only be entered, if all previous steps have been completed, are optional, or selected
       const previousStepsCompleted = wizard.wizardSteps
         .filter((step, index) => index < destinationIndex)
@@ -98,6 +100,7 @@ export class ConfigurableNavigationMode extends BaseNavigationMode {
       switch (this.navigateForward) {
         case 'allow': return true;
         case 'deny': return false;
+        case 'visited': return destinationStep.completed;
         default:
           throw new Error(`Invalid value for navigateForward: ${this.navigateForward}`);
       }

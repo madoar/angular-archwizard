@@ -40,3 +40,28 @@ export function checkWizardState(
   expect(wizard.completed).toBe(wizardCompleted,
     `expected wizard ${wizardCompleted ? 'to be completed' : 'not to be completed'}`);
 }
+
+
+/**
+ * Check which wizard steps are navigable using the navigation bar
+ *
+ * @param wizard Wizard component under test
+ * @param selectedStepIndex Expected selected step index
+ * @param navigableStepIndexes Array of step indexes expected to be navigable using the navigation bar
+ */
+export function checkWizardNavigableSteps(
+  wizard: WizardComponent,
+  selectedStepIndex: number,
+  navigableStepIndexes: number[],
+): void {
+  expect(wizard.currentStepIndex).toBe(selectedStepIndex, `expected current step index to be ${selectedStepIndex}`);
+
+  wizard.wizardSteps.forEach((step, index) => {
+    // Only the selected step should be selected
+    expect(step.selected).toBe(index === selectedStepIndex, `expected only step ${index} to be selected`);
+
+    // Check navigable step indexes
+    expect(wizard.isNavigable(index)).toBe(navigableStepIndexes.includes(index),
+      `expected step ${index} ${navigableStepIndexes.includes(index) ? 'to be navigable' : 'not to be navigable'}`);
+  });
+}

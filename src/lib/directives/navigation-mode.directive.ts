@@ -77,9 +77,10 @@ export class NavigationModeDirective implements OnChanges {
    *
    * - `navigateForward="deny"` -- the steps are not navigable
    * - `navigateForward="allow"` -- the steps are navigable
+   * - `navigateForward="visited"` -- a step is navigable iff it was already visited before
    */
   @Input()
-  public navigateForward: 'allow'|'deny'|null;
+  public navigateForward: 'allow'|'deny'|'visited'|null;
 
   constructor(private wizard: WizardComponent) { }
 
@@ -95,4 +96,3 @@ export class NavigationModeDirective implements OnChanges {
   }
 
 }
-
