@@ -49,7 +49,7 @@ export function checkWizardState(
  * @param selectedStepIndex Expected selected step index
  * @param navigableStepIndexes Array of step indexes expected to be navigable using the navigation bar
  */
-export function checkWizardNavigableState(
+export function checkWizardNavigableSteps(
   wizard: WizardComponent,
   selectedStepIndex: number,
   navigableStepIndexes: number[],

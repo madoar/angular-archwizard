@@ -2,7 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import {ArchwizardModule} from '../archwizard.module';
 import {WizardComponent} from '../components/wizard.component';
-import {checkWizardState, checkWizardNavigableState} from '../util/test-utils';
+import {checkWizardState, checkWizardNavigableSteps} from '../util/test-utils';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -56,21 +56,21 @@ describe('Wizard navigation with navigateForward=visited', () => {
 
   it('should go to step', fakeAsync(() => {
     checkWizardState(wizard, 0, false, [], false);
-    checkWizardNavigableState(wizard, 0, []);
+    checkWizardNavigableSteps(wizard, 0, []);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 1, false, [0], false);
-    checkWizardNavigableState(wizard, 1, [0]);
+    checkWizardNavigableSteps(wizard, 1, [0]);
 
     wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 2, false, [0, 1], false);
-    checkWizardNavigableState(wizard, 2, [0, 1]);
+    checkWizardNavigableSteps(wizard, 2, [0, 1]);
 
     wizard.goToStep(0);
     tick();
@@ -79,28 +79,28 @@ describe('Wizard navigation with navigateForward=visited', () => {
     // If forward navigation is allowed, visited steps after
     // the selected step are still considered completed
     checkWizardState(wizard, 0, true, [0, 1, 2], true);
-    checkWizardNavigableState(wizard, 0, [1, 2]);
+    checkWizardNavigableSteps(wizard, 0, [1, 2]);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 1, true, [0, 1, 2], true);
-    checkWizardNavigableState(wizard, 1, [0, 2]);
+    checkWizardNavigableSteps(wizard, 1, [0, 2]);
 
     wizard.goToStep(2);
     tick();
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 2, true, [0, 1, 2], true);
-    checkWizardNavigableState(wizard, 2, [0, 1]);
+    checkWizardNavigableSteps(wizard, 2, [0, 1]);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 1, true, [0, 1, 2], true);
-    checkWizardNavigableState(wizard, 1, [0, 2]);
+    checkWizardNavigableSteps(wizard, 1, [0, 2]);
   }));
 
   it('should go to next step', fakeAsync(() => {
@@ -109,19 +109,19 @@ describe('Wizard navigation with navigateForward=visited', () => {
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 1, false, [0], false);
-    checkWizardNavigableState(wizard, 1, [0]);
+    checkWizardNavigableSteps(wizard, 1, [0]);
   }));
 
   it('should go to previous step', fakeAsync(() => {
     checkWizardState(wizard, 0, false, [], false);
-    checkWizardNavigableState(wizard, 0, []);
+    checkWizardNavigableSteps(wizard, 0, []);
 
     wizard.goToStep(1);
     tick();
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 1, false, [0], false);
-    checkWizardNavigableState(wizard, 1, [0]);
+    checkWizardNavigableSteps(wizard, 1, [0]);
 
     wizard.goToPreviousStep();
     tick();
@@ -130,7 +130,7 @@ describe('Wizard navigation with navigateForward=visited', () => {
     // If forward navigation is allowed, visited steps after
     // the selected step are still considered completed
     checkWizardState(wizard, 0, true, [0, 1], false);
-    checkWizardNavigableState(wizard, 0, [1]);
+    checkWizardNavigableSteps(wizard, 0, [1]);
   }));
 
   it('should stay at the current step', fakeAsync(() => {
@@ -141,21 +141,21 @@ describe('Wizard navigation with navigateForward=visited', () => {
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 0, false, [], false);
-    checkWizardNavigableState(wizard, 0, []);
+    checkWizardNavigableSteps(wizard, 0, []);
 
     wizard.goToStep(-1);
     tick();
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 0, false, [], false);
-    checkWizardNavigableState(wizard, 0, []);
+    checkWizardNavigableSteps(wizard, 0, []);
 
     wizard.goToStep(0);
     tick();
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 0, true, [0], false);
-    checkWizardNavigableState(wizard, 0, []);
+    checkWizardNavigableSteps(wizard, 0, []);
   }));
 
   it('should reset the wizard correctly', fakeAsync(() => {
@@ -168,30 +168,30 @@ describe('Wizard navigation with navigateForward=visited', () => {
     wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 2, false, [0, 1], false);
-    checkWizardNavigableState(wizard, 2, [0, 1]);
+    checkWizardNavigableSteps(wizard, 2, [0, 1]);
 
     wizard.reset();
 
     checkWizardState(wizard, 0, false, [], false);
-    checkWizardNavigableState(wizard, 0, []);
+    checkWizardNavigableSteps(wizard, 0, []);
 
     wizard.defaultStepIndex = -1;
     expect(() => wizard.reset())
       .toThrow(new Error(`The wizard doesn't contain a step with index -1`));
 
     checkWizardState(wizard, 0, false, [], false);
-    checkWizardNavigableState(wizard, 0, []);
+    checkWizardNavigableSteps(wizard, 0, []);
 
     wizard.defaultStepIndex = 1;
     wizard.reset();
 
     checkWizardState(wizard, 1, false, [], false);
-    checkWizardNavigableState(wizard, 1, [0]);
+    checkWizardNavigableSteps(wizard, 1, [0]);
 
     wizard.defaultStepIndex = 2;
     wizard.reset();
 
     checkWizardState(wizard, 2, false, [], false);
-    checkWizardNavigableState(wizard, 2, [0, 1]);
+    checkWizardNavigableSteps(wizard, 2, [0, 1]);
   }));
 });
