@@ -118,10 +118,10 @@ $wz-param-indicator-color: null !global;
   li {
     &:not(:last-child):before {
       @if ($layout == 'horizontal') {
-        @include wz-horizontal-line($width, $height, $wz-color-default);
+        @include wz-horizontal-line($width, $height, $wz-line-color);
       }
       @else if ($layout == 'vertical') {
-        @include wz-vertical-line($width, $height, $wz-color-default);
+        @include wz-vertical-line($width, $height, $wz-line-color);
       }
     }
 
