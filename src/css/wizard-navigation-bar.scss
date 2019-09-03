@@ -210,9 +210,11 @@ $wz-param-step-state: null !global;
 
           @else if $indicator-style == 'large-empty' {
             @include wz-define-style($layout) {
-              border-width: $wz-param-indicator-border-width;
-              border-style: solid;
-              border-color: wz-get-color($indicator-style, $wz-param-step-state, $wz-param-indicator-state, 'border-color');
+              $border-color: wz-get-color($indicator-style, $wz-param-step-state, $wz-param-indicator-state, 'border-color');
+              @if $border-color != null {
+                // To optimize CSS output size, do not define any border styles when border-color is null
+                border: $wz-param-indicator-border-width solid $border-color;
+              }
             }
           }
 
@@ -225,9 +227,11 @@ $wz-param-step-state: null !global;
 
           @else if $indicator-style == 'large-empty-symbols' {
             @include wz-define-style($layout) {
-              border-width: $wz-param-indicator-border-width;
-              border-style: solid;
-              border-color: wz-get-color($indicator-style, $wz-param-step-state, $wz-param-indicator-state, 'border-color');
+              $border-color: wz-get-color($indicator-style, $wz-param-step-state, $wz-param-indicator-state, 'border-color');
+              @if $border-color != null {
+                // To optimize CSS output size, do not define any border styles when border-color is null
+                border: $wz-param-indicator-border-width solid $border-color;
+              }
               color: wz-get-color($indicator-style, $wz-param-step-state, $wz-param-indicator-state, 'symbol-color');
             }
           }
