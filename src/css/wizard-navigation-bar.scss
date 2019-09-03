@@ -320,51 +320,17 @@ aw-wizard-navigation-bar {
       width: 100%;
       list-style: none;
 
-      @mixin steps($number-of-components) {
-        &:before {
-          left: 100% / $number-of-components / 2;
-          right: 100% / $number-of-components / 2;
+      @for $number-of-components from 2 through 10 {
+        &.steps-#{$number-of-components} {
+          &:before {
+            left: 100% / $number-of-components / 2;
+            right: 100% / $number-of-components / 2;
+          }
+
+          li {
+            width: 100% / $number-of-components;
+          }
         }
-
-        li {
-          width: 100% / $number-of-components;
-        }
-      }
-
-      &.steps-2 {
-        @include steps(2);
-      }
-
-      &.steps-3 {
-        @include steps(3);
-      }
-
-      &.steps-4 {
-        @include steps(4);
-      }
-
-      &.steps-5 {
-        @include steps(5);
-      }
-
-      &.steps-6 {
-        @include steps(6);
-      }
-
-      &.steps-7 {
-        @include steps(7);
-      }
-
-      &.steps-8 {
-        @include steps(8);
-      }
-
-      &.steps-9 {
-        @include steps(9);
-      }
-
-      &.steps-10 {
-        @include steps(10);
       }
 
       li {
