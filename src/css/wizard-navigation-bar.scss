@@ -273,7 +273,7 @@ aw-wizard-navigation-bar {
       pointer-events: none;
 
       a .label {
-        color: $wz-color-current;
+        color: $wz-label-color-default;
         line-height: $wz-text-height;
         font-size: $wz-text-height;
         text-decoration: none;
@@ -291,7 +291,7 @@ aw-wizard-navigation-bar {
       }
 
       a:hover .label {
-        color: darken($wz-color-current, 20%);
+        color: $wz-label-color-hover;
       }
     }
   }
