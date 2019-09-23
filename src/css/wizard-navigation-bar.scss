@@ -246,7 +246,7 @@ $wz-param-step-state: null !global;
 //
 // Arguments:
 //   $indicator-style: Indicator style: 'small', 'large-filled' etc.
-//   $step-state:      Wizard step state: small', 'large-filled' etc.
+//   $step-state:      Wizard step state: 'default', 'current', 'done' etc.
 //   $indicator-state: Indicator state: 'default' or 'hover'
 //   $property:        Property to retrieve: 'background-color', 'border-color', 'symbol-color'
 //
