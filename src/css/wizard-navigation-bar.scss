@@ -256,12 +256,25 @@ $wz-param-step-state: null !global;
 //     - the corresponding color definitions map entry is explicit `null`
 //
 @function wz-get-color($indicator-style, $step-state, $indicator-state, $property) {
+  //
+  // Gather a list of candidate maps to search for the requested property.
+  // As documented in archwizard.scss, "Default Colors" section, the order should be as follows:
+  //
+  // - $wz-colors[$indicator-style][$step-state][$color]
+  // - $wz-colors[$indicator-style]['_'][$color]
+  // - $wz-colors['_'][$step-state][$color]
+  // - $wz-colors['_']['_'][$color]
+  //
+  // Additional "or ()" expressions are necessary because calling `map-get(null)` causes an SCSS compilation error
+  //
   $maps: (
     map-get(map-get($wz-colors, $indicator-style) or (), $step-state) or (),
     map-get(map-get($wz-colors, $indicator-style) or (), '_') or (),
     map-get(map-get($wz-colors, '_') or (), $step-state) or (),
     map-get(map-get($wz-colors, '_') or (), '_') or (),
   );
+
+  // Loop through $maps until we find the requested property
   $key: '#{$property}-#{$indicator-state}';
   @each $map in $maps {
     @if map-has-key($map, $key) {
