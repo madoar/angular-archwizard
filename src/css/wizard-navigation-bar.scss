@@ -191,11 +191,18 @@ $wz-param-step-state: null !global;
 
 // Define wizard styles specific to the configurated layouts (`$wz-layouts`) and indicator styles (`$wz-indicator-styles`)
 @mixin wz-define-styles() {
+
+  // For each layout and indicator style...
   @each $layout in $wz-layouts {
     aw-wizard-navigation-bar.#{$layout} {
       @each $indicator-style in $wz-indicator-styles {
         &.#{$indicator-style} ul.steps-indicator {
+          // ...we are emitting CSS styles for `aw-wizard-navigation-bar.<layout>.<indicator-style> ul.steps-indicator`
 
+          // Each indicator style is defined with its specific values (like `$border-width: 0` in this case) and CSS
+          // properties.  For indicator style 'small' we only define background color, while for other indicator styles
+          // below we define border and/or color properties.  The `wz-define-style` mixin here is used to apply CSS
+          // properties in a proper order for each wizard step state ('default', 'current', 'done' etc.)
           @if $indicator-style == 'small' {
             @include wz-define-style($layout, $width: $wz-small-dot-width, $height: $wz-small-dot-height, $border-width: 0) {
               background-color: wz-get-color($indicator-style, $wz-param-step-state, $wz-param-indicator-state, 'background-color');
