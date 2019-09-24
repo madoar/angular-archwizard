@@ -110,6 +110,18 @@ $wz-label-color-default: #808080 !default;
 $wz-label-color-hover: darken($wz-label-color-default, 20%) !default;
 
 // dot definitions
+//
+// Here and below, "dots" are wizard step indicators represented as circles in the navigation bar.
+// Depending on step indicator style selected for the wizard, dots can either be small (indicator style 'small')
+// or large (indicator styles 'large-filled', 'large-empty', 'large-filled-symbols' etc.).
+//
+// A short summary of available configuration options:
+// - dot-border-width defines circle border width
+// - dot-width defines the horizontal dimension of circles
+// - dot-height defines the vertical dimension of circles
+//
+// It is recommended to always have dot-width equal to dot-height.
+//
 $wz-dot-border-width: 2px !default;
 
 // small definitions
