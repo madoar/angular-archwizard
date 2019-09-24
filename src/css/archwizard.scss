@@ -15,7 +15,8 @@ $wz-indicator-styles: 'small', 'large-filled', 'large-empty', 'large-filled-symb
 // Wizard step states are: 'default', 'current', 'done', 'optional', 'editing'.
 //
 // Colors are: 'border-color-default', 'background-color-default', 'symbol-color-default', 'border-color-hover',
-// 'background-color-hover', 'symbol-color-hover'.
+// 'background-color-hover', 'symbol-color-hover'.  The 'hover' values are applied when the user hovers the mouse
+// pointer over a navigable wizard step indicator.  Otherwise the 'default' values are used.
 //
 // Notes:
 // - The order of wizard step states in this mapping does not affect the order of resulting CSS rules, which is fixed
