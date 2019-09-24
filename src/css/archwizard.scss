@@ -19,7 +19,7 @@ $wz-indicator-styles: 'small', 'large-filled', 'large-empty', 'large-filled-symb
 //
 // Notes:
 // - The order of wizard step states in this mapping does not affect the order of resulting CSS rules, which is fixed
-//   internally by angular-archwizard.
+//   internally by angular-archwizard (see `wz-define-style` mixin).
 // - Depending on the active indicator style, some colors may not be used.  For example, 'background-color-default' and
 //   'background-color-hover' do not make sense in 'large-empty-symbols' indicator style.
 // - You can set a color to `null` to exclude the corresponding property from CSS output.
