@@ -1,10 +1,10 @@
 // Wizard layouts to be generated (all by default).
 // Override this variable to exclude layouts you don't need.
-$wz-layouts: 'horizontal' 'vertical' !default;
+$aw-layouts: 'horizontal' 'vertical' !default;
 
 // Wizard indicator styles to be generated (all by default).
 // Override this variable to exclude indicator styles you don't use.
-$wz-indicator-styles: 'small', 'large-filled', 'large-empty', 'large-filled-symbols', 'large-empty-symbols' !default;
+$aw-indicator-styles: 'small', 'large-filled', 'large-empty', 'large-filled-symbols', 'large-empty-symbols' !default;
 
 // Color definitions - a mapping from indicator style and wizard step state to colors.
 //
@@ -18,7 +18,7 @@ $wz-indicator-styles: 'small', 'large-filled', 'large-empty', 'large-filled-symb
 //
 // Notes:
 // - The order of wizard step states in this mapping does not affect the order of resulting CSS rules, which is fixed
-//   internally by angular-archwizard (see `wz-define-style` mixin).
+//   internally by angular-archwizard (see `aw-define-style` mixin).
 // - Depending on the active indicator style, some colors may not be used.  For example, 'background-color-default' and
 //   'background-color-hover' do not make sense in 'large-empty-symbols' indicator style.
 //
@@ -27,7 +27,7 @@ $wz-indicator-styles: 'small', 'large-filled', 'large-empty', 'large-filled-symb
 //
 // You can use `null` instead of a color value to exclude the corresponding property from CSS output.  For example,
 //
-//   $wz-colors: (
+//   $aw-colors: (
 //     '_': (
 //       'editing': (
 //         'border-color-default': null,
@@ -42,14 +42,14 @@ $wz-indicator-styles: 'small', 'large-filled', 'large-empty', 'large-filled-symb
 // --------------
 //
 // You can set default colors by using '_' in place of an indicator style or a wizard step state.
-// The `wz-get-color` function looks up the requested color in the following order, picking the first defined entry:
+// The `aw-get-color` function looks up the requested color in the following order, picking the first defined entry:
 //
-// - $wz-colors[$indicator-style][$step-state][$color]
-// - $wz-colors[$indicator-style]['_'][$color]
-// - $wz-colors['_'][$step-state][$color]
-// - $wz-colors['_']['_'][$color]
+// - $aw-colors[$indicator-style][$step-state][$color]
+// - $aw-colors[$indicator-style]['_'][$color]
+// - $aw-colors['_'][$step-state][$color]
+// - $aw-colors['_']['_'][$color]
 //
-$wz-colors: (
+$aw-colors: (
   '_': (
     'default': (
       'border-color-default': #E6E6E6,
@@ -101,11 +101,11 @@ $wz-colors: (
 ) !default;
 
 // line color
-$wz-line-color: #E6E6E6 !default;
+$aw-line-color: #E6E6E6 !default;
 
 // label colors
-$wz-label-color-default: #808080 !default;
-$wz-label-color-hover: darken($wz-label-color-default, 20%) !default;
+$aw-label-color-default: #808080 !default;
+$aw-label-color-hover: darken($aw-label-color-default, 20%) !default;
 
 // dot definitions
 //
@@ -120,26 +120,26 @@ $wz-label-color-hover: darken($wz-label-color-default, 20%) !default;
 //
 // It is recommended to always have dot-width equal to dot-height.
 //
-$wz-dot-border-width: 2px !default;
+$aw-dot-border-width: 2px !default;
 
 // small definitions
-$wz-small-dot-width: 14px !default;
-$wz-small-dot-height: 14px !default;
+$aw-small-dot-width: 14px !default;
+$aw-small-dot-height: 14px !default;
 
 // big definitions
-$wz-big-dot-width: 50px !default;
-$wz-big-dot-height: 50px !default;
+$aw-big-dot-width: 50px !default;
+$aw-big-dot-height: 50px !default;
 
 // padding between text and baseline, for horizonal navigation bar
-$wz-text-padding-bottom: 10px !default;
+$aw-text-padding-bottom: 10px !default;
 
 // padding between text and baseline, for vertical navigation bar
-$wz-text-margin-left: 15px !default;
+$aw-text-margin-left: 15px !default;
 
 // distance between steps, for vertical navigation bar
-$wz-distance-between-steps: 10px !default;
+$aw-distance-between-steps: 10px !default;
 
-$wz-text-height: 14px !default;
+$aw-text-height: 14px !default;
 
 
 aw-wizard {
