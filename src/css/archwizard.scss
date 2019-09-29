@@ -6,9 +6,7 @@ $wz-layouts: 'horizontal' 'vertical' !default;
 // Override this variable to exclude indicator styles you don't use.
 $wz-indicator-styles: 'small', 'large-filled', 'large-empty', 'large-filled-symbols', 'large-empty-symbols' !default;
 
-// Color definitions
-//
-// This is a mapping from indicator style and wizard step state to colors.
+// Color definitions - a mapping from indicator style and wizard step state to colors.
 //
 // Predefined indicator styles are: 'small', 'large-filled', 'large-empty', 'large-filled-symbols', 'large-empty-symbols'.
 //
