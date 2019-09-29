@@ -107,11 +107,11 @@ $aw-line-color: #E6E6E6 !default;
 $aw-label-color-default: #808080 !default;
 $aw-label-color-hover: darken($aw-label-color-default, 20%) !default;
 
-// dot definitions
+// Circle definitions
 //
-// Here and below, "dots" are wizard step indicators represented as circles in the navigation bar.
-// Depending on the step indicator style selected for the wizard, dots can either be small (indicator style 'small')
-// or large (indicator styles 'large-filled', 'large-empty', 'large-filled-symbols' etc.).
+// Circles are the visual representation of wizard steps in the navigation bar.  Depending on
+// the step indicator style selected for the wizard, circles are either small (indicator style 'small')
+// or big (indicator styles 'large-filled', 'large-empty', 'large-filled-symbols' etc.).
 //
 // A short summary of available configuration options:
 // - dot-border-width defines circle border width
@@ -120,15 +120,15 @@ $aw-label-color-hover: darken($aw-label-color-default, 20%) !default;
 //
 // It is recommended to always have dot-width equal to dot-height.
 //
-$aw-dot-border-width: 2px !default;
+$aw-circle-border-width: 2px !default;
 
 // small definitions
-$aw-small-dot-width: 14px !default;
-$aw-small-dot-height: 14px !default;
+$aw-small-circle-width: 14px !default;
+$aw-small-circle-height: 14px !default;
 
 // big definitions
-$aw-big-dot-width: 50px !default;
-$aw-big-dot-height: 50px !default;
+$aw-big-circle-width: 50px !default;
+$aw-big-circle-height: 50px !default;
 
 // padding between text and baseline, for horizonal navigation bar
 $aw-text-padding-bottom: 10px !default;

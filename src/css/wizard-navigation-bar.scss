@@ -85,7 +85,7 @@ $aw-param-step-state: null !global;
 //   - $aw-param-indicator-height - equals to $height argument of the `define-style` mixin
 //   - $aw-param-indicator-border-width - equals to $border-width argument of the `define-style` mixin
 //
-@mixin aw-define-style($layout, $width: $aw-big-dot-height, $height: $aw-big-dot-height, $border-width: $aw-dot-border-width) {
+@mixin aw-define-style($layout, $width: $aw-big-circle-height, $height: $aw-big-circle-height, $border-width: $aw-circle-border-width) {
 
   // Make variables accessible from the content block
   $aw-param-indicator-width: $width !global;
@@ -208,7 +208,7 @@ $aw-param-step-state: null !global;
           // below we define border and/or color properties.  The `aw-define-style` mixin here is used to apply CSS
           // properties in a proper order for each wizard step state ('default', 'current', 'done' etc.)
           @if $indicator-style == 'small' {
-            @include aw-define-style($layout, $width: $aw-small-dot-width, $height: $aw-small-dot-height, $border-width: 0) {
+            @include aw-define-style($layout, $width: $aw-small-circle-width, $height: $aw-small-circle-height, $border-width: 0) {
               background-color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'background-color');
             }
           }
