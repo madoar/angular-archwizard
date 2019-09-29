@@ -17,6 +17,7 @@ $wz-param-indicator-state: null !global;
 $wz-param-step-state: null !global;
 
 
+// Defines the line that strings together circles representing wizard steps, in the horizontal layout
 @mixin wz-horizontal-line($dot-width, $dot-height, $line-color) {
   background-color: $line-color;
   content: '';
@@ -27,6 +28,7 @@ $wz-param-step-state: null !global;
   left: calc(50% + #{$dot-width / 2});
 }
 
+// Defines the line that strings together circles representing wizard steps, in the vertical layout
 @mixin wz-vertical-line($dot-width, $dot-height, $line-color) {
   background-color: $line-color;
   content: '';
@@ -37,16 +39,7 @@ $wz-param-step-state: null !global;
   width: 1px;
 }
 
-@mixin wz-circle-position-horizontal($dot-width, $dot-height, $dot-border-width) {
-  top: -$dot-height;
-  left: calc(50% - #{$dot-width / 2});
-}
-
-@mixin wz-circle-position-vertical($dot-width, $dot-height, $dot-border-width) {
-  top: 0;
-  left: -$dot-width;
-}
-
+// Defines a circle representing a wizard step
 @mixin wz-circle($dot-width, $dot-height, $dot-border-width) {
   position: absolute;
   width: $dot-width;
@@ -58,6 +51,17 @@ $wz-param-step-state: null !global;
   border-radius: 100%;
 }
 
+// Positions a circle in the horizontal layout of the navigation bar
+@mixin wz-circle-position-horizontal($dot-width, $dot-height, $dot-border-width) {
+  top: -$dot-height;
+  left: calc(50% - #{$dot-width / 2});
+}
+
+// Positions a circle in the vertical layout of the navigation bar
+@mixin wz-circle-position-vertical($dot-width, $dot-height, $dot-border-width) {
+  top: 0;
+  left: -$dot-width;
+}
 
 // Define a step indicator style like 'small', 'large-filled' etc.
 //
