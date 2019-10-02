@@ -1,4 +1,4 @@
-import {EventEmitter} from '@angular/core';
+import {EventEmitter, Directive} from '@angular/core';
 import {WizardStep} from './wizard-step.interface';
 import {MovingDirection} from './moving-direction.enum';
 
@@ -7,7 +7,13 @@ import {MovingDirection} from './moving-direction.enum';
  *
  * @author Marc Arndt
  */
-export abstract class WizardCompletionStep extends WizardStep {
+@Directive({
+  // Use a dummy decorator to make Ivy recognize @Input's inherited from this class
+  // https://github.com/angular/angular/issues/30080#issuecomment-536287895
+  selector: 'aw-abstract-wizard-completion-step',
+})
+// tslint:disable-next-line:directive-class-suffix
+export class WizardCompletionStep extends WizardStep {
   /**
    * @inheritDoc
    */

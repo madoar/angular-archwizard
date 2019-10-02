@@ -1,4 +1,4 @@
-import {ContentChild, EventEmitter, HostBinding, Input, Output} from '@angular/core';
+import {ContentChild, EventEmitter, HostBinding, Input, Output, Directive} from '@angular/core';
 import {WizardStepSymbolDirective} from '../directives/wizard-step-symbol.directive';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 import {MovingDirection} from './moving-direction.enum';
@@ -9,7 +9,13 @@ import {NavigationSymbol} from './navigation-symbol.interface';
  *
  * @author Marc Arndt
  */
-export abstract class WizardStep {
+@Directive({
+  // Use a dummy decorator to make Ivy recognize @Input's inherited from this class
+  // https://github.com/angular/angular/issues/30080#issuecomment-536287895
+  selector: 'aw-abstract-wizard-step',
+})
+// tslint:disable-next-line:directive-class-suffix
+export class WizardStep {
   /**
    * A step title property, which contains the visible header title of the step.
    * This title is then shown inside the navigation bar.

@@ -17,6 +17,8 @@ import {WizardStepTitleDirective} from './directives/wizard-step-title.directive
 import {WizardStepDirective} from './directives/wizard-step.directive';
 import {NavigationModeDirective} from './directives/navigation-mode.directive';
 import {CompletedStepDirective} from './directives/completed-step.directive';
+import {WizardCompletionStep} from './util/wizard-completion-step.interface';
+import {WizardStep} from './util/wizard-step.interface';
 
 
 /**
@@ -43,6 +45,11 @@ import {CompletedStepDirective} from './directives/completed-step.directive';
     ResetWizardDirective,
     NavigationModeDirective,
     CompletedStepDirective,
+    // These classes are made Components and included into the module for compatibility with Angular Ivy:
+    // https://github.com/angular/angular/issues/30080#issuecomment-536287895.
+    // For the same reason these classes are made non-abstract, although we would prefer them to be abstract.
+    WizardStep,
+    WizardCompletionStep
   ],
   imports: [
     CommonModule
