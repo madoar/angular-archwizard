@@ -630,7 +630,7 @@ invalid state, which may lead to strange and unexpected behavior.
 
 ## Styles Customization
 
-If you are using SCSS, you can customize wizard's global styles and color theme using SCSS variables:
+If you are using SCSS, you can customize the wizard's global styles and color theme using SCSS variables:
 
 1. Import `node_modules/angular-archwizard/archwizard.scss` into your `styles.scss` file as described in the [Installation](#installation) section.
 2. Re-define any of the variables you can find at the top of `node_modules/angular-archwizard/variables.scss`.
