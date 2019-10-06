@@ -11,13 +11,14 @@
 // - https://github.com/sass/sass/issues/871
 //
 // indicator state: 'default' or 'hover'
-$wz-param-indicator-state: null !global;
+$aw-param-indicator-state: null !global;
 
-// base color for one of possible wizard step states (default, current, done etc.).
-$wz-param-indicator-color: null !global;
+// wizard step state: 'default', 'current', 'done' etc.
+$aw-param-step-state: null !global;
 
 
-@mixin wz-horizontal-line($dot-width, $dot-height, $line-color) {
+// Defines the line that strings together circles representing wizard steps, in the horizontal layout
+@mixin aw-horizontal-line($dot-width, $dot-height, $line-color) {
   background-color: $line-color;
   content: '';
   position: absolute;
@@ -27,7 +28,8 @@ $wz-param-indicator-color: null !global;
   left: calc(50% + #{$dot-width / 2});
 }
 
-@mixin wz-vertical-line($dot-width, $dot-height, $line-color) {
+// Defines the line that strings together circles representing wizard steps, in the vertical layout
+@mixin aw-vertical-line($dot-width, $dot-height, $line-color) {
   background-color: $line-color;
   content: '';
   position: absolute;
@@ -37,17 +39,8 @@ $wz-param-indicator-color: null !global;
   width: 1px;
 }
 
-@mixin wz-circle-position-horizontal($dot-width, $dot-height, $dot-border-width) {
-  top: -$dot-height;
-  left: calc(50% - #{$dot-width / 2});
-}
-
-@mixin wz-circle-position-vertical($dot-width, $dot-height, $dot-border-width) {
-  top: 0;
-  left: -$dot-width;
-}
-
-@mixin wz-state-circle($dot-width, $dot-height, $dot-border-width) {
+// Defines a circle representing a wizard step
+@mixin aw-circle($dot-width, $dot-height, $dot-border-width) {
   position: absolute;
   width: $dot-width;
   height: $dot-height;
@@ -58,28 +51,19 @@ $wz-param-indicator-color: null !global;
   border-radius: 100%;
 }
 
-@mixin wz-state-circle-with-border($color) {
-  border-width: $wz-param-indicator-border-width;
-  border-style: solid;
-  border-color: if($wz-param-indicator-state == 'hover', darken($color, 10%), $color);
+// Positions a circle in the horizontal layout of the navigation bar
+@mixin aw-circle-position-horizontal($dot-width, $dot-height, $dot-border-width) {
+  top: -$dot-height;
+  left: calc(50% - #{$dot-width / 2});
 }
 
-@mixin wz-state-circle-with-border-and-content($color) {
-  @include wz-state-circle-with-border($color);
-  color: if($wz-param-indicator-state == 'hover', darken($color, 10%), $color);
+// Positions a circle in the vertical layout of the navigation bar
+@mixin aw-circle-position-vertical($dot-width, $dot-height, $dot-border-width) {
+  top: 0;
+  left: -$dot-width;
 }
 
-@mixin wz-state-circle-with-background($color) {
-  background-color: if($wz-param-indicator-state == 'hover', darken($color, 5%), $color);
-}
-
-@mixin wz-state-circle-with-background-and-content($color) {
-  @include wz-state-circle-with-background($color);
-  color: black;
-}
-
-
-// Helper mixin to define a step indicator style like 'small', 'large-filled-symbols' etc.
+// Define a step indicator style like 'small', 'large-filled' etc.
 //
 // Arguments:
 //   $layout - 'horizontal' | 'vertical'
@@ -91,37 +75,37 @@ $wz-param-indicator-color: null !global;
 // which is applied for .step-indicator elements and is expected to customize indicator representation.
 // The content block is invoked several times, each time with different arguments passed through global variables:
 //
-//   - $wz-param-indicator-state - indicator state: 'default' or 'hover'
-//   - $wz-param-indicator-color - base color for one of possible wizard step states (default, current, done etc.)
+//   - $aw-param-indicator-state - indicator state: 'default' or 'hover'
+//   - $aw-param-step-state - wizard step state: 'default', 'current', 'done' etc.
 //
 // In addition to these variables, the content block can use the following
 // variables passed through the `define-style` mixin:
 //
-//   - $wz-param-indicator-width - equals to $width argument of the `define-style` mixin
-//   - $wz-param-indicator-height - equals to $height argument of the `define-style` mixin
-//   - $wz-param-indicator-border-width - equals to $border-width argument of the `define-style` mixin
+//   - $aw-param-indicator-width - equals to $width argument of the `define-style` mixin
+//   - $aw-param-indicator-height - equals to $height argument of the `define-style` mixin
+//   - $aw-param-indicator-border-width - equals to $border-width argument of the `define-style` mixin
 //
-@mixin wz-define-style($layout, $width: $wz-big-dot-height, $height: $wz-big-dot-height, $border-width: $wz-dot-border-width) {
+@mixin aw-define-style($layout, $width: $aw-big-circle-height, $height: $aw-big-circle-height, $border-width: $aw-circle-border-width) {
 
   // Make variables accessible from the content block
-  $wz-param-indicator-width: $width !global;
-  $wz-param-indicator-height: $height !global;
-  $wz-param-indicator-border-width: $border-width !global;
+  $aw-param-indicator-width: $width !global;
+  $aw-param-indicator-height: $height !global;
+  $aw-param-indicator-border-width: $border-width !global;
 
   @if ($layout == 'horizontal') {
-    padding: ($height + $wz-text-padding-bottom) 0 $wz-text-padding-bottom 0;
+    padding: ($height + $aw-text-padding-bottom) 0 $aw-text-padding-bottom 0;
   }
   @else if ($layout == 'vertical') {
-    padding: ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2 + $height);
+    padding: ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2 + $height);
   }
 
   li {
     &:not(:last-child):before {
       @if ($layout == 'horizontal') {
-        @include wz-horizontal-line($width, $height, $wz-color-default);
+        @include aw-horizontal-line($width, $height, $aw-line-color);
       }
       @else if ($layout == 'vertical') {
-        @include wz-vertical-line($width, $height, $wz-color-default);
+        @include aw-vertical-line($width, $height, $aw-line-color);
       }
     }
 
@@ -133,127 +117,182 @@ $wz-param-indicator-color: null !global;
 
     .step-indicator {
       @if ($layout == 'horizontal') {
-        @include wz-circle-position-horizontal($width, $height, $border-width);
+        @include aw-circle-position-horizontal($width, $height, $border-width);
       }
       @else if ($layout == 'vertical') {
-        @include wz-circle-position-vertical($width, $height, $border-width);
+        @include aw-circle-position-vertical($width, $height, $border-width);
       }
 
-      $wz-param-indicator-state: 'default' !global;
-      $wz-param-indicator-color: $wz-color-default !global;
-      @include wz-state-circle($width, $height, $border-width);
+      $aw-param-indicator-state: 'default' !global;
+      $aw-param-step-state: 'default' !global;
+      @include aw-circle($width, $height, $border-width);
       @content;
     }
     &.optional .step-indicator {
-      $wz-param-indicator-state: 'default' !global;
-      $wz-param-indicator-color: $wz-color-optional !global;
+      $aw-param-indicator-state: 'default' !global;
+      $aw-param-step-state: 'optional' !global;
       @content;
     }
     &.done .step-indicator {
-      $wz-param-indicator-state: 'default' !global;
-      $wz-param-indicator-color: $wz-color-done !global;
+      $aw-param-indicator-state: 'default' !global;
+      $aw-param-step-state: 'done' !global;
       @content;
     }
     &.current .step-indicator {
-      $wz-param-indicator-state: 'default' !global;
-      $wz-param-indicator-color: $wz-color-current !global;
+      $aw-param-indicator-state: 'default' !global;
+      $aw-param-step-state: 'current' !global;
       @content;
     }
     &.editing .step-indicator {
-      $wz-param-indicator-state: 'default' !global;
-      $wz-param-indicator-color: $wz-color-editing !global;
+      $aw-param-indicator-state: 'default' !global;
+      $aw-param-step-state: 'editing' !global;
       @content;
     }
     // 'completed' class takes priority
     // https://github.com/madoar/angular-archwizard/pull/221
     &.completed .step-indicator {
-      $wz-param-indicator-state: 'default' !global;
-      $wz-param-indicator-color: $wz-color-done !global;
+      $aw-param-indicator-state: 'default' !global;
+      $aw-param-step-state: 'done' !global;
       @content;
     }
 
     &.navigable a:hover .step-indicator {
-      $wz-param-indicator-state: 'hover' !global;
-      $wz-param-indicator-color: $wz-color-default !global;
-      @include wz-state-circle($width, $height, $border-width);
+      $aw-param-indicator-state: 'hover' !global;
+      $aw-param-step-state: 'default' !global;
+      @include aw-circle($width, $height, $border-width);
       @content;
     }
     &.navigable.optional a:hover .step-indicator {
-      $wz-param-indicator-state: 'hover' !global;
-      $wz-param-indicator-color: $wz-color-optional !global;
+      $aw-param-indicator-state: 'hover' !global;
+      $aw-param-step-state: 'optional' !global;
       @content;
     }
     &.navigable.done a:hover .step-indicator {
-      $wz-param-indicator-state: 'hover' !global;
-      $wz-param-indicator-color: $wz-color-done !global;
+      $aw-param-indicator-state: 'hover' !global;
+      $aw-param-step-state: 'done' !global;
       @content;
     }
     &.navigable.current a:hover .step-indicator {
-      $wz-param-indicator-state: 'hover' !global;
-      $wz-param-indicator-color: $wz-color-current !global;
+      $aw-param-indicator-state: 'hover' !global;
+      $aw-param-step-state: 'current' !global;
       @content;
     }
     &.navigable.editing a:hover .step-indicator {
-      $wz-param-indicator-state: 'hover' !global;
-      $wz-param-indicator-color: $wz-color-editing !global;
+      $aw-param-indicator-state: 'hover' !global;
+      $aw-param-step-state: 'editing' !global;
       @content;
     }
     // 'completed' class takes priority
     // https://github.com/madoar/angular-archwizard/pull/221
     &.navigable.completed a:hover .step-indicator {
-      $wz-param-indicator-state: 'hover' !global;
-      $wz-param-indicator-color: $wz-color-done !global;
+      $aw-param-indicator-state: 'hover' !global;
+      $aw-param-step-state: 'done' !global;
       @content;
     }
   }
 }
 
 
-// Helper mixin to define indicator styles like 'small', 'large-filled-symbols' etc. for the given layout
-//
-// Arguments:
-//   $layout - 'horizontal' | 'vertical'
-//
-@mixin wz-define-styles($layout) {
-  &.small ul.steps-indicator {
-    @include wz-define-style($layout, $width: $wz-small-dot-width, $height: $wz-small-dot-height, $border-width: 0) {
-      @include wz-state-circle-with-background($wz-param-indicator-color);
-    }
-  }
+// Define wizard styles specific to the configurated layouts (`$aw-layouts`) and indicator styles (`$aw-indicator-styles`)
+@mixin aw-define-styles() {
 
-  &.large-filled ul.steps-indicator {
-    @include wz-define-style($layout, $border-width: 0) {
-      @include wz-state-circle-with-background($wz-param-indicator-color);
-    }
-  }
+  // For each layout and indicator style...
+  @each $layout in $aw-layouts {
+    aw-wizard-navigation-bar.#{$layout} {
+      @each $indicator-style in $aw-indicator-styles {
+        &.#{$indicator-style} ul.steps-indicator {
+          // ...we are emitting CSS styles for `aw-wizard-navigation-bar.<layout>.<indicator-style> ul.steps-indicator`
 
-  &.large-empty ul.steps-indicator {
-    @include wz-define-style($layout) {
-      @include wz-state-circle-with-border($wz-param-indicator-color);
-    }
-  }
+          // Each indicator style is defined with its specific values (like `$border-width: 0` in this case) and CSS
+          // properties.  For indicator style 'small' we only define background color, while for other indicator styles
+          // below we define border and/or color properties.  The `aw-define-style` mixin here is used to apply CSS
+          // properties in a proper order for each wizard step state ('default', 'current', 'done' etc.)
+          @if $indicator-style == 'small' {
+            @include aw-define-style($layout, $width: $aw-small-circle-width, $height: $aw-small-circle-height, $border-width: 0) {
+              background-color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'background-color');
+            }
+          }
 
-  &.large-filled-symbols ul.steps-indicator {
-    @include wz-define-style($layout, $border-width: 0) {
-      @include wz-state-circle-with-background-and-content($wz-param-indicator-color);
-    }
-  }
+          @else if $indicator-style == 'large-filled' {
+            @include aw-define-style($layout, $border-width: 0) {
+              background-color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'background-color');
+            }
+          }
 
-  &.large-empty-symbols ul.steps-indicator {
-    @include wz-define-style($layout) {
-      @include wz-state-circle-with-border-and-content($wz-param-indicator-color);
+          @else if $indicator-style == 'large-empty' {
+            @include aw-define-style($layout) {
+              $border-color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'border-color');
+              @if $border-color != null {
+                // To optimize CSS output size, do not define any border styles when border-color is null
+                border: $aw-param-indicator-border-width solid $border-color;
+              }
+            }
+          }
+
+          @else if $indicator-style == 'large-filled-symbols' {
+            @include aw-define-style($layout, $border-width: 0) {
+              background-color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'background-color');
+              color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'symbol-color');
+            }
+          }
+
+          @else if $indicator-style == 'large-empty-symbols' {
+            @include aw-define-style($layout) {
+              $border-color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'border-color');
+              @if $border-color != null {
+                // To optimize CSS output size, do not define any border styles when border-color is null
+                border: $aw-param-indicator-border-width solid $border-color;
+              }
+              color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'symbol-color');
+            }
+          }
+        }
+      }
     }
   }
 }
 
 
-// Helper mixin to define indicator styles for 'horizontal' and 'vertical' layouts
-@mixin wz-define-layout-styles() {
-  @each $layout in 'horizontal', 'vertical' {
-    aw-wizard-navigation-bar.#{$layout} {
-      @include wz-define-styles($layout);
+// Retrieve color from the color definitions map ($aw-colors)
+//
+// Arguments:
+//   $indicator-style: Indicator style: 'small', 'large-filled' etc.
+//   $step-state:      Wizard step state: 'default', 'current', 'done' etc.
+//   $indicator-state: Indicator state: 'default' or 'hover'
+//   $property:        Property to retrieve: 'background-color', 'border-color', 'symbol-color'
+//
+// Returns:
+//   Color value like #E6E6E6 or `null` if
+//     - the requested property is not specified in the color definitions map
+//     - the corresponding color definitions map entry is explicit `null`
+//
+@function aw-get-color($indicator-style, $step-state, $indicator-state, $property) {
+  //
+  // Gather a list of candidate maps to search for the requested property.
+  // As documented in archwizard.scss, "Default Colors" section, the order should be as follows:
+  //
+  // - $aw-colors[$indicator-style][$step-state][$color]
+  // - $aw-colors[$indicator-style]['_'][$color]
+  // - $aw-colors['_'][$step-state][$color]
+  // - $aw-colors['_']['_'][$color]
+  //
+  // Additional "or ()" expressions are necessary because calling `map-get(null)` causes an SCSS compilation error
+  //
+  $maps: (
+    map-get(map-get($aw-colors, $indicator-style) or (), $step-state) or (),
+    map-get(map-get($aw-colors, $indicator-style) or (), '_') or (),
+    map-get(map-get($aw-colors, '_') or (), $step-state) or (),
+    map-get(map-get($aw-colors, '_') or (), '_') or (),
+  );
+
+  // Loop through $maps until we find the requested property
+  $key: '#{$property}-#{$indicator-state}';
+  @each $map in $maps {
+    @if map-has-key($map, $key) {
+      @return map-get($map, $key);
     }
   }
+  @return null;
 }
 
 
@@ -273,9 +312,9 @@ aw-wizard-navigation-bar {
       pointer-events: none;
 
       a .label {
-        color: $wz-color-current;
-        line-height: $wz-text-height;
-        font-size: $wz-text-height;
+        color: $aw-label-color-default;
+        line-height: $aw-text-height;
+        font-size: $aw-text-height;
         text-decoration: none;
         text-transform: uppercase;
         font-weight: bold;
@@ -291,119 +330,89 @@ aw-wizard-navigation-bar {
       }
 
       a:hover .label {
-        color: darken($wz-color-current, 20%);
+        color: $aw-label-color-hover;
       }
     }
   }
 }
 
-aw-wizard-navigation-bar.horizontal {
+@if 'horizontal' is in $aw-layouts {
+  aw-wizard-navigation-bar.horizontal {
 
-  ul.steps-indicator {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    ul.steps-indicator {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
 
-    margin: 0;
-    width: 100%;
-    list-style: none;
+      margin: 0;
+      width: 100%;
+      list-style: none;
 
-    @mixin steps($number-of-components) {
-      &:before {
-        left: 100% / $number-of-components / 2;
-        right: 100% / $number-of-components / 2;
+      @for $number-of-components from 2 through 10 {
+        &.steps-#{$number-of-components} {
+          &:before {
+            left: 100% / $number-of-components / 2;
+            right: 100% / $number-of-components / 2;
+          }
+
+          li {
+            width: 100% / $number-of-components;
+          }
+        }
       }
 
       li {
-        width: 100% / $number-of-components;
-      }
-    }
-
-    &.steps-2 {
-      @include steps(2);
-    }
-
-    &.steps-3 {
-      @include steps(3);
-    }
-
-    &.steps-4 {
-      @include steps(4);
-    }
-
-    &.steps-5 {
-      @include steps(5);
-    }
-
-    &.steps-6 {
-      @include steps(6);
-    }
-
-    &.steps-7 {
-      @include steps(7);
-    }
-
-    &.steps-8 {
-      @include steps(8);
-    }
-
-    &.steps-9 {
-      @include steps(9);
-    }
-
-    &.steps-10 {
-      @include steps(10);
-    }
-
-    li {
-      margin: 0;
-      padding: 0;
-      text-align: center;
-
-      a .label {
-        display: inline-block;
-        padding-top: $wz-text-padding-bottom;
+        margin: 0;
+        padding: 0;
         text-align: center;
-      }
-    }
-  }
-}
 
-aw-wizard-navigation-bar.vertical {
-  max-width: 280px;
-  width: 20%;
-  height: 100%;
-  position: sticky;
-  top: 0;
-
-  ul.steps-indicator {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    list-style: none;
-    margin: auto;
-
-    li {
-
-      &:not(:last-child) {
-        margin-bottom: 0;
-        padding-bottom: $wz-distance-between-steps;
-      }
-
-      a {
-        // center labels vertically
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        .label {
-          margin-left: $wz-text-margin-left;
-          text-align: left;
+        a .label {
+          display: inline-block;
+          padding-top: $aw-text-padding-bottom;
+          text-align: center;
         }
       }
     }
   }
 }
 
-@include wz-define-layout-styles();
+@if 'vertical' is in $aw-layouts {
+  aw-wizard-navigation-bar.vertical {
+    max-width: 280px;
+    width: 20%;
+    height: 100%;
+    position: sticky;
+    top: 0;
+
+    ul.steps-indicator {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      list-style: none;
+      margin: auto;
+
+      li {
+
+        &:not(:last-child) {
+          margin-bottom: 0;
+          padding-bottom: $aw-distance-between-steps;
+        }
+
+        a {
+          // center labels vertically
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+
+          .label {
+            margin-left: $aw-text-margin-left;
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include aw-define-styles();

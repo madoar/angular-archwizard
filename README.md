@@ -630,20 +630,42 @@ invalid state, which may lead to strange and unexpected behavior.
 
 ## Styles Customization
 
-If you are using SCSS, you can easily customize wizard's global styles and color theme using SCSS variables:
+If you are using SCSS, you can customize the wizard's global styles and color theme using SCSS variables:
 
 1. Import `node_modules/angular-archwizard/archwizard.scss` into your `styles.scss` file as described in the [Installation](#installation) section.
-2. Re-define any of the variables you can find at the top of `node_modules/angular-archwizard/archwizard.scss`.
+2. Re-define any of the variables you can find at the top of `node_modules/angular-archwizard/variables.scss`.
 
-Here is a quick example:
+In the following example, we configure a simple color theme which only defines styles for two step states: 'default' and 'current'.
 
 ```scss
 // styles.scss
 
-$wz-color-default: #569700;
+$aw-colors: (
+  '_': (
+    'default': (
+      'border-color-default': #76b900,
+      'background-color-default': null,
+      'symbol-color-default': #68aa20,
+      'border-color-hover': #569700,
+      'background-color-hover': null,
+      'symbol-color-hover': #569700,
+    ),
+    'current': (
+      'border-color-default': #bbdc80,
+      'background-color-default': #bbdc80,
+      'symbol-color-default': #808080,
+      'border-color-hover': #76b900,
+      'background-color-hover': #76b900,
+      'symbol-color-hover': #808080,
+    )
+  )
+);
 
 @import '../node_modules/angular-archwizard/archwizard.scss';
 ```
+
+Please don't hesitate to look inside `node_modules/angular-archwizard/variables.scss` for documentation
+on the `$aw-colors` variable and other variables you can tweak to tune the wizard to your needs.
 
 ## Example
 You can find an basic example project using `angular-archwizard` [here](https://madoar.github.io/angular-archwizard-demo).
