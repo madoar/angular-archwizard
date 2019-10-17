@@ -574,12 +574,12 @@ public wizard: WizardComponent;
 ### Navigating the wizard programmatically
 
 In addition to letting the user navigate the wizard with `awNextStep`, `awPreviousStep` and `awGoToStep` directives,
-you can trigger navigation programmatically.  Use navigation methods exposed by the `WizardComponent` class:
+you can trigger navigation programmatically.  Use navigation methods exposed by the `WizardComponent.navigation` class:
 
 ```typescript
-wizard.goToNextStep();
-wizard.goToPreviousStep();
-wizard.goToStep(desinationIndex);
+wizard.navigation.goToNextStep();
+wizard.navigation.goToPreviousStep();
+wizard.navigation.goToStep(desinationIndex);
 ```
 
 ### Customizing the wizard stylesheets
