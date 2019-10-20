@@ -11,10 +11,10 @@
 // - https://github.com/sass/sass/issues/871
 //
 // indicator state: 'default' or 'hover'
-$aw-param-indicator-state: null !global;
+$aw-param-indicator-state: null;
 
 // wizard step state: 'default', 'current', 'done' etc.
-$aw-param-step-state: null !global;
+$aw-param-step-state: null;
 
 
 // Defines the line that strings together circles representing wizard steps, in the horizontal layout
