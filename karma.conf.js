@@ -23,8 +23,13 @@ module.exports = function (config) {
         functions: 80
       }
     },
-    browsers: ['ChromeHeadless', 'FirefoxHeadless'],
+    browsers: ['ModifiedChromeHeadless', 'FirefoxHeadless'],
     customLaunchers: {
+      // see https://developers.google.com/web/updates/2017/06/headless-karma-mocha-chai
+      ModifiedChromeHeadless: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      },
       FirefoxHeadless: {
         base: 'Firefox',
         flags: ['-headless']
