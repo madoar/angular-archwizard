@@ -4,11 +4,12 @@
 module.exports = function (config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular'],
+    frameworks: ['jasmine', '@angular-devkit/build-angular', 'detectBrowsers'],
     plugins: [
       'karma-jasmine',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
+      'karma-detect-browsers',
       'karma-jasmine-html-reporter',
       'karma-coverage-istanbul-reporter',
       '@angular-devkit/build-angular/plugins/karma'
@@ -23,17 +24,15 @@ module.exports = function (config) {
         functions: 80
       }
     },
-    browsers: ['ModifiedChromeHeadless', 'FirefoxHeadless'],
-    customLaunchers: {
-      // see https://developers.google.com/web/updates/2017/06/headless-karma-mocha-chai
-      ModifiedChromeHeadless: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
-      },
-      FirefoxHeadless: {
-        base: 'Firefox',
-        flags: ['-headless']
-      }
+    detectBrowsers: {
+      // enable/disable, default is true
+      enabled: true,
+
+      // enable/disable phantomjs support, default is true
+      usePhantomJS: false,
+
+      // use headless mode, for browsers that support it, default is false
+      preferHeadless: true,
     },
     singleRun: true
   });
