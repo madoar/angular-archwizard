@@ -9,6 +9,7 @@ module.exports = function (config) {
       'karma-jasmine',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
+      'karma-safari-launcher',
       'karma-detect-browsers',
       'karma-jasmine-html-reporter',
       'karma-coverage-istanbul-reporter',
