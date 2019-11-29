@@ -100,7 +100,7 @@ $aw-param-step-state: null;
   }
 
   li {
-    &:not(:last-child):before {
+    &:not(:last-child):after {
       @if ($layout == 'horizontal') {
         @include aw-horizontal-line($width, $height, $aw-line-color);
       }
@@ -350,7 +350,7 @@ aw-wizard-navigation-bar {
 
       @for $number-of-components from 2 through 10 {
         &.steps-#{$number-of-components} {
-          &:before {
+          &:after {
             left: 100% / $number-of-components / 2;
             right: 100% / $number-of-components / 2;
           }
