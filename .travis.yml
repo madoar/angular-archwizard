@@ -1,29 +1,52 @@
-sudo: required
-dist: trusty
-
 language: node_js
-
-addons:
-  chrome: stable
 
 branches:
   only:
   - master
   - develop
 
-node_js:
-- "12"
-- "11"
-- "10"
+addons:
+  chrome: stable
+  firefox: latest
 
 jobs:
   include:
-  - stage: Coverage
-    node_js: "12"
-    script: npm test
-    after_success:
-    - npm install -g codacy-coverage
-    - codacy-coverage < coverage/lcov.info
-  - stage: Build
-    node_js: "12"
-    script: npm run build
+    # Tests
+    - stage: Test 
+      os: linux
+      dist: trusty
+      node_js: "10"
+    - stage: Test 
+      os: linux
+      dist: trusty
+      node_js: "11"
+    - stage: Test 
+      os: linux
+      dist: trusty
+      node_js: "12"
+    - stage: Test 
+      os: osx
+      node_js: "10"
+    - stage: Test 
+      os: osx
+      node_js: "11"
+    - stage: Test 
+      os: osx
+      node_js: "12"
+    # Build
+    - stage: Build
+      os: linux
+      node_js: "12"
+      addons:
+        chrome: stable    
+      script: npm run build
+    # Coverage
+    - stage: Coverage
+      os: linux
+      node_js: "12"
+      addons:
+        chrome: stable
+      script: npm test
+      after_success:
+        - npm install -g codacy-coverage
+        - codacy-coverage < coverage/lcov.info    
