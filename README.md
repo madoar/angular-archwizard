@@ -352,6 +352,17 @@ This can be achieved by using the `[awWizardStepTitle]` directive inside a wizar
 </aw-wizard-step>
 ```
 
+Additionally it is possible to inject the corresponding `WizardStep` object into the `ng-template` environment.
+This for example allows customization of the step title depending on the state of the wizard step, like on the completion and selection state:
+
+```html
+<aw-wizard-step (stepEnter)="enterStep($event)">
+  <ng-template awWizardStepTitle let-wizardStep="wizardStep">
+    {{ wizardStep.completed ? "Delivery address (✔)" : "Delivery address" }}
+  </ng-template>
+</aw-wizard-step>
+```
+
 ### \[awWizardStepSymbol\]
 In addition to the step title, the navigation symbol/step symbol can also be set via a directive.
 This is required, if the navigation step symbol is not a simple character or a symbol, but something more complex, like a html component.
@@ -361,6 +372,18 @@ In such a case, the the navigation symbol can be specified using the `[awWizardS
 <aw-wizard-step (stepEnter)="enterStep($event)">
   <ng-template awWizardStepSymbol>
     <i class="far fa-file"></i>
+  </ng-template>
+</aw-wizard-step>
+```
+
+Additionally it is possible to inject the corresponding `WizardStep` object into the `ng-template` environment.
+This for example allows customization of the navigation symbol depending on the state of the wizard step, like on the completion and selection state:
+
+```html
+<aw-wizard-step (stepEnter)="enterStep($event)">
+  <ng-template awWizardStepSymbol let-wizardStep="wizardStep">
+    <i *ngIf="!wizardStep.completed" class="far fa-file"></i>
+    <i *ngIf="wizardStep.completed" class="far fa-check"></i>
   </ng-template>
 </aw-wizard-step>
 ```
