@@ -25,6 +25,16 @@ module.exports = function (config) {
         functions: 80
       }
     },
+    customLaunchers: {
+      ChromeHeadlessNoSandbox: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox']
+      },
+      ChromiumHeadlessNoSandbox: {
+        base: 'ChromiumHeadless',
+        flags: ['--no-sandbox']
+      }
+    },
     detectBrowsers: {
       // enable/disable, default is true
       enabled: true,
@@ -34,6 +44,26 @@ module.exports = function (config) {
 
       // use headless mode, for browsers that support it, default is false
       preferHeadless: true,
+
+      postDetection: function (availableBrowsers) {
+        if (availableBrowsers.includes("ChromeHeadless")) {
+          const index = availableBrowsers.indexOf("ChromeHeadless");
+
+          availableBrowsers.splice(index, 1);
+
+          availableBrowsers.push("ChromeHeadlessNoSandbox");
+        }
+
+        if (availableBrowsers.includes("ChromiumHeadless")) {
+          const index = availableBrowsers.indexOf("ChromiumHeadless");
+
+          availableBrowsers.splice(index, 1);
+
+          availableBrowsers.push("ChromiumHeadlessNoSandbox");
+        }
+
+        return availableBrowsers;
+      }
     },
     singleRun: true
   });
