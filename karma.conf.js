@@ -46,20 +46,16 @@ module.exports = function (config) {
       preferHeadless: true,
 
       postDetection: function (availableBrowsers) {
-        if (availableBrowsers.includes("ChromeHeadless")) {
-          const index = availableBrowsers.indexOf("ChromeHeadless");
+        if (availableBrowsers.includes('ChromeHeadless')) {
+          const index = availableBrowsers.indexOf('ChromeHeadless');
 
-          availableBrowsers.splice(index, 1);
-
-          availableBrowsers.push("ChromeHeadlessNoSandbox");
+          availableBrowsers[index] = 'ChromeHeadlessNoSandbox';
         }
 
-        if (availableBrowsers.includes("ChromiumHeadless")) {
-          const index = availableBrowsers.indexOf("ChromiumHeadless");
+        if (availableBrowsers.includes('ChromiumHeadless')) {
+          const index = availableBrowsers.indexOf('ChromiumHeadless');
 
-          availableBrowsers.splice(index, 1);
-
-          availableBrowsers.push("ChromiumHeadlessNoSandbox");
+          availableBrowsers[index] = 'ChromiumHeadlessNoSandbox';
         }
 
         return availableBrowsers;
