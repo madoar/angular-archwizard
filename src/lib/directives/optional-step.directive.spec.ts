@@ -15,7 +15,7 @@ import {WizardComponent} from '../components/wizard.component';
       <aw-wizard-step stepTitle='Steptitle 2' awOptionalStep>
         Step 2
       </aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 3'>
+      <aw-wizard-step stepTitle='Steptitle 3' [awOptionalStep]="false">
         Step 3
       </aw-wizard-step>
     </aw-wizard>
@@ -50,7 +50,7 @@ describe('OptionalStepDirective', () => {
 
   it('should create an instance', () => {
     expect(wizardTestFixture.debugElement.query(By.directive(OptionalStepDirective))).toBeTruthy();
-    expect(wizardTestFixture.debugElement.queryAll(By.directive(OptionalStepDirective)).length).toBe(1);
+    expect(wizardTestFixture.debugElement.queryAll(By.directive(OptionalStepDirective)).length).toBe(2);
   });
 
   it('should set optional correctly', () => {
