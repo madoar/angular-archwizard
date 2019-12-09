@@ -390,7 +390,21 @@ This for example allows customization of the navigation symbol depending on the 
 
 ### \[awOptionalStep\]
 If you need to define an optional step, that doesn't need to be done to continue to the next steps, you can define an optional step
-by adding the `awOptionalStep` directive to the step you want to declare as optional.
+by adding the `awOptionalStep` directive to the step you want to declare as optional:
+
+```html
+<aw-wizard-step awOptionalStep>
+   ...
+</aw-wizard-step>
+```
+
+Sometimes a wizard step should only be marked as optional if some condition is fulfilled. In such a case you can pass the condition to the `awOptionalStep` input parameter to make the optionality of the wizard step optional:
+
+```html
+<aw-wizard-step [awOptionalStep]="condition">
+   ...
+</aw-wizard-step>
+```
 
 ### \[awSelectedStep\]
 In some cases it may be a better choice to set the default wizard step not via a static number.

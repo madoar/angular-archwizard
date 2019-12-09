@@ -1,4 +1,4 @@
-import {Directive, Host, OnInit} from '@angular/core';
+import {Directive, Host, Input, OnInit} from '@angular/core';
 import {WizardStep} from '../util/wizard-step.interface';
 
 /**
@@ -27,6 +27,11 @@ import {WizardStep} from '../util/wizard-step.interface';
   selector: '[awOptionalStep]'
 })
 export class OptionalStepDirective implements OnInit {
+
+  // tslint:disable-next-line:no-input-rename
+  @Input('awOptionalStep')
+  public optional = true;
+
   /**
    * Constructor
    *
@@ -39,6 +44,7 @@ export class OptionalStepDirective implements OnInit {
    * Initialization work
    */
   public ngOnInit(): void {
-    this.wizardStep.optional = true;
+    // The input receives '' when specified in the template without a value.  In this case, apply the default value (`true`).
+    this.wizardStep.optional = this.optional || this.optional as any === '';
   }
 }
