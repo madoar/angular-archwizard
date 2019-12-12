@@ -91,7 +91,7 @@ To use this wizard component in an angular project simply add a `aw-wizard` comp
 ## Components
 
 ### \<aw-wizard\>
-The `<aw-wizard>` environment is the environment, in which you define the steps belonging to your wizard.
+The `<aw-wizard>` environment is the environment in which you define the steps belonging to your wizard.
 In addition to the contained wizard steps, `angular-archwizard` enables you to define the location and the layout of the navigation bar inside your wizard.
 To set the location, the layout of the navigation bar and many other settings, you can pass the following parameters to the `aw-wizard` component:
 
@@ -221,13 +221,13 @@ Possible `<aw-wizard-step>` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value  |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
-| [stepId]                      | `string`                                                                                             | null           |
-| [stepTitle]                   | `string`                                                                                             | null           |
-| [navigationSymbol]            | `{symbol: string, fontFamily?: string}`                                                              | `{symbol: ''}` |
-| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true           |
-| [canExit]                     | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true           |
-| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null           |
-| (stepExit)                    | `function(MovingDirection): void`                                                                    | null           |
+| `[stepId]`                    | `string`                                                                                             | `null`         |
+| `[stepTitle]`                 | `string`                                                                                             | `null`         |
+| `[navigationSymbol]`          | `{symbol: string, fontFamily?: string}`                                                              | `{symbol: ''}` |
+| `[canEnter]`                  | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | `true`         |
+| `[canExit]`                   | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | `true`         |
+| `(stepEnter)`                 | `function(MovingDirection): void`                                                                    | `null`         |
+| `(stepExit)`                  | `function(MovingDirection): void`                                                                    | `null`         |
 
 ### \<aw-wizard-completion-step\>
 In addition to the "normal" step component `<aw-wizard-step>` it's also possible to define an optional `<aw-wizard-completion-step>`.
@@ -243,11 +243,11 @@ Possible `<aw-wizard-completion-step>` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value  |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
-| [stepId]                      | `string`                                                                                             | null           |
-| [stepTitle]                   | `string`                                                                                             | null           |
-| [navigationSymbol]            | `{symbol: string, fontFamily?: string}`                                                              | `{symbol: ''}` |
-| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true           |
-| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null           |
+| `[stepId]`                    | `string`                                                                                             | `null`         |
+| `[stepTitle]`                 | `string`                                                                                             | `null`         |
+| `[navigationSymbol]`          | `{symbol: string, fontFamily?: string}`                                                              | `{symbol: ''}` |
+| `[canEnter]`                  | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | `true`         |
+| `(stepEnter)`                 | `function(MovingDirection): void`                                                                    | `null`         |
 
 ## Directives
 
@@ -262,8 +262,8 @@ The easiest option is to tweak the default navigation mode with `[navigateBackwa
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| [navigateBackward]            | `'allow'|'deny'`                                                                                     | `'deny'`      |
-| [navigateForward]             | `'allow'|'deny'|'visited'`                                                                           | `'allow'`     |
+| `[navigateBackward]`            | `'allow'` \| `'deny'`                                                                              | `'deny'`      |
+| `[navigateForward]`             | `'allow'` \| `'deny'` \| `'visited'`                                                               | `'allow'`     |
 
 Take notice that the `'allow'` and `'visited'` options still respect step exit conditions.  Also, the completion step still only becomes enterable after all previous steps are completed.  Example usage:
 
@@ -314,9 +314,9 @@ Possible `awNavigationMode` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| [awNavigationMode]            | `NavigationMode`                                                                                     | `null`        |
-| [navigateBackward]            | `'allow'|'deny'`                                                                                     | `'deny'`      |
-| [navigateForward]             | `'allow'|'deny'|'visited'`                                                                           | `'allow'`     |
+| `[awNavigationMode]`          | `NavigationMode`                                                                                     | `null`        |
+| `[navigateBackward]`          | `'allow'` \| `'deny'`                                                                                | `'deny'`      |
+| `[navigateForward]`           | `'allow'` \| `'deny'` \| `'visited'`                                                                 | `'allow'`     |
 
 ### \[awEnableBackLinks\]
 In some cases it may be required that the user is allowed to leave an entered `aw-wizard-completion-step`.
@@ -333,7 +333,7 @@ Possible `awEnableBackLinks` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| (stepExit)                    | `function(MovingDirection): void`                                                                    | null          |
+| `(stepExit)`                  | `function(MovingDirection): void`                                                                    | `null`        |
 
 
 ### \[awWizardStepTitle\]
@@ -398,13 +398,41 @@ by adding the `awOptionalStep` directive to the step you want to declare as opti
 </aw-wizard-step>
 ```
 
-Sometimes a wizard step should only be marked as optional if some condition is fulfilled. In such a case you can pass the condition to the `awOptionalStep` input parameter to make the optionality of the wizard step optional:
+Sometimes a wizard step should only be marked as optional if some condition has been fulfilled. 
+In such a case you can pass the condition to the `awOptionalStep` input parameter of the `awOptionalStep` directive 
+to tell the wizard whether the step should be marked as optional:
 
 ```html
 <aw-wizard-step [awOptionalStep]="condition">
    ...
 </aw-wizard-step>
 ```
+
+It is important to note that the condition input value can not be changed after initialization.
+
+### \[awCompletedStep\]
+In some cases it is required to specify a step as completed by default.
+This means that the step should be shown as completed directly after initialization.
+A step can be marked as completed by default by adding the `awCompletedStep` directive to 
+the step you want to declare as completed:
+
+```html
+<aw-wizard-step awCompletedStep>
+   ...
+</aw-wizard-step>
+```
+
+Sometimes a wizard step should only be marked as completed if some condition has been fulfilled. 
+In such cases you can pass the condition to the `awCompletedStep` input parameter of the `awCompletedStep` directive
+to tell the wizard, whether the step should be marked as complete:
+
+```html
+<aw-wizard-step [awCompletedStep]="condition">
+   ...
+</aw-wizard-step>
+```
+
+It is important to note that the condition input value can not be changed after initialization.
 
 ### \[awSelectedStep\]
 In some cases it may be a better choice to set the default wizard step not via a static number.
@@ -479,10 +507,10 @@ Possible parameters:
 
 | Parameter name    | Possible Values                                                   | Default Value |
 | ----------------- | ----------------------------------------------------------------- | ------------- |
-| [goToStep]        | `WizardStep | StepOffset | StepIndex | StepId`                    | null          |
-| (preFinalize)     | `function(): void`                                                | null          |
-| (postFinalize)    | `function(): void`                                                | null          |
-| (finalize)        | `function(): void`                                                | null          |
+| `[goToStep]`      | `WizardStep` \| `StepOffset` \| `StepIndex` \| `StepId`           | `null`        |
+| `(preFinalize)`   | `function(): void`                                                | `null`        |
+| `(postFinalize)`  | `function(): void`                                                | `null`        |
+| `(finalize)`      | `function(): void`                                                | `null`        |
 
 ### \[awNextStep\]
 By adding a `awNextStep` directive to a button or a link inside a step, you automatically add a `onClick` listener to the button or link, that leads to the next step.
@@ -496,16 +524,16 @@ This listener will automatically change the currently selected wizard step to th
 Like the `awGoToStep` directive the `awNextStep` directive provides a `preFinalize`, `postFinalize` and `finalize` output, which are called every time
 the current step is successfully exited, by clicking on the element containing the `nextStep` directive.
 
-In the given code snipped above, a click on the button with the text `Next Step`, leads to a call of the `finalize` functions every time, the button has been pressed.
+In the given code snipped above, a click on the button with the text `Next Step` leads to a call of the `finalize` function every time the button has been pressed.
 
 #### Parameter overview
 Possible parameters:
 
 | Parameter name    | Possible Values                                                   | Default Value |
 | ----------------- | ----------------------------------------------------------------- | ------------- |
-| (preFinalize)     | `function(): void`                                                | null          |
-| (postFinalize)    | `function(): void`                                                | null          |
-| (finalize)        | `function(): void`                                                | null          |
+| `(preFinalize)`   | `function(): void`                                                | `null`        |
+| `(postFinalize)`  | `function(): void`                                                | `null`        |
+| `(finalize)`      | `function(): void`                                                | `null`        |
 
 ### \[awPreviousStep\]
 By adding a `awPreviousStep` directive to a button or a link, you automatically add a `onClick` listener to the button or link, that changes your wizard to the previous step.
@@ -524,13 +552,13 @@ Possible parameters:
 
 | Parameter name    | Possible Values                                                   | Default Value |
 | ----------------- | ----------------------------------------------------------------- | ------------- |
-| (preFinalize)     | `function(): void`                                                | null          |
-| (postFinalize)    | `function(): void`                                                | null          |
-| (finalize)        | `function(): void`                                                | null          |
+| `(preFinalize)`   | `function(): void`                                                | `null`        |
+| `(postFinalize)`  | `function(): void`                                                | `null`        |
+| `(finalize)`      | `function(): void`                                                | `null`        |
 
 ### \[awWizardStep\]
 In some cases it may be a good idea to move a wizard step to a custom component.
-This can be done by defining adding the `awWizardStep` directive to the component, that contains the wizard step.
+This can be done by defining adding the `awWizardStep` directive to the component that contains the wizard step.
 
 ```html
 <aw-wizard>
@@ -549,18 +577,18 @@ Possible `awWizardStep` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value  |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
-| [stepId]                      | `string`                                                                                             | null           |
-| [stepTitle]                   | `string`                                                                                             | null           |
-| [navigationSymbol]            | `{symbol: string, fontFamily?: string}`                                                              | `{symbol: ''}` |
-| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true           |
-| [canExit]                     | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true           |
-| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null           |
-| (stepExit)                    | `function(MovingDirection): void`                                                                    | null           |
+| `[stepId]`                    | `string`                                                                                             | `null`         |
+| `[stepTitle]`                 | `string`                                                                                             | `null`         |
+| `[navigationSymbol]`          | `{symbol: string, fontFamily?: string}`                                                              | `{symbol: ''}` |
+| `[canEnter]`                  | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | `true`         |
+| `[canExit]`                   | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | `true`         |
+| `(stepEnter)`                 | `function(MovingDirection): void`                                                                    | `null`         |
+| `(stepExit)`                  | `function(MovingDirection): void`                                                                    | `null`         |
 
 ### \[awWizardCompletionStep\]
 In addition to the possibility of defining a normal wizard step in a custom component,
 it is also possible to define a wizard completion step in a custom component.
-To define a wizard completion step in a custom component you need to add the `[awWizardCompletionStep]` directive to the custom component,
+To define a wizard completion step in a custom component you need to add the `[awWizardCompletionStep]` directive to the custom component
 that contains the wizard completion step.
 
 ```html
@@ -578,11 +606,11 @@ Possible `awWizardCompletionStep` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value  |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | -------------- |
-| [stepId]                      | `string`                                                                                             | null           |
-| [stepTitle]                   | `string`                                                                                             | null           |
-| [navigationSymbol]            | `{symbol: string, fontFamily?: string}`                                                              | `{symbol: ''}` |
-| [canEnter]                    | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | true           |
-| (stepEnter)                   | `function(MovingDirection): void`                                                                    | null           |
+| `[stepId]`                    | `string`                                                                                             | `null`         |
+| `[stepTitle]`                 | `string`                                                                                             | `null`         |
+| `[navigationSymbol]`          | `{symbol: string, fontFamily?: string}`                                                              | `{symbol: ''}` |
+| `[canEnter]`                  | `function(MovingDirection): boolean` \| `function(MovingDirection): Promise<boolean>` \| `boolean`   | `true`         |
+| `(stepEnter)`                 | `function(MovingDirection): void`                                                                    | `null`         |
 
 ### \[awResetWizard\]
 Sometimes it's also required to reset the wizard to its initial state.
@@ -598,7 +626,7 @@ Possible `awResetWizard` parameters:
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| (finalize)                    | `function(): void`                                                                                   | null          |
+| `(finalize)`                  | `function(): void`                                                                                   | `null`        |
 
 ### Accessing the wizard component instance
 Sometimes it's required to access the wizard component directly.
