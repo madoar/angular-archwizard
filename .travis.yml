@@ -12,33 +12,33 @@ addons:
 jobs:
   include:
     # Tests
-    - stage: Test 
+    - stage: Test
       os: linux
       dist: trusty
       node_js: "10"
-    - stage: Test 
-      os: linux
-      dist: trusty
-      node_js: "11"
-    - stage: Test 
+    - stage: Test
       os: linux
       dist: trusty
       node_js: "12"
-    - stage: Test 
+    - stage: Test
+      os: linux
+      dist: trusty
+      node_js: "node"
+    - stage: Test
       os: osx
       node_js: "10"
-    - stage: Test 
-      os: osx
-      node_js: "11"
-    - stage: Test 
+    - stage: Test
       os: osx
       node_js: "12"
+    - stage: Test
+      os: osx
+      node_js: "node"
     # Build
     - stage: Build
       os: linux
       node_js: "12"
       addons:
-        chrome: stable    
+        chrome: stable
       script: npm run build
     # Coverage
     - stage: Coverage
@@ -49,4 +49,4 @@ jobs:
       script: npm test
       after_success:
         - npm install -g codacy-coverage
-        - codacy-coverage < coverage/lcov.info    
+        - codacy-coverage < coverage/lcov.info
