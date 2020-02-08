@@ -1,10 +1,10 @@
 <aw-wizard-navigation-bar
   [direction]="navBarDirection"
   *ngIf="navBarLocation == 'top' || navBarLocation == 'left'"
-  [ngClass]="{
-    vertical: navBarLocation == 'left',
-    horizontal: navBarLocation == 'top',
-    small: navBarLayout == 'small',
+  [class]="{
+    'vertical': navBarLocation == 'left',
+    'horizontal': navBarLocation == 'top',
+    'small': navBarLayout == 'small',
     'large-filled': navBarLayout == 'large-filled',
     'large-filled-symbols': navBarLayout == 'large-filled-symbols',
     'large-empty': navBarLayout == 'large-empty',
@@ -12,10 +12,10 @@
   }">
 </aw-wizard-navigation-bar>
 
-<div [ngClass]="{
+<div [class]="{
   'wizard-steps': true,
-  vertical: navBarLocation == 'left' || navBarLocation == 'right',
-  horizontal: navBarLocation == 'top' || navBarLocation == 'bottom'
+  'vertical': navBarLocation == 'left' || navBarLocation == 'right',
+  'horizontal': navBarLocation == 'top' || navBarLocation == 'bottom'
 }">
   <ng-content></ng-content>
 </div>
@@ -23,10 +23,10 @@
 <aw-wizard-navigation-bar
   [direction]="navBarDirection"
   *ngIf="navBarLocation == 'bottom' || navBarLocation == 'right'"
-  [ngClass]="{
-    vertical: navBarLocation == 'right',
-    horizontal: navBarLocation == 'bottom',
-    small: navBarLayout == 'small',
+  [class]="{
+    'vertical': navBarLocation == 'right',
+    'horizontal': navBarLocation == 'bottom',
+    'small': navBarLayout == 'small',
     'large-filled': navBarLayout == 'large-filled',
     'large-filled-symbols': navBarLayout == 'large-filled-symbols',
     'large-empty': navBarLayout == 'large-empty',

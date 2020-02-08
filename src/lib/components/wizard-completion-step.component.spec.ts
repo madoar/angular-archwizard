@@ -24,7 +24,7 @@ import {WizardComponent} from './wizard.component';
 })
 class WizardTestComponent {
 
-  @ViewChild(WizardComponent, {static: false})
+  @ViewChild(WizardComponent)
   public wizard: WizardComponent;
 
   public isValid: any = true;

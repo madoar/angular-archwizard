@@ -24,10 +24,10 @@ import {WizardComponent} from '../components/wizard.component';
 })
 class WizardTestComponent {
 
-  @ViewChild(WizardComponent, {static: false})
+  @ViewChild(WizardComponent)
   public wizard: WizardComponent;
 
-  @ViewChild(forwardRef(() => WizardStepTestComponent), {static: false})
+  @ViewChild(forwardRef(() => WizardStepTestComponent))
   public wizardStepTestComponent;
 
   public eventLog: Array<string> = [];

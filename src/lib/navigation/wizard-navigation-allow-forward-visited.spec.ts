@@ -21,7 +21,7 @@ import {checkWizardState, checkWizardNavigableSteps} from '../util/test-utils';
   `
 })
 class WizardTestComponent {
-  @ViewChild(WizardComponent, {static: false})
+  @ViewChild(WizardComponent)
   public wizard: WizardComponent;
 }
 
