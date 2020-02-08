@@ -18,7 +18,9 @@ Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github
 Latest `angular-archwizard` is compatible with Angular 5+.
 
 ## Gitpod
-`angular-archwizard` can be developed with Gitpod, a free one-click online IDE for GitHub: [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/madoar/angular-archwizard)
+`angular-archwizard` can be developed with Gitpod, a free one-click online IDE for GitHub:
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/madoar/angular-archwizard)
 
 ## Installation
 
