@@ -1,5 +1,4 @@
 # Overview angular-archwizard
-
 [![Build Status](https://travis-ci.com/madoar/angular-archwizard.svg?branch=develop)](https://travis-ci.com/madoar/angular-archwizard)
 [![Dependency Status](https://david-dm.org/madoar/angular-archwizard.svg)](https://david-dm.org/madoar/angular-archwizard)
 [![Dev-Dependency Status](https://david-dm.org/madoar/angular-archwizard/dev-status.svg)](https://david-dm.org/madoar/angular-archwizard?type=dev)
@@ -10,22 +9,22 @@
 This project contains a functional module with a wizard component and some supportive components and directives for [Angular](https://angular.io/) version 5 or later.
 
 ## Build
-
 Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
 ## Running unit tests
-
 Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Compatibility
-
 Latest `angular-archwizard` is compatible with Angular 5+.
+
+## Gitpod
+`angular-archwizard` can be developed with Gitpod, a free one-click online IDE for GitHub: [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/madoar/angular-archwizard)
 
 ## Installation
 
 ### Step 1: Install `angular-archwizard`
 `angular-archwizard` is available as a NPM package. To install `angular-archwizard` in your project directory run:
-```
+```bash
 $ npm install --save angular-archwizard
 ```
 
