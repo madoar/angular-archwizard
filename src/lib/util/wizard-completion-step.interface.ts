@@ -1,4 +1,4 @@
-import {EventEmitter} from '@angular/core';
+import {EventEmitter, Directive} from '@angular/core';
 import {WizardStep} from './wizard-step.interface';
 import {MovingDirection} from './moving-direction.enum';
 
@@ -7,6 +7,7 @@ import {MovingDirection} from './moving-direction.enum';
  *
  * @author Marc Arndt
  */
+@Directive()
 export abstract class WizardCompletionStep extends WizardStep {
   /**
    * @inheritDoc
