@@ -69,7 +69,7 @@ import {CompletedStepDirective} from './directives/completed-step.directive';
 })
 export class ArchwizardModule {
   /* istanbul ignore next */
-  public static forRoot(): ModuleWithProviders {
+  public static forRoot(): ModuleWithProviders<ArchwizardModule> {
     return {
       ngModule: ArchwizardModule,
       providers: [

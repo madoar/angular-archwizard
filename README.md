@@ -7,7 +7,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/039c5be36d8646dfb73972e8679e5021)](https://www.codacy.com/app/marc.arndt/angular-archwizard?utm_source=github.com&utm_medium=referral&utm_content=madoar/angular-archwizard&utm_campaign=Badge_Coverage)
 [![NPM Version](https://img.shields.io/npm/v/angular-archwizard.svg)](https://www.npmjs.com/package/angular-archwizard)
 
-This project contains a functional module with a wizard component and some supportive components and directives for [Angular](https://angular.io/) version 5 or later.
+This project contains a functional module with a wizard component and some supportive components and directives for [Angular](https://angular.io/) version 9 or later.
 
 ## Build
 
@@ -19,7 +19,7 @@ Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github
 
 ## Compatibility
 
-Latest `angular-archwizard` is compatible with Angular 5+.
+Latest `angular-archwizard` is compatible with Angular 9+.
 
 ## Installation
 
@@ -49,7 +49,7 @@ To allow customization, `angular-archwizard` bundles CSS styles separately. If y
 @import '../node_modules/angular-archwizard/archwizard.css';
 ```
 
-...or include them into `.angular-cli.json` (Angular 5) or `angular.json` (Angular 6 onwards):
+...or include them into `angular.json`:
 
 ```javascript
 {

@@ -1,11 +1,11 @@
 <ul class="steps-indicator steps-{{numberOfWizardSteps}}">
-  <li [attr.id]="step.stepId" *ngFor="let step of wizardSteps" [ngClass]="{
-        current: isCurrent(step),
-        editing: isEditing(step),
-        done: isDone(step),
-        optional: isOptional(step),
-        completed: isCompleted(step),
-        navigable: isNavigable(step)
+  <li [attr.id]="step.stepId" *ngFor="let step of wizardSteps" [class]="{
+        'current': isCurrent(step),
+        'editing': isEditing(step),
+        'done': isDone(step),
+        'optional': isOptional(step),
+        'completed': isCompleted(step),
+        'navigable': isNavigable(step)
   }">
     <a [awGoToStep]="step">
       <div class="label">
@@ -14,7 +14,7 @@
         <ng-container *ngIf="!step.stepTitleTemplate">{{step.stepTitle}}</ng-container>
       </div>
       <div class="step-indicator"
-        [ngStyle]="{ 'font-family': step.stepSymbolTemplate ? '' : step.navigationSymbol.fontFamily }">
+        [style]="{ 'font-family': step.stepSymbolTemplate ? '' : step.navigationSymbol.fontFamily }">
         <ng-container *ngIf="step.stepSymbolTemplate" [ngTemplateOutlet]="step.stepSymbolTemplate.templateRef"
           [ngTemplateOutletContext]="{wizardStep: step}"></ng-container>
         <ng-container *ngIf="!step.stepSymbolTemplate">{{step.navigationSymbol.symbol}}</ng-container>

@@ -34,7 +34,7 @@ import { checkWizardState } from './test-utils';
 })
 class WizardTestComponent {
 
-  @ViewChild(WizardComponent, {static: false})
+  @ViewChild(WizardComponent)
   public wizard: WizardComponent;
 
   public canExit = true;
