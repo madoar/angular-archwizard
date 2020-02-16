@@ -2,7 +2,7 @@
   "name": "angular-archwizard",
   "version": "6.0.0-develop",
   "license": "MIT",
-  "description": "An angular 5+ module containing a wizard component and its supporting components and directives",
+  "description": "An Angular 9+ module containing a wizard component and its supporting components and directives",
   "homepage": "https://github.com/madoar/angular-archwizard",
   "author": {
     "name": "Marc Arndt",
@@ -17,19 +17,8 @@
   },
   "keywords": [
     "angular",
-    "angular5",
-    "angular6",
-    "angular7",
-    "angular8",
-    "angular 5",
-    "angular 6",
-    "angular 7",
-    "angular 8",
+    "angular9",
     "angular 9",
-    "ng5",
-    "ng6",
-    "ng7",
-    "ng8",
     "ng9",
     "ngx",
     "typescript",
@@ -85,9 +74,6 @@
     "tslint": "~5.18.0",
     "typescript": "~3.7.5",
     "zone.js": "~0.10.2"
-  },
-  "peerDependencies": {
-    "@angular/common": ">= 5"
   },
   "dependencies": {
     "tslib": "^1.10.0"
