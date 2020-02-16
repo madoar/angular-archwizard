@@ -49,7 +49,7 @@ To allow customization, `angular-archwizard` bundles CSS styles separately. If y
 @import '../node_modules/angular-archwizard/archwizard.css';
 ```
 
-...or include them into `.angular-cli.json` (Angular 5) or `angular.json` (Angular 6 onwards):
+...or include them into `angular.json`:
 
 ```javascript
 {
