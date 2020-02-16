@@ -1,4 +1,4 @@
-import {ContentChild, EventEmitter, HostBinding, Input, Output} from '@angular/core';
+import { ContentChild, EventEmitter, HostBinding, Input, Output, Directive } from '@angular/core';
 import {WizardStepSymbolDirective} from '../directives/wizard-step-symbol.directive';
 import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
 import {MovingDirection} from './moving-direction.enum';
@@ -9,20 +9,21 @@ import {NavigationSymbol} from './navigation-symbol.interface';
  *
  * @author Marc Arndt
  */
+@Directive()
 export abstract class WizardStep {
   /**
    * A step title property, which contains the visible header title of the step.
    * This title is then shown inside the navigation bar.
    * Compared to `stepTitle` this property can contain any html content and not only plain text
    */
-  @ContentChild(WizardStepTitleDirective, {static: false})
+  @ContentChild(WizardStepTitleDirective)
   public stepTitleTemplate: WizardStepTitleDirective;
 
   /**
    * A step symbol property that, if defined, overrides `navigationSymbol`.
    * Allows to display arbitrary content as a step symbol instead of plain text.
    */
-  @ContentChild(WizardStepSymbolDirective, {static: false})
+  @ContentChild(WizardStepSymbolDirective)
   public stepSymbolTemplate: WizardStepSymbolDirective;
 
   /**

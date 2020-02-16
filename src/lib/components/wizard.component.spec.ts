@@ -1,9 +1,9 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ViewChild} from '@angular/core';
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {ArchwizardModule} from '../archwizard.module';
-import {WizardComponent} from './wizard.component';
-import {WizardStep} from '../util/wizard-step.interface';
+import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ArchwizardModule } from '../archwizard.module';
+import { WizardComponent } from './wizard.component';
+import { WizardStep } from '../util/wizard-step.interface';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -34,7 +34,7 @@ class WizardTestComponent implements AfterViewInit {
   public showStep1 = true;
   public showStep3 = true;
 
-  @ViewChild(WizardComponent, {static: false})
+  @ViewChild(WizardComponent)
   public wizard: WizardComponent;
 
   constructor(private _changeDetectionRef: ChangeDetectorRef) {
@@ -83,12 +83,9 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('aw-wizard-navigation-bar');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('div');
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
-    expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
-    expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
+    expect(navBarEl.classes).toEqual({ 'horizontal': true, 'small': true });
+    expect(wizardEl.classes).toEqual({ 'horizontal': true });
+    expect(wizardStepsDiv.classes).toEqual({ 'wizard-steps': true, 'horizontal': true });
   });
 
   it('should contain navigation bar at the correct position in top navBarLocation mode', () => {
@@ -105,12 +102,9 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('aw-wizard-navigation-bar');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('div');
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
-    expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
-    expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
+    expect(navBarEl.classes).toEqual({ 'horizontal': true, 'small': true });
+    expect(wizardEl.classes).toEqual({ 'horizontal': true });
+    expect(wizardStepsDiv.classes).toEqual({ 'wizard-steps': true, 'horizontal': true });
   });
 
   it('should contain navigation bar at the correct position in left navBarLocation mode', () => {
@@ -127,12 +121,9 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('aw-wizard-navigation-bar');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('div');
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': false, 'vertical': true, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
-    expect(wizardEl.classes).toEqual({'horizontal': false, 'vertical': true});
-    expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': false, 'vertical': true});
+    expect(navBarEl.classes).toEqual({ 'vertical': true, 'small': true });
+    expect(wizardEl.classes).toEqual({ 'vertical': true });
+    expect(wizardStepsDiv.classes).toEqual({ 'wizard-steps': true, 'vertical': true });
   });
 
   it('should contain navigation bar at the correct position in bottom navBarLocation mode', () => {
@@ -149,12 +140,9 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('div');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('aw-wizard-navigation-bar');
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': true, 'vertical': false, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
-    expect(wizardEl.classes).toEqual({'horizontal': true, 'vertical': false});
-    expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': true, 'vertical': false});
+    expect(navBarEl.classes).toEqual({ 'horizontal': true, 'small': true, });
+    expect(wizardEl.classes).toEqual({ 'horizontal': true });
+    expect(wizardStepsDiv.classes).toEqual({ 'wizard-steps': true, 'horizontal': true, });
   });
 
   it('should contain navigation bar at the correct position in right navBarLocation mode', () => {
@@ -171,12 +159,9 @@ describe('WizardComponent', () => {
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :first-child')).name).toBe('div');
     expect(wizardTestFixture.debugElement.query(By.css('aw-wizard > :last-child')).name).toBe('aw-wizard-navigation-bar');
 
-    expect(navBarEl.classes).toEqual({
-      'horizontal': false, 'vertical': true, 'small': true,
-      'large-filled': false, 'large-filled-symbols': false, 'large-empty': false, 'large-empty-symbols': false
-    });
-    expect(wizardEl.classes).toEqual({'horizontal': false, 'vertical': true});
-    expect(wizardStepsDiv.classes).toEqual({'wizard-steps': true, 'horizontal': false, 'vertical': true});
+    expect(navBarEl.classes).toEqual({ 'vertical': true, 'small': true, });
+    expect(wizardEl.classes).toEqual({ 'vertical': true });
+    expect(wizardStepsDiv.classes).toEqual({ 'wizard-steps': true, 'vertical': true });
   });
 
   it('should change the navigation mode correctly during runtime', () => {

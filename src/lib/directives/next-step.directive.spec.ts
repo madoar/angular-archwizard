@@ -30,7 +30,7 @@ import {WizardComponent} from '../components/wizard.component';
 })
 class WizardTestComponent {
 
-  @ViewChild(WizardComponent, {static: false})
+  @ViewChild(WizardComponent)
   public wizard: WizardComponent;
 
   public eventLog: Array<string> = [];
