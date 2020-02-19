@@ -38,13 +38,13 @@ describe('Wizard navigation', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-  });
+  }));
 
   it('should return correct can go to step', async(() => {
     wizard.canGoToStep(-1).then(result => expect(result).toBe(false));

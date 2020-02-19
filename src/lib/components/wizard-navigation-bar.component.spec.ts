@@ -43,13 +43,13 @@ describe('WizardNavigationBarComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-  });
+  }));
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
@@ -63,6 +63,8 @@ describe('WizardNavigationBarComponent', () => {
 
   it('should show the initial step correctly', () => {
     const navBarEl = wizardTestFixture.debugElement.query(By.css('aw-wizard-navigation-bar'));
+
+    wizardTestFixture.detectChanges();
 
     const allLiELs = navBarEl.queryAll(By.css('li'));
 

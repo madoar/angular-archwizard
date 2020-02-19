@@ -48,16 +48,18 @@ describe('WizardStepTitleDirective', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-  });
+  }));
 
   it('should create an instance', () => {
     const navigationLinkEls = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li a'));
+
+    wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 0, false, [], false);
 

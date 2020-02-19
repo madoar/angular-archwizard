@@ -59,13 +59,13 @@ describe('WizardComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-  });
+  }));
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();

@@ -31,11 +31,12 @@ describe('WizardStep', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
+    
     wizard = wizardTestFixture.componentInstance.wizard;
-  });
+  }));
 
   it('should mark initially completed steps', () => {
     expect(wizard.getStepAtIndex(0).completed).toBe(false);

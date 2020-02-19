@@ -48,16 +48,18 @@ describe('WizardStepSymbolDirective', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(async(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-  });
+  }));
 
   it('should create an instance', () => {
     const navigationSymbolEls = wizardTestFixture.debugElement.queryAll(By.css('aw-wizard-navigation-bar ul li .step-indicator'));
+
+    wizardTestFixture.detectChanges();
 
     checkWizardState(wizard, 0, false, [], false);
 
