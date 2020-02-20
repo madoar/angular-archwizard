@@ -55,7 +55,7 @@ export class WizardComponent implements AfterContentInit {
   /**
    * A QueryList containing all [[WizardStep]]s inside this wizard
    */
-  @ContentChildren(WizardStep)
+  @ContentChildren(WizardStep, { descendants: true })
   public wizardStepsQueryList: QueryList<WizardStep>;
 
   /**
