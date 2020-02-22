@@ -171,7 +171,7 @@ export class WizardComponent implements AfterContentInit {
     // initialize the model
     this.updateWizardSteps(this.wizardStepsQueryList.toArray());
 
-    // finally reset the whole wizard componennt
+    // finally reset the whole wizard component
     setTimeout(() => this.reset());
   }
 

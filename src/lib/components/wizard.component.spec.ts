@@ -1,9 +1,9 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ArchwizardModule } from '../archwizard.module';
-import { WizardComponent } from './wizard.component';
 import { WizardStep } from '../util/wizard-step.interface';
+import { WizardComponent } from './wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -23,7 +23,7 @@ import { WizardStep } from '../util/wizard-step.interface';
     </aw-wizard>
   `
 })
-class WizardTestComponent implements AfterViewInit {
+class WizardTestComponent {
   public navigateForward = 'deny';
   public navigateBackward = 'deny';
 
@@ -36,14 +36,6 @@ class WizardTestComponent implements AfterViewInit {
 
   @ViewChild(WizardComponent)
   public wizard: WizardComponent;
-
-  constructor(private _changeDetectionRef: ChangeDetectorRef) {
-  }
-
-  public ngAfterViewInit(): void {
-    // Force another change detection in order to fix an occuring ExpressionChangedAfterItHasBeenCheckedError
-    this._changeDetectionRef.detectChanges();
-  }
 }
 
 describe('WizardComponent', () => {

@@ -2,9 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ArchwizardModule } from '../archwizard.module';
-import { GoToStepDirective } from '../directives/go-to-step.directive';
-import { NavigationMode } from '../navigation/navigation-mode.interface';
 import { WizardComponent } from '../components/wizard.component';
+import { GoToStepDirective } from '../directives/go-to-step.directive';
 import { checkWizardState } from './test-utils';
 
 @Component({
