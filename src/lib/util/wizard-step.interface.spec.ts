@@ -1,9 +1,9 @@
-import {Component, ViewChild} from '@angular/core';
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {ArchwizardModule} from '../archwizard.module';
-import {MovingDirection} from './moving-direction.enum';
-import {WizardStep} from './wizard-step.interface';
-import {WizardComponent} from '../components/wizard.component';
+import { Component, ViewChild } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ArchwizardModule } from '../archwizard.module';
+import { MovingDirection } from './moving-direction.enum';
+import { WizardStep } from './wizard-step.interface';
+import { WizardComponent } from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -65,11 +65,16 @@ describe('WizardStep', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
+
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
+
+    // wait a tick to ensure that the initialization has been completed
+    tick();
+    wizardTestFixture.detectChanges();
   }));
 
   it('should create an instance', () => {
@@ -77,8 +82,8 @@ describe('WizardStep', () => {
   });
 
   it('should not be a WizardStep', () => {
-    expect({stepOffset: 1} instanceof WizardStep).toBe(false);
-    expect({title: 'Test stepTitle'} instanceof WizardStep).toBe(false);
+    expect({ stepOffset: 1 } instanceof WizardStep).toBe(false);
+    expect({ title: 'Test stepTitle' } instanceof WizardStep).toBe(false);
   });
 
   it('should evaluate canEnter with boolean values correctly', fakeAsync(() => {

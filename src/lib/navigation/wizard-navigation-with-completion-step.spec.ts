@@ -1,8 +1,8 @@
-import {Component, ViewChild} from '@angular/core';
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {ArchwizardModule} from '../archwizard.module';
-import {WizardComponent} from '../components/wizard.component';
-import {checkWizardState} from '../util/test-utils';
+import { Component, ViewChild } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ArchwizardModule } from '../archwizard.module';
+import { WizardComponent } from '../components/wizard.component';
+import { checkWizardState } from '../util/test-utils';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -38,12 +38,16 @@ describe('Wizard navigation with completion step', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
+
+    // wait a tick to ensure that the initialization has been completed
+    tick();
+    wizardTestFixture.detectChanges();
   }));
 
   it('should return correct can go to step', async(() => {

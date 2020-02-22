@@ -59,12 +59,16 @@ describe('WizardComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
+
+    // wait a tick to ensure that the initialization has been completed
+    tick();
+    wizardTestFixture.detectChanges();
   }));
 
   it('should create', () => {

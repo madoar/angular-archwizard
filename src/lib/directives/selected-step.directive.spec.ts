@@ -1,9 +1,9 @@
-import {Component, ViewChild} from '@angular/core';
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {ArchwizardModule} from '../archwizard.module';
-import {SelectedStepDirective} from './selected-step.directive';
-import {WizardComponent} from '../components/wizard.component';
+import { Component, ViewChild } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ArchwizardModule } from '../archwizard.module';
+import { SelectedStepDirective } from './selected-step.directive';
+import { WizardComponent } from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -40,12 +40,16 @@ describe('SelectedStepDirective', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
+
+    // wait a tick to ensure that the initialization has been completed
+    tick();
+    wizardTestFixture.detectChanges();
   }));
 
   it('should create an instance', () => {

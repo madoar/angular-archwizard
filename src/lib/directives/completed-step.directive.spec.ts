@@ -1,7 +1,7 @@
-import {Component, ViewChild} from '@angular/core';
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {ArchwizardModule} from '../archwizard.module';
-import {WizardComponent} from '../components/wizard.component';
+import { Component, ViewChild } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ArchwizardModule } from '../archwizard.module';
+import { WizardComponent } from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -31,11 +31,15 @@ describe('WizardStep', () => {
     }).compileComponents();
   }));
 
-  beforeEach(async(() => {
+  beforeEach(fakeAsync(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
-    
+
     wizard = wizardTestFixture.componentInstance.wizard;
+
+    // wait a tick to ensure that the initialization has been completed
+    tick();
+    wizardTestFixture.detectChanges();
   }));
 
   it('should mark initially completed steps', () => {
