@@ -34,8 +34,8 @@ export class ResetWizardDirective {
   /**
    * Resets the wizard
    */
-  @HostListener('click', ['$event'])
-  public onClick(event: Event): void {
+  @HostListener('click')
+  public onClick(): void {
     // do some optional cleanup work
     this.finalize.emit();
     // reset the wizard to its initial state

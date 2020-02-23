@@ -107,7 +107,7 @@ export abstract class WizardStep {
   public stepExit: EventEmitter<MovingDirection> = new EventEmitter<MovingDirection>();
 
   /**
-   * Returns if this wizard step should be visible to the user.
+   * Returns true if this wizard step should be visible to the user.
    * If the step should be visible to the user false is returned, otherwise true
    */
   @HostBinding('hidden')
