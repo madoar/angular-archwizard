@@ -1,10 +1,10 @@
-import {Component, forwardRef, Host, ViewChild} from '@angular/core';
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {ArchwizardModule} from '../archwizard.module';
-import {MovingDirection} from '../util/moving-direction.enum';
-import {WizardStepDirective} from './wizard-step.directive';
-import {WizardComponent} from '../components/wizard.component';
+import { Component, forwardRef, Host, ViewChild } from '@angular/core';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ArchwizardModule } from '../archwizard.module';
+import { MovingDirection } from '../util/moving-direction.enum';
+import { WizardStepDirective } from './wizard-step.directive';
+import { WizardComponent } from '../components/wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -67,13 +67,17 @@ describe('WizardStepDirective', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-  });
+
+    // wait a tick to ensure that the initialization has been completed
+    tick();
+    wizardTestFixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();

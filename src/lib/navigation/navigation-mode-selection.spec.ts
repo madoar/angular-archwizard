@@ -1,8 +1,8 @@
-import {TestBed, async} from '@angular/core/testing';
-import {Component, ViewChild} from '@angular/core';
-import {ArchwizardModule} from '../archwizard.module';
-import {WizardComponent} from '../components/wizard.component';
-import {BaseNavigationMode} from './base-navigation-mode.interface';
+import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
+import { Component, ViewChild } from '@angular/core';
+import { ArchwizardModule } from '../archwizard.module';
+import { WizardComponent } from '../components/wizard.component';
+import { BaseNavigationMode } from './base-navigation-mode.interface';
 
 class CustomNavigationMode extends BaseNavigationMode {
   public isNavigable(wizard: WizardComponent, destinationIndex: number): boolean {
@@ -53,21 +53,31 @@ describe('NavigationMode', () => {
     }).compileComponents();
   }));
 
-  it('can be created with an instance', () => {
+  it('can be created with an instance', fakeAsync(() => {
     const wizardTestFixture = TestBed.createComponent(WizardWithCustomNavigationModeComponent);
     wizardTestFixture.detectChanges();
+
     const wizard = wizardTestFixture.componentInstance.wizard;
+
+    // wait a tick to ensure that the initialization has been completed
+    tick();
+    wizardTestFixture.detectChanges();
 
     expect(wizard.navigation).toEqual(jasmine.any(CustomNavigationMode));
-  });
+  }));
 
-  it('can be assigned with .navigation setter', () => {
+  it('can be assigned with .navigation setter', fakeAsync(() => {
     const wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
+
     const wizard = wizardTestFixture.componentInstance.wizard;
+
+    // wait a tick to ensure that the initialization has been completed
+    tick();
+    wizardTestFixture.detectChanges();
 
     const navigationMode = new CustomNavigationMode();
     wizard.navigation = navigationMode;
     expect(wizard.navigation).toEqual(navigationMode);
-  });
+  }));
 });

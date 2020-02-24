@@ -1,9 +1,9 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ArchwizardModule } from '../archwizard.module';
-import { WizardComponent } from './wizard.component';
 import { WizardStep } from '../util/wizard-step.interface';
+import { WizardComponent } from './wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -23,7 +23,7 @@ import { WizardStep } from '../util/wizard-step.interface';
     </aw-wizard>
   `
 })
-class WizardTestComponent implements AfterViewInit {
+class WizardTestComponent {
   public navigateForward = 'deny';
   public navigateBackward = 'deny';
 
@@ -36,14 +36,6 @@ class WizardTestComponent implements AfterViewInit {
 
   @ViewChild(WizardComponent)
   public wizard: WizardComponent;
-
-  constructor(private _changeDetectionRef: ChangeDetectorRef) {
-  }
-
-  public ngAfterViewInit(): void {
-    // Force another change detection in order to fix an occuring ExpressionChangedAfterItHasBeenCheckedError
-    this._changeDetectionRef.detectChanges();
-  }
 }
 
 describe('WizardComponent', () => {
@@ -59,13 +51,17 @@ describe('WizardComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-  });
+
+    // wait a tick to ensure that the initialization has been completed
+    tick();
+    wizardTestFixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();

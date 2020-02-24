@@ -1,11 +1,10 @@
-import {Component, ViewChild} from '@angular/core';
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {ArchwizardModule} from '../archwizard.module';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {ResetWizardDirective} from './reset-wizard.directive';
-import {WizardComponent} from '../components/wizard.component';
+import { Component, ViewChild } from '@angular/core';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ArchwizardModule } from '../archwizard.module';
+import { WizardComponent } from '../components/wizard.component';
 import { checkWizardState } from '../util/test-utils';
+import { ResetWizardDirective } from './reset-wizard.directive';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -51,13 +50,17 @@ describe('ResetWizardDirective', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
     wizardTest = wizardTestFixture.componentInstance;
     wizard = wizardTest.wizard;
-  });
+
+    // wait a tick to ensure that the initialization has been completed
+    tick();
+    wizardTestFixture.detectChanges();
+  }));
 
   it('should create an instance', () => {
     expect(wizardTestFixture.debugElement.query(By.directive(ResetWizardDirective))).toBeTruthy();
