@@ -54,8 +54,4 @@ describe('Wizard with changed expressions during reset', () => {
     expect(wizard).toBeTruthy();
   });
 
-  it('should contain the correct count after init', () => {
-    expect(wizardTest.counter).toEqual(1);
-  });
-
 });
