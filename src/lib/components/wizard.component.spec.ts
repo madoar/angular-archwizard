@@ -17,9 +17,11 @@ import { WizardComponent } from './wizard.component';
       <aw-wizard-step stepTitle='Steptitle 2'>
         Step 2
       </aw-wizard-step>
-      <aw-wizard-step stepTitle='Steptitle 3' *ngIf="showStep3">
-        Step 3
-      </aw-wizard-step>
+      <div>
+        <aw-wizard-step stepTitle='Steptitle 3' *ngIf="showStep3">
+            Step 3
+        </aw-wizard-step>
+      </div>
     </aw-wizard>
   `
 })
