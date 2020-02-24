@@ -24,7 +24,7 @@ class WizardTestComponent {
   }
 }
 
-describe('WizardComponent', () => {
+describe('Wizard with changed expressions during reset', () => {
   let wizardTestFixture: ComponentFixture<WizardTestComponent>;
 
   let wizardTest: WizardTestComponent;
