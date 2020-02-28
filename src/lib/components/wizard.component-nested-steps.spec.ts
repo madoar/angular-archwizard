@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { ArchwizardModule } from '../archwizard.module';
 import { WizardComponent } from './wizard.component';
 
@@ -38,7 +38,7 @@ describe('WizardComponent', () => {
     }).compileComponents();
   }));
 
-  beforeEach(() => {
+  beforeEach(fakeAsync(() => {
     wizardTestFixture = TestBed.createComponent(WizardTestComponent);
     wizardTestFixture.detectChanges();
 
@@ -48,7 +48,7 @@ describe('WizardComponent', () => {
     // wait a tick to ensure that the initialization has been completed
     tick();
     wizardTestFixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(wizardTest).toBeTruthy();
