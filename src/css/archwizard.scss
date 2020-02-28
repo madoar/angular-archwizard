@@ -27,6 +27,10 @@ $wz-distance-between-steps: 10px !default;
 
 $wz-text-height: 14px !default;
 
+// declare global variables
+$aw-param-indicator-width: null;
+$aw-param-indicator-height: null;
+$aw-param-indicator-border-width: null;
 
 aw-wizard {
   display: flex;
