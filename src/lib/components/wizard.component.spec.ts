@@ -18,7 +18,7 @@ import { WizardStep } from '../util/wizard-step.interface';
         Step 2
       </aw-wizard-step>
       <aw-wizard-step stepTitle='Steptitle 3' *ngIf="showStep3">
-            Step 3
+        Step 3
       </aw-wizard-step>
     </aw-wizard>
   `
