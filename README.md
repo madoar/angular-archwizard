@@ -136,13 +136,13 @@ Disabling the navigation bar doesn't restrict the use of elements (buttons or li
 #### Parameter overview
 Possible `<aw-wizard>` parameters:
 
-| Parameter name           | Possible Values                                                                                       | Default Value |
-| ------------------------ | ----------------------------------------------------------------------------------------------------- | ------------- |
-| `[navBarLocation]`       | `top` \| `bottom` \| `left` \| `right`                                                                | top           |
-| `[navBarLayout]`         | `small` \| `large-filled` \| `large-empty` \| `large-filled-symbols` \| `large-empty-symbols`         | small         |
-| `[navBarDirection]`      | `left-to-right` \| `right-to-left`                                                                    | left-to-right |
-| `[defaultStepIndex]`     | `number`                                                                                              | 0             |
-| `[disableNavigationBar]` | `boolean`                                                                                             | false         |
+| Parameter name           | Possible Values                                                                                         | Default Value     |
+| ------------------------ | ------------------------------------------------------------------------------------------------------- | ----------------- |
+| `[navBarLocation]`       | `'top'` \| `'bottom'` \| `'left'` \| `'right'`                                                          | `'top'`           |
+| `[navBarLayout]`         | `'small'` \| `'large-filled'` \| `'large-empty'` \| `'large-filled-symbols'` \| `'large-empty-symbols'` | `'small'`         |
+| `[navBarDirection]`      | `'left-to-right'` \| `'right-to-left'`                                                                  | `'left-to-right'` |
+| `[defaultStepIndex]`     | `number`                                                                                                | `0`               |
+| `[disableNavigationBar]` | `boolean`                                                                                               | `false`           |
 
 ### \<aw-wizard-step\>
 `angular-archwizard` contains two ways to define a wizard step.
@@ -319,9 +319,8 @@ my.component.html:
 
 Instead of implementing the `NavigationMode` interface from scratch, you can extend one of the classes provided by `angular-archwizard`:
 
-- `BaseNavigationMode`.  This class contains an abstract method called `isNavigable`, which you will have to override to define wizard's behavior towards navigation using the navigation bar.
-
-- `ConfigurableNavigationMode`.  This class defines the default navigation mode used by `angular-archwizard`.  In some cases, it might be more convenient to base your custom implementation on it.
+- `BaseNavigationMode`: This class contains an abstract method called `isNavigable`, which you will have to override to define wizard's behavior towards navigation using the navigation bar.
+- `ConfigurableNavigationMode`: This class defines the default navigation mode used by `angular-archwizard`.  In some cases, it might be more convenient to base your custom implementation on it.
 
 This way of customizing the wizard is advanced, so be prepared to refer to documentation comments and source code for help.
 
@@ -387,7 +386,7 @@ In such a case, the the navigation symbol can be specified using the `[awWizardS
 ```html
 <aw-wizard-step (stepEnter)="enterStep($event)">
   <ng-template awWizardStepSymbol>
-    // use <i class="fa fa-file"></i> for fontawesome version 4
+    <!-- use <i class="fa fa-file"></i> for fontawesome version 4 -->
     <i class="far fa-file"></i>
   </ng-template>
 </aw-wizard-step>
@@ -399,9 +398,9 @@ This for example allows customization of the navigation symbol depending on the 
 ```html
 <aw-wizard-step (stepEnter)="enterStep($event)">
   <ng-template awWizardStepSymbol let-wizardStep="wizardStep">
-    // use <i *ngIf="!wizardStep.completed" class="fa fa-file"></i> for fontawesome version 4
+    <!-- use <i *ngIf="!wizardStep.completed" class="fa fa-file"></i> for fontawesome version 4 -->
     <i *ngIf="!wizardStep.completed" class="far fa-file"></i>
-    // use <i *ngIf="wizardStep.completed" class="fa fa-check"></i> for fontawesome version 4
+    <!-- use <i *ngIf="wizardStep.completed" class="fa fa-check"></i> for fontawesome version 4 -->
     <i *ngIf="wizardStep.completed" class="far fa-check"></i>
   </ng-template>
 </aw-wizard-step>
@@ -676,20 +675,20 @@ This is quite easy to do.
 Different ways are possible:
 
 1. Either use a wrapper around the wizard:
-    ```html
-    <div class="my-custom-css-wrapper">
-      <aw-wizard>
-        ...
-      </aw-wizard>
-    </div>
-    ```
+   ```html
+   <div class="my-custom-css-wrapper">
+     <aw-wizard>
+       ...
+     </aw-wizard>
+   </div>
+   ```
 
 2. Or add your css wrapper class directly to the wizard element:
-    ```html
-    <aw-wizard class="my-custom-css-wrapper">
-      ...
-    </aw-wizard>
-    ```
+   ```html
+   <aw-wizard class="my-custom-css-wrapper">
+     ...
+   </aw-wizard>
+   ```
 
 When overriding css properties already defined in the existing navigation bar layouts, it is required to use `!important`.
 In addition it is required to add `encapsulation: ViewEncapsulation.None` to the component, that defines the wizard and overrides its layout.
