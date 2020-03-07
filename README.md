@@ -136,13 +136,13 @@ Disabling the navigation bar doesn't restrict the use of elements (buttons or li
 #### Parameter overview
 Possible `<aw-wizard>` parameters:
 
-| Parameter name           | Possible Values                                                                                       | Default Value |
-| ------------------------ | ----------------------------------------------------------------------------------------------------- | ------------- |
-| `[navBarLocation]`       | `top` \| `bottom` \| `left` \| `right`                                                                | top           |
-| `[navBarLayout]`         | `small` \| `large-filled` \| `large-empty` \| `large-filled-symbols` \| `large-empty-symbols`         | small         |
-| `[navBarDirection]`      | `left-to-right` \| `right-to-left`                                                                    | left-to-right |
-| `[defaultStepIndex]`     | `number`                                                                                              | 0             |
-| `[disableNavigationBar]` | `boolean`                                                                                             | false         |
+| Parameter name           | Possible Values                                                                                         | Default Value     |
+| ------------------------ | ------------------------------------------------------------------------------------------------------- | ----------------- |
+| `[navBarLocation]`       | `'top'` \| `'bottom'` \| `'left'` \| `'right'`                                                          | `'top'`           |
+| `[navBarLayout]`         | `'small'` \| `'large-filled'` \| `'large-empty'` \| `'large-filled-symbols'` \| `'large-empty-symbols'` | `'small'`         |
+| `[navBarDirection]`      | `'left-to-right'` \| `'right-to-left'`                                                                  | `'left-to-right'` |
+| `[defaultStepIndex]`     | `number`                                                                                                | `0`               |
+| `[disableNavigationBar]` | `boolean`                                                                                               | `false`           |
 
 ### \<aw-wizard-step\>
 `angular-archwizard` contains two ways to define a wizard step.
@@ -319,9 +319,10 @@ my.component.html:
 
 Instead of implementing the `NavigationMode` interface from scratch, you can extend one of the classes provided by `angular-archwizard`:
 
-- `BaseNavigationMode`.  This class contains an abstract method called `isNavigable`, which you will have to override to define wizard's behavior towards navigation using the navigation bar.
+-   `BaseNavigationMode`: This class contains an abstract method called `isNavigable`, which you will have to override to define wizard's behavior towards navigation using the navigation bar.
 
-- `ConfigurableNavigationMode`.  This class defines the default navigation mode used by `angular-archwizard`.  In some cases, it might be more convenient to base your custom implementation on it.
+-   `ConfigurableNavigationMode`: This class defines the default navigation mode used by `angular-archwizard`. 
+    In some cases, it might be more convenient to base your custom implementation on it.
 
 This way of customizing the wizard is advanced, so be prepared to refer to documentation comments and source code for help.
 
@@ -350,7 +351,6 @@ Possible `awEnableBackLinks` parameters:
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
 | `(stepExit)`                  | `function(MovingDirection): void`                                                                    | `null`        |
-
 
 ### \[awWizardStepTitle\]
 Sometimes it's not enough to define a title with the `stepTitle` attribute in `<aw-wizard-step>` and `<aw-wizard-completion-step>`.
@@ -387,7 +387,7 @@ In such a case, the the navigation symbol can be specified using the `[awWizardS
 ```html
 <aw-wizard-step (stepEnter)="enterStep($event)">
   <ng-template awWizardStepSymbol>
-    // use <i class="fa fa-file"></i> for fontawesome version 4
+    <!-- use <i class="fa fa-file"></i> for fontawesome version 4 -->
     <i class="far fa-file"></i>
   </ng-template>
 </aw-wizard-step>
@@ -399,9 +399,9 @@ This for example allows customization of the navigation symbol depending on the 
 ```html
 <aw-wizard-step (stepEnter)="enterStep($event)">
   <ng-template awWizardStepSymbol let-wizardStep="wizardStep">
-    // use <i *ngIf="!wizardStep.completed" class="fa fa-file"></i> for fontawesome version 4
+    <!-- use <i *ngIf="!wizardStep.completed" class="fa fa-file"></i> for fontawesome version 4 -->
     <i *ngIf="!wizardStep.completed" class="far fa-file"></i>
-    // use <i *ngIf="wizardStep.completed" class="fa fa-check"></i> for fontawesome version 4
+    <!-- use <i *ngIf="wizardStep.completed" class="fa fa-check"></i> for fontawesome version 4 -->
     <i *ngIf="wizardStep.completed" class="far fa-check"></i>
   </ng-template>
 </aw-wizard-step>
@@ -468,34 +468,35 @@ when the element with the `awGoToStep` directive has been clicked.
 
 This input accepts different arguments:
 
-- a destination **step index**:
-   One possible argument for the input is a destination step index.
-   A destination step index is always zero-based, i.e. the index of the first step inside the wizard
-   is always zero.
+-   a destination **step index**:
+    One possible argument for the input is a destination step index.
+    A destination step index is always zero-based, i.e. the index of the first step inside the wizard is always zero.
 
-   To pass a destination step index to an `awGoToStep` directive,
-   you need to pass the following json object to the directive:
+    To pass a destination step index to an `awGoToStep` directive,
+    you need to pass the following json object to the directive:
 
-   ```html
-   <button [awGoToStep]="{ stepIndex: 2 }" (finalize)="finalizeStep()">Go directly to the third Step</button>
-   ```
-- a destination **step id**:
-   Another possible argument for the input is a the unique step id of the destination step.
-   This step id can be set for all wizard steps through their input `[stepId]`.
+    ```html
+    <button [awGoToStep]="{ stepIndex: 2 }" (finalize)="finalizeStep()">Go directly to the third Step</button>
+    ```
 
-   To pass a unique destination step id to an `awGoToStep` directive,
-   you need to pass the following json object to the directive:
+-   a destination **step id**:
+    Another possible argument for the input is a the unique step id of the destination step.
+    This step id can be set for all wizard steps through their input `[stepId]`.
 
-   ```html
-   <button [awGoToStep]="{ stepId: 'unique id of the third step' }" (finalize)="finalizeStep()">Go directly to the third Step</button>
-   ```
-- a **step offset** between the current step and the destination step:
-   Alternatively to an absolute step index or an unique step id,
-   it's also possible to set the destination wizard step as an offset to the source step:
+    To pass a unique destination step id to an `awGoToStep` directive,
+    you need to pass the following json object to the directive:
 
-   ```html
-   <button [awGoToStep]="{ stepOffset: 1 }" (finalize)="finalizeStep()">Go to the third Step</button>
-   ```
+    ```html
+    <button [awGoToStep]="{ stepId: 'unique id of the third step' }" (finalize)="finalizeStep()">Go directly to the third Step</button>
+    ```
+
+-   a **step offset** between the current step and the destination step:
+    Alternatively to an absolute step index or an unique step id,
+    it's also possible to set the destination wizard step as an offset to the source step:
+
+    ```html
+    <button [awGoToStep]="{ stepOffset: 1 }" (finalize)="finalizeStep()">Go to the third Step</button>
+    ```
 
 In all above examples a click on the "Go to the third Step" button will move
 the user to the next step (the third step) compared to the step the button belongs to (the second step).
@@ -675,7 +676,7 @@ Sometimes you like to use your own custom CSS for some parts of the wizard like 
 This is quite easy to do.
 Different ways are possible:
 
-1. Either use a wrapper around the wizard:
+1.  Either use a wrapper around the wizard:
     ```html
     <div class="my-custom-css-wrapper">
       <aw-wizard>
@@ -684,7 +685,7 @@ Different ways are possible:
     </div>
     ```
 
-2. Or add your css wrapper class directly to the wizard element:
+2.  Or add your css wrapper class directly to the wizard element:
     ```html
     <aw-wizard class="my-custom-css-wrapper">
       ...
@@ -693,9 +694,8 @@ Different ways are possible:
 
 When overriding css properties already defined in the existing navigation bar layouts, it is required to use `!important`.
 In addition it is required to add `encapsulation: ViewEncapsulation.None` to the component, that defines the wizard and overrides its layout.
-For additional information about how to write your own navigation bar please take a look at the existing navigation bar layouts, which can be found at
-https://github.com/madoar/angular-archwizard/blob/master/src/components/wizard-navigation-bar.component.horizontal.less and
-https://github.com/madoar/angular-archwizard/blob/master/src/components/wizard-navigation-bar.component.vertical.less.
+For additional information about how to write your own navigation bar please take a look at the existing navigation bar layouts, which can be found in the
+[https://github.com/madoar/angular-archwizard/blob/develop/src/css/wizard-navigation-bar.scss](wizard-navigation-bar.scss) file.
 
 ### Working with dynamically inserted and removed steps
 In some cases it may be required to remove or insert one or multiple steps after the wizard initialization,
@@ -724,8 +724,9 @@ invalid state, which may lead to strange and unexpected behavior.
 
 If you are using SCSS, you can customize the wizard's global styles and color theme using SCSS variables:
 
-1. Import `node_modules/angular-archwizard/archwizard.scss` into your `styles.scss` file as described in the [Installation](#installation) section.
-2. Re-define any of the variables you can find at the top of `node_modules/angular-archwizard/variables.scss`.
+1.  Import `node_modules/angular-archwizard/archwizard.scss` into your `styles.scss` file as described in the [Installation](#installation) section.
+
+2.  Re-define any of the variables you can find at the top of `node_modules/angular-archwizard/variables.scss`.
 
 In the following example, we configure a simple color theme which only defines styles for two step states: 'default' and 'current'.
 
