@@ -320,6 +320,7 @@ my.component.html:
 Instead of implementing the `NavigationMode` interface from scratch, you can extend one of the classes provided by `angular-archwizard`:
 
 -   `BaseNavigationMode`: This class contains an abstract method called `isNavigable`, which you will have to override to define wizard's behavior towards navigation using the navigation bar.
+
 -   `ConfigurableNavigationMode`: This class defines the default navigation mode used by `angular-archwizard`. 
     In some cases, it might be more convenient to base your custom implementation on it.
 
@@ -477,6 +478,7 @@ This input accepts different arguments:
     ```html
     <button [awGoToStep]="{ stepIndex: 2 }" (finalize)="finalizeStep()">Go directly to the third Step</button>
     ```
+
 -   a destination **step id**:
     Another possible argument for the input is a the unique step id of the destination step.
     This step id can be set for all wizard steps through their input `[stepId]`.
@@ -487,6 +489,7 @@ This input accepts different arguments:
     ```html
     <button [awGoToStep]="{ stepId: 'unique id of the third step' }" (finalize)="finalizeStep()">Go directly to the third Step</button>
     ```
+
 -   a **step offset** between the current step and the destination step:
     Alternatively to an absolute step index or an unique step id,
     it's also possible to set the destination wizard step as an offset to the source step:
@@ -722,6 +725,7 @@ invalid state, which may lead to strange and unexpected behavior.
 If you are using SCSS, you can customize the wizard's global styles and color theme using SCSS variables:
 
 1.  Import `node_modules/angular-archwizard/archwizard.scss` into your `styles.scss` file as described in the [Installation](#installation) section.
+
 2.  Re-define any of the variables you can find at the top of `node_modules/angular-archwizard/variables.scss`.
 
 In the following example, we configure a simple color theme which only defines styles for two step states: 'default' and 'current'.
