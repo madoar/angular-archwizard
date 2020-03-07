@@ -399,9 +399,9 @@ This for example allows customization of the navigation symbol depending on the 
 ```html
 <aw-wizard-step (stepEnter)="enterStep($event)">
   <ng-template awWizardStepSymbol let-wizardStep="wizardStep">
-    // use <i *ngIf="!wizardStep.completed" class="far fa-file"></i> for fontawesome version 4
+    // use <i *ngIf="!wizardStep.completed" class="fa fa-file"></i> for fontawesome version 4
     <i *ngIf="!wizardStep.completed" class="far fa-file"></i>
-    // use <i *ngIf="wizardStep.completed" class="far fa-check"></i> for fontawesome version 4
+    // use <i *ngIf="wizardStep.completed" class="fa fa-check"></i> for fontawesome version 4
     <i *ngIf="wizardStep.completed" class="far fa-check"></i>
   </ng-template>
 </aw-wizard-step>
