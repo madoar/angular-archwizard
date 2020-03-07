@@ -26,12 +26,14 @@ Latest `angular-archwizard` is compatible with Angular 9+.
 
 ### Step 1: Install `angular-archwizard`
 `angular-archwizard` is available as a NPM package. To install `angular-archwizard` in your project directory run:
+
 ```bash
 $ npm install --save angular-archwizard
 ```
 
 ### Step 2: Import the ArchwizardModule
 After installation you can import `angular-archwizard` into your Angular project by adding the `ArchwizardModule` to your module declaration as follows:
+
 ```typescript
 import { ArchwizardModule } from 'angular-archwizard';
 
@@ -134,13 +136,13 @@ Disabling the navigation bar doesn't restrict the use of elements (buttons or li
 #### Parameter overview
 Possible `<aw-wizard>` parameters:
 
-| Parameter name         | Possible Values                                                                                       | Default Value |
-| ---------------------- | ----------------------------------------------------------------------------------------------------- | ------------- |
-| [navBarLocation]       | `top` \| `bottom` \| `left` \| `right`                                                                | top           |
-| [navBarLayout]         | `small` \| `large-filled` \| `large-empty` \| `large-filled-symbols` \| `large-empty-symbols`         | small         |
-| [navBarDirection]      | `left-to-right` \| `right-to-left`                                                                    | left-to-right |
-| [defaultStepIndex]     | `number`                                                                                              | 0             |
-| [disableNavigationBar] | `boolean`                                                                                             | false         |
+| Parameter name           | Possible Values                                                                                       | Default Value |
+| ------------------------ | ----------------------------------------------------------------------------------------------------- | ------------- |
+| `[navBarLocation]`       | `top` \| `bottom` \| `left` \| `right`                                                                | top           |
+| `[navBarLayout]`         | `small` \| `large-filled` \| `large-empty` \| `large-filled-symbols` \| `large-empty-symbols`         | small         |
+| `[navBarDirection]`      | `left-to-right` \| `right-to-left`                                                                    | left-to-right |
+| `[defaultStepIndex]`     | `number`                                                                                              | 0             |
+| `[disableNavigationBar]` | `boolean`                                                                                             | false         |
 
 ### \<aw-wizard-step\>
 `angular-archwizard` contains two ways to define a wizard step.
@@ -165,7 +167,9 @@ Only the layouts `large-filled-symbols` and `large-empty-symbols` display the sy
 If you want to add a `2` to the circle in the navigation bar belonging to the second step, you can do it like this:
 
 ```html
-<aw-wizard-step stepTitle="Second Step" [navigationSymbol]="{ symbol: '2' }"></aw-wizard-step>
+<aw-wizard-step stepTitle="Second Step" [navigationSymbol]="{ symbol: '2' }">
+  ...
+</aw-wizard-step>
 ```
 
 In addition to normal symbols it's also possible to use an icon from a font as a symbol.
@@ -179,7 +183,9 @@ For example, if you want to show the icon with the unicode `\f2dd` of [FontAweso
 you can do this via the following `[navigationSymbol]` input attribute:
 
 ```html
-<aw-wizard-step stepTitle="Second Step" [navigationSymbol]="{ symbol: '&#xf2dd;', fontFamily: 'FontAwesome' }"></aw-wizard-step>
+<aw-wizard-step stepTitle="Second Step" [navigationSymbol]="{ symbol: '&#xf2dd;', fontFamily: 'FontAwesome' }">
+  ...
+</aw-wizard-step>
 ```
 
 #### \[canEnter\]
@@ -202,7 +208,9 @@ This function will then be called whenever an operation has been performed, that
 If you need to call a function to do some initialisation work before entering a wizard step you can add a `stepEnter` attribute to the wizard step environment like this:
 
 ```html
-<aw-wizard-step stepTitle="Second Step" (stepEnter)="enterSecondStep($event)"></aw-wizard-step>
+<aw-wizard-step stepTitle="Second Step" (stepEnter)="enterSecondStep($event)">
+  ...
+</aw-wizard-step>
 ```
 
 This leads to the calling of the `enterSecondStep` function when the wizard moves to this step.
@@ -263,13 +271,15 @@ The easiest option is to tweak the default navigation mode with `[navigateBackwa
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| `[navigateBackward]`            | `'allow'` \| `'deny'`                                                                              | `'deny'`      |
-| `[navigateForward]`             | `'allow'` \| `'deny'` \| `'visited'`                                                               | `'allow'`     |
+| `[navigateBackward]`          | `'allow'` \| `'deny'`                                                                                | `'deny'`      |
+| `[navigateForward]`           | `'allow'` \| `'deny'` \| `'visited'`                                                                 | `'allow'`     |
 
 Take notice that the `'allow'` and `'visited'` options still respect step exit conditions.  Also, the completion step still only becomes enterable after all previous steps are completed.  Example usage:
 
 ```html
-<aw-wizard [awNavigationMode] navigateBackward="allow" navigateForward="allow">...</aw-wizard>
+<aw-wizard [awNavigationMode] navigateBackward="allow" navigateForward="allow">
+  ...
+</aw-wizard>
 ```
 
 If changes you need are more radical, you can define your own navigation mode.  In order to do this, create a class implementing the `NavigationMode` interface and pass an instance of this class into the `[awNavigationMode]` directive.
@@ -277,6 +287,7 @@ This takes priority over `[navigateBackward]` and `[navigateForward]` inputs.
 Example usage:
 
 custom-navigation-mode.ts:
+
 ```typescript
 import { NavigationMode } from 'angular-archwizard'
 
@@ -287,6 +298,7 @@ class CustomNavigationMode implements NavigationMode {
 ```
 
 my.component.ts:
+
 ```typescript
 @Component({
   // ...
@@ -298,8 +310,11 @@ class MyComponent {
 ```
 
 my.component.html:
+
 ```html
-<aw-wizard [awNavigationMode]="navigationMode">...</aw-wizard>
+<aw-wizard [awNavigationMode]="navigationMode">
+  ...
+</aw-wizard>
 ```
 
 Instead of implementing the `NavigationMode` interface from scratch, you can extend one of the classes provided by `angular-archwizard`:
@@ -372,6 +387,7 @@ In such a case, the the navigation symbol can be specified using the `[awWizardS
 ```html
 <aw-wizard-step (stepEnter)="enterStep($event)">
   <ng-template awWizardStepSymbol>
+    // use <i class="fa fa-file"></i> for fontawesome version 4
     <i class="far fa-file"></i>
   </ng-template>
 </aw-wizard-step>
@@ -383,7 +399,9 @@ This for example allows customization of the navigation symbol depending on the 
 ```html
 <aw-wizard-step (stepEnter)="enterStep($event)">
   <ng-template awWizardStepSymbol let-wizardStep="wizardStep">
+    // use <i *ngIf="!wizardStep.completed" class="fa fa-file"></i> for fontawesome version 4
     <i *ngIf="!wizardStep.completed" class="far fa-file"></i>
+    // use <i *ngIf="wizardStep.completed" class="fa fa-check"></i> for fontawesome version 4
     <i *ngIf="wizardStep.completed" class="far fa-check"></i>
   </ng-template>
 </aw-wizard-step>
@@ -395,7 +413,7 @@ by adding the `awOptionalStep` directive to the step you want to declare as opti
 
 ```html
 <aw-wizard-step awOptionalStep>
-   ...
+  ...
 </aw-wizard-step>
 ```
 
@@ -405,7 +423,7 @@ to tell the wizard whether the step should be marked as optional:
 
 ```html
 <aw-wizard-step [awOptionalStep]="condition">
-   ...
+  ...
 </aw-wizard-step>
 ```
 
@@ -419,7 +437,7 @@ the step you want to declare as completed:
 
 ```html
 <aw-wizard-step awCompletedStep>
-   ...
+  ...
 </aw-wizard-step>
 ```
 
@@ -429,7 +447,7 @@ to tell the wizard, whether the step should be marked as complete:
 
 ```html
 <aw-wizard-step [awCompletedStep]="condition">
-   ...
+  ...
 </aw-wizard-step>
 ```
 
@@ -566,7 +584,9 @@ This can be done by defining adding the `awWizardStep` directive to the componen
   <aw-wizard-step stepTitle="Steptitle 1">
     Step 1
   </aw-wizard-step>
-  <custom-step awWizardStep stepTitle="Steptitle 2"></custom-step>
+  <custom-step awWizardStep stepTitle="Steptitle 2">
+    ...
+  </custom-step>
   <aw-wizard-step stepTitle="Steptitle 3">
     Step 3
   </aw-wizard-step>
@@ -598,6 +618,7 @@ that contains the wizard completion step.
     Step 1
   </aw-wizard-step>
   <custom-step awWizardCompletionStep stepTitle="Completion steptitle">
+    ...
   </custom-step>
 </aw-wizard>
 ```
@@ -632,6 +653,7 @@ Possible `awResetWizard` parameters:
 ### Accessing the wizard component instance
 Sometimes it's required to access the wizard component directly.
 In such a case you can get the instance of the used wizard component in your own component via:
+
 ```typescript
 @ViewChild(WizardComponent)
 public wizard: WizardComponent;
@@ -656,13 +678,17 @@ Different ways are possible:
 1. Either use a wrapper around the wizard:
     ```html
     <div class="my-custom-css-wrapper">
-      <aw-wizard></aw-wizard>
+      <aw-wizard>
+        ...
+      </aw-wizard>
     </div>
     ```
 
 2. Or add your css wrapper class directly to the wizard element:
     ```html
-    <aw-wizard class="my-custom-css-wrapper"></aw-wizard>
+    <aw-wizard class="my-custom-css-wrapper">
+      ...
+    </aw-wizard>
     ```
 
 When overriding css properties already defined in the existing navigation bar layouts, it is required to use `!important`.
@@ -676,7 +702,7 @@ In some cases it may be required to remove or insert one or multiple steps after
 for example after a user does some interaction with the wizard, it may be required to add or remove a later step.
 In such situations the wizard supports the removal and insertion of steps in the DOM.
 
-If you require to the dynamic removal or insertion of steps, please be aware that the angular component containing the wizard
+If you require the dynamic removal or insertion of steps, please be aware that the angular component containing the wizard
 needs to trigger a `detectChanges()` call inside the `afterViewInit` lifecycle phase.
 This call can be triggered by adding the following lines to the component class:
 ```typescript
