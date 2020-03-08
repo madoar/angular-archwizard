@@ -1,6 +1,6 @@
 {
   "name": "angular-archwizard",
-  "version": "6.0.0-develop",
+  "version": "6.0.0",
   "license": "MIT",
   "description": "An Angular 9+ module containing a wizard component and its supporting components and directives",
   "homepage": "https://github.com/madoar/angular-archwizard",
