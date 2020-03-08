@@ -695,7 +695,7 @@ Different ways are possible:
 When overriding css properties already defined in the existing navigation bar layouts, it is required to use `!important`.
 In addition it is required to add `encapsulation: ViewEncapsulation.None` to the component, that defines the wizard and overrides its layout.
 For additional information about how to write your own navigation bar please take a look at the existing navigation bar layouts, which can be found in the
-[https://github.com/madoar/angular-archwizard/blob/develop/src/css/wizard-navigation-bar.scss](wizard-navigation-bar.scss) file.
+[wizard-navigation-bar.scss](src/css/wizard-navigation-bar.scss) file.
 
 ### Working with dynamically inserted and removed steps
 In some cases it may be required to remove or insert one or multiple steps after the wizard initialization,
