@@ -1,6 +1,6 @@
 {
   "name": "angular-archwizard",
-  "version": "6.0.0",
+  "version": "7.0.0-develop",
   "license": "MIT",
   "description": "An Angular 9+ module containing a wizard component and its supporting components and directives",
   "homepage": "https://github.com/madoar/angular-archwizard",
@@ -33,7 +33,7 @@
     "build-scss": "scss-bundle",
     "extract-scss-variables": "extract-scss-variables ./dist/archwizard.scss ./dist/variables.scss",
     "build-css": "node-sass ./dist/archwizard.scss ./dist/archwizard.css",
-    "test": "ng test",
+    "test": "ng test && ng test --tsConfig=tsconfig-noIvy.spec.json",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

@@ -65,3 +65,15 @@ export function checkWizardNavigableSteps(
       `expected step ${index} ${navigableStepIndexes.includes(index) ? 'to be navigable' : 'not to be navigable'}`);
   });
 }
+
+/**
+ * Check if the expected classes exists on the element
+ *
+ * @param classes Element classes
+ * @param expectedClasses Expected element classes
+ */
+export function checkClasses(classes: { [key: string]: boolean }, expectedClasses: string[]) {
+    expect(
+      Object.keys(classes).filter(m => classes[m] === true)
+    ).toEqual(expectedClasses);
+}
