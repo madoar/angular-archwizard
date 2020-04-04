@@ -16,5 +16,5 @@
   ],
   "angularCompilerOptions": {
     "enableIvy": true
-  },
+  }
 }
