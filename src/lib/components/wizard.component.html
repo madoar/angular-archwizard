@@ -1,7 +1,7 @@
 <aw-wizard-navigation-bar
   [direction]="navBarDirection"
   *ngIf="navBarLocation == 'top' || navBarLocation == 'left'"
-  [class]="{
+  [ngClass]="{
     'vertical': navBarLocation == 'left',
     'horizontal': navBarLocation == 'top',
     'small': navBarLayout == 'small',
@@ -12,7 +12,7 @@
   }">
 </aw-wizard-navigation-bar>
 
-<div [class]="{
+<div [ngClass]="{
   'wizard-steps': true,
   'vertical': navBarLocation == 'left' || navBarLocation == 'right',
   'horizontal': navBarLocation == 'top' || navBarLocation == 'bottom'
@@ -23,7 +23,7 @@
 <aw-wizard-navigation-bar
   [direction]="navBarDirection"
   *ngIf="navBarLocation == 'bottom' || navBarLocation == 'right'"
-  [class]="{
+  [ngClass]="{
     'vertical': navBarLocation == 'right',
     'horizontal': navBarLocation == 'bottom',
     'small': navBarLayout == 'small',
