@@ -16,6 +16,11 @@ $aw-param-indicator-state: null;
 // wizard step state: 'default', 'current', 'done' etc.
 $aw-param-step-state: null;
 
+@mixin rtl {
+  @at-root [dir="rtl"] #{&} {
+    @content;
+  }
+}
 
 // Defines the line that strings together circles representing wizard steps, in the horizontal layout
 @mixin aw-horizontal-line($dot-width, $dot-height, $line-color) {
@@ -26,6 +31,11 @@ $aw-param-step-state: null;
   width: calc(100% - #{$dot-width});
   top: -($dot-height / 2);
   left: calc(50% + #{$dot-width / 2});
+
+  @include rtl {
+    left: unset;
+    right: calc(50% + #{$dot-width / 2});
+  }
 }
 
 // Defines the line that strings together circles representing wizard steps, in the vertical layout
