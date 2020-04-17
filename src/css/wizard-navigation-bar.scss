@@ -16,6 +16,11 @@ $wz-param-indicator-state: null !global;
 // base color for one of possible wizard step states (default, current, done etc.).
 $wz-param-indicator-color: null !global;
 
+@mixin rtl {
+  @at-root [dir="rtl"] #{&} {
+    @content;
+  }
+}
 
 @mixin wz-horizontal-line($dot-width, $dot-height, $line-color) {
   background-color: $line-color;
@@ -25,6 +30,11 @@ $wz-param-indicator-color: null !global;
   width: calc(100% - #{$dot-width});
   top: -($dot-height / 2);
   left: calc(50% + #{$dot-width / 2});
+
+  @include rtl {
+    left: unset;
+    right: calc(50% + #{$dot-width / 2});
+  }
 }
 
 @mixin wz-vertical-line($dot-width, $dot-height, $line-color) {
