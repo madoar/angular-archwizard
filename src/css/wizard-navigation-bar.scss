@@ -33,7 +33,7 @@ $aw-param-step-state: null;
   left: calc(50% + #{$dot-width / 2});
 
   @include rtl {
-    left: unset;
+    left: auto;
     right: calc(50% + #{$dot-width / 2});
   }
 }
