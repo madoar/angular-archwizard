@@ -47,6 +47,11 @@ $aw-param-step-state: null;
   top: $dot-height;
   height: calc(100% - #{$dot-height});
   width: 1px;
+
+  @include rtl {
+    left: auto;
+    right: -($dot-height / 2);
+  }
 }
 
 // Defines a circle representing a wizard step
@@ -65,12 +70,22 @@ $aw-param-step-state: null;
 @mixin aw-circle-position-horizontal($dot-width, $dot-height, $dot-border-width) {
   top: -$dot-height;
   left: calc(50% - #{$dot-width / 2});
+
+  @include rtl {
+    left: auto;
+    right: calc(50% - #{$dot-width / 2});;
+  }
 }
 
 // Positions a circle in the vertical layout of the navigation bar
 @mixin aw-circle-position-vertical($dot-width, $dot-height, $dot-border-width) {
   top: 0;
   left: -$dot-width;
+
+  @include rtl {
+    left: auto;
+    right: -$dot-width;
+  }
 }
 
 // Define a step indicator style like 'small', 'large-filled' etc.
@@ -107,6 +122,10 @@ $aw-param-step-state: null;
   }
   @else if ($layout == 'vertical') {
     padding: ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2 + $height);
+
+    @include rtl {
+      padding: ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2 + $height) ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2);
+    }
   }
 
   li {
@@ -418,6 +437,12 @@ aw-wizard-navigation-bar {
           .label {
             margin-left: $aw-text-margin-left;
             text-align: left;
+
+            @include rtl {
+              margin-left: 0;
+              margin-right: $aw-text-margin-left;
+              text-align: right;
+            }
           }
         }
       }
