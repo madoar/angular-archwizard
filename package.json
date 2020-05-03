@@ -38,18 +38,18 @@
     "e2e": "ng e2e"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.900.5",
-    "@angular-devkit/build-ng-packagr": "~0.900.5",
-    "@angular/cli": "~9.0.5",
-    "@angular/common": "^9.0.5",
-    "@angular/compiler": "^9.0.5",
-    "@angular/compiler-cli": "^9.0.5",
-    "@angular/core": "^9.0.5",
-    "@angular/forms": "^9.0.5",
-    "@angular/language-service": "^9.0.5",
-    "@angular/platform-browser": "^9.0.5",
-    "@angular/platform-browser-dynamic": "^9.0.5",
-    "@angular/router": "^9.0.5",
+    "@angular-devkit/build-angular": "~0.901.4",
+    "@angular-devkit/build-ng-packagr": "~0.901.4",
+    "@angular/cli": "~9.1.4",
+    "@angular/common": "^9.1.4",
+    "@angular/compiler": "^9.1.4",
+    "@angular/compiler-cli": "^9.1.4",
+    "@angular/core": "^9.1.4",
+    "@angular/forms": "^9.1.4",
+    "@angular/language-service": "^9.1.4",
+    "@angular/platform-browser": "^9.1.4",
+    "@angular/platform-browser-dynamic": "^9.1.4",
+    "@angular/router": "^9.1.4",
     "@earshinov/extract-scss-variables": "^0.1.1",
     "@types/jasmine": "~3.5.7",
     "@types/jasminewd2": "~2.0.8",
@@ -73,7 +73,7 @@
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
     "typescript": "~3.7.5",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.3"
   },
   "dependencies": {
     "tslib": "^1.10.0"
