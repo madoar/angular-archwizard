@@ -70,7 +70,7 @@
     "protractor": "~5.4.0",
     "rxjs": "~6.5.4",
     "scss-bundle": "^3.0.2",
-    "ts-node": "~8.3.0",
+    "ts-node": "~8.10.1",
     "tslint": "~5.18.0",
     "typescript": "~3.7.5",
     "zone.js": "~0.10.3"
