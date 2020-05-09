@@ -698,27 +698,13 @@ For additional information about how to write your own navigation bar please tak
 [wizard-navigation-bar.scss](src/css/wizard-navigation-bar.scss) file.
 
 ### Working with dynamically inserted and removed steps
-In some cases it may be required to remove or insert one or multiple steps after the wizard initialization,
-for example after a user does some interaction with the wizard, it may be required to add or remove a later step.
+In some cases it may be required to remove or insert one or multiple steps after the wizard initialization.
+For example after a user does some interaction with the wizard, it may be required to add or remove a later step.
 In such situations the wizard supports the removal and insertion of steps in the DOM.
 
-If you require the dynamic removal or insertion of steps, please be aware that the angular component containing the wizard
-needs to trigger a `detectChanges()` call inside the `afterViewInit` lifecycle phase.
-This call can be triggered by adding the following lines to the component class:
-```typescript
-constructor(private _changeDetectionRef: ChangeDetectorRef) {}
+If an earlier step, compared to the current step, has been removed or inserted, the wizard will adjust the current step to ensure that the changed state is valid again.
 
-ngAfterViewInit(): void {
-  // Force another change detection in order to fix an occuring ExpressionChangedAfterItHasBeenCheckedError
-  this._changeDetectionRef.detectChanges();
-}
-```
-
-If an earlier step, compared to the current step, has been removed or inserted,
-the wizard will adjust the index of the current step to make the changed state valid again.
-
-Please be also sure to not remove the step, the wizard is currently displaying, because otherwise the wizard will be inside an
-invalid state, which may lead to strange and unexpected behavior.
+When removing a step be sure to not remove the step the wizard is currently displaying, because otherwise the wizard will be inside an invalid state, which may lead to strange and unexpected behavior.
 
 ## Styles Customization
 
