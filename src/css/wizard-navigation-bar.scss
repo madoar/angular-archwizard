@@ -16,6 +16,11 @@ $wz-param-indicator-state: null !global;
 // base color for one of possible wizard step states (default, current, done etc.).
 $wz-param-indicator-color: null !global;
 
+@mixin rtl {
+  @at-root [dir="rtl"] #{&} {
+    @content;
+  }
+}
 
 @mixin wz-horizontal-line($dot-width, $dot-height, $line-color) {
   background-color: $line-color;
@@ -25,6 +30,11 @@ $wz-param-indicator-color: null !global;
   width: calc(100% - #{$dot-width});
   top: -($dot-height / 2);
   left: calc(50% + #{$dot-width / 2});
+
+  @include rtl {
+    left: auto;
+    right: calc(50% + #{$dot-width / 2});
+  }
 }
 
 @mixin wz-vertical-line($dot-width, $dot-height, $line-color) {
@@ -35,16 +45,31 @@ $wz-param-indicator-color: null !global;
   top: $dot-height;
   height: calc(100% - #{$dot-height});
   width: 1px;
+
+  @include rtl {
+    left: auto;
+    right: -($dot-height / 2);
+  }
 }
 
 @mixin wz-circle-position-horizontal($dot-width, $dot-height, $dot-border-width) {
   top: -$dot-height;
   left: calc(50% - #{$dot-width / 2});
+
+  @include rtl {
+    left: auto;
+    right: calc(50% - #{$dot-width / 2});;
+  }
 }
 
 @mixin wz-circle-position-vertical($dot-width, $dot-height, $dot-border-width) {
   top: 0;
   left: -$dot-width;
+
+  @include rtl {
+    left: auto;
+    right: -$dot-width;
+  }
 }
 
 @mixin wz-state-circle($dot-width, $dot-height, $dot-border-width) {
@@ -113,6 +138,10 @@ $wz-param-indicator-color: null !global;
   }
   @else if ($layout == 'vertical') {
     padding: ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2 + $height);
+
+    @include rtl {
+      padding: ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2 + $height) ($wz-distance-between-steps / 2) ($wz-distance-between-steps / 2);
+    }
   }
 
   li {
@@ -400,6 +429,12 @@ aw-wizard-navigation-bar.vertical {
         .label {
           margin-left: $wz-text-margin-left;
           text-align: left;
+
+          @include rtl {
+            margin-left: 0;
+            margin-right: $wz-text-margin-left;
+            text-align: right;
+          }
         }
       }
     }
