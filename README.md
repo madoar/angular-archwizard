@@ -466,6 +466,8 @@ These directives are the `awPreviousStep`, `asNextStep` and `awGoToStep` directi
 The `awGoToStep` directive needs to receive an input, which tells the wizard, to which step it should navigate,
 when the element with the `awGoToStep` directive has been clicked.
 
+> Please be aware that `awGoToStep` will not proceed to another step unless the intermediate steps are marked as optional, using the directive `awOptionalStep`, or has been completed, either by the user or by marking them as completed by default with the directive `awCompletedStep`.
+
 This input accepts different arguments:
 
 -   a destination **step index**:
