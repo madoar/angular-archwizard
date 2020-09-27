@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ArchwizardModule } from '../archwizard.module';
-import { PreviousStepDirective } from './previous-step.directive';
 import { WizardComponent } from '../components/wizard.component';
+import { PreviousStepDirective } from './previous-step.directive';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -45,7 +45,7 @@ describe('PreviousStepDirective', () => {
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
       imports: [ArchwizardModule]

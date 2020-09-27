@@ -8,6 +8,7 @@ import {MovingDirection} from './moving-direction.enum';
  * @author Marc Arndt
  */
 @Directive()
+/* tslint:disable-next-line directive-class-suffix */
 export abstract class WizardCompletionStep extends WizardStep {
   /**
    * @inheritDoc

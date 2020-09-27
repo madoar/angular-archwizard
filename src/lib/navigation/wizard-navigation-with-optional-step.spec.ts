@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { ArchwizardModule } from '../archwizard.module';
 import { WizardComponent } from '../components/wizard.component';
 import { checkWizardState } from '../util/test-utils';
@@ -31,7 +31,7 @@ describe('Wizard navigation with optional step', () => {
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
       imports: [ArchwizardModule]
@@ -50,7 +50,7 @@ describe('Wizard navigation with optional step', () => {
     wizardTestFixture.detectChanges();
   }));
 
-  it('should return correct can go to step', async(() => {
+  it('should return correct can go to step', waitForAsync(() => {
     wizard.canGoToStep(-1).then(result => expect(result).toBe(false));
     wizard.canGoToStep(0).then(result => expect(result).toBe(true));
     wizard.canGoToStep(1).then(result => expect(result).toBe(true));

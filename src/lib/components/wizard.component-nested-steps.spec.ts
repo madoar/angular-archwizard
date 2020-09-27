@@ -1,8 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { ArchwizardModule } from '../archwizard.module';
-import { WizardComponent } from './wizard.component';
 import { WizardStep } from '../util/wizard-step.interface';
+import { WizardComponent } from './wizard.component';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -48,7 +48,7 @@ describe('WizardComponent with nested steps', () => {
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
       imports: [ArchwizardModule]

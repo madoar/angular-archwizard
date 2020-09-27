@@ -1,9 +1,9 @@
-import { OptionalStepDirective } from './optional-step.directive';
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ArchwizardModule } from '../archwizard.module';
 import { WizardComponent } from '../components/wizard.component';
+import { OptionalStepDirective } from './optional-step.directive';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -33,7 +33,7 @@ describe('OptionalStepDirective', () => {
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
       imports: [ArchwizardModule]
