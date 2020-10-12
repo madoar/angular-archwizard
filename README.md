@@ -281,8 +281,8 @@ The easiest option is to tweak the default navigation mode with `[navigateBackwa
 
 | Parameter name                | Possible Values                                                                                      | Default Value |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- | ------------- |
-| `[navigateBackward]`          | `'allow'` \| `'deny'`                                                                                | `'deny'`      |
-| `[navigateForward]`           | `'allow'` \| `'deny'` \| `'visited'`                                                                 | `'allow'`     |
+| `[navigateBackward]`          | `'allow'` \| `'deny'`                                                                                | `'allow'`     |
+| `[navigateForward]`           | `'allow'` \| `'deny'` \| `'visited'`                                                                 | `'deny'`      |
 
 Take notice that the `'allow'` and `'visited'` options still respect step exit conditions.  Also, the completion step still only becomes enterable after all previous steps are completed.  Example usage:
 
