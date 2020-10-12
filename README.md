@@ -16,6 +16,16 @@ Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github
 
 ## Compatibility
 Latest `angular-archwizard` is compatible with Angular 9+.
+Older versions of `angular-archwizard` can be used together with older versions of Angular.
+The following table shows which version of `angular-archwizard` has been built with which Angular version:
+
+| `angular-archwizard` version | Angular version |
+|------------------------------|-----------------|
+| `3.0.0`                      | Angular 5       |
+| `4.0.0`                      | Angular 7       |
+| `5.0.1`                      | Angular 8       |
+| `6.1.0`                      | Angular 9       |
+| `7.0.0`                      | Angular 10      |
 
 ## Gitpod
 `angular-archwizard` can be developed with Gitpod, a free one-click online IDE for GitHub:
