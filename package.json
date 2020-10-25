@@ -28,11 +28,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "npm run build-js && npm run build-scss && npm run extract-scss-variables && npm run build-css",
+    "build": "npm run build-js && npm run extract-scss-variables && npm run build-css",
     "build-js": "ng build",
-    "build-scss": "scss-bundle",
-    "extract-scss-variables": "extract-scss-variables ./dist/archwizard.scss ./dist/variables.scss",
-    "build-css": "node-sass ./dist/archwizard.scss ./dist/archwizard.css",
+    "extract-scss-variables": "extract-scss-variables ./dist/styles/archwizard.scss ./dist/styles/variables.scss",
+    "build-css": "node-sass ./dist/styles/archwizard.scss ./dist/styles/archwizard.css",
     "test": "ng test && ng test --tsConfig=tsconfig-noIvy.spec.json",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -69,7 +68,6 @@
     "node-sass": "^4.14.1",
     "protractor": "~7.0.0",
     "rxjs": "~6.6.3",
-    "scss-bundle": "~3.0.0",
     "ts-node": "~9.0.0",
     "tslint": "~6.1.0",
     "typescript": "~4.0.3",
