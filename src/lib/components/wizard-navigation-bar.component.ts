@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
-import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
-import {WizardStep} from '../util/wizard-step.interface';
-import {WizardComponent} from './wizard.component';
+import { Component, Input } from '@angular/core';
+import { WizardCompletionStep } from '../util/wizard-completion-step.interface';
+import { WizardStep } from '../util/wizard-step.interface';
+import { WizardComponent } from './wizard.component';
 
 /**
  * The `aw-wizard-navigation-bar` component contains the navigation bar inside a [[WizardComponent]].
@@ -22,13 +22,6 @@ import {WizardComponent} from './wizard.component';
 })
 export class WizardNavigationBarComponent {
   /**
-   * The direction in which the wizard steps should be shown in the navigation bar.
-   * This value can be either `left-to-right` or `right-to-left`
-   */
-  @Input()
-  public direction = 'left-to-right';
-
-  /**
    * Constructor
    *
    * @param wizard The state the wizard currently resides in
@@ -42,7 +35,7 @@ export class WizardNavigationBarComponent {
    * @returns An array containing all [[WizardStep]]s
    */
   get wizardSteps(): Array<WizardStep> {
-    switch (this.direction) {
+    switch (this.wizard.navBarDirection) {
       case 'right-to-left':
         return this.wizard.wizardSteps.slice().reverse();
       case 'left-to-right':

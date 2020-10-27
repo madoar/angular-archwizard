@@ -50,7 +50,6 @@ export class NextStepDirective {
    */
   @Output()
   public set finalize(emitter: EventEmitter<void>) {
-    /* istanbul ignore next */
     this.preFinalize = emitter;
   }
 
