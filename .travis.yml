@@ -14,19 +14,15 @@ jobs:
     # Tests
     - stage: Test
       os: linux
-      dist: trusty
       node_js: "10"
     - stage: Test
       os: linux
-      dist: trusty
       node_js: "12"
     - stage: Test
       os: linux
-      dist: trusty
       node_js: "14"
     - stage: Test
       os: linux
-      dist: trusty
       node_js: "node"
     - stage: Test
       os: osx
