@@ -2,8 +2,8 @@ language: node_js
 
 branches:
   only:
-  - master
-  - develop
+    - master
+    - develop
 
 addons:
   chrome: stable
@@ -14,15 +14,15 @@ jobs:
     # Tests
     - stage: Test
       os: linux
-      dist: trusty
       node_js: "10"
     - stage: Test
       os: linux
-      dist: trusty
       node_js: "12"
     - stage: Test
       os: linux
-      dist: trusty
+      node_js: "14"
+    - stage: Test
+      os: linux
       node_js: "node"
     - stage: Test
       os: osx
@@ -30,20 +30,23 @@ jobs:
     - stage: Test
       os: osx
       node_js: "12"
+    - stage: Test
+      os: osx
+      node_js: "14"
     - stage: Test
       os: osx
       node_js: "node"
     # Build
     - stage: Build
       os: linux
-      node_js: "12"
+      node_js: "14"
       addons:
         chrome: stable
       script: npm run build
     # Coverage
     - stage: Coverage
       os: linux
-      node_js: "12"
+      node_js: "14"
       addons:
         chrome: stable
       script: npm test

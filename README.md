@@ -59,7 +59,7 @@ export class Module { }
 To allow customization, `angular-archwizard` bundles CSS styles separately. If you are using Angular CLI, import them into your `styles.css`...
 
 ```css
-@import '../node_modules/angular-archwizard/archwizard.css';
+@import '../node_modules/angular-archwizard/styles/archwizard.css';
 ```
 
 ...or include them into `angular.json`:
@@ -68,14 +68,14 @@ To allow customization, `angular-archwizard` bundles CSS styles separately. If y
 {
   // ...
   "styles": [
-    "node_modules/angular-archwizard/archwizard.css",
+    "node_modules/angular-archwizard/styles/archwizard.css",
     "src/styles.css"
   ]
   // ...
 }
 ```
 
-If you are using SCSS, you can include the styles in the form of a `.scss` file: `node_modules/angular-archwizard/archwizard.scss`.
+If you are using SCSS, you can include the styles in the form of a `.scss` file: `node_modules/angular-archwizard/styles/archwizard.scss`.
 This way you can easily customize wizard's appearance by tweaking SCSS variables as described in [Styles Customization](#styles-customization).
 
 ## How to use the wizard
@@ -704,8 +704,7 @@ Different ways are possible:
 
 When overriding css properties already defined in the existing navigation bar layouts, it is required to use `!important`.
 In addition it is required to add `encapsulation: ViewEncapsulation.None` to the component, that defines the wizard and overrides its layout.
-For additional information about how to write your own navigation bar please take a look at the existing navigation bar layouts, which can be found in the
-[wizard-navigation-bar.scss](src/css/wizard-navigation-bar.scss) file.
+For additional information about how to write your own navigation bar please take a look at the existing navigation bar layouts, which can be found in the [archwizard.scss](styles/archwizard.scss) file.
 
 ### Working with dynamically inserted and removed steps
 In some cases it may be required to remove or insert one or multiple steps after the wizard initialization.
@@ -720,9 +719,9 @@ When removing a step be sure to not remove the step the wizard is currently disp
 
 If you are using SCSS, you can customize the wizard's global styles and color theme using SCSS variables:
 
-1.  Import `node_modules/angular-archwizard/archwizard.scss` into your `styles.scss` file as described in the [Installation](#installation) section.
+1.  Import `node_modules/angular-archwizard/styles/archwizard.scss` into your `styles.scss` file as described in the [Installation](#installation) section.
 
-2.  Re-define any of the variables you can find at the top of `node_modules/angular-archwizard/variables.scss`.
+2.  Re-define any of the variables you can find at the top of `node_modules/angular-archwizard/styles/variables.scss`.
 
 In the following example, we configure a simple color theme which only defines styles for two step states: 'default' and 'current'.
 
@@ -750,10 +749,10 @@ $aw-colors: (
   )
 );
 
-@import '../node_modules/angular-archwizard/archwizard.scss';
+@import '../node_modules/angular-archwizard/styles/archwizard.scss';
 ```
 
-Please don't hesitate to look inside `node_modules/angular-archwizard/variables.scss` for documentation
+Please don't hesitate to look inside `node_modules/angular-archwizard/styles/variables.scss` for documentation
 on the `$aw-colors` variable and other variables you can tweak to tune the wizard to your needs.
 
 ## Example
