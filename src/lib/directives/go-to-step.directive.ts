@@ -1,10 +1,10 @@
-import {Directive, EventEmitter, HostListener, Input, Optional, Output} from '@angular/core';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {isStepId, StepId} from '../util/step-id.interface';
-import {isStepIndex, StepIndex} from '../util/step-index.interface';
-import {isStepOffset, StepOffset} from '../util/step-offset.interface';
-import {WizardStep} from '../util/wizard-step.interface';
-import {WizardComponent} from '../components/wizard.component';
+import { Directive, EventEmitter, HostListener, Input, Optional, Output } from '@angular/core';
+import { NavigationMode } from '../navigation/navigation-mode.interface';
+import { isStepId, StepId } from '../util/step-id.interface';
+import { isStepIndex, StepIndex } from '../util/step-index.interface';
+import { isStepOffset, StepOffset } from '../util/step-offset.interface';
+import { WizardStep } from '../util/wizard-step.interface';
+import { WizardComponent } from '../components/wizard.component';
 
 /**
  * The `awGoToStep` directive can be used to navigate to a given step.
@@ -53,13 +53,14 @@ export class GoToStepDirective {
    */
   @Output()
   public postFinalize: EventEmitter<void> = new EventEmitter();
+
   /**
    * The destination step, to which the wizard should navigate, after the component, having this directive has been activated.
    * This destination step can be given either as a [[WizardStep]] containing the step directly,
    * a [[StepOffset]] between the current step and the `wizardStep`, in which this directive has been used,
    * or a step index as a number or string
    */
-    // tslint:disable-next-line:no-input-rename
+  // tslint:disable-next-line:no-input-rename
   @Input('awGoToStep')
   public targetStep: WizardStep | StepOffset | StepIndex | StepId;
 
