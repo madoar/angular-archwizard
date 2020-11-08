@@ -1,5 +1,5 @@
-import {EventEmitter} from '@angular/core';
-import {WizardComponent} from '../components/wizard.component';
+import { EventEmitter } from '@angular/core';
+import { WizardComponent } from '../components/wizard.component';
 
 /**
  * An interface containing the basic functionality, which must be provided by a navigation mode.

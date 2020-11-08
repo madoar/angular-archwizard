@@ -1,6 +1,6 @@
-import {Component, forwardRef} from '@angular/core';
-import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
-import {WizardStep} from '../util/wizard-step.interface';
+import { Component, forwardRef } from '@angular/core';
+import { WizardCompletionStep } from '../util/wizard-completion-step.interface';
+import { WizardStep } from '../util/wizard-step.interface';
 
 /**
  * The `aw-wizard-completion-step` component can be used to define a completion/success step at the end of your wizard
@@ -42,8 +42,8 @@ import {WizardStep} from '../util/wizard-step.interface';
   selector: 'aw-wizard-completion-step',
   templateUrl: 'wizard-completion-step.component.html',
   providers: [
-    {provide: WizardStep, useExisting: forwardRef(() => WizardCompletionStepComponent)},
-    {provide: WizardCompletionStep, useExisting: forwardRef(() => WizardCompletionStepComponent)}
+    { provide: WizardStep, useExisting: forwardRef(() => WizardCompletionStepComponent) },
+    { provide: WizardCompletionStep, useExisting: forwardRef(() => WizardCompletionStepComponent) }
   ]
 })
 export class WizardCompletionStepComponent extends WizardCompletionStep {

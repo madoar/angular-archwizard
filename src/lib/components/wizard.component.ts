@@ -7,10 +7,10 @@ import {
   QueryList,
   EventEmitter,
 } from '@angular/core';
-import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {WizardStep} from '../util/wizard-step.interface';
-import {MovingDirection} from '../util/moving-direction.enum';
-import {ConfigurableNavigationMode} from '../navigation/configurable-navigation-mode';
+import { NavigationMode } from '../navigation/navigation-mode.interface';
+import { WizardStep } from '../util/wizard-step.interface';
+import { MovingDirection } from '../util/moving-direction.enum';
+import { ConfigurableNavigationMode } from '../navigation/configurable-navigation-mode';
 
 /**
  * The `aw-wizard` component defines the root component of a wizard.

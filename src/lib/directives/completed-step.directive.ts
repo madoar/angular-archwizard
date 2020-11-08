@@ -1,5 +1,5 @@
-import {Directive, Host, Input, OnInit} from '@angular/core';
-import {WizardStep} from '../util/wizard-step.interface';
+import { Directive, Host, Input, OnInit } from '@angular/core';
+import { WizardStep } from '../util/wizard-step.interface';
 
 /**
  * The `awCompletedStep` directive can be used to make a wizard step initially completed.

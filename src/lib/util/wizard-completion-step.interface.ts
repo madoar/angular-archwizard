@@ -1,6 +1,6 @@
-import {EventEmitter, Directive} from '@angular/core';
-import {WizardStep} from './wizard-step.interface';
-import {MovingDirection} from './moving-direction.enum';
+import { EventEmitter, Directive } from '@angular/core';
+import { WizardStep } from './wizard-step.interface';
+import { MovingDirection } from './moving-direction.enum';
 
 /**
  * Basic functionality every wizard completion step needs to provide

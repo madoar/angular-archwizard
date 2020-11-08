@@ -1,6 +1,4 @@
-<aw-wizard-navigation-bar
-  *ngIf="navBarLocation == 'top' || navBarLocation == 'left'"
-  [ngClass]="{
+<aw-wizard-navigation-bar *ngIf="navBarLocation == 'top' || navBarLocation == 'left'" [ngClass]="{
     'vertical': navBarLocation == 'left',
     'horizontal': navBarLocation == 'top',
     'small': navBarLayout == 'small',
@@ -19,9 +17,7 @@
   <ng-content></ng-content>
 </div>
 
-<aw-wizard-navigation-bar
-  *ngIf="navBarLocation == 'bottom' || navBarLocation == 'right'"
-  [ngClass]="{
+<aw-wizard-navigation-bar *ngIf="navBarLocation == 'bottom' || navBarLocation == 'right'" [ngClass]="{
     'vertical': navBarLocation == 'right',
     'horizontal': navBarLocation == 'bottom',
     'small': navBarLayout == 'small',

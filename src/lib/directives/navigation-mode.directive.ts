@@ -1,8 +1,8 @@
-import {Directive, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { Directive, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import {NavigationMode} from '../navigation/navigation-mode.interface';
-import {ConfigurableNavigationMode} from '../navigation/configurable-navigation-mode';
-import {WizardComponent} from '../components/wizard.component';
+import { NavigationMode } from '../navigation/navigation-mode.interface';
+import { ConfigurableNavigationMode } from '../navigation/configurable-navigation-mode';
+import { WizardComponent } from '../components/wizard.component';
 
 
 /**
@@ -61,7 +61,7 @@ export class NavigationModeDirective implements OnChanges {
    * Custom navigation mode instance (optional).
    */
   @Input()
-  public awNavigationMode: NavigationMode|null;
+  public awNavigationMode: NavigationMode | null;
 
   /**
    * A parameter for the default navigation mode.  Controls whether wizard steps before the current step are navigable:
@@ -70,7 +70,7 @@ export class NavigationModeDirective implements OnChanges {
    * - `navigateBackward="allow"` -- the steps are navigable
    */
   @Input()
-  public navigateBackward: 'allow'|'deny'|null;
+  public navigateBackward: 'allow' | 'deny' | null;
 
   /**
    * A parameter for the default navigation mode.  Controls whether wizard steps after the current step are navigable:
@@ -80,7 +80,7 @@ export class NavigationModeDirective implements OnChanges {
    * - `navigateForward="visited"` -- a step is navigable iff it was already visited before
    */
   @Input()
-  public navigateForward: 'allow'|'deny'|'visited'|null;
+  public navigateForward: 'allow' | 'deny' | 'visited' | null;
 
   constructor(private wizard: WizardComponent) { }
 

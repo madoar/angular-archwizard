@@ -1,4 +1,4 @@
-import {WizardStep} from './wizard-step.interface';
+import { WizardStep } from './wizard-step.interface';
 
 /**
  * An unique identifier of a wizard step

@@ -1,5 +1,5 @@
-import {Directive, EventEmitter, HostListener, Output} from '@angular/core';
-import {WizardComponent} from '../components/wizard.component';
+import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
+import { WizardComponent } from '../components/wizard.component';
 
 /**
  * The `awResetWizard` directive can be used to reset the wizard to its initial state.
