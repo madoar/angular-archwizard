@@ -6,7 +6,7 @@ image:
 
 # Command to start on workspace startup (optional)
 tasks:
-- command: "npm install"
+  - command: "npm install"
 
 github:
   prebuilds:
