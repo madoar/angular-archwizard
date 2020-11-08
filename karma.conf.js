@@ -13,7 +13,7 @@ module.exports = function (config) {
       "karma-detect-browsers",
       "karma-jasmine-html-reporter",
       "karma-coverage-istanbul-reporter",
-      "@angular-devkit/build-angular/plugins/karma",
+      "@angular-devkit/build-angular/plugins/karma"
     ],
     coverageIstanbulReporter: {
       reports: ["html", "lcovonly"],
@@ -22,17 +22,17 @@ module.exports = function (config) {
         statements: 80,
         lines: 80,
         branches: 80,
-        functions: 80,
+        functions: 80
       },
     },
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         base: "ChromeHeadless",
-        flags: ["--no-sandbox"],
+        flags: ["--no-sandbox"]
       },
       ChromiumHeadlessNoSandbox: {
         base: "ChromiumHeadless",
-        flags: ["--no-sandbox"],
+        flags: ["--no-sandbox"]
       },
     },
     detectBrowsers: {
@@ -59,8 +59,8 @@ module.exports = function (config) {
         }
 
         return availableBrowsers;
-      },
+      }
     },
-    singleRun: true,
+    singleRun: true
   });
 };
