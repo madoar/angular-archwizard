@@ -1,5 +1,5 @@
-import {Directive, forwardRef} from '@angular/core';
-import {WizardStep} from '../util/wizard-step.interface';
+import { Directive, forwardRef } from '@angular/core';
+import { WizardStep } from '../util/wizard-step.interface';
 
 /**
  * The `awWizardStep` directive can be used to define a normal step inside a wizard.
@@ -57,7 +57,7 @@ import {WizardStep} from '../util/wizard-step.interface';
 @Directive({
   selector: '[awWizardStep]',
   providers: [
-    {provide: WizardStep, useExisting: forwardRef(() => WizardStepDirective)}
+    { provide: WizardStep, useExisting: forwardRef(() => WizardStepDirective) }
   ]
 })
 export class WizardStepDirective extends WizardStep {

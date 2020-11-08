@@ -3,37 +3,37 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular', 'detectBrowsers'],
+    basePath: "",
+    frameworks: ["jasmine", "@angular-devkit/build-angular", "detectBrowsers"],
     plugins: [
-      'karma-jasmine',
-      'karma-chrome-launcher',
-      'karma-firefox-launcher',
-      'karma-safari-launcher',
-      'karma-detect-browsers',
-      'karma-jasmine-html-reporter',
-      'karma-coverage-istanbul-reporter',
-      '@angular-devkit/build-angular/plugins/karma'
+      "karma-jasmine",
+      "karma-chrome-launcher",
+      "karma-firefox-launcher",
+      "karma-safari-launcher",
+      "karma-detect-browsers",
+      "karma-jasmine-html-reporter",
+      "karma-coverage-istanbul-reporter",
+      "@angular-devkit/build-angular/plugins/karma"
     ],
     coverageIstanbulReporter: {
-      reports: ['html', 'lcovonly'],
+      reports: ["html", "lcovonly"],
       fixWebpackSourcePaths: true,
       thresholds: {
         statements: 80,
         lines: 80,
         branches: 80,
         functions: 80
-      }
+      },
     },
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
+        base: "ChromeHeadless",
+        flags: ["--no-sandbox"]
       },
       ChromiumHeadlessNoSandbox: {
-        base: 'ChromiumHeadless',
-        flags: ['--no-sandbox']
-      }
+        base: "ChromiumHeadless",
+        flags: ["--no-sandbox"]
+      },
     },
     detectBrowsers: {
       // enable/disable, default is true
@@ -46,16 +46,16 @@ module.exports = function (config) {
       preferHeadless: true,
 
       postDetection: function (availableBrowsers) {
-        if (availableBrowsers.includes('ChromeHeadless')) {
-          const index = availableBrowsers.indexOf('ChromeHeadless');
+        if (availableBrowsers.includes("ChromeHeadless")) {
+          const index = availableBrowsers.indexOf("ChromeHeadless");
 
-          availableBrowsers[index] = 'ChromeHeadlessNoSandbox';
+          availableBrowsers[index] = "ChromeHeadlessNoSandbox";
         }
 
-        if (availableBrowsers.includes('ChromiumHeadless')) {
-          const index = availableBrowsers.indexOf('ChromiumHeadless');
+        if (availableBrowsers.includes("ChromiumHeadless")) {
+          const index = availableBrowsers.indexOf("ChromiumHeadless");
 
-          availableBrowsers[index] = 'ChromiumHeadlessNoSandbox';
+          availableBrowsers[index] = "ChromiumHeadlessNoSandbox";
         }
 
         return availableBrowsers;

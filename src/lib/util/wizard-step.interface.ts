@@ -1,8 +1,8 @@
 import { ContentChild, EventEmitter, HostBinding, Input, Output, Directive } from '@angular/core';
-import {WizardStepSymbolDirective} from '../directives/wizard-step-symbol.directive';
-import {WizardStepTitleDirective} from '../directives/wizard-step-title.directive';
-import {MovingDirection} from './moving-direction.enum';
-import {NavigationSymbol} from './navigation-symbol.interface';
+import { WizardStepSymbolDirective } from '../directives/wizard-step-symbol.directive';
+import { WizardStepTitleDirective } from '../directives/wizard-step-title.directive';
+import { MovingDirection } from './moving-direction.enum';
+import { NavigationSymbol } from './navigation-symbol.interface';
 
 /**
  * Basic functionality every type of wizard step needs to provide
@@ -45,7 +45,7 @@ export abstract class WizardStep {
    * Takes effect when `stepSymbolTemplate` is not defined or null.
    */
   @Input()
-  public navigationSymbol: NavigationSymbol = {symbol: ''};
+  public navigationSymbol: NavigationSymbol = { symbol: '' };
 
   /**
    * A boolean describing if the wizard step is currently selected
@@ -126,10 +126,10 @@ export abstract class WizardStep {
    * @throws An `Error` is thrown if `condition` is neither a function nor a boolean
    */
   private static canTransitionStep(condition: ((direction: MovingDirection) => boolean) |
-                                     ((direction: MovingDirection) => Promise<boolean>) |
-                                     boolean,
-                                   direction: MovingDirection): Promise<boolean> {
-    if (typeof(condition) === typeof(true)) {
+    ((direction: MovingDirection) => Promise<boolean>) |
+    boolean,
+    direction: MovingDirection): Promise<boolean> {
+    if (typeof (condition) === typeof (true)) {
       return Promise.resolve(condition as boolean);
     } else if (condition instanceof Function) {
       return Promise.resolve(condition(direction));

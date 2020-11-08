@@ -1,6 +1,6 @@
-import {BaseNavigationMode} from './base-navigation-mode.interface';
-import {WizardComponent} from '../components/wizard.component';
-import {WizardCompletionStep} from '../util/wizard-completion-step.interface';
+import { BaseNavigationMode } from './base-navigation-mode.interface';
+import { WizardComponent } from '../components/wizard.component';
+import { WizardCompletionStep } from '../util/wizard-completion-step.interface';
 
 /**
  * The default navigation mode used by [[WizardComponent]] and [[NavigationModeDirective]].
@@ -31,8 +31,8 @@ export class ConfigurableNavigationMode extends BaseNavigationMode {
    * @param navigateForward Controls whether wizard steps before the current step are navigable
    */
   constructor(
-    private navigateBackward: 'allow'|'deny'|null = null,
-    private navigateForward: 'allow'|'deny'|'visited'|null = null,
+    private navigateBackward: 'allow' | 'deny' | null = null,
+    private navigateForward: 'allow' | 'deny' | 'visited' | null = null,
   ) {
     super();
     this.navigateBackward = this.navigateBackward || 'allow';
@@ -52,8 +52,8 @@ export class ConfigurableNavigationMode extends BaseNavigationMode {
     // navigation with [goToStep] is permitted if all previous steps
     // to the destination step have been completed or are optional
     return wizard.wizardSteps
-        .filter((step, index) => index < destinationIndex && index !== wizard.currentStepIndex)
-        .every(step => step.completed || step.optional);
+      .filter((step, index) => index < destinationIndex && index !== wizard.currentStepIndex)
+      .every(step => step.completed || step.optional);
   }
 
   /**

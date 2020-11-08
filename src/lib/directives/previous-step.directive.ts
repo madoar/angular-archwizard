@@ -1,5 +1,5 @@
-import {Directive, EventEmitter, HostListener, Output} from '@angular/core';
-import {WizardComponent} from '../components/wizard.component';
+import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
+import { WizardComponent } from '../components/wizard.component';
 
 /**
  * The `awPreviousStep` directive can be used to navigate to the previous step.

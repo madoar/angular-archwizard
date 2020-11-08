@@ -1,5 +1,5 @@
-import {Component, forwardRef} from '@angular/core';
-import {WizardStep} from '../util/wizard-step.interface';
+import { Component, forwardRef } from '@angular/core';
+import { WizardStep } from '../util/wizard-step.interface';
 
 /**
  * The `aw-wizard-step` component is used to define a normal step inside a wizard.
@@ -59,7 +59,7 @@ import {WizardStep} from '../util/wizard-step.interface';
   selector: 'aw-wizard-step',
   templateUrl: 'wizard-step.component.html',
   providers: [
-    {provide: WizardStep, useExisting: forwardRef(() => WizardStepComponent)}
+    { provide: WizardStep, useExisting: forwardRef(() => WizardStepComponent) }
   ]
 })
 export class WizardStepComponent extends WizardStep {

@@ -73,7 +73,7 @@ export function checkWizardNavigableSteps(
  * @param expectedClasses Expected element classes
  */
 export function checkClasses(classes: { [key: string]: boolean }, expectedClasses: string[]) {
-    expect(
-      Object.keys(classes).filter(m => classes[m] === true)
-    ).toEqual(expectedClasses);
+  expect(
+    Object.keys(classes).filter(m => classes[m] === true)
+  ).toEqual(expectedClasses);
 }
