@@ -45,7 +45,6 @@
     "@angular/compiler-cli": "^11.0.0",
     "@angular/core": "^11.0.0",
     "@angular/forms": "^11.0.0",
-    "@angular/language-service": "^11.0.0",
     "@angular/platform-browser": "^11.0.0",
     "@angular/platform-browser-dynamic": "^11.0.0",
     "@angular/router": "^11.0.0",

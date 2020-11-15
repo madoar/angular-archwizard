@@ -2,9 +2,10 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
+    "declaration": true,
+    "declarationMap": true,
     "types": [
-      "jasmine",
-      "node"
+      "jasmine"
     ]
   },
   "files": [
