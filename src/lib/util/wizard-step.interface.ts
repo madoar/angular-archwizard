@@ -10,7 +10,7 @@ import {NavigationSymbol} from './navigation-symbol.interface';
  * @author Marc Arndt
  */
 @Directive()
-/* tslint:disable-next-line directive-class-suffix */
+/* eslint-disable-next-line  @angular-eslint/directive-class-suffix */
 export abstract class WizardStep {
   /**
    * A step title property, which contains the visible header title of the step.

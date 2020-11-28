@@ -37,7 +37,7 @@ import {WizardStep} from '../util/wizard-step.interface';
 })
 export class CompletedStepDirective implements OnInit {
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('awCompletedStep')
   public initiallyCompleted = true;
 
