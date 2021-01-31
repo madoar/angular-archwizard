@@ -1,0 +1,44 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [develop, master]
+  pull_request:
+    branches: [develop]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    name: Use Node.js ${{ matrix.node-version }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm test
+      - run: npm build
+
+  coverage:
+    runs-on: ubuntu-latest
+
+    name: Coverage
+
+    needs: [build]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "12.x"
+      - run: npm ci
+      - run: npm install -g codacy-coverage
+      - run: npm test
+      - run: codacy-coverage < coverage/lcov.info
