@@ -6,15 +6,14 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        os: ubuntu-latest
         node-version: [10.x, 12.x, 14.x, 15.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    runs-on: ${{ matrix.os }}
-
-    name: Test and Build on ${{ matrix.os }} with node.js ${{ matrix.node-version }}
+    name: Test and Build with node.js ${{ matrix.node-version }}
 
     steps:
       - uses: actions/checkout@v2
