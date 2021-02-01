@@ -1,0 +1,24 @@
+name: Coverage
+
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "12.x"
+      - name: Run Tests
+        run: |
+          npm ci
+          npm test
+      - name: Codacy Coverage Reporter
+        uses: codacy/codacy-coverage-reporter-action@0.2.0
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: coverage/lcov.info
