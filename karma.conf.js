@@ -66,13 +66,6 @@ module.exports = function (config) {
           availableBrowsers[index] = 'ChromiumHeadlessNoSandbox';
         }
 
-        // IE is not supported
-        if (availableBrowsers.includes('IE')) {
-          const index = availableBrowsers.indexOf('IE');
-
-          availableBrowsers.splice(index, 1);
-        }
-
         return availableBrowsers;
       }
     },
