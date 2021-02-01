@@ -1,5 +1,5 @@
-import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
+import { fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { ArchwizardModule } from '../archwizard.module';
 import { WizardComponent } from '../components/wizard.component';
 import { BaseNavigationMode } from './base-navigation-mode.interface';
@@ -46,7 +46,7 @@ class WizardWithCustomNavigationModeComponent {
 
 describe('NavigationMode', () => {
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent, WizardWithCustomNavigationModeComponent],
       imports: [ArchwizardModule]

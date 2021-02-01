@@ -10,7 +10,7 @@
       "prefix": "aw",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "tsconfig.lib.json",
             "project": "ng-package.json"
@@ -21,8 +21,7 @@
           "options": {
             "main": "src/test.ts",
             "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "codeCoverage": true
+            "karmaConfig": "karma.conf.js"
           }
         },
         "lint": {

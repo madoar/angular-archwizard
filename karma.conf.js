@@ -6,17 +6,23 @@ module.exports = function (config) {
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular', 'detectBrowsers'],
     plugins: [
-      'karma-jasmine',
-      'karma-chrome-launcher',
-      'karma-firefox-launcher',
-      'karma-safari-launcher',
-      'karma-detect-browsers',
-      'karma-jasmine-html-reporter',
-      'karma-coverage-istanbul-reporter',
-      '@angular-devkit/build-angular/plugins/karma'
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-firefox-launcher'),
+      require('karma-safari-launcher'),
+      require('karma-detect-browsers'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage'),
+      require('@angular-devkit/build-angular/plugins/karma')
     ],
-    coverageIstanbulReporter: {
-      reports: ['html', 'lcovonly'],
+    coverageReporter: {
+      dir: require('path').join(__dirname, './coverage'),
+      subdir: '.',
+      reporters: [
+        { type: 'html' },
+        { type: 'text-summary' },
+        { type: 'lcovonly' }
+      ],
       fixWebpackSourcePaths: true,
       thresholds: {
         statements: 80,

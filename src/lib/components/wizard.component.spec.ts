@@ -1,10 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ArchwizardModule } from '../archwizard.module';
+import { checkClasses } from '../util/test-utils';
 import { WizardStep } from '../util/wizard-step.interface';
 import { WizardComponent } from './wizard.component';
-import { checkClasses } from '../util/test-utils';
 
 @Component({
   selector: 'aw-test-wizard',
@@ -45,7 +45,7 @@ describe('WizardComponent', () => {
   let wizardTest: WizardTestComponent;
   let wizard: WizardComponent;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [WizardTestComponent],
       imports: [ArchwizardModule]

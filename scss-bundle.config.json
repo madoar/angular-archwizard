@@ -1,7 +1,0 @@
-{
-    "bundlerOptions": {
-        "entryFile": "./src/css/archwizard.scss",
-        "outFile": "./dist/archwizard.scss",
-        "logLevel": "warning"
-    }
-}
