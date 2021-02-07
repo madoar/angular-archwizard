@@ -21,4 +21,4 @@ jobs:
         uses: codacy/codacy-coverage-reporter-action@0.2.0
         with:
           project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
-          coverage-reports: /home/runner/work/angular-archwizard/angular-archwizard/coverage/lcov.info
+          coverage-reports: coverage/lcov.info
