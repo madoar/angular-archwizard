@@ -1,6 +1,6 @@
 {
   "name": "angular-archwizard",
-  "version": "7.0.0-develop",
+  "version": "7.0.0",
   "license": "MIT",
   "description": "An Angular 9+ module containing a wizard component and its supporting components and directives",
   "homepage": "https://github.com/madoar/angular-archwizard",
@@ -18,8 +18,14 @@
   "keywords": [
     "angular",
     "angular9",
+    "angular10",
+    "angular11",
     "angular 9",
+    "angular 10",
+    "angular 11",
     "ng9",
+    "ng10",
+    "ng11",
     "ngx",
     "typescript",
     "wizard",
