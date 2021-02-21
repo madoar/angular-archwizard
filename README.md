@@ -1,5 +1,5 @@
 # Overview angular-archwizard
-[![Build Status](https://github.com/madoar/angular-archwizard/workflows/build/badge.svg?branch=develop)](https://github.com/madoar/angular-archwizard/actions)
+[![Build Status](https://github.com/madoar/angular-archwizard/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/madoar/angular-archwizard/actions)
 [![Dependency Status](https://david-dm.org/madoar/angular-archwizard.svg)](https://david-dm.org/madoar/angular-archwizard)
 [![Dev-Dependency Status](https://david-dm.org/madoar/angular-archwizard/dev-status.svg)](https://david-dm.org/madoar/angular-archwizard?type=dev)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/039c5be36d8646dfb73972e8679e5021)](https://www.codacy.com/app/marc.arndt/angular-archwizard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=madoar/angular-archwizard&amp;utm_campaign=Badge_Grade)
