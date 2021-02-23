@@ -60,7 +60,7 @@ export class GoToStepDirective {
    * a [[StepOffset]] between the current step and the `wizardStep`, in which this directive has been used,
    * or a step index as a number or string
    */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('awGoToStep')
   public targetStep: WizardStep | StepOffset | StepIndex | StepId;
 
