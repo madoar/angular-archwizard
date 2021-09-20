@@ -1,3 +1,7 @@
+//using / is deprecated and will removed in dart sass 2.0.0
+//we use math.div insted of / 
+@use 'sass:math';
+
 // Wizard layouts to be generated (all by default).
 // Override this variable to exclude layouts you don't need.
 $aw-layouts: 'horizontal' 'vertical' !default;
@@ -215,12 +219,12 @@ $aw-param-step-state: null;
   position: absolute;
   height: 1px;
   width: calc(100% - #{$dot-width});
-  top: -($dot-height / 2);
-  left: calc(50% + #{$dot-width / 2});
+  top: -(math.div($dot-height,2));
+  left: calc(50% + math.div(#{$dot-width,2}));
 
   @include rtl {
     left: auto;
-    right: calc(50% + #{$dot-width / 2});
+    right: calc(50% + math.div(#{$dot-width,2}));
   }
 }
 
@@ -229,14 +233,14 @@ $aw-param-step-state: null;
   background-color: $line-color;
   content: '';
   position: absolute;
-  left: -($dot-height / 2);
+  left: -(math.div($dot-height,2));
   top: $dot-height;
   height: calc(100% - #{$dot-height});
   width: 1px;
 
   @include rtl {
     left: auto;
-    right: -($dot-height / 2);
+    right: -(math.div($dot-height,2));
   }
 }
 
@@ -255,11 +259,11 @@ $aw-param-step-state: null;
 // Positions a circle in the horizontal layout of the navigation bar
 @mixin aw-circle-position-horizontal($dot-width, $dot-height, $dot-border-width) {
   top: -$dot-height;
-  left: calc(50% - #{$dot-width / 2});
+  left: calc(50% - math.div(#{$dot-width , 2}));
 
   @include rtl {
     left: auto;
-    right: calc(50% - #{$dot-width / 2});;
+    right: calc(50% - math.div(#{$dot-width , 2}));;
   }
 }
 
@@ -306,11 +310,11 @@ $aw-param-step-state: null;
   @if ($layout == 'horizontal') {
     padding: ($height + $aw-text-padding-bottom) 0 $aw-text-padding-bottom 0;
   }
-  @else if ($layout == 'vertical') {
-    padding: ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2 + $height);
+   @else if ($layout == 'vertical') {
+    padding: math.div($aw-distance-between-steps, 2) math.div($aw-distance-between-steps, 2) math.div($aw-distance-between-steps, 2) (math.div($aw-distance-between-steps , 2) + $height);
 
     @include rtl {
-      padding: ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2 + $height) ($aw-distance-between-steps / 2) ($aw-distance-between-steps / 2);
+      padding: math.div($aw-distance-between-steps, 2) (math.div($aw-distance-between-steps , 2) + $height) math.div($aw-distance-between-steps, 2) math.div($aw-distance-between-steps, 2);
     }
   }
 
@@ -319,7 +323,7 @@ $aw-param-step-state: null;
       @if ($layout == 'horizontal') {
         @include aw-horizontal-line($width, $height, $aw-line-color);
       }
-      @else if ($layout == 'vertical') {
+       @else if ($layout == 'vertical') {
         @include aw-vertical-line($width, $height, $aw-line-color);
       }
     }
@@ -333,7 +337,7 @@ $aw-param-step-state: null;
     .step-indicator {
       @if ($layout == 'horizontal') {
         @include aw-circle-position-horizontal($width, $height, $border-width);
-      }
+      } 
       @else if ($layout == 'vertical') {
         @include aw-circle-position-vertical($width, $height, $border-width);
       }
@@ -426,14 +430,14 @@ $aw-param-step-state: null;
             @include aw-define-style($layout, $width: $aw-small-circle-width, $height: $aw-small-circle-height, $border-width: 0) {
               background-color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'background-color');
             }
-          }
-
+          } 
+          
           @else if $indicator-style == 'large-filled' {
             @include aw-define-style($layout, $border-width: 0) {
               background-color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'background-color');
             }
-          }
-
+          } 
+          
           @else if $indicator-style == 'large-empty' {
             @include aw-define-style($layout) {
               $border-color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'border-color');
@@ -443,16 +447,16 @@ $aw-param-step-state: null;
               }
             }
           }
-
+          
           @else if $indicator-style == 'large-filled-symbols' {
             @include aw-define-style($layout, $border-width: 0) {
               background-color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'background-color');
               color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'symbol-color');
             }
           }
-
+          
           @else if $indicator-style == 'large-empty-symbols' {
-            @include aw-define-style($layout) {
+                        @include aw-define-style($layout) {
               $border-color: aw-get-color($indicator-style, $aw-param-step-state, $aw-param-indicator-state, 'border-color');
               @if $border-color != null {
                 // To optimize CSS output size, do not define any border styles when border-color is null
@@ -551,88 +555,88 @@ aw-wizard-navigation-bar {
 }
 
 @if 'horizontal' is in $aw-layouts {
-  aw-wizard-navigation-bar.horizontal {
+aw-wizard-navigation-bar.horizontal {
 
-    ul.steps-indicator {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
+  ul.steps-indicator {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 
-      margin: 0;
-      width: 100%;
-      list-style: none;
+    margin: 0;
+    width: 100%;
+    list-style: none;
 
-      @for $number-of-components from 2 through 10 {
-        &.steps-#{$number-of-components} {
-          &:after {
-            left: 100% / $number-of-components / 2;
-            right: 100% / $number-of-components / 2;
-          }
+    @for $number-of-components from 2 through 10 {
+      &.steps-#{$number-of-components} {
+        &:after {
+          left: math.div(math.div(100%, $number-of-components), 2);
+          right: math.div(math.div(100%, $number-of-components), 2);
+        }
 
-          li {
-            width: 100% / $number-of-components;
-          }
+        li {
+          width: math.div(100%, $number-of-components);
         }
       }
+    }
 
-      li {
-        margin: 0;
-        padding: 0;
+    li {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+
+      a .label {
+        display: inline-block;
+        padding-top: $aw-text-padding-bottom;
         text-align: center;
+      }
+    }
+  }
+}
+}
 
-        a .label {
-          display: inline-block;
-          padding-top: $aw-text-padding-bottom;
-          text-align: center;
+@if 'vertical' is in $aw-layouts {
+aw-wizard-navigation-bar.vertical {
+  max-width: 280px;
+  width: 20%;
+  height: 100%;
+  position: sticky;
+  top: 0;
+
+  ul.steps-indicator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    list-style: none;
+    margin: auto;
+
+    li {
+
+      &:not(:last-child) {
+        margin-bottom: 0;
+        padding-bottom: $aw-distance-between-steps;
+      }
+
+      a {
+        // center labels vertically
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .label {
+          margin-left: $aw-text-margin-left;
+          text-align: left;
+
+          @include rtl {
+            margin-left: 0;
+            margin-right: $aw-text-margin-left;
+            text-align: right;
+          }
         }
       }
     }
   }
 }
-
-@if 'vertical' is in $aw-layouts {
-  aw-wizard-navigation-bar.vertical {
-    max-width: 280px;
-    width: 20%;
-    height: 100%;
-    position: sticky;
-    top: 0;
-
-    ul.steps-indicator {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      list-style: none;
-      margin: auto;
-
-      li {
-
-        &:not(:last-child) {
-          margin-bottom: 0;
-          padding-bottom: $aw-distance-between-steps;
-        }
-
-        a {
-          // center labels vertically
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-
-          .label {
-            margin-left: $aw-text-margin-left;
-            text-align: left;
-
-            @include rtl {
-              margin-left: 0;
-              margin-right: $aw-text-margin-left;
-              text-align: right;
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
 @include aw-define-styles();
