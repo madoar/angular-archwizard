@@ -76,6 +76,6 @@
     "zone.js": "~0.8.29"
   },
   "peerDependencies": {
-    "@angular/common": "5.x, 6.x, 7.x"
+    "@angular/common": ">=5.0.0 <8.0.0"
   }
 }
