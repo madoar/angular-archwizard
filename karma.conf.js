@@ -13,7 +13,7 @@ module.exports = function (config) {
       require('karma-detect-browsers'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
-      require('@angular-devkit/build-angular/plugins/karma')
+      require('@angular-devkit/build-angular/plugins/karma'),
     ],
     coverageReporter: {
       dir: require('path').join(__dirname, './coverage'),
@@ -21,25 +21,25 @@ module.exports = function (config) {
       reporters: [
         { type: 'html' },
         { type: 'text-summary' },
-        { type: 'lcovonly' }
+        { type: 'lcovonly' },
       ],
       fixWebpackSourcePaths: true,
       thresholds: {
         statements: 80,
         lines: 80,
         branches: 80,
-        functions: 80
-      }
+        functions: 80,
+      },
     },
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
+        flags: ['--no-sandbox'],
       },
       ChromiumHeadlessNoSandbox: {
         base: 'ChromiumHeadless',
-        flags: ['--no-sandbox']
-      }
+        flags: ['--no-sandbox'],
+      },
     },
     detectBrowsers: {
       // enable/disable, default is true
@@ -52,6 +52,13 @@ module.exports = function (config) {
       preferHeadless: true,
 
       postDetection: function (availableBrowsers) {
+        // remove IE if detected
+        if (availableBrowsers.includes('IE')) {
+          const index = availableBrowsers.indexOf('IE');
+
+          availableBrowsers.splice(index, 1);
+        }
+
         // ChromeHeadless -> ChromeHeadlessNoSandbox
         if (availableBrowsers.includes('ChromeHeadless')) {
           const index = availableBrowsers.indexOf('ChromeHeadless');
@@ -67,8 +74,8 @@ module.exports = function (config) {
         }
 
         return availableBrowsers;
-      }
+      },
     },
-    singleRun: true
+    singleRun: true,
   });
 };
