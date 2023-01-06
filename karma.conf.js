@@ -3,25 +3,25 @@
 
 module.exports = function (config) {
   config.set({
-    basePath: "",
-    frameworks: ["jasmine", "@angular-devkit/build-angular", "detectBrowsers"],
+    basePath: '',
+    frameworks: ['jasmine', '@angular-devkit/build-angular', 'detectBrowsers'],
     plugins: [
-      require("karma-jasmine"),
-      require("karma-chrome-launcher"),
-      require("karma-firefox-launcher"),
-      require("karma-safari-launcher"),
-      require("karma-detect-browsers"),
-      require("karma-jasmine-html-reporter"),
-      require("karma-coverage"),
-      require("@angular-devkit/build-angular/plugins/karma"),
+      require('karma-jasmine'),
+      require('karma-chrome-launcher'),
+      require('karma-firefox-launcher'),
+      require('karma-safari-launcher'),
+      require('karma-detect-browsers'),
+      require('karma-jasmine-html-reporter'),
+      require('karma-coverage'),
+      require('@angular-devkit/build-angular/plugins/karma'),
     ],
     coverageReporter: {
-      dir: require("path").join(__dirname, "./coverage"),
-      subdir: ".",
+      dir: require('path').join(__dirname, './coverage'),
+      subdir: '.',
       reporters: [
-        { type: "html" },
-        { type: "text-summary" },
-        { type: "lcovonly" },
+        { type: 'html' },
+        { type: 'text-summary' },
+        { type: 'lcovonly' },
       ],
       fixWebpackSourcePaths: true,
       thresholds: {
@@ -33,12 +33,12 @@ module.exports = function (config) {
     },
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
-        base: "ChromeHeadless",
-        flags: ["--no-sandbox"],
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox'],
       },
       ChromiumHeadlessNoSandbox: {
-        base: "ChromiumHeadless",
-        flags: ["--no-sandbox"],
+        base: 'ChromiumHeadless',
+        flags: ['--no-sandbox'],
       },
     },
     detectBrowsers: {
@@ -53,24 +53,24 @@ module.exports = function (config) {
 
       postDetection: function (availableBrowsers) {
         // Replace IE with emulated IE9
-        if (availableBrowsers.includes("IE")) {
-          const index = availableBrowsers.indexOf("IE");
+        if (availableBrowsers.includes('IE')) {
+          const index = availableBrowsers.indexOf('IE');
 
           availableBrowsers.splice(index, 1);
         }
 
         // ChromeHeadless -> ChromeHeadlessNoSandbox
-        if (availableBrowsers.includes("ChromeHeadless")) {
-          const index = availableBrowsers.indexOf("ChromeHeadless");
+        if (availableBrowsers.includes('ChromeHeadless')) {
+          const index = availableBrowsers.indexOf('ChromeHeadless');
 
-          availableBrowsers[index] = "ChromeHeadlessNoSandbox";
+          availableBrowsers[index] = 'ChromeHeadlessNoSandbox';
         }
 
         // ChromiumHeadless -> ChromiumHeadlessNoSandbox
-        if (availableBrowsers.includes("ChromiumHeadless")) {
-          const index = availableBrowsers.indexOf("ChromiumHeadless");
+        if (availableBrowsers.includes('ChromiumHeadless')) {
+          const index = availableBrowsers.indexOf('ChromiumHeadless');
 
-          availableBrowsers[index] = "ChromiumHeadlessNoSandbox";
+          availableBrowsers[index] = 'ChromiumHeadlessNoSandbox';
         }
 
         return availableBrowsers;
