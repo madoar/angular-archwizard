@@ -40,7 +40,7 @@
     "build-js": "ng build",
     "extract-scss-variables": "extract-scss-variables ./dist/styles/archwizard.scss ./dist/styles/variables.scss",
     "build-css": "sass ./dist/styles/archwizard.scss ./dist/styles/archwizard.css",
-    "test": "ng test && ng test --ts-config=tsconfig-noIvy.spec.json",
+    "test": "ng test",
     "coverage": "ng test --no-watch --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
