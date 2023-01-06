@@ -52,7 +52,7 @@ module.exports = function (config) {
       preferHeadless: true,
 
       postDetection: function (availableBrowsers) {
-        // Replace IE with emulated IE9
+        // remove IE if detected
         if (availableBrowsers.includes('IE')) {
           const index = availableBrowsers.indexOf('IE');
 
